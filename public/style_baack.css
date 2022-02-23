@@ -118,3 +118,10 @@ label span{
   .fr{
     float:right;
   }
+  img.pageicon {
+    width: 35px;
+    margin-right: 15px;
+}
+.font-weight-bold{
+    font-weight:bold;
+}

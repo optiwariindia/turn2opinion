@@ -43701,9 +43701,3 @@ span.multiselect-native-select select {
 font-size:25px;
 font-weight:bold
 }
-#chb-5 .custom-control custom-checkbox{
-display:grid;
-grid-template-areas: "auto auto auto auto auto";
-max-height:300px;
-overflow: auto
-}

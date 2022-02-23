@@ -27,7 +27,7 @@ router.route("/profile/:profilename")
     userDetails,
     (req,res)=>{
         req.user.basicpro = JSON.parse(require("fs").readFileSync("./dummyData/profile.basic.json")); 
-        res.render("form.twig",{user:req.user});
+        res.render("form.twig",{user:req.user,page:{title:"Basic Profile",icon:"basic-profile.png"}});
     // res.json(req.user);
 })
 function getUserInfo(req, res, next) {

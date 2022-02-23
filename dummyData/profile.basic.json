@@ -19,8 +19,15 @@
 	},
 	{
 		"name": "Contact Number",
-		"type": "tel",
+		"type": "tel2",
 		"value": "phone",
+		"editable": true,
+		"verified": true
+	},
+	{
+		"name": "Alternate Number* (Optional) ",
+		"type": "tel2",
+		"value": "phone1",
 		"editable": true,
 		"verified": true
 	},
@@ -48,12 +55,10 @@
 		"editable": true
 	},
 	{
-		"name": "Age",
-		"type": "number",
-		"min": "15",
-		"max": "100",
+		"name": "Your Age",
+		"type": "text",
 		"fld": "age",
-		"editable": true
+		"editable": false
 	},	
 	{
 		"name": "Country Name",
@@ -220,8 +225,9 @@
 	},
 	{
 		"name": "How many children do you have under the age of 18?",
-		"type": "number",
+		"type": "select",
 		"min": 0,
+		"options":[0,1,2,3,4,5,6,7,8,9],
 		"editable": true
 	},
 	{

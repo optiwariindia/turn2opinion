@@ -8,7 +8,8 @@
 {% macro select(name,index,options,value,fld) %}
 	<div class="position-relative form-group">
 		<label for="basic-{{index}}" class=""> <img src="/img/q.png">{{name}}</label>
-		<select name="select" id="basic-{{index}}" class="form-control">
+		<select name="select" id="basic-{{index}}" class="form-control" required>
+	<option value="" selected disabled>-- Please Select --</option>
             {% for option in options %}
                 <option value="{{loop.index}}">{{option}}</option>
             {% endfor %}
@@ -19,6 +20,7 @@
 {% macro checkbox(name,index,options,value,fld) %}
 	<div class="position-relative form-group " id="chb-{{index}}">
 		<label> <img src="/img/q.png">{{name}}</label>
+		<input type=text disabled class='form-control'>
 		<div class="custom-controls-stacked">
             {% for option in options %}
                 <label class="custom-control custom-checkbox">
@@ -27,5 +29,14 @@
                 </label>
             {% endfor %}
         </div>
+	</div>
+{% endmacro %}
+{% macro tel2(name,index,value,fld,editable) %}
+	<div class="position-relative form-group">
+		<label for="basic-{{index}}" class=""> <img src="/img/q.png">{{name}}</label>
+		<input name="{{fld}}[]" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="tel" class="form-control"/>
+		{# <div class='tel-nos'>
+			<input name="{{fld}}[]" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="tel" class="form-control"/>
+		</div> #}
 	</div>
 {% endmacro %}

@@ -6,63 +6,73 @@
 		font-weight: bold;
 		/* background-image: linear-gradient(#174b84, #fff) */
 	}
-
 	.form-control,
-	.form-control:disabled,
-	.form-control:focus {
-		background: #174b84;
-		color: #fff;
-		border-radius: 0;
-		border: none;
-		border-bottom: 1px solid #7f9ebf;
-		transition: 1s;
-	}
-	.form-control:disabled {
-		color: #aaa;
-		font-size: 18px;
-		text-transform: capitalize;
-	}
-	.form-control:hover,
-	.form-control:focus {
-		border: 1px solid #fff;
-		box-shadow: 0 0 10px #fff;
-	}
-	.frm-grid {
-		display: grid;
-		grid-template-areas: "auto auto";
-	}
-	.frm {
-		gap: 10px;
-		font-size: 17px;
-	}
-	button.btn-primary {
-		color: #174b84;
-		background-color: #a0bfe2;
-		border-color: #3f6ad8;
-		font-size: 20px;
-		font-weight: bold;
-	}
-	button.btn-primary:hover {
-		transform: scale(1.25);
-	}
+.form-control:disabled,
+.form-control:focus {
+    background: #174b84;
+    color: #fff;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid #7f9ebf;
+    transition: 1s;
+}
+.form-control:disabled {
+    color: #aaa;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+.form-control:hover,
+.form-control:focus {
+    border: 1px solid #fff;
+    box-shadow: 0 0 10px #fff;
+}
+.frm-grid {
+    display: grid;
+    grid-template-areas: "auto auto";
+}
+.frm {
+    gap: 10px;
+    font-size: 17px;
+}
+button.btn-primary {
+    color: #174b84;
+    background-color: #a0bfe2;
+    border-color: #3f6ad8;
+    font-size: 20px;
+    font-weight: bold;
+}
+button.btn-primary:hover {
+    transform: scale(1.25);
+}
+#chb-5 .custom-control custom-checkbox{
+    display:grid;
+    grid-template-areas: "auto auto auto auto auto";
+    max-height:300px;
+    overflow: auto
+    }
+{# .tel-nos{
+    display:grid;
+    grid-template-areas:"auto auto";
+    gap:10px;
+} #}
 </style>
 <div class="mb-3 card">
 	<div class="card-header-tab card-header">
-		<div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-			<i class="header-icon lnr-cloud-download icon-gradient bg-happy-itmeo"></i>
-			Earnings Curve
+		<div class="card-header-title font-size-lg text-capitalize font-weight-bold">
+		<img src="/images/categories/{{page.icon}}" class='pageicon'>
+			{{page.title}}
 		</div>
 	</div>
 	<div class="card-body">
-		<h5 class="card-title">Controls Types</h5>
 		<form method="post">
 			<div class="frm-grid">
 				{% for item in user.basicpro[0] %}
 					{% if item.type == "select" %}
-
 						{{form.select(item.name,loop.index,item.options,user[item.value],item.fld)}}
 					{% elseif item.type == "checkbox" %}
 						{{form.checkbox(item.name,loop.index,item.options,user[item.value],item.fld)}}
+					{% elseif item.type == "tel2" %}
+					{{form.tel2(item.name,loop.index,user[item.value],item.fld,editable)}}
 					{% else %}
 						{% set editable = false %}
 						{% if user[item.value] is defined %}
