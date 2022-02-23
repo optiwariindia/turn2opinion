@@ -1,0 +1,50 @@
+<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+{% for summary in user.summary %}
+	<li class="nav-item">
+		<label role="tab" class="nav-link {{(loop.index == 1)?"active":""}}" for="tab-{{loop.index}}">
+			<span>{{summary.name}}</span>
+		</label>
+	</li>
+    {% endfor %}
+</ul>
+<div class="tabs-animation">
+{% for summary in user.summary %}
+<input type="radio" class='tab-radio' name="tab" id="tab-{{loop.index}}" {{(loop.index == 1)?"checked":""}}>
+	<div class="mb-3 card">
+		<div class="card-header-tab card-header">
+			<div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+				<i class="header-icon lnr-charts icon-gradient bg-happy-green"></i>
+				{{summary.name}}
+			</div>
+		</div>
+		<div class="no-gutters row">
+        {% for info in summary.info %}
+			<div class="col-sm-6 col-md-4 col-xl-4">
+				<div class="card no-shadow rm-border bg-transparent widget-chart text-center">
+					<div class="icon-wrapper rounded-circle">
+						<div class="icon-wrapper-bg opacity-10 bg-warning"></div>
+						<i class="lnr-laptop-phone text-dark opacity-8"></i>
+					</div>
+					<div class="widget-chart-content">
+						<div class="widget-subheading">{{info.name}}</div>
+						<div class="widget-numbers">{{info.count}}</div>
+						{# <div class="widget-description opacity-8 text-focus">
+							{{info.punchline}}
+						</div> #}
+					</div>
+				</div>
+				<div class="divider m-0 d-md-none d-sm-block"></div>
+			</div>
+        {% endfor %}
+		</div>
+		<div class="text-center d-block p-3 card-footer">
+			<button class="btn-pill btn-shadow btn-wide fsize-1 btn btn-primary btn-lg">
+				<span class="mr-2 opacity-7">
+					<i class="icon icon-anim-pulse ion-ios-analytics-outline"></i>
+				</span>
+				<span class="mr-1">View Complete Report</span>
+			</button>
+		</div>
+	</div>
+{% endfor %}
+</div>

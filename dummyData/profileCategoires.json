@@ -1,0 +1,112 @@
+[
+    {
+        "name": "Basic Profile",
+        "completed":80,
+        "icon":"basic-profile.png"
+    },
+    {
+        "name":"Professional Profile",
+        "completed":60,
+        "icon":"professional-profile.png"
+    },
+    {
+        "name":"Financial Profile",
+        "completed":45,
+        "icon":"financial-profile.png"
+    },
+    {
+        "name":"Education Profile",
+        "completed":30,
+        "icon":"education-profile.png"
+    },
+    {
+        "name":"Lifestyle Profile",
+        "completed":25,
+        "icon":"lifestyle-profile.png"
+    },
+    {
+        "name":"Health Profile",
+        "completed":15,
+        "icon":"health-profile.png"
+    },
+    {
+        "name":"Hobbies Profile",
+        "completed":0,
+        "icon":"hobbies-profile.png"
+    },
+    {
+        "name":"Parenting Profile",
+        "completed":0,
+        "icon":"parenting-profile.png"
+    },
+    {
+        "name":"Technology Profile",
+        "completed":0,
+        "icon":"technology-profile.png"
+    },
+    {
+        "name":"Home Owner Profile",
+        "completed":0,
+        "icon":"Homeowner-profile.png"
+    },
+    {
+        "name":"Technology Profile",
+        "completed":0,
+        "icon":"technology.png"
+    },
+    {
+        "name":"Automotive Profile",
+        "completed":0,
+        "icon":"automotive-profile.png"
+    },
+    {
+        "name":"Gaming Profile",
+        "completed":0,
+        "icon":"game-profile.png"
+    },
+    {
+        "name":"Food & Beverage Profile",
+        "completed":0,
+        "icon":"food and beverages.png"
+    },
+    {
+        "name":"Entertaintment Profile",
+        "completed":0,
+        "icon":"Entertainment.png"
+    },
+    {
+        "name":"Beauty & Fitness Profile",
+        "completed":0,
+        "icon":"Fitness.png"
+    },
+    {
+        "name":"Sports Profile",
+        "completed":0,
+        "icon":"Sports.png"
+    },
+    {
+        "name":"Travel Profile",
+        "completed":0,
+        "icon":"travel-profile.png"
+    },
+    {
+        "name":"Mobile Profile",
+        "completed":0,
+        "icon":"Mobile Profile.png"
+    },
+    {
+        "name":"Business Profile",
+        "completed":0,
+        "icon":"Business-profile.png"
+    },
+    {
+        "name":"Work Profile",
+        "completed":0,
+        "icon":"Work Profile.png"
+    },
+    {
+        "name":"Other Profile",
+        "completed":85,
+        "icon":"other-profile.png"
+    }
+]

@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+
+	{% include "comp/head.twig" %}
+	<body>
+
+		<div class="fh5co-loader"></div>
+
+		<div id="page">
+			{% include "comp/navbar.twig" %}
+			{% include "comp/header.twig" %}
+			{% include "comp/counters.twig" %}
+			{% include "comp/takeacourse.twig" %}
+			{% include "comp/project.twig" %}
+			{% include "comp/steps.twig" %}
+			{% include "comp/testimonials.twig" %}
+			{% include "comp/blog.twig" %}
+			{% include "comp/started.twig" %}
+			{% include "comp/footer.twig" %}
+		</div>
+
+		<div class="gototop js-top">
+			<a href="#" class="js-gotop">
+				<i class="icon-arrow-up"></i>
+			</a>
+		</div>
+		{% include "comp/scripts.twig" %}
+	</body>
+
+</html>

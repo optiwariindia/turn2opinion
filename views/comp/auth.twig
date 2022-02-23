@@ -1,0 +1,102 @@
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in"  checked><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+		<div class="login-form">
+			<form method="post" class="sign-in-htm" action="/user/login">
+				<div class="group">
+					<label for="user" class="label">E-Mail</label>
+					<input id="user" type="email" name="user" class="input">
+				</div>
+
+				<div class="group">
+					<label for="pass" class="label">Password</label>
+					<input id="pass" type="password" name=pass class="input" data-type="password">
+				</div>
+
+
+				<div class="group">
+					<input id="check" name="staysignedin" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Keep me Signed in</label>
+				</div>
+				<div class="group">
+					<input type="submit" class="button" value="Sign In">
+				</div>
+				<div class="group">
+					<span><%= locals.message; %></span>
+				</div>
+				<div class="hr"></div>
+				<div class="foot-lnk">
+					<a href="#forgot">Forgot Password?</a>
+				</div>
+			</form>
+			<form method="post" class="sign-up-htm">
+				<div class="row">
+
+					<div class="col-xs-6">
+						<div class="group">
+							<!-- <label for="user" class="label">First Name</label> -->
+							<input required id="fn" pattern="[a-zA-Z]{1,255}" type="text" class="input" name="fn"
+								placeholder="First Name" emismatched="Please enter your first name correctly">
+						</div>
+					</div>
+					<div class="col-xs-6">
+
+						<div class="group">
+							<!-- <label for="pass" class="label">Last Name</label> -->
+							<input required type="text" class="input" name="ln" pattern="[a-zA-Z]{1,255}"
+								placeholder="Last Name" emismatched="Please enter your last name correctly">
+						</div>
+					</div>
+					<div class="col-xs-12">
+
+						<div class="group">
+							<!-- <label for="pass" class="label">E-Mail</label> -->
+							<input required type="email" placeholder="E-Mail"
+								emismatched="Please enter your email correctly" name="email" class="input">
+						</div>
+					</div>
+					<div class="col-xs-6">
+
+						<div class="group">
+							<!-- <label for="pass" class="label">Contact Number</label> -->
+							<input required type="tel" class="input" placeholder="Contact Number" name="phone">
+							<span id="valid-msg" class="hide">✓ Valid</span><span id="error-msg" class="hide"></span>
+						</div>
+					</div>
+					<div class="col-xs-6">
+
+						<div class="group">
+							<!-- <label for="pass" class="label">Country</label> -->
+							<input type="text" required class="input" placeholder="Country" name="cn">
+						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="gender">
+							<div class="title">Gender:</div>
+							<input type="radio" name="gender" value="male" id="male">
+							<label for="male">
+								<i class="fa fa-person"></i>
+							</label>
+							<input type="radio" name="gender" value="female" id="female">
+							<label for="female">
+								<i class="fa fa-person-dress"></i>
+							</label>
+							<input type="radio" name="gender" value="trans" id="trans">
+							<label for="trans">
+								<i class="fa fa-transgender"></i>
+							</label>
+						</div>
+					</div>
+					<input type="hidden" name="lat">
+					<input type="hidden" name="lng">
+					<div class="col-xs-12">
+						<div class="group">
+							<input type="submit" class="button" value="Sign Up">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

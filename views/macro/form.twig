@@ -1,0 +1,31 @@
+{% macro input(type,name,index,value,fld,editable) %}
+	<div class="position-relative form-group">
+		<label for="basic-{{index}}" class=""> <img src="/img/q.png">{{name}}</label>
+		<input name="{{fld}}" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="{{type}}" class="form-control"/>
+	</div>
+{% endmacro %}
+
+{% macro select(name,index,options,value,fld) %}
+	<div class="position-relative form-group">
+		<label for="basic-{{index}}" class=""> <img src="/img/q.png">{{name}}</label>
+		<select name="select" id="basic-{{index}}" class="form-control">
+            {% for option in options %}
+                <option value="{{loop.index}}">{{option}}</option>
+            {% endfor %}
+		</select>
+	</div>
+{% endmacro %}
+
+{% macro checkbox(name,index,options,value,fld) %}
+	<div class="position-relative form-group " id="chb-{{index}}">
+		<label> <img src="/img/q.png">{{name}}</label>
+		<div class="custom-controls-stacked">
+            {% for option in options %}
+                <label class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="{{fld}}" value="{{loop.index}}">
+                    <span class="custom-control-label">{{option}}</span>
+                </label>
+            {% endfor %}
+        </div>
+	</div>
+{% endmacro %}

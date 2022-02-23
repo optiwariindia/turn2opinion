@@ -1,0 +1,71 @@
+[
+    {
+        "name":"Available Surveys",
+        "info":[
+            {
+                "name":"In House Survey",
+                "count":100,
+                "punchline":"25% Extra Earning",
+                "target":"/user/survey/available/inhouse"
+            },
+            {
+                "name":"External Survey",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/available/external"
+            },
+            {
+                "name":"Survey Participations",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/available/response"
+            }
+        ]
+    },
+    {
+        "name":"Survey History",
+        "info":[
+            {
+                "name":"Monthly Survey",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/history/monthly"
+            },
+            {
+                "name":"Quarterly Survey",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/history/quarterly"
+            },
+            {
+                "name":"Yearly Survey",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/history/yearly"
+            }
+        ]
+    },
+    {
+        "name":"Claimed History",
+        "info":[
+            {
+                "name":"Monthly Claimed",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/claimed/monthly"
+            },
+            {
+                "name":"Quarterly Claimed",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/claimed/quarterly"
+            },
+            {
+                "name":"Yearly Claimed",
+                "count":100,
+                "punchline":"",
+                "target":"/user/survey/claimed/yearly"
+            }
+        ]
+    }
+]

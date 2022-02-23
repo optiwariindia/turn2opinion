@@ -1,0 +1,17 @@
+[
+    {
+        "name":"Profile",
+        "status":"15% complete"
+    },
+    {
+        "name":"Survey Taken",
+        "status":"50"
+    },
+    {
+        "name":"Survey Available",
+        "status":"10"
+    },
+    {
+        "name":"Political Profile"
+    }
+]

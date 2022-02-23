@@ -1,0 +1,42 @@
+[
+    {
+        "surveyid": "FR001",
+        "stopic": "Topic of Survey",
+        "sinfo": "[message of 100 to 500 words]",
+        "scat": "B2B",
+        "spt": "500",
+        "lpt": "",
+        "sact": "",
+        "sstat": "Active"
+    },
+    {
+        "surveyid": "FR002",
+        "stopic": "Topic of Survey",
+        "sinfo": "[message of 100 to 500 words]",
+        "scat": "HC",
+        "spt": "300",
+        "lpt": "",
+        "sact": "Completed",
+        "sstat": ""
+    },
+    {
+        "surveyid": "FR003",
+        "stopic": "Topic of Survey",
+        "sinfo": "[message of 100 to 500 words]",
+        "scat": "Consumer",
+        "spt": "100",
+        "lpt": "",
+        "sact": "Disqualified",
+        "sstat": ""
+    },
+    {
+        "surveyid": "FR004",
+        "stopic": "Topic of Survey",
+        "sinfo": "[message of 100 to 500 words]",
+        "scat": "Consumer",
+        "spt": "300",
+        "lpt": "",
+        "sact": "Quota Meet",
+        "sstat": "Inactive"
+    }
+]

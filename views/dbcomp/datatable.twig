@@ -1,0 +1,59 @@
+<div class="card mb-3">
+	<div class="card-header-tab card-header">
+		<div class="card-header-title font-size-lg text-capitalize">
+			<i class="header-icon lnr-laptop-phone mr-3  opacity-6"></i>
+			<h3>Available Surveys</h3>
+		</div>
+		<div class="btn-actions-pane-right actions-icon-btn">
+			<div class="btn-group dropdown">
+				<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
+					<i class="pe-7s-menu btn-icon-wrapper"></i>
+				</button>
+				<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+					<ul>
+						{% for filter in filters %}
+
+							<li>
+								<input type="checkbox" name="filter[]" value="{{filter}}" id="filter-{{loop.index}}">
+								<label for="filter-{{loop.index}}">{{filter}}</label>
+							</li>
+						{% endfor %}
+					</ul>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card-body">
+		<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>Survey ID</th>
+					<th>Survey Name</th>
+					<th>Survey info</th>
+					<th>Survey Category</th>
+					<th>Survey Points</th>
+					<th>Current Live Points</th>
+					<th>Action</th>
+					<th>Status</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for survey in user.availableSurveys %}
+					<tr>
+						<td>{{survey.surveyid}}</td>
+						<td>{{survey.stopic}}</td>
+						<td>{{survey.sinfo}}</td>
+						<td>{{survey.scat}}</td>
+						<td>{{survey.spt}}</td>
+						<td>{{survey.lpt}}</td>
+						<td>{{survey.sact}}</td>
+						<td>{{survey.sstat}}</td>
+						<td>{{((survey.sact == "") and (survey.sstat=="Active"))?"Take Survey":""}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
