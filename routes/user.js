@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const session = require('express-session');
 const mongoose = require('mongoose');
+const fileUpload=require('express-fileupload');
 const User = mongoose.model("user", require("../modals/user"));
 
 
@@ -21,7 +22,28 @@ router.route("/dashboard")
             })
         res.render("dashboard.twig", { user: req.user ,filters});
     })
-router.route("/profile/:profilename")
+    app.use(fileUpload());
+    router.route("/profile/")
+    .get(
+        getUserInfo,
+        userDetails,
+        (req,res)=>{
+            res.render("profile.twig",{user:req.user,page:{title:"Profile",icon:"profile.png"}});
+    })
+    .post(getUserInfo,(req,res)=>{
+        type=req.files.propic.mimetype.split("/");
+        if(type[0]!=="image"){
+            res.json({"error":"Only Image Files are allowed"});
+            return false;
+        }
+        req.files.propic.mv(`public/assets/images/avatars/${req.user._id}.${type[1]}`);
+        User.findOne({ email: req.user.email }).then(user=>{
+            user.propic=`/assets/images/avatars/${req.user._id}.${type[1]}`;
+            user.save();
+            res.redirect("/user/profile");
+        })
+    })
+    router.route("/profile/:profilename")
 .get(
     getUserInfo,
     userDetails,
