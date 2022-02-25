@@ -25,17 +25,21 @@
 						</div>
 						<div class="mb-3"></div>
 						<div class="row">
-							<div class="col-sm-12">{% include "dbcomp/datatable.twig" %}</div>
+							<div class="col-sm-12">{% include "dbcomp/surveys.twig" %}</div>
 						</div>
-						
-
-
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 		<div class="app-drawer-overlay d-none animated fadeIn"></div>
+		{% if (user.terms |length)==0  %}
+			<div class="forced-popup">
+				<div class="popup-body">
+					{% include "dbcomp/terms.twig" %}
+				</div>
+			</div>
+		{% endif %}
 		<script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
 	</body>
 

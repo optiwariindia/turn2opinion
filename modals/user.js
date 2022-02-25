@@ -51,6 +51,7 @@ module.exports = new schema(module.exports = new schema({
     password: {
         type: String,
         default: null
-    }
+    },
+    terms: []
 })
 );

@@ -1,0 +1,86 @@
+{
+	"survey": {
+		"title": "Survey Summary",
+		"icon": "/img/survey-taken.jpg",
+		"headings": [
+			"Survey ID",
+			"Survey Topic",
+			"Survey Length",
+			"Participation Date",
+			"Status",
+			"Rewards Earned"
+		],
+		"data": [
+			[
+				"FRXXXXX",
+				"Welcome Survey",
+				"10 minutes",
+				"2022-02-24",
+				"Completed",
+				"100"
+			],
+			[
+				"FRXXXXX",
+				"Survey on Topic XXX",
+				"25 minutes",
+				"2022-02-25",
+				"Under Review",
+				""
+			],
+			[
+				"FRXXXXX",
+				"Survey on Topic XXX",
+				"20 minutes",
+				"2022-02-25",
+				"Overquota",
+				"Rejected"
+			],
+			[
+				"FRXXXXX",
+				"Survey on Topic XXX",
+				"30 minutes",
+				"2022-02-25",
+				"",
+				"Canceled"
+			],
+			[
+				"FRXXXXX",
+				"Survey on Topic XXX",
+				"25 minutes",
+				"2022-02-25",
+				"Under Review",
+				"100"
+			]
+		]
+	},
+	"claimes": {
+		"title": "Claimed Rewards Summary",
+		"icon": "/img/money2.png",
+		"headings": [
+			"Reward Points",
+			"Reward Conversion",
+			"Payment Mode",
+			"Payment Date",
+			"Transaction"
+		],
+		"data": [
+			[
+				100,
+				1,
+				"PayPal",
+				"2022-02-24",
+				"TXNAAAA1234",
+				[
+					{
+						"surveyName": "Welcome Survey",
+						"points": 90
+					},
+					{
+						"surveyName": "Professional Profile",
+						"points": 10
+					}
+				]
+			]
+		]
+	}
+}

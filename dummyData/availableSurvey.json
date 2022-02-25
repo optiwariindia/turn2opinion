@@ -5,6 +5,7 @@
         "sinfo": "[message of 100 to 500 words]",
         "scat": "B2B",
         "spt": "500",
+        "src":"Inhouse",
         "lpt": "",
         "sact": "",
         "sstat": "Active"
@@ -15,6 +16,7 @@
         "sinfo": "[message of 100 to 500 words]",
         "scat": "HC",
         "spt": "300",
+        "src":"External",
         "lpt": "",
         "sact": "Completed",
         "sstat": ""
@@ -25,6 +27,7 @@
         "sinfo": "[message of 100 to 500 words]",
         "scat": "Consumer",
         "spt": "100",
+        "src":"Inhouse",
         "lpt": "",
         "sact": "Disqualified",
         "sstat": ""
@@ -35,6 +38,7 @@
         "sinfo": "[message of 100 to 500 words]",
         "scat": "Consumer",
         "spt": "300",
+        "src":"Inhouse",
         "lpt": "",
         "sact": "Quota Meet",
         "sstat": "Inactive"

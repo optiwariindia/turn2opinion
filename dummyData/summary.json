@@ -4,19 +4,22 @@
         "info":[
             {
                 "name":"In House Survey",
-                "count":100,
+                "icon":"/img/inhouse.png",
+                "count":1,
                 "punchline":"25% Extra Earning",
-                "target":"/user/survey/available/inhouse"
+                "target":"#available-survey"
             },
             {
                 "name":"External Survey",
-                "count":100,
+                "icon":"/img/external.png",
+                "count":0,
                 "punchline":"",
-                "target":"/user/survey/available/external"
+                "target":"#available-survey"
             },
             {
                 "name":"Survey Participations",
-                "count":100,
+                "icon":"/img/participation.png",
+                "count":0,
                 "punchline":"",
                 "target":"/user/survey/available/response"
             }
@@ -27,21 +30,24 @@
         "info":[
             {
                 "name":"Monthly Survey",
+                "icon":"/img/monthly.png",
                 "count":100,
                 "punchline":"",
-                "target":"/user/survey/history/monthly"
+                "target":"/user/history/survey/monthly"
             },
             {
                 "name":"Quarterly Survey",
+                "icon":"/img/quarterly.png",
                 "count":100,
                 "punchline":"",
-                "target":"/user/survey/history/quarterly"
+                "target":"/user/history/survey/quarterly"
             },
             {
                 "name":"Yearly Survey",
+                "icon":"/img/yearly.png",
                 "count":100,
                 "punchline":"",
-                "target":"/user/survey/history/yearly"
+                "target":"/user/history/survey/yearly"
             }
         ]
     },
@@ -50,21 +56,24 @@
         "info":[
             {
                 "name":"Monthly Claimed",
-                "count":100,
+                "icon":"/img/money.png",
+                "count":"$ 0.00",
                 "punchline":"",
-                "target":"/user/survey/claimed/monthly"
+                "target":"/user/history/claimes/monthly"
             },
             {
                 "name":"Quarterly Claimed",
-                "count":100,
+                "icon":"/img/money.png",
+                "count":"$ 0.00",
                 "punchline":"",
-                "target":"/user/survey/claimed/quarterly"
+                "target":"/user/history/claimes/quarterly"
             },
             {
                 "name":"Yearly Claimed",
-                "count":100,
+                "icon":"/img/money.png",
+                "count":"$ 0.00",
                 "punchline":"",
-                "target":"/user/survey/claimed/yearly"
+                "target":"/user/history/claimes/yearly"
             }
         ]
     }

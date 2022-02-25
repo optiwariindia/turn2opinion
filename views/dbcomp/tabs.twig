@@ -20,19 +20,18 @@
 		<div class="no-gutters row">
         {% for info in summary.info %}
 			<div class="col-sm-6 col-md-4 col-xl-4">
-				<div class="card no-shadow rm-border bg-transparent widget-chart text-center">
-					<div class="icon-wrapper rounded-circle">
-						<div class="icon-wrapper-bg opacity-10 bg-warning"></div>
-						<i class="lnr-laptop-phone text-dark opacity-8"></i>
+				<a href='{{info.target}}' class="card no-shadow rm-border bg-transparent widget-chart text-center">
+					<div class="icon-wrapper">
+						<img src="{{info.icon}}" alt="" srcset="" class="img-fluid">
 					</div>
 					<div class="widget-chart-content">
-						<div class="widget-subheading">{{info.name}}</div>
-						<div class="widget-numbers">{{info.count}}</div>
+						<div class="widget-subheading-large" style='font-size:20px'>{{info.name}}</div>
+						<div class="widget-numbers-large" style='font-size:35px'>{{info.count}}</div>
 						{# <div class="widget-description opacity-8 text-focus">
 							{{info.punchline}}
 						</div> #}
 					</div>
-				</div>
+				</a>
 				<div class="divider m-0 d-md-none d-sm-block"></div>
 			</div>
         {% endfor %}
