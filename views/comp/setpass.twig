@@ -19,20 +19,20 @@
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
 		<div class="login-form">
 			<form method="post" class="sign-in-htm" name="setpass" action="/user/setpass">
+		<p style="color:#fff;font-weight: 100;line-height: 20px;margin-top: 10px;font-size: 14px;">Password must be 6-20 letters with at least one uppercase, one lowercase, a number 0-9 and a symbol: !@#$%^&amp;*</p>
 				<div class="group">
 					<label for="pass" class="label">Password</label>
 					<input id="pass" name="pass" type="password" class="input">
 					<span id="StrengthDisp" class="badge displayBadge" style="margin:8px 80px"></span>
 					<span class="strength"></span>
 				</div>
-
 				<div class="group">
 					<label for="cpass" class="label">Confirm Password</label>
 					<input id="cpass" name="cpass" type="password" class="input" data-type="password">
 					<span class="pwstatus"></span>
 				</div>
 				<div class="group" style="margin:30px;">
-					<input type="hidden" name="id" value="<%= locals.id %>">
+					<input type="hidden" name="id" value="{{id}}">
 					<input type="submit" class="button" value="Save and Login">
 				</div>
 			</form>

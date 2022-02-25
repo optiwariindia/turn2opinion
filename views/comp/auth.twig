@@ -13,24 +13,47 @@
 					<label for="pass" class="label">Password</label>
 					<input id="pass" type="password" name=pass class="input" data-type="password">
 				</div>
-
-
 				<div class="group">
 					<input id="check" name="staysignedin" type="checkbox" class="check" checked>
 					<label for="check"><span class="icon"></span> Keep me Signed in</label>
 				</div>
 				<div class="group">
+				<button class="g-recaptcha" 
+        data-sitekey="6LcR-p4eAAAAAKC5N7AVBTO9Q3HXr0rPuSiMUkRa" 
+        data-callback='onSubmit' 
+        data-action='submit'>Submit</button>
 					<input type="submit" class="button" value="Sign In">
 				</div>
 				<div class="group">
-					<span><%= locals.message; %></span>
+					<span data='autherror'></span>
 				</div>
 				<div class="hr"></div>
 				<div class="foot-lnk">
 					<a href="#forgot">Forgot Password?</a>
 				</div>
+			<div class="hr"></div>
+				<div class="group social-signbtns">
+				<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign in with Social Accounts</label>
+				<ul>
+					<li class='facebook'>
+						<i class="fa-brands fa-facebook"></i>
+					</li>
+					<li class='twitter'>
+						<i class="fa-brands fa-twitter"></i>
+					</li>
+					<li class='linkedin'>
+					<i class="fa-brands fa-linkedin"></i>
+					</li>
+					<li class='google-plus'>
+						<i class="fa-brands fa-google-plus-g"></i>
+					</li>
+				</ul>
+				</div>
+				<div class="group" style='text-align:center'>
+			Not a member yet? <label for="tab-2" style='color:#fff'> Create an Account</label>
+			</div>
 			</form>
-			<form method="post" class="sign-up-htm">
+			<form method="post" class="sign-up-htm" action="/user/register">
 				<div class="row">
 
 					<div class="col-xs-6">
@@ -94,6 +117,25 @@
 						<div class="group">
 							<input type="submit" class="button" value="Sign Up">
 						</div>
+					</div>
+					<div class="col-xs-12">
+					<div class="group social-signbtns">
+				<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign up with Social Accounts</label>
+				<ul>
+					<li class='facebook'>
+						<i class="fa-brands fa-facebook"></i>
+					</li>
+					<li class='twitter'>
+						<i class="fa-brands fa-twitter"></i>
+					</li>
+					<li class='linkedin'>
+					<i class="fa-brands fa-linkedin"></i>
+					</li>
+					<li class='google-plus'>
+						<i class="fa-brands fa-google-plus-g"></i>
+					</li>
+				</ul>
+				</div>
 					</div>
 				</div>
 			</form>

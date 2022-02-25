@@ -1,3 +1,5 @@
+
+
 navigator.geolocation.getCurrentPosition(function (position) {
     $("[name=lat]").val(position.coords.latitude);
     $("[name=lng]").val(position.coords.longitude);
@@ -10,6 +12,7 @@ function demosignup() {
 }
 $("form").submit(function (e) {
     e.preventDefault();
+
 
     if (this.classList.contains("sign-up-htm")) {
         if ($(this)[0].querySelector("[name=gender]:checked") === null) {
@@ -38,8 +41,8 @@ $("form").submit(function (e) {
                 e.target.innerHTML=`<h2>Thanks for Joining</h2><br><p>Dear ${res.user.fn}, Your sign up requiest has been successfully submitted. Please open your email (${res.user.email}) and click the verify Link to setup your password and login to your dashboard.</p>`
             }
         }).catch(err => {
-            alert(err.message);
-            location.reload();
+            console.log(err);
+            e.target.innerHTML=`<div id="fh5co-logo"><a href="index.html">Turn<span>2</span>Opinion</a></div><h2>Declined</h2><br><p>Your request to register is decliend due to some system error. Please try after some time and try again. </p>`
         });
     } else if (e.target.getAttribute("name") === "setpass") {
         if(!strongPassword.test($("[name=pass]").val())){
@@ -51,8 +54,63 @@ $("form").submit(function (e) {
             return false;
         }
         e.target.submit();
+    }else if (e.target.getAttribute("name") === "forgot"){
+        email=e.target.querySelector("[name=email]").value;
+        secans=e.target.querySelector("[name=security]").value;
+        if(secans===""){
+         
+        
+        fetch("/user/securityquestion",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({email:email})
+        }).then(res=>res.json()).then(res=>{
+            if(res.status === "ok"){
+                secque=document.querySelector("[data=securityque]");
+                secque.innerText=res.question;
+                console.log(secque);
+                secque.parentElement.style.display="block";
+                e.target.querySelector("[type=submit]").value="Reset Password";
+            }
+        });
     }else{
-        e.target.submit();
+        fetch("/user/forgot",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({email:email,security:secans})
+        }).then(res=>res.json()).then(res=>{
+            if(res.status === "ok"){
+                console.log(res);
+            }
+        });
+    }
+    }else{
+        // console.log(e.target.getAttribute("action"));
+        let flds={};
+        e.target.querySelectorAll("[name]").forEach(inp=>{
+            flds[inp.name]=inp.value;
+        })
+        fetch(e.target.getAttribute("action"),{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(flds)
+        }).then(res=>res.json()).then(resp=>{
+            if(resp.status==="ok"){
+                location.href="/user/dashboard";
+            }else{
+                document.querySelector("[data=autherror]").innerText=resp.message;
+                setTimeout(() => {
+                    document.querySelector("[data=autherror]").innerText="";
+                }, 5000);
+            }
+        }).catch(err=>{console.log(err)})
+
     }
 });
 $("input").on("invalid", function (e) {
@@ -66,9 +124,10 @@ $("input").on("invalid", function (e) {
 $("input").on('change', function (event) {
     event.target.setCustomValidity('');
 })
+/*
 $("[name=email]").on("change", function (e) {
     let email = $(this).val();
-    fetch(location.origin + "/user/email", {
+    fetch(location.origin + "/user/validate/email", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -82,7 +141,7 @@ $("[name=email]").on("change", function (e) {
 })
 $("[name=phone]").on("change", function (e) {
     let phone = iti.getNumber();
-    fetch(location.origin + "/user/phone", {
+    fetch(location.origin + "/user/validate/phone", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -105,3 +164,4 @@ if($("[name=pass]").val() === "") { $(".pwstatus").html(""); }
 }
 $("[name=cpass").on("change", matchpass);
 $("[name=pass").on("change", matchpass);
+*/

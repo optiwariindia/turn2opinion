@@ -13,7 +13,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             server.watch(__dirname + "/public");
             app.use(connectLivereload());
         }
-    
+
         app.use(express.static("public"))
             .use(express.urlencoded({ extended: true }))
             .use(express.json())

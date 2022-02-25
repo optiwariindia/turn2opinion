@@ -91,8 +91,6 @@ button.btn-primary:hover {
 					{% elseif item.type == "checkbox" %}
 						{{form.checkbox(item.name,loop.index,item.options,item.value,item.fld)}}
 					{% else %}
-
-
 						{{form.input(item.type,item.name,loop.index,item.value,item.fld)}}
 					{% endif %}
 				{% endfor %}

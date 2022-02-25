@@ -30,9 +30,9 @@ module.exports = new schema(module.exports = new schema({
     lat: Number,
     lng: Number,
     timezone: String,
-    propic:{
-        type:String,
-        required:false
+    propic: {
+        type: String,
+        required: false
     },
     verified: {
         email: {
@@ -52,6 +52,11 @@ module.exports = new schema(module.exports = new schema({
         type: String,
         default: null
     },
-    terms: []
+    terms: [],
+    timezone:{type:String,required:false,default:null},
+    security:{
+        question:String,
+        answer:String
+    }
 })
 );

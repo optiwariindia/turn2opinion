@@ -5,12 +5,6 @@
     font-weight: normal;
     font-style: normal;
 }
-
-/* =======================================================
-*
-* 	Template Style 
-*
-* ======================================================= */
 body {
     font-family: "Work Sans", Arial, sans-serif;
     font-weight: 400;
@@ -1856,6 +1850,7 @@ a {
 
 .login-html {
     padding: 30px;
+    min-height:650px;
     background: rgba(76, 76, 76, .9);
 }
 
@@ -2056,4 +2051,33 @@ input::placeholder {
 }
 .sign-up-htm h2{
     color:#aaa;
+}
+form.sign-up-htm {
+    color: #fff;
+    line-height: 35px;
+    font-size: 20px;
+    text-align: justify;
+}
+.social-signbtns ul{
+    list-style:none;
+    display:flex;
+    font-size:50px;
+    color:#fff;
+}
+.social-signbtns ul>li{
+    padding:30px;
+    transition:1s;
+    cursor:pointer;
+}
+.google-plus:hover {
+    color: #ea4335
+}
+.facebook:hover{
+    color:#1877f2;
+}
+.twitter:hover{
+    color:#1da1f2;
+}
+.linkedin:hover{
+    color:#0a66c2
 }
