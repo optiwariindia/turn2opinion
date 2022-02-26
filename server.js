@@ -11,6 +11,11 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             const connectLivereload = require("connect-livereload");
             const server = livereload.createServer();
             server.watch(__dirname + "/public");
+            server.server.once("connection",()=>{
+                setTimeout(() => {
+                    server.refresh();
+                }, 1000);
+            })
             app.use(connectLivereload());
         }
 

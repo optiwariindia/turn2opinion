@@ -20,15 +20,15 @@ module.exports=email={
     },
     setup:{
         sender:{
-            name:'',
-            email:''
+            name:'Turn2Opinion Support',
+            email:'support@frequentresearch.com'
         },
         host:'s10.cyberspace.in',
         port:465,
         secure:true,
         auth:{
-            user:'',
-            pass:''
+            user:'support@frequentresearch.com',
+            pass:'frfssupoort@123'
         }
     },
     sendEmail:function(to,subject,text,html){

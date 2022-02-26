@@ -2081,3 +2081,47 @@ form.sign-up-htm {
 .linkedin:hover{
     color:#0a66c2
 }
+.ui-autocomplete{
+    background:#fff;
+    list-style:none;
+    width:100px;
+}
+.ui-autocomplete li{
+    border-bottom:1px solid;
+    padding:10px 0;
+}
+.action-btns{
+    display:flex;
+}
+
+.forced-popup {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    text-align:center;
+    padding-top:50px;
+    background:rgba(0,0,0,0.7);
+    z-index:9999;
+}
+.forced-popup .popup-body{
+    width:700px;
+    margin:auto;
+    text-align:justify;
+    background:#fff;
+    padding:30px;
+    font-size:20px;
+    line-height:30px;
+    border-radius:10px;
+    box-shadow:0 0 30px #fff;
+}
+.logo-center{
+    text-align:center;
+    border-bottom:1px solid #aaa;
+    padding-bottom:20px;
+    margin-bottom:20px;
+}
+.fr{
+    float:right;
+}

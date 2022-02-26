@@ -1,6 +1,7 @@
+{% import "macro/form1.twig" as form %}
 <div class="login-wrap">
 	<div class="login-html">
-		<input id="tab-1" type="radio" name="tab" class="sign-in"  checked><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
 		<div class="login-form">
 			<form method="post" class="sign-in-htm" action="/user/login">
@@ -11,87 +12,79 @@
 
 				<div class="group">
 					<label for="pass" class="label">Password</label>
-					<input id="pass" type="password" name=pass class="input" data-type="password">
+					<input id="pass" type="password" name="pass" class="input" data-type="password">
 				</div>
 				<div class="group">
 					<input id="check" name="staysignedin" type="checkbox" class="check" checked>
-					<label for="check"><span class="icon"></span> Keep me Signed in</label>
+					<label for="check">
+						<span class="icon"></span>
+						Keep me Signed in</label>
 				</div>
 				<div class="group">
-	<div class="g-recaptcha" data-sitekey="6Lc_Q6AeAAAAADM9hudVeOF-VFVv53x4Eh_NLtWm"></div>
-					<input type="submit" class="button" value="Sign In">
+					<div class="action-btns">
+						<div class="g-recaptcha" data-sitekey="6Lc_Q6AeAAAAADM9hudVeOF-VFVv53x4Eh_NLtWm"></div>
+						<input type="submit" class="button" value="Sign In">
+					</div>
 				</div>
 				<div class="group">
 					<span data='autherror'></span>
 				</div>
 				<div class="hr"></div>
 				<div class="foot-lnk">
-					<a href="#forgot">Forgot Password?</a>
+					<a href="/user/forgot">Forgot Password?</a>
 				</div>
-			<div class="hr"></div>
+				<div class="hr"></div>
 				<div class="group social-signbtns">
-				<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign in with Social Accounts</label>
-				<ul>
-					<li class='facebook'>
-						<i class="fa-brands fa-facebook"></i>
-					</li>
-					<li class='twitter'>
-						<i class="fa-brands fa-twitter"></i>
-					</li>
-					<li class='linkedin'>
-					<i class="fa-brands fa-linkedin"></i>
-					</li>
-					<li class='google-plus'>
-						<i class="fa-brands fa-google-plus-g"></i>
-					</li>
-				</ul>
+					<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign in with Social Accounts</label>
+					<ul>
+						<li class='facebook'>
+							<i class="fa-brands fa-facebook"></i>
+						</li>
+						<li class='twitter'>
+							<i class="fa-brands fa-twitter"></i>
+						</li>
+						<li class='linkedin'>
+							<i class="fa-brands fa-linkedin"></i>
+						</li>
+						<li class='google-plus'>
+							<i class="fa-brands fa-google-plus-g"></i>
+						</li>
+					</ul>
 				</div>
 				<div class="group" style='text-align:center'>
-			Not a member yet? <label for="tab-2" style='color:#fff'> Create an Account</label>
-			</div>
+					Not a member yet?
+					<label for="tab-2" style='color:#fff'>
+						Create an Account</label>
+				</div>
 			</form>
 			<form method="post" class="sign-up-htm" action="/user/register">
 				<div class="row">
-
 					<div class="col-xs-6">
-						<div class="group">
-							<!-- <label for="user" class="label">First Name</label> -->
-							<input required id="fn" pattern="[a-zA-Z]{1,255}" type="text" class="input" name="fn"
-								placeholder="First Name" emismatched="Please enter your first name correctly">
-						</div>
+						{{form.input("fn","text","fn","First Name *","[a-zA-Z]{3,100}","",true,"Please enter your first name correctly")}}
 					</div>
 					<div class="col-xs-6">
-
-						<div class="group">
-							<!-- <label for="pass" class="label">Last Name</label> -->
-							<input required type="text" class="input" name="ln" pattern="[a-zA-Z]{1,255}"
-								placeholder="Last Name" emismatched="Please enter your last name correctly">
-						</div>
+						{{form.input("ln","text","ln","Last Name *","[a-zA-Z]{3,100}","",true,"Please enter your last name correctly")}}
 					</div>
 					<div class="col-xs-12">
-
-						<div class="group">
-							<!-- <label for="pass" class="label">E-Mail</label> -->
-							<input required type="email" placeholder="E-Mail"
-								emismatched="Please enter your email correctly" name="email" class="input">
-						</div>
+						{{form.input("email","email","email","E-Mail *","","",true,"Please enter your email correctly")}}
 					</div>
 					<div class="col-xs-6">
-
-						<div class="group">
+						<div
+							class="group">
 							<!-- <label for="pass" class="label">Contact Number</label> -->
-							<input required type="tel" class="input" placeholder="Contact Number" name="phone">
-							<span id="valid-msg" class="hide">✓ Valid</span><span id="error-msg" class="hide"></span>
+							<input required type="tel" class="input" placeholder="Contact Number *" name="phone">
+							<span id="valid-msg" class="hide">✓ Valid</span>
+							<span id="error-msg" class="hide"></span>
 						</div>
 					</div>
 					<div class="col-xs-6">
-
-						<div class="group">
+						<div
+							class="group">
 							<!-- <label for="pass" class="label">Country</label> -->
 							<input type="text" required class="input" placeholder="Country" name="cn">
 						</div>
 					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-4">
 						<div class="gender">
 							<div class="title">Gender:</div>
 							<input type="radio" name="gender" value="male" id="male">
@@ -108,7 +101,9 @@
 							</label>
 						</div>
 					</div>
-					<div class="col-xs-6"><div class="g-recaptcha" data-sitekey="6Lc_Q6AeAAAAADM9hudVeOF-VFVv53x4Eh_NLtWm"></div></div>
+					<div class="col-xs-8">
+						<div class="g-recaptcha" style='margin-top:15px;' data-sitekey="6Lc_Q6AeAAAAADM9hudVeOF-VFVv53x4Eh_NLtWm"></div>
+					</div>
 					<input type="hidden" name="lat">
 					<input type="hidden" name="lng">
 					<div class="col-xs-12">
@@ -117,26 +112,29 @@
 						</div>
 					</div>
 					<div class="col-xs-12">
-					<div class="group social-signbtns">
-				<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign up with Social Accounts</label>
-				<ul>
-					<li class='facebook'>
-						<i class="fa-brands fa-facebook"></i>
-					</li>
-					<li class='twitter'>
-						<i class="fa-brands fa-twitter"></i>
-					</li>
-					<li class='linkedin'>
-					<i class="fa-brands fa-linkedin"></i>
-					</li>
-					<li class='google-plus'>
-						<i class="fa-brands fa-google-plus-g"></i>
-					</li>
-				</ul>
-				</div>
+						<div class="group social-signbtns">
+							<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign up with Social Accounts</label>
+							<ul>
+								<li class='facebook'>
+									<i class="fa-brands fa-facebook"></i>
+								</li>
+								<li class='twitter'>
+									<i class="fa-brands fa-twitter"></i>
+								</li>
+								<li class='linkedin'>
+									<i class="fa-brands fa-linkedin"></i>
+								</li>
+								<li class='google-plus'>
+									<i class="fa-brands fa-google-plus-g"></i>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+<script>
+	const pagename = "signup"
+</script>

@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const User = mongoose.model("user", require("../modals/user"));
 const EMail=require("./email");
+const email=require("../service/email");
+const twig=require("twig");
 
 
 router.use( session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }));
@@ -52,11 +54,12 @@ router
     res.render("index.twig",{form:"forgot"});
 })
 .post((req,res)=>{
-    console.log(req.body);
     User.findOne({email:req.body.email}).then(user=>{
-        console.log(user);
         if(user.security.answer == req.body.security){
-            res.json({"status":"success","message":"Security answer is correct"});
+            twig.renderFile("mailers/template.twig",{fn:user.fn,message:"forgotPassword",reset_link:"http://localhost:3000/user/pwreset/"+user._id},(e,h)=>{
+                email.sendEmail(user.email,"Turn2Opinion: Reset Password",h,h);
+                res.json({"status":"ok","user":user});
+            });
         }else{
             res.json({"status":"error","message":"Security answer is incorrect"});
         }
@@ -69,7 +72,7 @@ router.route("/securityquestion")
     res.json({"status": "ok", "question": "In what city were you born?"});
 })
 router.post("/new", (req, res) => {
-    const user = new User({
+    new User({
         fn: req.body.fn,
         ln: req.body.ln,
         email: req.body.email,
@@ -79,7 +82,7 @@ router.post("/new", (req, res) => {
         cntry:req.body.cntry,
         timezone:req.body.timezone
     }).save().then(usr=>{
-        res.json({status:"ok",user:user});
+        res.json({status:"ok",user:usr});
     }).catch(err=>{
         res.json({status:"errror",message:err.message});
         return false;

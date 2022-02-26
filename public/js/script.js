@@ -1,19 +1,6 @@
 
-
-navigator.geolocation.getCurrentPosition(function (position) {
-    $("[name=lat]").val(position.coords.latitude);
-    $("[name=lng]").val(position.coords.longitude);
-});
-function demosignup() {
-    $("#fn").val("Om");
-    $("[name=ln]").val("Tiwari");
-    $("[name=email]").val("optiwari.india@gmail.com");
-    $("[name=phone]").val("+9178978898");
-}
 $("form").submit(function (e) {
     e.preventDefault();
-
-
     if (this.classList.contains("sign-up-htm")) {
         if ($(this)[0].querySelector("[name=gender]:checked") === null) {
             alert("Select Gender");
@@ -38,7 +25,7 @@ $("form").submit(function (e) {
             body: JSON.stringify(flds)
         }).then(res => res.json()).then(res => {
             if(res.status==="ok"){
-                e.target.innerHTML=`<h2>Thanks for Joining</h2><br><p>Dear ${res.user.fn}, Your sign up requiest has been successfully submitted. Please open your email (${res.user.email}) and click the verify Link to setup your password and login to your dashboard.</p>`
+                popup.show(`<h2>Thanks for Joining</h2><br><p>Dear ${res.user.fn}, Your sign up requiest has been successfully submitted. Please open your email (${res.user.email}) and click the verify Link to setup your password and login to your dashboard.</p>`);
             }
         }).catch(err => {
             console.log(err);
@@ -58,8 +45,6 @@ $("form").submit(function (e) {
         email=e.target.querySelector("[name=email]").value;
         secans=e.target.querySelector("[name=security]").value;
         if(secans===""){
-         
-        
         fetch("/user/securityquestion",{
             method:"POST",
             headers:{
@@ -84,7 +69,10 @@ $("form").submit(function (e) {
             body:JSON.stringify({email:email,security:secans})
         }).then(res=>res.json()).then(res=>{
             if(res.status === "ok"){
-                console.log(res);
+                popup.show(`<p>Hi ${res.user.fn},</p>
+                <p>Your request for password reset has been sent to your registered email address. Please check your email and follow the instructions to reset your password. If you have not received it in your inbox please check your spam/bulk mail  folder.</p>`,"/");
+            }else{
+                
             }
         });
     }
@@ -111,9 +99,9 @@ $("form").submit(function (e) {
                 }, 5000);
             }
         }).catch(err=>{console.log(err)})
-
     }
 });
+
 $("input").on("invalid", function (e) {
     if (e.target.validity.valueMissing) {
         e.target.setCustomValidity(e.target.getAttribute("placeholder") + " is required");
@@ -125,35 +113,7 @@ $("input").on("invalid", function (e) {
 $("input").on('change', function (event) {
     event.target.setCustomValidity('');
 })
-/*
-$("[name=email]").on("change", function (e) {
-    let email = $(this).val();
-    fetch(location.origin + "/user/validate/email", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email: email })
-    }).then(res => res.json()).then(r => {
-        if (r.status === "error") {
-            e.target.setCustomValidity(r.message);
-        }
-    });
-})
-$("[name=phone]").on("change", function (e) {
-    let phone = iti.getNumber();
-    fetch(location.origin + "/user/validate/phone", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ phone: phone })
-    }).then(res => res.json()).then(r => {
-        if (r.status === "error") {
-            e.target.setCustomValidity(r.message);
-        }
-    });
-})
+
 matchpass = function (e) {
 if($("[name=pass]").val() === "") { $(".pwstatus").html(""); }
     else if ($("[name=pass]").val() !== $("[name=cpass]").val()) {
@@ -165,4 +125,19 @@ if($("[name=pass]").val() === "") { $(".pwstatus").html(""); }
 }
 $("[name=cpass").on("change", matchpass);
 $("[name=pass").on("change", matchpass);
-*/
+popup={
+    close:function(){
+        document.querySelector(".forced-popup").remove();
+    },
+    show:function(message,closeTarget=null){
+        popupElement=document.createElement("div");
+        if(closeTarget==null)let=href="";else href=`href="${closeTarget}"`;
+                popupElement.innerHTML=`<div class='popup-body'>
+                <a ${href} onclick=popup.close()><i class='fa fa-times fr'></i></a>
+                <div class='logo-center'><img src='/assets/images/logo.png'></div>
+                ${message}
+                </div>`;
+                popupElement.classList.add("forced-popup");
+                document.body.appendChild(popupElement);
+    }
+}

@@ -1,6 +1,9 @@
+const twig = require('twig');
+
 const router = require('express').Router();
 router.route("/")
     .get((req, res) => {
+        
         res.render("index");
     })
     .post((req, res) => {
