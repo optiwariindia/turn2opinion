@@ -87,8 +87,10 @@ router.post("/new", (req, res) => {
 });
 router.post("/login", (req, res) => {
     User.find({ email: req.body.user, password: req.body.pass }).then(user=>{
-        if(user.length===1)
-        res.json({"status":"ok"});
+        if(user.length===1){
+            req.session.user=user[0];
+            res.json({"status":"ok","user":user[0]});
+        }
         else
         res.json({"status":"error","message":"Invalid Credentials"});
     }).catch(err=>{
@@ -176,6 +178,7 @@ function getUserInfo(req, res, next) {
         next();
         return;
     }
+    res.redirect("/");
     /* User.findOne({ email: "om.tiwari@frequentresearch.com" })
         .then(user => {
             user['name'] = user.fn + " " + user.ln;

@@ -102,6 +102,7 @@ $("form").submit(function (e) {
             body:JSON.stringify(flds)
         }).then(res=>res.json()).then(resp=>{
             if(resp.status==="ok"){
+                // console.log(resp);
                 location.href="/user/dashboard";
             }else{
                 document.querySelector("[data=autherror]").innerText=resp.message;

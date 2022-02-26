@@ -1,5 +1,23 @@
 const nodemailer=require('nodemailer');
+const dns=require('dns');
 module.exports=email={
+    validate:function(email,callback){
+        email=email.split("@");
+        if(email.length !== 2){
+            callback({status:"error",message:"E-Mail is not valid"});
+            return false;
+        }
+        dns.resolve(email[1],"MX",(err,resp)=>{
+            if(err){
+                callback({status:"error",message:"E-Mail is not valid"});
+                return false;
+            }else
+            {
+                callback({status:"success",message:"E-Mail is valid"});
+                return true;
+            }
+        })
+    },
     setup:{
         sender:{
             name:'',
