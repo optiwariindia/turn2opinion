@@ -6,6 +6,7 @@ const User = mongoose.model("user", require("../modals/user"));
 const EMail=require("./email");
 const email=require("../service/email");
 const twig=require("twig");
+const user = require('../modals/user');
 
 
 router.use( session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }));
@@ -18,20 +19,20 @@ router.route("/validate/:field")
 .post((req, res) => {
     switch (req.params.field) {
         case "email":
-            email=req.body.email;
-            if(!EMail.isValid(email)){
-                res.json({"status": "error", "message": "Please Check your email"});
-                return false;
-            }
-            User.findOne({ email: email }).then(user => {
-                console.log(user);
-                if (user) {
-                res.json({"status": "error", "message": "Already registered"});
-                return false;
+            if(!email.validate(req.body.email,(status,message)=>{
+                if(status=="error"){
+                    res.json({"status": "error", "message": message});
+                    return false;
                 }
-                res.json({"status": "success", "message": "Email is available"});
-                return true;
-            })
+                User.findOne({ email: req.body.emaill }).then(user => {
+                    if (user) {
+                    res.json({"status": "error", "message": "Already registered"});
+                    return false;
+                    }
+                    res.json({"status": "success", "message": "Email is available"});
+                    return true;
+                })
+            }))
             break;
         case "phone":
             phone=req.body.phone;
@@ -82,7 +83,11 @@ router.post("/new", (req, res) => {
         cntry:req.body.cntry,
         timezone:req.body.timezone
     }).save().then(usr=>{
-        res.json({status:"ok",user:usr});
+        twig.renderFile("mailers/template.twig",{message:"activation",site:"https://newweb.turn2opinion.com",fn:usr.fn,id:usr._id},(e,h)=>{
+            console.log(e);
+            email.sendEmail(usr.email,"Activate Your Turn2Opinion Account","",h);
+            res.json({status:"ok",user:usr});
+        })
     }).catch(err=>{
         res.json({status:"errror",message:err.message});
         return false;
@@ -102,8 +107,27 @@ router.post("/login", (req, res) => {
 })
 router.route("/verify/:id")
 .get((req, res) => {
+    securityqs=JSON.parse(require("fs").readFileSync("./dummyData/security.json"));
     User.findById(req.params.id).then(user=>{user.verified.email=true; user.save();});
-    res.render("index.twig", {form:"setpass",id:req.params.id});
+    res.render("index.twig", {form:"setpass",id:req.params.id,securityqs});
+})
+router.route("/resetpass/:id")
+.get((req,res)=>{
+    res.render("index.twig", {form:"resetpass",id:req.params.id});
+})
+.post((req,res)=>{
+    console.log(req.params.id);
+    User.findById(req.params.id).then(u=>{
+        console.log(u);
+        u.password=req.body.pass;
+        u.save().then(usr=>{
+            req.session.user=usr;
+            console.log(usr);
+            res.json({"status":"ok","user":usr});
+        })
+    }).catch(err=>{
+        res.json({"status":"error",message:err.message});
+    })
 })
 router.post("/setpass",(req,res)=>{
     User.findById(req.body.id).then(user=>{

@@ -15,10 +15,10 @@
 <div class="login-wrap">
 	<div class="login-html">
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
-		<label for="tab-1" class="tab">Set up your password</label>
+		<label for="tab-1" class="tab">Reset password</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
 		<div class="login-form">
-			<form method="post" class="sign-in-htm" name="setpass" action="/user/setpass">
+			<form method="post" class="sign-in-htm" name="setpass" action="/user/resetpass/{{id}}">
 				<p style="color:#fff;font-weight: 100;line-height: 20px;margin-top: 10px;font-size: 14px;">Password must be 6-20 letters with at least one uppercase, one lowercase, a number 0-9 and a symbol: !@#$%^&amp;*</p>
 				<div class="group">
 					<label for="pass" class="label">Password</label>
@@ -36,7 +36,7 @@
 					<input id="cpass" name="cpass" type="password" class="input" data-type="password">
 					<span class="pwstatus"></span>
 				</div>
-				<div class="group">
+				{# <div class="group">
 					<label for="secque" class="label">Please Choose Security Questions</label>
 					<select id="secque" name="secque" class="input" style="background:#666;color:#fff">
 					<option value="false" selected disabled>-- Please Select --</option>
@@ -48,7 +48,7 @@
 				<div class="group">
 					<label for="ans" class="label">Your security answer</label>
 					<input id="ans" name="ans" type="password" class="input" data-type="password">
-				</div>
+				</div> #}
 				<div class="group" style="margin:30px;">
 					<input type="hidden" name="id" value="{{id}}">
 					<input type="submit" class="button" value="Save and Login">

@@ -2125,3 +2125,25 @@ form.sign-up-htm {
 .fr{
     float:right;
 }
+.strength{
+    color:#fff;
+}
+.group a{
+    color:#fff;
+}
+.cookie-popup{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#444;
+    color:#fff;
+    padding:20px;
+    text-align:justify;
+    margin:0px 60px;
+}
+.cookie-popup p{
+    line-height: 25px;
+    font-weight:100;
+    font-size:18px;
+}
