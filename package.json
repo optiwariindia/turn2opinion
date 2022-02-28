@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "devstart": "sudo systemctl start mongod; code .; nodemon server.js"
+    "devstart": "sudo systemctl start mongod; code .; nodemon server.js",
+    "download":"git pull",
+    "upload":"git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master"
   },
   "keywords": [],
   "author": "",
