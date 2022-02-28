@@ -152,8 +152,9 @@ router.route("/welcome")
         User.findById(req.body.userId).exec().then(user => {
             terms = Object.keys(req.body).filter(key => key.indexOf("userid") === -1);
             User.findOneAndUpdate({ _id: req.body.userid }, { $set: { terms: terms } }).then(user => {
-                User.findById(user._id).exec().then(user => {req.session.user=user; });
-                res.redirect("/user/welcome");
+                User.findById(user._id).exec().then(user => {req.session.user=user; 
+                    res.redirect("/user/welcome");
+                });
             })
         })
     });
