@@ -57,7 +57,7 @@ router
 .post((req,res)=>{
     User.findOne({email:req.body.email}).then(user=>{
         if(user.security.answer == req.body.security){
-            twig.renderFile("mailers/template.twig",{fn:user.fn,message:"forgotPassword",reset_link:"http://localhost:3000/user/pwreset/"+user._id},(e,h)=>{
+            twig.renderFile("mailers/template.twig",{fn:user.fn,message:"forgotPassword",reset_link:process.env.site+"/user/pwreset/"+user._id},(e,h)=>{
                 email.sendEmail(user.email,"Turn2Opinion: Reset Password",h,h);
                 res.json({"status":"ok","user":user});
             });
@@ -83,7 +83,7 @@ router.post("/new", (req, res) => {
         cntry:req.body.cntry,
         timezone:req.body.timezone
     }).save().then(usr=>{
-        twig.renderFile("mailers/template.twig",{message:"activation",site:"https://newweb.turn2opinion.com",fn:usr.fn,id:usr._id},(e,h)=>{
+        twig.renderFile("mailers/template.twig",{message:"activation",site:process.env.site,fn:usr.fn,id:usr._id},(e,h)=>{
             console.log(e);
             email.sendEmail(usr.email,"Activate Your Turn2Opinion Account","",h);
             res.json({status:"ok",user:usr});
