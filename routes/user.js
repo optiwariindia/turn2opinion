@@ -189,8 +189,11 @@ router.route("/profile/")
         req.files.propic.mv(`public/assets/images/avatars/${req.user._id}.${type[1]}`);
         User.findOne({ email: req.user.email }).then(user => {
             user.propic = `/assets/images/avatars/${req.user._id}.${type[1]}`;
-            user.save();
-            res.redirect("/user/profile");
+            user.save().then(usr => {
+                console.log(usr);
+                req.session.user = usr;
+                res.redirect("/user/profile");
+            });
         })
     })
 router.route("/profile/:profilename")
@@ -210,26 +213,6 @@ function getUserInfo(req, res, next) {
         return;
     }
     res.redirect("/");
-    /* User.findOne({ email: "om.tiwari@frequentresearch.com" })
-        .then(user => {
-            user['name'] = user.fn + " " + user.ln;
-            if (user.terms.length === 0) {
-                if (req.url.indexOf("/dashboard") !== 0) {
-                    res.redirect("/user/dashboard");
-                    return;
-                }
-            }
-            if (user.propic === undefined) user.propic = "/assets/images/avatars/user.webp";
-            // Dummy Data about User
-            req.user = user;
-            req.session.user = user;
-            next();
-        })
-        .catch(err => {
-            console.log("User not found in database");
-            console.log(err);
-            res.sendStatus(404).render("/404.twig", { error: "User Unavilable at the moment" });
-        }) */
 }
 function userDetails(req, res, next) {
     req.user.statusSummary = JSON.parse(require("fs").readFileSync("./dummyData/statusSummary.json"));
