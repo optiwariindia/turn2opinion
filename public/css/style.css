@@ -2155,8 +2155,8 @@ form.sign-up-htm {
 }
 #error-msg {
     position: absolute;
-    bottom: 0px;
-    right: 0px;
+    bottom: -12px;
+    right: 40px;
     font-size: 12px;
-    color: rgb(211, 130, 130);
+    color: rgb(248, 233, 94);
 }

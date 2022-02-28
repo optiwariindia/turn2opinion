@@ -16,20 +16,25 @@ $("form").submit(function (e) {
         flds['cntry'] = iti.getSelectedCountryData();
         flds['phone'] = iti.getNumber();
         e.target.innerHTML = "Please Wait ...";
-        fetch("/user/new", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(flds)
-        }).then(res => res.json()).then(res => {
-            if (res.status === "ok") {
-                popup.show(`<h2>Thanks for Joining</h2><br><p>Dear ${res.user.fn}, Your sign up requiest has been successfully submitted. Please open your email (${res.user.email}) and click the verify Link to setup your password and login to your dashboard.</p>`);
+        if ("g-recaptcha-response" in flds) {
+            if (flds['g-recaptcha-response'] === "") { alert("Please verify you are not a robot"); return false; }
+            else {
+                fetch("/user/new", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(flds)
+                }).then(res => res.json()).then(res => {
+                    if (res.status === "ok") {
+                        popup.show(`<h2>Thanks for Joining</h2><br><p>Dear ${res.user.fn}, Your sign up requiest has been successfully submitted. Please open your email (${res.user.email}) and click the verify Link to setup your password and login to your dashboard.</p>`);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    e.target.innerHTML = `<div id="fh5co-logo"><a href="index.html">Turn<span>2</span>Opinion</a></div><h2>Declined</h2><br><p>Your request to register is decliend due to some system error. Please try after some time and try again. </p>`
+                });
             }
-        }).catch(err => {
-            console.log(err);
-            e.target.innerHTML = `<div id="fh5co-logo"><a href="index.html">Turn<span>2</span>Opinion</a></div><h2>Declined</h2><br><p>Your request to register is decliend due to some system error. Please try after some time and try again. </p>`
-        });
+        }
     } else if (e.target.getAttribute("name") === "setpass") {
         if (!strongPassword.test($("[name=pass]").val())) {
             alert("Password is not strong enough to continue");
@@ -101,6 +106,7 @@ $("form").submit(function (e) {
         e.target.querySelectorAll("[name]").forEach(inp => {
             flds[inp.name] = inp.value;
         })
+        if(("g-recaptcha-response" in flds) && (flds['g-recaptcha-response'] !== "")){        
         fetch(e.target.getAttribute("action"), {
             method: "POST",
             headers: {
@@ -118,6 +124,9 @@ $("form").submit(function (e) {
                 }, 5000);
             }
         }).catch(err => { console.log(err) })
+    }else{
+        alert("Please verify you are not a robot");
+    }
     }
 });
 
@@ -178,27 +187,27 @@ cookiePopup = {
         popupcookie.innerHTML = `<p>Turn2Opinion uses cookies to improve your experience on this site. Before you continue, let us know if you’re happy to accept the use of cookies, in accordance with our Privacy Policy. This website stores cookies on your computer. These cookies are used to collect information about how you interact with our website and allow us to remember you. We use this information in order to improve and customize your browsing experience and for analytics and metrics about our visitors both on this website and other media. To find out more about the cookies we use, see our Privacy Policy. If you decline, your information won’t be tracked when you visit this website. A single cookie will be used in your browser to remember your preference not to be tracked.</p> <button onclick=cookiePopup.acceptAll() class='btn btn-primary fr'>Accept all cookies.</button> <button onclick=cookiePopup.acceptEssential() class='btn btn-primary fr'>Only Essential Cookies</button>`;
         document.body.appendChild(popupcookie);
     },
-    acceptAll:function(){
+    acceptAll: function () {
         let store = window.localStorage;
-        let status = store.setItem("cookie","All");
+        let status = store.setItem("cookie", "All");
         cookiePopup.close();
     },
-    acceptEssential:function(){
+    acceptEssential: function () {
         let store = window.localStorage;
-        let status = store.setItem("cookie","Essential Only");
+        let status = store.setItem("cookie", "Essential Only");
         cookiePopup.close();
     },
-    accepted:function(){
+    accepted: function () {
         let store = window.localStorage;
         let status = store.getItem("cookie");
-        if(status==null)return false;
+        if (status == null) return false;
         return status;
     },
-    close:function(){
+    close: function () {
         document.querySelector(".cookie-popup").remove();
     }
 }
 
-if(!cookiePopup.accepted()){
+if (!cookiePopup.accepted()) {
     cookiePopup.open();
 }
