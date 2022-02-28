@@ -132,10 +132,13 @@ router.route("/resetpass/:id")
 router.post("/setpass",(req,res)=>{
     User.findById(req.body.id).then(user=>{
         user.password=req.body.pass;
+        user.security.question=req.body.secque;
+        user.security.answer=req.body.ans;
         user.save().then(usr=>{
             req.session.user=usr;
             console.log(usr);
-            res.redirect("/user/dashboard");
+            res.json({"status":"ok","user":usr});
+            // res.redirect("/user/dashboard");
         })
     }).catch(err=>{
         res.json({"status":"error",message:err.message});
