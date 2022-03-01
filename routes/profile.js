@@ -1,4 +1,7 @@
-router = require("express").Router();
+const mongoose=require("mongoose");
+const Profiles=mongoose.model("profiles",require("../modals/profiles"));
+const router = require("express").Router();
+
 router.route("/")
     .get((req, res) => {
         res.render("profile.twig", { user: req.user, page: { title: "Profile", icon: "profile.png" } });
@@ -19,6 +22,7 @@ router.route("/")
             });
         })
     })
+    router.use("/:profilename",getProfileInfo);
 router.route("/:profilename")
     .get((req, res) => {
         console.log(req.params.profilename);
@@ -28,8 +32,8 @@ router.route("/:profilename")
             return e;
         })
         
-        req.user.basicpro = JSON.parse(require("fs").readFileSync("./dummyData/profile.basic.json"));
-        res.render("form.twig", { user: req.user, page:{
+        // req.user.basicpro = JSON.parse(require("fs").readFileSync("./dummyData/profile.basic.json"));
+        res.render("form.twig", { user: req.user,profile:req.profile, page:{
             title: pageinfo.name,
             icon: pageinfo.icon,
             active: pageinfo.active
@@ -42,3 +46,16 @@ router.route("/:profilename")
         res.json({ "status": "pending", "message": "Profile Unable to save your profile at this moment" });
     })
 module.exports = router;
+
+function getProfileInfo(req,res,next){
+    Profiles.find({uri:req.params.profilename}).then(profiles=>{
+        if(profiles.length==1)
+            req.profile=profiles[0];
+        else
+            req.profile=[];
+        next();
+        
+    }).catch(err=>{
+        res.json({status:"error",message:err.message});
+    })
+}

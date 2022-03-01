@@ -1,6 +1,6 @@
 const schema = require("mongoose").Schema;
 const Country = require("./country");
-module.exports = new schema(module.exports = new schema({
+module.exports =  new schema({
     fn: {
         type: String,
         required: true,
@@ -58,5 +58,4 @@ module.exports = new schema(module.exports = new schema({
         question:String,
         answer:String
     }
-})
-);
+});

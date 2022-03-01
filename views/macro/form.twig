@@ -1,42 +1,43 @@
-{% macro input(type,name,index,value,fld,editable) %}
+{% macro input(label,name,type,required,editable,value) %}
+	{% if value is null %}
+		{% set editable = true %}
+	{% endif %}
 	<div class="position-relative form-group">
-		<label for="basic-{{index}}" class=""> <img src="/img/q.png">{{name}}</label>
-		<input name="{{fld}}" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="{{type}}" class="form-control"/>
+		<label for="profile-{{name}}"><img src="/img/q.png">{{label.value}}</label>
+		<input name="{{name}}" id="profile-{{name}}" {{(editable == false) ? "disabled":"" }} {% if value is not null %} value="{{value}}" {% endif %} type="{{type}}" class="form-control"/>
 	</div>
 {% endmacro %}
 
-{% macro select(name,index,options,value,fld) %}
+{% macro select(label,name,type,required,editable,value,option) %}
+	{% if value is null %}
+		{% set editable = true %}
+	{% endif %}
 	<div class="position-relative form-group">
-		<label for="basic-{{index}}" class=""> <img src="/img/q.png">{{name}}</label>
-		<select name="select" id="basic-{{index}}" class="form-control" required>
-	<option value="" selected disabled>-- Please Select --</option>
-            {% for option in options %}
-                <option value="{{loop.index}}">{{option}}</option>
-            {% endfor %}
-		</select>
+		<label for="profile-{{name}}"><img src="/img/q.png">{{label.value}}</label>
+		<select name="{{name}}" id="profile-{{name}}" class='form-control' {{(editable == false) ? "disabled":"" }} data-options='{{option.endpoint}}' data-method='{{option.method}}' data-params='{{option.params|json_encode}}' data-value='{{value}}'>
+		<option value="" disabled selected> -- Please Select -- </option>
+	</select>
 	</div>
 {% endmacro %}
-
 {% macro checkbox(name,index,options,value,fld) %}
 	<div class="position-relative form-group " id="chb-{{index}}">
-		<label> <img src="/img/q.png">{{name}}</label>
-		<input type=text disabled class='form-control'>
+		<label><img src="/img/q.png">{{name}}</label>
+		
 		<div class="custom-controls-stacked">
-            {% for option in options %}
-                <label class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" name="{{fld}}" value="{{loop.index}}">
-                    <span class="custom-control-label">{{option}}</span>
-                </label>
-            {% endfor %}
-        </div>
+			{% for option in options %}
+				<label class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" name="{{fld}}" value="{{loop.index}}">
+					<span class="custom-control-label">{{option}}</span>
+				</label>
+			{% endfor %}
+		</div>
 	</div>
 {% endmacro %}
 {% macro tel2(name,index,value,fld,editable) %}
 	<div class="position-relative form-group">
-		<label for="basic-{{index}}" class=""> <img src="/img/q.png">{{name}}</label>
-		<input name="{{fld}}[]" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="tel" class="form-control"/>
-		{# <div class='tel-nos'>
-			<input name="{{fld}}[]" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="tel" class="form-control"/>
-		</div> #}
-	</div>
+		<label for="basic-{{index}}" class="">
+			<img src="/img/q.png">{{name}}</label>
+		<input name="{{fld}}[]" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="tel" class="form-control"/>{# <div class='tel-nos'>
+									<input name="{{fld}}[]" id="basic-{{index}}" {{(editable) ? "":"disabled" }} value="{{value}}" type="tel" class="form-control"/>
+								</div> #}</div>
 {% endmacro %}

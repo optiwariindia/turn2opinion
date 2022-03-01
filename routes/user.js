@@ -3,7 +3,6 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
 const User = mongoose.model("user", require("../modals/user"));
-const EMail = require("./email");
 const email = require("../service/email");
 const twig = require("twig");
 const user = require('../modals/user');
@@ -186,12 +185,13 @@ function getUserInfo(req, res, next) {
     else {
         User.find({ email: "om.tiwari@frequentresearch.com" }).then(user => {
             req.session.user = user[0];
+            req.user=user[0];
             res.redirect("/user/dashboard");
         });
     }
 }
 function userDetails(req, res, next) {
-
+    req.user.propic=req.user.propic||"/assets/images/avatars/user.webp";
     req.user.statusSummary = JSON.parse(require("fs").readFileSync("./dummyData/statusSummary.json"));
     req.user.profileCategories = JSON.parse(require("fs").readFileSync("./dummyData/profileCategoires.json"));
     req.user.summary = JSON.parse(require("fs").readFileSync("./dummyData/summary.json"));
