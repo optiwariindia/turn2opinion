@@ -10,7 +10,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             const livereload = require("livereload");
             const connectLivereload = require("connect-livereload");
             const server = livereload.createServer();
-            server.watch("../public");
+            server.watch("./public");
             server.server.once("connection", () => {
                 setTimeout(() => {
                     server.refresh();
@@ -19,7 +19,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             app.use(connectLivereload());
         }
 
-        app.use(express.static("../public"))
+        app.use(express.static("./public"))
             .use(express.urlencoded({ extended: true }))
             .use(express.json())
 
