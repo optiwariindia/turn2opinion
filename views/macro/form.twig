@@ -7,6 +7,15 @@
 		<input name="{{name}}" id="profile-{{name}}" {{(editable == false) ? "disabled":"" }} {% if value is not null %} value="{{value}}" {% endif %} type="{{type}}" class="form-control"/>
 	</div>
 {% endmacro %}
+{% macro date(label,name,type,required,editable,value) %}
+	{% if value is null %}
+		{% set editable = true %}
+	{% endif %}
+	<div class="position-relative form-group">
+		<label for="profile-{{name}}"><img src="/img/q.png">{{label.value}}</label>		
+		<input name="{{name}}" id="profile-{{name}}" {{(editable == false) ? "disabled":"" }} {% if value is not null %} value="{{value}}" {% endif %} {% if (editable == true) %}type="date" {% else %}type="text"{% endif %} class="form-control"/>
+	</div>
+{% endmacro %}
 
 {% macro select(label,name,type,required,editable,value,option) %}
 	{% if value is null %}

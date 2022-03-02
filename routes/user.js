@@ -80,7 +80,6 @@ router.post("/new", (req, res) => {
         timezone: req.body.timezone
     }).save().then(usr => {
         twig.renderFile("mailers/template.twig", { message: "activation", site: process.env.site, fn: usr.fn, id: usr._id }, (e, h) => {
-            console.log(e);
             email.sendEmail(usr.email, "Activate Your Turn2Opinion Account", "", h);
             res.json({ status: "ok", user: usr });
         })
@@ -96,7 +95,7 @@ router.post("/login", (req, res) => {
             res.json({ "status": "ok", "user": user[0] });
         }
         else
-            res.json({ "status": "error", "message": "Invalid Credentials" });
+            res.json({ "status": "error", "message": "Your E-mail or password is not matching with our record. Please try again." });
     }).catch(err => {
         res.json({ "status": "error", message: err.message });
     })
@@ -185,13 +184,13 @@ function getUserInfo(req, res, next) {
     else {
         User.find({ email: "om.tiwari@frequentresearch.com" }).then(user => {
             req.session.user = user[0];
-            req.user=user[0];
+            req.user = user[0];
             res.redirect("/user/dashboard");
         });
     }
 }
 function userDetails(req, res, next) {
-    req.user.propic=req.user.propic||"/assets/images/avatars/user.webp";
+    req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
     req.user.statusSummary = JSON.parse(require("fs").readFileSync("./dummyData/statusSummary.json"));
     req.user.profileCategories = JSON.parse(require("fs").readFileSync("./dummyData/profileCategoires.json"));
     req.user.summary = JSON.parse(require("fs").readFileSync("./dummyData/summary.json"));

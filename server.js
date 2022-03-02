@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const { append } = require("express/lib/response");
 const mongoose = require("mongoose");
+const publicDir="../public";
 app = express();
 mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
     .then(() => {
@@ -10,7 +11,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             const livereload = require("livereload");
             const connectLivereload = require("connect-livereload");
             const server = livereload.createServer();
-            server.watch("./public");
+            server.watch(publicDir);
             server.server.once("connection", () => {
                 setTimeout(() => {
                     server.refresh();
@@ -19,7 +20,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             app.use(connectLivereload());
         }
 
-        app.use(express.static("./public"))
+        app.use(express.static(publicDir))
             .use(express.urlencoded({ extended: true }))
             .use(express.json())
 

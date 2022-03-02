@@ -2,7 +2,7 @@ $("form").submit(function (e) {
     e.preventDefault();
     if (this.classList.contains("sign-up-htm")) {
         if ($(this)[0].querySelector("[name=gender]:checked") === null) {
-            alert("Select Gender");
+            popup.info("Select Gender");
             return false;
         }
         let flds = {};
@@ -17,7 +17,7 @@ $("form").submit(function (e) {
         flds['phone'] = iti.getNumber();
         e.target.innerHTML = "Please Wait ...";
         if ("g-recaptcha-response" in flds) {
-            if (flds['g-recaptcha-response'] === "") { alert("Please verify you are not a robot"); return false; }
+            if (flds['g-recaptcha-response'] === "") { popup.info("Please verify you are not a robot"); return false; }
             else {
                 fetch("/user/new", {
                     method: "POST",
@@ -37,11 +37,11 @@ $("form").submit(function (e) {
         }
     } else if (e.target.getAttribute("name") === "setpass") {
         if (!strongPassword.test($("[name=pass]").val())) {
-            alert("Password is not strong enough to continue");
+            popup.info("Password is not strong enough to continue");
             return false;
         }
         if ($("[name=pass]").val() !== $("[name=cpass]").val()) {
-            alert("Passwords are not matching");
+            popup.info("Passwords are not matching");
             return false;
         }
         let flds = {};
@@ -59,8 +59,10 @@ $("form").submit(function (e) {
             if (resp.status === "ok") {
                 popup.show(`<h2>Password Changed Successfully</h2><br><p> Your password has been successfully changed. Please <a href='/'>Sign In</a> to your account.</p>`);
             } else {
-                document.querySelector("[data=autherror]").innerText = resp.message;
+                // document.querySelector("[data=autherror]").innerText = resp.message;
+                popup.show(`<h2>Password Change Failed</h2><br><p>${resp.message}</p>`);
                 setTimeout(() => {
+                    popup.close();
                     document.querySelector("[data=autherror]").innerText = "";
                 }, 5000);
             }
@@ -118,14 +120,15 @@ $("form").submit(function (e) {
                 // console.log(resp);
                 location.href = "/user/dashboard";
             } else {
-                document.querySelector("[data=autherror]").innerText = resp.message;
+                // document.querySelector("[data=autherror]").innerText = resp.message;
+                popup.show(`<h2>Authentication Failed</h2><br><p>${resp.message}</p>`);
                 setTimeout(() => {
-                    document.querySelector("[data=autherror]").innerText = "";
+                    popup.close();
                 }, 5000);
             }
         }).catch(err => { console.log(err) })
     }else{
-        alert("Please verify you are not a robot");
+        popup.info("Please verify you are not a robot");
     }
     }
 });
@@ -167,6 +170,12 @@ popup = {
                 </div>`;
         popupElement.classList.add("forced-popup");
         document.body.appendChild(popupElement);
+    },
+    info:function(e){
+        popup.show(`<h2>${e}</h2>`);
+        setTimeout(() => {
+           popup.close(); 
+        },5000);
     }
 }
 showPassword = function (e) {

@@ -1,6 +1,7 @@
 const schema = require("mongoose").Schema;
+const { default: mongoose } = require("mongoose");
 const Country = require("./country");
-module.exports =  new schema({
+user = new schema({
     fn: {
         type: String,
         required: true,
@@ -53,9 +54,58 @@ module.exports =  new schema({
         default: null
     },
     terms: [],
-    timezone:{type:String,required:false,default:null},
-    security:{
-        question:String,
-        answer:String
+    timezone: { type: String, required: false, default: null },
+    security: {
+        question: String,
+        answer: String
+    },
+    workemail: {
+        type: String,
+        required: false,
+    },
+    phone1: {
+        type: String,
+        required: false,
+    },
+    dob: {
+        type: Date,
+        required: false,
+    },
+    country: {
+        type: String,
+        required: false,
+    },
+    city: {
+        type: String,
+        required: false,
+    },
+    zipcode: String,
+    ethnicity: {
+        type: String,
+        required: false
+    },
+
+    origin: {
+        type: String,
+        required: false
+    },
+    education: {
+        type: String,
+        required: false
+    },
+    relationship: {
+        type: String,
+        required: false
+    },
+    children: {
+        type: String,
+        required: false
+
     }
 });
+
+user.virtual("name")
+    .get(function () {
+        return this.fn + " " + this.ln;
+    });
+module.exports = user;

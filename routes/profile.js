@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 const Profiles=mongoose.model("profiles",require("../modals/profiles"));
 const router = require("express").Router();
-
+const User=mongoose.model("user",require("../modals/user"));
 router.route("/")
     .get((req, res) => {
         res.render("profile.twig", { user: req.user, page: { title: "Profile", icon: "profile.png" } });
@@ -39,10 +39,13 @@ router.route("/:profilename")
             active: pageinfo.active
         }});
     })
-    .post((req, res) => {
-        console.log(req.body);
-        console.log(req.params);
-        console.log(req.session.user);
+    .post(async (req, res) => {
+        await User.findById(req.user._id).then(user => {                        
+            user.updateOne(req.body).then(usr => {
+                console.log(usr);
+            });
+        });
+        // console.log(req.session.user);
         res.json({ "status": "pending", "message": "Profile Unable to save your profile at this moment" });
     })
 module.exports = router;
