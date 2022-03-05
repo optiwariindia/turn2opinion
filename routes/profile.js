@@ -1,7 +1,7 @@
-const mongoose=require("mongoose");
-const Profiles=mongoose.model("profiles",require("../modals/profiles"));
+const mongoose = require("mongoose");
+const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const router = require("express").Router();
-const User=mongoose.model("user",require("../modals/user"));
+const User = mongoose.model("user", require("../modals/user"));
 router.route("/")
     .get((req, res) => {
         res.render("profile.twig", { user: req.user, page: { title: "Profile", icon: "profile.png" } });
@@ -22,7 +22,7 @@ router.route("/")
             });
         })
     })
-    router.use("/:profilename",getProfileInfo);
+router.use("/:profilename", getProfileInfo);
 router.route("/:profilename")
     .get((req, res) => {
         console.log(req.params.profilename);
@@ -31,34 +31,43 @@ router.route("/:profilename")
             if (e.target === req.params.profilename) { e.active = true; pageinfo = e; }
             return e;
         })
-        
+
         // req.user.basicpro = JSON.parse(require("fs").readFileSync("./dummyData/profile.basic.json"));
-        res.render("form.twig", { user: req.user,profile:req.profile, page:{
-            title: pageinfo.name,
-            icon: pageinfo.icon,
-            active: pageinfo.active
-        }});
+        res.render("form.twig", {
+            user: req.user, profile: req.profile, page: {
+                title: pageinfo.name,
+                icon: pageinfo.icon,
+                active: pageinfo.active
+            }
+        });
     })
     .post(async (req, res) => {
-        await User.findById(req.user._id).then(user => {                        
-            user.updateOne(req.body).then(usr => {
-                console.log(usr);
-            });
-        });
-        // console.log(req.session.user);
-        res.json({ "status": "pending", "message": "Profile Unable to save your profile at this moment" });
+        try {
+            user = await User.findById(req.user._id)
+            user = await user.updateOne(req.body);
+            req.session.user = user;
+            res.json({ status: "success", message: "Profile Updated" });
+        }
+        catch (err) {
+            res.json({ status: "error", message: err.message });
+        }
     })
 module.exports = router;
 
-function getProfileInfo(req,res,next){
-    Profiles.find({uri:req.params.profilename}).then(profiles=>{
-        if(profiles.length==1)
-            req.profile=profiles[0];
-        else
-            req.profile=[];
+async function getProfileInfo(req, res, next) {
+    try {
+        profiles = await Profiles.find({ uri: req.params.profilename });
+        if (profiles.length === 0) {
+            req.profile = [];
+            next();
+            return;
+        }
+        req.profile = profiles[0];
         next();
-        
-    }).catch(err=>{
-        res.json({status:"error",message:err.message});
-    })
+        return;
+
+    }
+    catch (err) {
+        res.json({ status: "error", message: err.message });
+    }
 }

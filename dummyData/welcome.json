@@ -1,0 +1,276 @@
+{
+    "title": "Welcome",
+    "name": "Welcome",
+    "icon": "home.png",
+    "pages": [
+        [
+            {
+                "type": "note",
+                "title": "Welcome to Turn2Opinion",
+                "message": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo, sed, fugit ex vero velit repudiandae inventore voluptatem blanditiis illo minima nobis voluptates deleniti excepturi error accusamus, eum dolorum quam ipsam eaque dignissimos quo nulla! Et quidem maiores rerum doloremque cupiditate laboriosam, possimus quas nihil ut? Ipsam dolor perferendis quam accusamus in nisi, voluptatum quidem nobis. Quis eum error similique, expedita animi reiciendis tempore consequatur amet a nobis illo dolores minus provident consequuntur veritatis laboriosam nulla illum est rerum alias velit. Id excepturi repudiandae saepe doloribus voluptatum nulla tenetur facere, dolor voluptates, aperiam corrupti, enim ut cumque similique officia tempore alias."
+            }
+        ],
+        [
+            {
+                "name": "fn",
+                "label": "First Name",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "points": 1
+            },
+            {
+                "name": "ln",
+                "label": "Last Name",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "points": 1
+            },
+            {
+                "name": "gender",
+                "label": "Gender",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "points": 1
+            },
+            {
+                "name": "country",
+                "label": "Country",
+                "type": "text",
+                "editable": false,
+                "required": true,
+                "points": 1,
+                "options": {
+                    "endpoint": "/api/v1/countries",
+                    "method": "GET"
+                }
+            },
+            {
+                "name": "dob",
+                "label": "Date of Birth",
+                "type": "date",
+                "editable": false,
+                "required": true,
+                "points": 1,
+                "minimum": "-95",
+                "maximum": "-15"
+            },
+            {
+                "name": "email",
+                "label": "E-Mail",
+                "type": "email",
+                "editable": false,
+                "required": true,
+                "points": 1
+            },
+            {
+                "name": "phone",
+                "label": "Phone",
+                "type": "tel",
+                "editable": false,
+                "required": true,
+                "points": 1
+            },
+            {
+                "name": "email1",
+                "label": "Alternate E-Mail",
+                "type": "email",
+                "editable": true,
+                "required": false,
+                "points": 1
+            },
+            {
+                "name": "phone1",
+                "label": "Alternate Phone",
+                "type": "tel",
+                "editable": true,
+                "required": false,
+                "points": 1
+            }
+        ],
+        [
+            {
+                "filterby": "country",
+                "availableFor": [
+                    "us"
+                ],
+                "name": "region",
+                "label": "Region",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1
+            },
+            {
+                "filterby": "country",
+                "unavailableFor": [
+                    "us"
+                ],
+                "name": "region",
+                "label": "Region",
+                "type": "text",
+                "editable": true,
+                "required": false,
+                "points": 1
+            },
+            {
+                "filterby": [
+                    "country",
+                    "region"
+                ],
+                "availableFor": [
+                    [
+                        "us"
+                    ]
+                ],
+                "name": "state",
+                "label": "State",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1,
+                "options": {
+                    "endpoint": "/api/v1/states",
+                    "method": "POST",
+                    "params": {
+                        "country": "country",
+                        "region": "region"
+                    }
+                }
+            },
+            {
+                "filterby": [
+                    "country",
+                    "region"
+                ],
+                "unavailableFor": [
+                    [
+                        "us"
+                    ]
+                ],
+                "name": "state",
+                "label": "State/Province",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1,
+                "options": {
+                    "endpoint": "/api/v1/states",
+                    "method": "POST",
+                    "params": {
+                        "country": "country",
+                        "region": "region"
+                    }
+                }
+            },
+            {
+                "name": "city",
+                "label": "City",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1,
+                "options": {
+                    "endpoint": "/api/v1/cities",
+                    "method": "POST",
+                    "params": {
+                        "country": "country",
+                        "region": "region",
+                        "state": "state"
+                    }
+                }
+            },
+            {
+                "name": "zip",
+                "label": "Zip",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1
+            }
+        ],
+        [
+            {
+                "name": "ethnicity",
+                "label": "Please Select your ethnicity",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1
+            },
+            {
+                "label": "Are you of Hispanic, Latino, or Spanish origin?",
+                "name": "origin",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1
+            },
+            {
+                "name": "income",
+                "label": "What is the highest level of education you have completed?",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1
+            },
+            {
+                "name": "marital",
+                "label": "What is your relationship status?",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1
+            },
+            {
+                "filterby": "marital",
+                "unavailableFor": [
+                    "single"
+                ],
+                "name": "children",
+                "label": "How many children do you have?",
+                "type": "text",
+                "editable": true,
+                "required": true,
+                "points": 1
+            }
+        ],
+        [
+            {
+                "name": "interests",
+                "label": "Please choose your hobbies and interests",
+                "type": "multiselect",
+                "editable": true,
+                "required": true,
+                "points": 1,
+                "options": {
+                    "endpoint": "/api/v1/interests",
+                    "method": "GET"
+                }
+            }
+        ],
+        [
+            {
+                "name": "surveychoice",
+                "label": "Please choose the categories you would be interested to get the participation in future surveys",
+                "type": "multiselect",
+                "editable": true,
+                "required": true,
+                "points": 1,
+                "options": {
+                    "endpoint": "/api/v1/surveychoices",
+                    "method": "GET"
+                }
+            }
+        ],
+        [
+            {
+                "type":"note",
+                "title":"Thanks for your participation!",
+                "text":"Thank you for your participation in this survey. Your responses have been recorded. You may close this window now."
+            }
+        ]
+    ]
+}

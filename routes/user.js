@@ -7,46 +7,44 @@ const email = require("../service/email");
 const twig = require("twig");
 const user = require('../modals/user');
 
-
 router.use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }));
+
 router.use("/history", getUserInfo, userDetails, require("./history"));
 
-router.route("/validate/:field")
-    .post((req, res) => {
-        switch (req.params.field) {
-            case "email":
-                if (!email.validate(req.body.email, (status, message) => {
-                    if (status == "error") {
-                        res.json({ "status": "error", "message": message });
-                        return false;
-                    }
-                    User.findOne({ email: req.body.emaill }).then(user => {
-                        if (user) {
-                            res.json({ "status": "error", "message": "Already registered" });
-                            return false;
-                        }
-                        res.json({ "status": "success", "message": "Email is available" });
-                        return true;
-                    })
-                }))
-                    break;
-            case "phone":
-                phone = req.body.phone;
-                User.findOne({ phone: phone }).then(user => {
+router.post("/validate/:field", (req, res) => {
+    switch (req.params.field) {
+        case "email":
+            if (!email.validate(req.body.email, (status, message) => {
+                if (status == "error") {
+                    res.json({ "status": "error", "message": message });
+                    return false;
+                }
+                User.findOne({ email: req.body.emaill }).then(user => {
                     if (user) {
                         res.json({ "status": "error", "message": "Already registered" });
                         return false;
                     }
-                    res.json({ "status": "success", "message": "Phone is available" });
+                    res.json({ "status": "success", "message": "Email is available" });
                     return true;
-                });
+                })
+            }))
                 break;
-            default:
-                break;
-        }
-    })
-router
-    .route("/forgot")
+        case "phone":
+            phone = req.body.phone;
+            User.findOne({ phone: phone }).then(user => {
+                if (user) {
+                    res.json({ "status": "error", "message": "Already registered" });
+                    return false;
+                }
+                res.json({ "status": "success", "message": "Phone is available" });
+                return true;
+            });
+            break;
+        default:
+            break;
+    }
+})
+router.route("/forgot")
     .get((req, res) => {
         res.render("index.twig", { form: "forgot" });
     })
@@ -63,11 +61,10 @@ router
         });
         // res.json({"status":"error","message":"Not implemented yet"});
     })
-router.route("/securityquestion")
-    .post((req, res) => {
-        User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => { console.log(user); });
-        res.json({ "status": "ok", "question": "In what city were you born?" });
-    })
+router.post("/securityquestion", (req, res) => {
+    User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => { console.log(user); });
+    res.json({ "status": "ok", "question": "In what city were you born?" });
+})
 router.post("/new", (req, res) => {
     new User({
         fn: req.body.fn,
@@ -100,12 +97,11 @@ router.post("/login", (req, res) => {
         res.json({ "status": "error", message: err.message });
     })
 })
-router.route("/verify/:id")
-    .get((req, res) => {
-        securityqs = JSON.parse(require("fs").readFileSync("./dummyData/security.json"));
-        User.findById(req.params.id).then(user => { user.verified.email = true; user.save(); });
-        res.render("index.twig", { form: "setpass", id: req.params.id, securityqs });
-    })
+router.get("/verify/:id", (req, res) => {
+    securityqs = JSON.parse(require("fs").readFileSync("./dummyData/security.json"));
+    User.findById(req.params.id).then(user => { user.verified.email = true; user.save(); });
+    res.render("index.twig", { form: "setpass", id: req.params.id, securityqs });
+})
 router.route("/resetpass/:id")
     .get((req, res) => {
         res.render("index.twig", { form: "resetpass", id: req.params.id });
@@ -154,24 +150,23 @@ router.route("/welcome")
             })
         })
     });
-router.route("/dashboard")
-    .get(
-        getUserInfo,
-        userDetails,
-        (req, res) => {
-            let filters = [];
-            req.user.availableSurveys.forEach(survey => {
-                if (survey.sstat !== "" && (filters.indexOf(survey.sstat) === -1))
-                    filters.push(survey.sstat);
-                if (survey.sact !== "" && (filters.indexOf(survey.sact) === -1))
-                    filters.push(survey.sact);
-            })
-            res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters });
+router.get("/dashboard",
+    getUserInfo,
+    userDetails,
+    (req, res) => {
+        let filters = [];
+        req.user.availableSurveys.forEach(survey => {
+            if (survey.sstat !== "" && (filters.indexOf(survey.sstat) === -1))
+                filters.push(survey.sstat);
+            if (survey.sact !== "" && (filters.indexOf(survey.sact) === -1))
+                filters.push(survey.sact);
         })
-router.use(fileUpload());
-router.use(getUserInfo, userDetails)
-
-router.use("/profile", require("./profile"));
+        res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters });
+    })
+router.use(fileUpload())
+    .use(getUserInfo, userDetails)
+    .use("/profile", require("./profile"))
+    .use("/survey",require("./survey"));
 
 
 function getUserInfo(req, res, next) {
@@ -185,12 +180,15 @@ function getUserInfo(req, res, next) {
         User.find({ email: "om.tiwari@frequentresearch.com" }).then(user => {
             req.session.user = user[0];
             req.user = user[0];
-            res.redirect("/user/dashboard");
+            // res.redirect("/user/dashboard");
+            next();
         });
     }
 }
 function userDetails(req, res, next) {
     req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
+    num=Date.parse(req.user.dob);
+    req.user.dob=new Date(num).toISOString().split("T")[0];
     req.user.statusSummary = JSON.parse(require("fs").readFileSync("./dummyData/statusSummary.json"));
     req.user.profileCategories = JSON.parse(require("fs").readFileSync("./dummyData/profileCategoires.json"));
     req.user.summary = JSON.parse(require("fs").readFileSync("./dummyData/summary.json"));

@@ -1,0 +1,16 @@
+{% macro render(params) %}
+	{% if params.type == "note" %}
+		<div class="note">
+			<h2>{{params.title}}</h2>
+			<p>{{params.message}}</p>
+		</div>
+	{% else %}
+		<div class="col-sm-6">
+			<div class="form-group">
+				<label for="">{{params.label}}</label>
+				<input type="{{params.type}}" name={{params.name}} class="form-control">
+			</div>
+		</div>
+	{% endif %}
+
+{% endmacro %}

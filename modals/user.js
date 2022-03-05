@@ -102,8 +102,16 @@ user = new schema({
         required: false
 
     }
+},{
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+  });
+user.virtual("age").get(function () {
+    let today=new Date();
+    let birthDate = new Date(this.dob);
+    let age = today.getFullYear() - birthDate.getFullYear() +" Years";
+    return age;
 });
-
 user.virtual("name")
     .get(function () {
         return this.fn + " " + this.ln;

@@ -98,14 +98,16 @@
 			<div class="row">
 				{% for item in profile.questions %}
 					<div class="{{item.class}}">
+					<span>{{loop.index}}</span>
+						<span>{{item._id}}</span>
 						{% set value = "" %}
 						{% if user[item.name] is defined %}
 							{% set value = user[item.name] %}
 						{% endif %}
 						{% if item.type == "select" %}
 							{{form.select(item.label[0],item.name,item.type,item.required,item.editable,value,item.option)}}
-						{% elseif(item.type == "date") %}
-							{{form.date(item.label[0],item.name,item.type,item.required,item.editable,value)}}
+						{# {% elseif(item.type == "date") %}
+							{{form.date(item.label[0],item.name,item.type,item.required,item.editable,value)}} #}
 						{% else %}
 							{{form.input(item.label[0],item.name,item.type,item.required,item.editable,value)}}
 						{% endif %}

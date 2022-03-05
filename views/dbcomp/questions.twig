@@ -1,0 +1,32 @@
+{% import "macro/survey.twig" as form %}
+<div class="mb-3 card">
+	<div class="card-header-tab card-header">
+		<div class="card-header-title font-size-lg text-capitalize font-weight-bold">
+			<img src="/assets/images/Survey/{{page.icon}}" class='pageicon'>
+			{{page.title}}
+		</div>
+		<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
+			<span data-pageno>1</span>
+			of
+			<span data-totalpages>{{survey.pages|length}}</span>
+		</div>
+	</div>
+	<div class="card-body">
+		<form method="post">
+			{% for page in survey.pages %}
+				<div class="page" page="{{loop.index}}" style='display:none'>
+					<div class="row">
+						{% for que in page %}
+
+							{{form.render(que)}}
+						{% endfor %}
+					</div>
+				</div>
+			{% endfor %}
+			<div class="mb-3 progress">
+				<div class="progress-bar bg-info progress-bar-striped" role="progressbar" data-survey-progress="20"></div>
+			</div>
+			<button type="button" id="next" class="mt-1 btn btn-primary fr" onclick="progress.next()">Next</button>
+		</form>
+	</div>
+</div>
