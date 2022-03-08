@@ -8,16 +8,49 @@ router.get("/addData", (req, res) => {
     que.forEach(element => {
         profileAns[element].forEach(Ans => {
             const profileOption = new ProfileOptions({
-                name:element,
-                label:Ans
+                name: element,
+                label: Ans
             });
-            profileOption.save().then(option=>{console.log(option);}).catch(err=>{console.log(err);});
+            profileOption.save().then(option => { console.log(option); }).catch(err => { console.log(err); });
         });
         // console.log(element);
         // console.log(profileAns[element]);
     });
     res.json(profileAns);
 });
+router.route("/professions")
+    .get((req, res) => {
+        professions=require("fs").readFileSync("./databank/professions.json");
+        res.json(JSON.parse(professions))
+    });
+router.get("/professions/industry",async (req,res)=>{
+    professions=JSON.parse(require("fs").readFileSync("./databank/professions.json"));
+    // console.log(professions);
+    // return;
+    let industry=[];
+    await professions.forEach(e=>{
+        if(industry.indexOf(e.Industry)!==-1)return ;
+        industry.push(e.Industry)
+    })
+    res.json(industry);
+})
+router.get("/professions/:industry",async (req,res)=>{
+    professions=JSON.parse(require("fs").readFileSync("./databank/professions.json")).filter(e=>e.Industry===req.params.industry);
+    let department=[];
+    await professions.forEach(e=>{
+        if(department.indexOf(e.Department)!==-1)return ;
+        department.push(e.Department)
+    })
+    res.json(department);
+})
+router.get("/professions/:industry/:department",async (req,res)=>{
+    professions=JSON.parse(require("fs").readFileSync("./databank/professions.json")).filter(e=>(e.Industry===req.params.industry && e.Department===req.params.department)).map(e=>e.Jobrole);
+    // await professions.forEach(e=>{
+    //     if(department.indexOf(e.Department)!==-1)return ;
+    //     department.push(e.Department)
+    // })
+    res.json(professions);
+})
 router.route("/:component")
     .get((req, res) => {
         console.log(`Requesting ${req.params.component}`);
@@ -50,13 +83,13 @@ router.route("/:component")
             res.json({ status: "error", message: err.message })
         });
     });
-    router.route("/:component/:id")
+router.route("/:component/:id")
     .get(async (req, res) => {
         console.log(`Requesting ${req.params.id} from ${req.params.component}`);
-        options=await ProfileOptions.find({name:req.params.component});
-        data=options;
-        selected=options.filter(info=>(info._id==req.params.id));
-        res.json({ status: "success", data:data, selected:selected });
+        options = await ProfileOptions.find({ name: req.params.component });
+        data = options;
+        selected = options.filter(info => (info._id == req.params.id));
+        res.json({ status: "success", data: data, selected: selected });
     })
     .post(async (req, res) => {
         let dependency = [];

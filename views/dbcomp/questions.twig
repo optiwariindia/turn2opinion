@@ -14,10 +14,9 @@
 	<div class="card-body">
 		<form method="post">
 			{% for page in survey.pages %}
-				<div class="page" page="{{loop.index}}" style='display:none'>
+				<div class="page" page="{{loop.index}}">
 					<div class="row">
 						{% for que in page %}
-
 							{{form.render(que)}}
 						{% endfor %}
 					</div>
@@ -26,7 +25,11 @@
 			<div class="mb-3 progress">
 				<div class="progress-bar bg-info progress-bar-striped" role="progressbar" data-survey-progress="20"></div>
 			</div>
-			<button type="button" id="next" class="mt-1 btn btn-primary fr" onclick="progress.next()">Next</button>
+			<div class="text-right">
+		<button type="button" data-next class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.next()">Next</button>
+		<button type="button" data-prev class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.previous()">Previous</button>		
+	<button type="button" data-submit class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.submit()">Submit</button>		
+			</div>
 		</form>
 	</div>
 </div>

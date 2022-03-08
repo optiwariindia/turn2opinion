@@ -4,6 +4,33 @@
 			<h2>{{params.title}}</h2>
 			<p>{{params.message}}</p>
 		</div>
+	{% elseif params.type == "radio" %}
+		<div class="col-sm-12">
+			<div class="form-group options">
+				<label for="">{{params.label}}</label>
+				{% for option in params.options %}
+					<span>
+						<input type="radio" name="{{params.name}}" value="{{option}}" id="r-{{param.name}}-{{loop.index}}">
+						<label for="r-{{param.name}}-{{loop.index}}">{{option}}</label>
+					</span>
+				{% endfor %}
+			</div>
+		</div>
+	{% elseif params.type == "select" %}
+		<div class="col-sm-12">
+			<div class="form-group options">
+				<label for="">{{params.label}}</label>
+				<select name="{{params.name}}" id="{{params.name}}" class='form-control' data-api="{{params.options.api}}" data-depends="{{params.options.dependson}}">
+				<option value="" selected disabled> -- Please Select -- </option>
+					{% if params.options.api is defined %}
+						{% else %}
+						{% for option in params.options %}
+							<option value="{{option}}">{{option}}</option>
+						{% endfor %}
+					{% endif %}
+				</select>
+			</div>
+		</div>
 	{% else %}
 		<div class="col-sm-6">
 			<div class="form-group">

@@ -8,7 +8,16 @@ const twig = require("twig");
 const user = require('../modals/user');
 
 router.use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }));
-
+router.post("/auth",(req,res)=>{
+    User.find({ email: req.body.user, password: req.body.pass }).then(user => {
+        if (user.length === 1) {
+            req.session.user = user[0];
+            res.json({ "status": "ok", "user": user[0],"redirect":"/user/survey/professional" });
+        } else {
+            res.json({"status": "error", "message": "User not found","info":user,"inputs":req.body });
+        }
+    })
+})
 router.use("/history", getUserInfo, userDetails, require("./history"));
 
 router.post("/validate/:field", (req, res) => {
@@ -175,14 +184,8 @@ function getUserInfo(req, res, next) {
         console.log("User found in session variable");
         next();
         return;
-    }
-    else {
-        User.find({ email: "om.tiwari@frequentresearch.com" }).then(user => {
-            req.session.user = user[0];
-            req.user = user[0];
-            // res.redirect("/user/dashboard");
-            next();
-        });
+    }else{
+        res.redirect("/");
     }
 }
 function userDetails(req, res, next) {

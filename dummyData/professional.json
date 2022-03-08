@@ -1,0 +1,79 @@
+{
+    "title": "Professional Survey",
+    "name": "professional",
+    "icon": "home.png",
+    "pages": [
+        [
+            {
+                "type": "note",
+                "title": "Welcome to Turn2Opinion",
+                "message": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nemo, sed, fugit ex vero velit repudiandae inventore voluptatem blanditiis illo minima nobis voluptates deleniti excepturi error accusamus, eum dolorum quam ipsam eaque dignissimos quo nulla! Et quidem maiores rerum doloremque cupiditate laboriosam, possimus quas nihil ut? Ipsam dolor perferendis quam accusamus in nisi, voluptatum quidem nobis. Quis eum error similique, expedita animi reiciendis tempore consequatur amet a nobis illo dolores minus provident consequuntur veritatis laboriosam nulla illum est rerum alias velit. Id excepturi repudiandae saepe doloribus voluptatum nulla tenetur facere, dolor voluptates, aperiam corrupti, enim ut cumque similique officia tempore alias."
+            }
+        ],
+        [
+            {
+                "name": "empstat",
+                "label": "What is your current employment status?",
+                "type": "select",
+                "editable": false,
+                "required": true,
+                "points": 1,
+                "options": [
+                    "Employed full-time",
+                    "Employed part-time ",
+                    "Self-employed full-time",
+                    "Self-employed part-time",
+                    "Active military",
+                    "Inactive military/Veteran",
+                    "Temporary & Seasonal Employed",
+                    "Temporarily unemployed",
+                    "Full-time homemaker",
+                    "Retired",
+                    "Student",
+                    "Disabled",
+                    "Prefer not to answer"
+                ]
+            },
+            {
+                "type":"select",
+                "label":"Select Industry",
+                "name":"industry",
+                "editable":true,
+                "required":true,
+                "points":1,
+                "dependson":"empstat",
+                "if":["Employed full-time","Employed part-time","Self-employed full-time","Self-employed part-time","Active military","Inactive military/Veteran","Temporary & Seasonal Employed"],
+                "options":{
+                    "api":"/api/v1/professions/industries",
+                    "method":"GET"
+                }
+            },
+            {
+                "type":"select",
+                "label":"Select Profession Area",
+                "name":"area",
+                "editable":true,
+                "required":true,
+                "points":1,
+                "dependson":"industry",
+                "options":{
+                    "api":"/api/v1/professions/[]",
+                    "method":"GET"
+                }
+            },
+            {
+                "type":"select",
+                "label":"Select Jobrole",
+                "name":"jobrole",
+                "editable":true,
+                "required":true,
+                "points":1,
+                "dependson":"industry,area",
+                "options":{
+                    "api":"/api/v1/professions/[]/[]",
+                    "method":"GET"
+                }
+            }
+        ]
+    ]
+}
