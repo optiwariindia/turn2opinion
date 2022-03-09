@@ -1,6 +1,6 @@
 const schema=require("mongoose").Schema;
 module.exports=new schema( {
-    endpoint: String,
+    api: String,
     method: String,
-    params: [String]
+    depends: [String]
 });

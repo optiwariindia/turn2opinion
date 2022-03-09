@@ -13,8 +13,6 @@ router.get("/addData", (req, res) => {
             });
             profileOption.save().then(option => { console.log(option); }).catch(err => { console.log(err); });
         });
-        // console.log(element);
-        // console.log(profileAns[element]);
     });
     res.json(profileAns);
 });
@@ -50,6 +48,29 @@ router.get("/professions/:industry/:department",async (req,res)=>{
     //     department.push(e.Department)
     // })
     res.json(professions);
+})
+router.post("/zone",async (req,res)=>{
+    console.log("This function is called");
+    let dependency = [];
+        await Object.keys(req.body).forEach(
+            key => {
+                dependency.push(`${req.body[key]}`);
+            }
+        );
+        // console.log({dependency:mongoose.ObjectId(dependency[0])});
+        ProfileOptions.find({dependency:mongoose.Types.ObjectId(dependency[0])}).then(data => {
+            console.log(data);
+            data = data.filter(info => {
+                out = true;
+                for (let i = 0; i < dependency.length; i++) {
+                    out = out && (info.dependency.indexOf(dependency[i]) !== -1);
+                }
+                return out;
+            });
+            res.json({ status: "success", data: data, length: data.length });
+        }).catch(err => {
+            res.json({ status: "error", message: err.message })
+        });
 })
 router.route("/:component")
     .get((req, res) => {

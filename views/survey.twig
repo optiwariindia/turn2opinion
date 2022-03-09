@@ -1,27 +1,16 @@
 <!doctype html>
 <html lang="en">
-
-{% include "dbcomp/head.twig" %}
-
-<link href="/css/form.css" rel="stylesheet">
+	{% include "dbcomp/head.twig" %}
+<link rel="stylesheet" href="/css/survey.css">
+	<link href="/css/form.css" rel="stylesheet">
 	<body>
 		<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-			{% include "dbcomp/header.twig" %}
-			<div class="app-main">
-				{% include "dbcomp/sidebar.twig" %}
-				<div class="app-main__outer">
-					<div class="app-main__inner">
-                    {% include "dbcomp/questions.twig" %}
-					</div>
-				</div>
-			</div>
+		{% include "dbcomp/questions.twig" %}
 		</div>
 		<div class="app-drawer-overlay d-none animated fadeIn"></div>
 		<div class="forced-popup" style='display:none'>
-				<div class="popup-body">
-				
-				</div>
-			</div>
+			<div class="popup-body"></div>
+		</div>
 		<script src="/assets/scripts/form-checkbox.js"></script>
 		<script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
 		<script src="/assets/scripts/survey.js"></script>

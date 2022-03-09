@@ -26,7 +26,7 @@ module.exports = new schema({
         type: Boolean,
         default: true
     },
-    option:option,
+    options:option,
     class: {
         type: String,
         required: true,

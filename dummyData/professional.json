@@ -2,6 +2,7 @@
     "title": "Professional Survey",
     "name": "professional",
     "icon": "home.png",
+    "chain":"/survey/professional/1",
     "pages": [
         [
             {
@@ -14,7 +15,7 @@
             {
                 "name": "empstat",
                 "label": "What is your current employment status?",
-                "type": "select",
+                "type": "radio",
                 "editable": false,
                 "required": true,
                 "points": 1,
@@ -33,46 +34,6 @@
                     "Disabled",
                     "Prefer not to answer"
                 ]
-            },
-            {
-                "type":"select",
-                "label":"Select Industry",
-                "name":"industry",
-                "editable":true,
-                "required":true,
-                "points":1,
-                "dependson":"empstat",
-                "if":["Employed full-time","Employed part-time","Self-employed full-time","Self-employed part-time","Active military","Inactive military/Veteran","Temporary & Seasonal Employed"],
-                "options":{
-                    "api":"/api/v1/professions/industries",
-                    "method":"GET"
-                }
-            },
-            {
-                "type":"select",
-                "label":"Select Profession Area",
-                "name":"area",
-                "editable":true,
-                "required":true,
-                "points":1,
-                "dependson":"industry",
-                "options":{
-                    "api":"/api/v1/professions/[]",
-                    "method":"GET"
-                }
-            },
-            {
-                "type":"select",
-                "label":"Select Jobrole",
-                "name":"jobrole",
-                "editable":true,
-                "required":true,
-                "points":1,
-                "dependson":"industry,area",
-                "options":{
-                    "api":"/api/v1/professions/[]/[]",
-                    "method":"GET"
-                }
             }
         ]
     ]

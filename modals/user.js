@@ -101,6 +101,10 @@ user = new schema({
         type: String,
         required: false
 
+    },
+    empstat:{
+        type: String,
+        required: false
     }
 },{
     toJSON: { virtuals: true },

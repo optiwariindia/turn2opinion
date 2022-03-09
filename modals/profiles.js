@@ -22,8 +22,6 @@ module.exports = new schema(
             type: String,
             required: true
         },
-        questions: [
-            question
-        ]
+        pages: [[question ] ]
     }
 )
