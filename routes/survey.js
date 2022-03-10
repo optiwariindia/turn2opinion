@@ -1,16 +1,18 @@
 const mongoose = require("mongoose");
 const router=require('express').Router();
 const User = mongoose.model("user", require("../modals/user"));
-const Profile=mongoose.model("profile",require("../modals/profiles"));
+const Survey=mongoose.model("survey",require("../modals/survey"));
 router.get("/",(req,res)=>{
     res.redirect("/user/dashboard");
 });
 router.route("/:surveyName")
     .get(async (req,res)=>{
         surveyname=req.params.surveyName;
-        survey=await Profile.findOne({uri:surveyname});
+        survey=await Survey.findOne({uri:surveyname});
+        if(survey){
+            console.log(survey.pages)
+        }
         const info={page:{title:`${survey.name} Survey`,icon:`${survey.icon}`},user:req.user,survey:survey};        
-        console.log(info.survey.pages[1]);
         res.render("survey.twig",info);
     })
     .post(async (req,res)=>{

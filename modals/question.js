@@ -31,5 +31,8 @@ module.exports = new schema({
         type: String,
         required: true,
         default: "col-sm-12"
-    }
+    },
+    title:String,
+    message:String,
+    for:Object
 });

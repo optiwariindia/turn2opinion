@@ -1,17 +1,14 @@
 {% import "macro/survey.twig" as form %}
-<div class="mb-3 card">
-	<div class="card-header-tab card-header">
-		<div class="card-header-title font-size-lg text-capitalize font-weight-bold">
-			<img src="/assets/images/Survey/{{page.icon}}" class='pageicon'>
-			{{page.title}}
-		</div>
-		<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-			<span data-pageno>1</span>
-			of
-			<span data-totalpages>{{survey.pages|length}}</span>
-		</div>
-	</div>
+<div
+	class="mb-3 card">
+	{# <div class="card-header-tab card-header">
+			<div class="card-header-title font-size-lg text-capitalize font-weight-bold">
+				<img src="/assets/images/Survey/{{page.icon}}" class='pageicon'>
+				{{page.title}}
+			</div>
+		</div> #}
 	<div class="card-body">
+
 		<form method="post">
 			{% for page in survey.pages %}
 				<div class="page" page="{{loop.index}}" style='display:none'>
@@ -29,6 +26,11 @@
 				<button type="button" data-next class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.next()">Next</button>
 				<button type="button" data-prev class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.previous()">Previous</button>
 				<button type="button" data-submit class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.submit()">Submit</button>
+			</div>
+			<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
+				<span data-pageno>1</span>
+				of
+				<span data-totalpages>{{survey.pages|length}}</span>
 			</div>
 		</form>
 	</div>

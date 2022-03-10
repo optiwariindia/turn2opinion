@@ -1,20 +1,440 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
+const Survey = mongoose.model("survey", require("../modals/survey"));
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 
-router.get("/addData", (req, res) => {
-    const profileAns = JSON.parse(require("fs").readFileSync("./databank/profileAnswers.json"));
-    let que = Object.keys(profileAns);
-    que.forEach(element => {
-        profileAns[element].forEach(Ans => {
-            const profileOption = new ProfileOptions({
-                name: element,
-                label: Ans
-            });
-            profileOption.save().then(option => { console.log(option); }).catch(err => { console.log(err); });
-        });
-    });
-    res.json(profileAns);
+router.get("/addData",async (req, res) => {
+    // const profileAns = JSON.parse(require("fs").readFileSync("./databank/profileAnswers.json"));
+    let survey= await new Survey({
+        "uri": "basic",
+        "name": "Basic Profile Survey",
+        "icon": "basic-profile.png",
+        "pages": [
+          [
+          ],
+          [
+          {
+            "name": "fn",
+            "label": [
+              {
+                "lang": "en",
+                "value": "First Name",
+              },
+              {
+                "lang": "fr",
+                "value": "Prénom",
+              }
+            ],
+            "type": "text",
+            "required": true,
+            "editable": false,
+            "class": "col-sm-6",
+          },
+          {
+            "name": "ln",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Last Name",
+              },
+              {
+                "lang": "fr",
+                "value": "Nom",
+              }
+            ],
+            "type": "text",
+            "required": true,
+            "editable": false,
+            "class": "col-sm-6",
+          },
+          {
+            "name": "email",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Email",
+              },
+              {
+                "lang": "fr",
+                "value": "Email",
+              }
+            ],
+            "type": "email",
+            "required": true,
+            "editable": false,
+            "class": "col-sm-6",
+          },
+          {
+            "name": "workemail",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Work Email",
+              },
+              {
+                "lang": "fr",
+                "value": "Email professionnel",
+              }
+            ],
+            "type": "email",
+            "required": false,
+            "editable": true,
+            "class": "col-sm-6",
+          },
+          {
+            "name": "phone",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Phone",
+              },
+              {
+                "lang": "fr",
+                "value": "Téléphone",
+              }
+            ],
+            "type": "tel",
+            "required": true,
+            "editable": false,
+            "class": "col-sm-6",
+          },
+          {
+            "name": "phone1",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Alternate Number",
+              },
+              {
+                "lang": "fr",
+                "value": "Téléphone alternatif",
+              }
+            ],
+            "type": "tel",
+            "required": false,
+            "editable": true,
+            "class": "col-sm-6",
+          },
+          {
+            "name": "dob",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Date of Birth",
+              },
+              {
+                "lang": "fr",
+                "value": "Date de naissance",
+              }
+            ],
+            "type": "date",
+            "required": true,
+            "editable": false,
+            "class": "col-sm-6",
+          },
+          {
+            "name": "age",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Age",
+              },
+              {
+                "lang": "fr",
+                "value": "Age",
+              }
+            ],
+            "type": "text",
+            "required": false,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/age",
+              "method": "POST",
+              "depends": [
+                "dob"
+              ],
+            },
+            "class": "col-sm-6",
+          }],[
+          {
+            "name": "country",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Country",
+              },
+              {
+                "lang": "fr",
+                "value": "Pays",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/country",
+              "method": "GET",
+              "depends": [],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "zone",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Zone",
+              },
+              {
+                "lang": "fr",
+                "value": "",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/zone",
+              "method": "POST",
+              "depends": [
+                "country"
+              ],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "state",
+            "label": [
+              {
+                "lang": "en",
+                "value": "State",
+              },
+              {
+                "lang": "fr",
+                "value": "Ville",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/state",
+              "method": "POST",
+              "depends": [
+                "zone"
+              ],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "city",
+            "label": [
+              {
+                "lang": "en",
+                "value": "City",
+              },
+              {
+                "lang": "fr",
+                "value": "Ville",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/city",
+              "method": "POST",
+              "depends": [
+                "state"
+              ],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "zipcode",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Zip Code",
+              },
+              {
+                "lang": "fr",
+                "value": "Code postal",
+              }
+            ],
+            "type": "text",
+            "required": true,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/zipcode",
+              "method": "POST",
+              "depends": [
+                "country"
+              ],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "ethnicity",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Please Select your ethnicity",
+              },
+              {
+                "lang": "fr",
+                "value": "Sélectionnez votre ethnicité",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/ethnicity",
+              "method": "GET",
+              "depends": [],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "origin",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Are you of Hispanic, Latino, or Spanish origin?",
+              },
+              {
+                "lang": "fr",
+                "value": "Êtes-vous de l'origine hispanique, latino ou espagnole?",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": false,
+            "options": {
+              "api": "/api/v1/origin",
+              "method": "GET",
+              "depends": [],
+            },
+            "class": "col-sm-6",
+          }],[
+          {
+            "name": "education",
+            "label": [
+              {
+                "lang": "en",
+                "value": "What is the highest level of education you have completed?",
+              },
+              {
+                "lang": "fr",
+                "value": "Quel est le plus haut niveau d'éducation que vous avez terminé?",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": true,
+            "options": {
+              "api": "/api/v1/education",
+              "method": "GET",
+              "depends": [],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "relationship",
+            "label": [
+              {
+                "lang": "en",
+                "value": "What is your relationship status?",
+              },
+              {
+                "lang": "fr",
+                "value": "Quel est votre statut de relation?",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": true,
+            "options": {
+              "api": "/api/v1/relationship",
+              "method": "GET",
+              "depends": [],
+            },
+            "class": "col-sm-6",
+          },
+          {
+            "name": "children",
+            "label": [
+              {
+                "lang": "en",
+                "value": "How many children do you have?",
+              },
+              {
+                "lang": "fr",
+                "value": "Combien de enfants avez-vous?",
+              }
+            ],
+            "type": "select",
+            "required": true,
+            "editable": true,
+            "options": {
+              "api": "/api/v1/children",
+              "method": "GET",
+              "depends": [
+                "relationship"
+              ],
+            },
+            "class": "col-sm-6",
+          }],[
+          {
+            "name": "interests",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Please choose your hobbies and interests",
+              },
+              {
+                "lang": "fr",
+                "value": "Sélectionnez vos loisirs et intérêts",
+              }
+            ],
+            "type": "checkbox",
+            "required": true,
+            "editable": true,
+            "options": {
+              "api": "/api/v1/interests",
+              "method": "GET",
+              "depends": [],
+            },
+            "class": "col-sm-12",
+          }],[
+          {
+            "name": "surveycategory",
+            "label": [
+              {
+                "lang": "en",
+                "value": "Please choose the categories you would be interested to get the participation in future surveys",
+              },
+              {
+                "lang": "fr",
+                "value": "Sélectionnez les catégories que vous seriez intéressé à participer aux sondages futures",
+              }
+            ],
+            "type": "checkbox",
+            "required": true,
+            "editable": true,
+            "options": {
+              "api": "/api/v1/surveycategory",
+              "method": "GET",
+              "depends": [],
+            },
+            "class": "col-sm-12",
+          }]
+        ]
+      })
+      survey.save()
+      
+    res.json(survey);
 });
 router.route("/professions")
     .get((req, res) => {

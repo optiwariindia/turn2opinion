@@ -9,9 +9,12 @@
 		{% set value = user[params.name] %}
 	{% endif %}
 	{% if params.type == "note" %}
+		<div class="logo">
+			<img src="/assets/images/logo.png" class='img-fluid' alt=""/>
+		</div>
 		<div class="note">
 			<h2>{{params.title}}</h2>
-			<p>{{params.message}}</p>
+			<p>{{params.message|raw}}</p>
 		</div>
 	{% elseif params.type == "radio" %}
 		<div class="col-sm-12">
@@ -35,12 +38,12 @@
 					</option>
 
 					{% if params.options.api is defined %}
-					API Call Required
-						{% else %}
-							{% for option in params.options %}
-								<option value="{{option}}" {% if value == option %} selected {% endif %}></option>
-								{{option}}
-							</option>
+						API Call Required
+					{% else %}
+						{% for option in params.options %}
+							<option value="{{option}}" {% if value == option %} selected {% endif %}></option>
+							{{option}}
+						</option>
 					{% endfor %}
 				{% endif %}
 			</select>
@@ -63,7 +66,10 @@
 
 	</div>
 {% else %}
-	<div class="col-sm-6">
+
+	<div class="col-sm-6" {% if params.for is defined %}
+	bind-field='{{params.for.field}}' data-for='{{params.for.value|json_encode}}'
+	{% endif %}>
 		<div class="form-group">
 			<label for="">{{label}}</label>
 			<input type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
