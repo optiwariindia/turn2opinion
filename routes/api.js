@@ -470,27 +470,31 @@ router.get("/professions/:industry/:department",async (req,res)=>{
     res.json(professions);
 })
 router.post("/zone",async (req,res)=>{
-    console.log("This function is called");
     let dependency = [];
         await Object.keys(req.body).forEach(
             key => {
                 dependency.push(`${req.body[key]}`);
             }
         );
-        // console.log({dependency:mongoose.ObjectId(dependency[0])});
-        ProfileOptions.find({dependency:mongoose.Types.ObjectId(dependency[0])}).then(data => {
-            console.log(data);
-            data = data.filter(info => {
+        let zip=await ProfileOptions.findOne({_id:mongoose.Types.ObjectId(req.body.country)})
+        ProfileOptions.find({dependency:mongoose.Types.ObjectId(dependency[0])}).then( async data => {
+            data = await data.filter(info => {
                 out = true;
                 for (let i = 0; i < dependency.length; i++) {
                     out = out && (info.dependency.indexOf(dependency[i]) !== -1);
                 }
                 return out;
             });
-            res.json({ status: "success", data: data, length: data.length });
+            res.json({ status: "success", data: data, length: data.length,zip:zip });
         }).catch(err => {
             res.json({ status: "error", message: err.message })
         });
+})
+router.post("/children",(req,res)=>{
+  if(req.body.relationship==="621f0e26d69e48efe893d35f")
+  res.json({status:"success",data:[]});
+  else
+  res.json({status:"success",data:[{_id:0,label:0,name:'children'},{_id:1,label:1},{_id:2,label:2},{_id:3,label:3},{_id:4,label:4},{_id:5,label:5},{_id:6,label:6},{_id:7,label:7},{_id:8,label:8},{_id:9,label:9}]});
 })
 router.route("/:component")
     .get((req, res) => {

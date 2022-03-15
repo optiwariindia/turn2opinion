@@ -1,20 +1,15 @@
 {% import "macro/survey.twig" as form %}
-<div
-	class="mb-3 card">
-	{# <div class="card-header-tab card-header">
-			<div class="card-header-title font-size-lg text-capitalize font-weight-bold">
-				<img src="/assets/images/Survey/{{page.icon}}" class='pageicon'>
-				{{page.title}}
-			</div>
-		</div> #}
+<div class="mb-3 card mt-3">
 	<div class="card-body">
 
 		<form method="post">
+			{% set counter = 1 %}
 			{% for page in survey.pages %}
 				<div class="page" page="{{loop.index}}" style='display:none'>
 					<div class="row">
 						{% for que in page %}
-							{{form.render(que,user)}}
+							{{form.render(que,user,counter)}}
+							{% set counter = counter + 1 %}
 						{% endfor %}
 					</div>
 				</div>
@@ -23,9 +18,9 @@
 				<div class="progress-bar bg-info progress-bar-striped" role="progressbar" data-survey-progress="20"></div>
 			</div>
 			<div class="text-right">
+				<button type="button" data-submit class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.submit()">Submit</button>
 				<button type="button" data-next class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.next()">Next</button>
 				<button type="button" data-prev class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.previous()">Previous</button>
-				<button type="button" data-submit class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.submit()">Submit</button>
 			</div>
 			<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
 				<span data-pageno>1</span>

@@ -1,37 +1,37 @@
 [
     {
         "name": "Basic Profile",
-        "completed":80,
+        "completed":0,
         "icon":"basic-profile.png",
         "target":"basic"
     },
     {
         "name":"Professional Profile",
-        "completed":60,
+        "completed":0,
         "icon":"professional-profile.png",
         "target":"professional"
     },
     {
         "name":"Financial Profile",
-        "completed":45,
+        "completed":0,
         "icon":"financial-profile.png",
         "target":"financial"
     },
     {
         "name":"Education Profile",
-        "completed":30,
+        "completed":0,
         "icon":"education-profile.png",
         "target":"educational"
     },
     {
         "name":"Lifestyle Profile",
-        "completed":25,
+        "completed":0,
         "icon":"lifestyle-profile.png",
         "target":"lifestyle"
     },
     {
         "name":"Health Profile",
-        "completed":15,
+        "completed":0,
         "icon":"health-profile.png",
         "target":"health"
     },
@@ -51,7 +51,7 @@
         "name":"Technology Profile",
         "completed":0,
         "icon":"technology-profile.png",
-        "target":"technology"
+        "target":"tech"
     },
     {
         "name":"Home Owner Profile",
@@ -60,10 +60,10 @@
         "target":"homeowner"
     },
     {
-        "name":"Technology Profile",
+        "name":"Pet Profile",
         "completed":0,
         "icon":"technology.png",
-        "target":"technology"
+        "target":"pet"
     },
     {
         "name":"Automotive Profile",
@@ -87,13 +87,13 @@
         "name":"Entertaintment Profile",
         "completed":0,
         "icon":"Entertainment.png",
-        "target":"entertainment"
+        "target":"entertaintment"
     },
     {
         "name":"Beauty & Fitness Profile",
         "completed":0,
         "icon":"Fitness.png",
-        "target":"fitness"
+        "target":"beauty"
     },
     {
         "name":"Sports Profile",
@@ -127,7 +127,7 @@
     },
     {
         "name":"Other Profile",
-        "completed":85,
+        "completed":0,
         "icon":"other-profile.png",
         "target":"other"
     }

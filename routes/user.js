@@ -6,15 +6,18 @@ const User = mongoose.model("user", require("../modals/user"));
 const email = require("../service/email");
 const twig = require("twig");
 const user = require('../modals/user');
+const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
+const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 
+console.log
 router.use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }));
-router.post("/auth",(req,res)=>{
+router.post("/auth", (req, res) => {
     User.find({ email: req.body.user, password: req.body.pass }).then(user => {
         if (user.length === 1) {
             req.session.user = user[0];
-            res.json({ "status": "ok", "user": user[0],"redirect":"/user/survey/basic" });
+            res.json({ "status": "ok", "user": user[0], "redirect": "/user/dashboard" });
         } else {
-            res.json({"status": "error", "message": "User not found","info":user,"inputs":req.body });
+            res.json({ "status": "error", "message": "User not found", "info": user, "inputs": req.body });
         }
     })
 })
@@ -71,7 +74,9 @@ router.route("/forgot")
         // res.json({"status":"error","message":"Not implemented yet"});
     })
 router.post("/securityquestion", (req, res) => {
-    User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => { console.log(user); });
+    User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => {
+        // console.log(user);
+    });
     res.json({ "status": "ok", "question": "In what city were you born?" });
 })
 router.post("/new", (req, res) => {
@@ -97,6 +102,7 @@ router.post("/new", (req, res) => {
 router.post("/login", (req, res) => {
     User.find({ email: req.body.user, password: req.body.pass }).then(user => {
         if (user.length === 1) {
+            console.log(user[0]);
             req.session.user = user[0];
             res.json({ "status": "ok", "user": user[0] });
         }
@@ -116,12 +122,15 @@ router.route("/resetpass/:id")
         res.render("index.twig", { form: "resetpass", id: req.params.id });
     })
     .post((req, res) => {
+
         console.log(req.params.id);
         User.findById(req.params.id).then(u => {
+
             console.log(u);
             u.password = req.body.pass;
             u.save().then(usr => {
                 req.session.user = usr;
+
                 console.log(usr);
                 res.json({ "status": "ok", "user": usr });
             })
@@ -136,6 +145,7 @@ router.post("/setpass", (req, res) => {
         user.security.answer = req.body.ans;
         user.save().then(usr => {
             req.session.user = usr;
+
             console.log(usr);
             res.json({ "status": "ok", "user": usr });
             // res.redirect("/user/dashboard");
@@ -163,6 +173,8 @@ router.get("/dashboard",
     getUserInfo,
     userDetails,
     (req, res) => {
+
+        // console.log(req.user);
         let filters = [];
         req.user.availableSurveys.forEach(survey => {
             if (survey.sstat !== "" && (filters.indexOf(survey.sstat) === -1))
@@ -175,7 +187,7 @@ router.get("/dashboard",
 router.use(fileUpload())
     .use(getUserInfo, userDetails)
     .use("/profile", require("./profile"))
-    .use("/survey",require("./survey"));
+    .use("/survey", require("./survey"));
 
 
 function getUserInfo(req, res, next) {
@@ -184,18 +196,51 @@ function getUserInfo(req, res, next) {
         console.log("User found in session variable");
         next();
         return;
-    }else{
+    } else {
         res.redirect("/");
     }
 }
-function userDetails(req, res, next) {
+async function userDetails(req, res, next) {
     req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
-    num=Date.parse(req.user.dob);
-    req.user.dob=new Date(num).toISOString().split("T")[0];
+    num = Date.parse(req.user.dob);
+    let keys = Object.keys(req.user);
+    userprofile = {};
+    await keys.forEach(async key => {
+        if (key == "_id" || key == "__v") return false;
+        val = req.user[key];
+        console.log({ key: key, valtype: typeof val });
+        if (typeof val == "string")
+            if (mongoose.isValidObjectId(val)) {
+                req.user[key] = await ProfileOptions.findById(val);
+            }
+    });
+
+    req.user.dob = new Date(num).toISOString().split("T")[0];
     req.user.statusSummary = JSON.parse(require("fs").readFileSync("./dummyData/statusSummary.json"));
-    req.user.profileCategories = JSON.parse(require("fs").readFileSync("./dummyData/profileCategoires.json"));
+
+    profileCategories = JSON.parse(require("fs").readFileSync("./dummyData/profileCategoires.json"));
+    
+    profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 })));
+    for (let index = 0; index < profileCategories.length; index++) {
+        const profile = profileCategories[index];
+        marks={
+            total:0,
+            scored:0
+        }
+        for (let j = 0; j < profile.questions.length; j++) {
+            const question = profile.questions[j];
+            marks.total++;
+            if(question.name in req.user)marks.scored++;
+            else console.log(question.label);
+        }
+        profileCategories[index]['completed']=Math.round((marks.scored * 100)/(marks.total));
+        console.log(marks);
+        profileCategories[index]['marks']=marks;
+    }
+    req.user.profileCategories = profileCategories;
     req.user.summary = JSON.parse(require("fs").readFileSync("./dummyData/summary.json"));
     req.user.availableSurveys = JSON.parse(require("fs").readFileSync("./dummyData/availableSurvey.json"));
+
     next();
 }
 

@@ -1,64 +1,4 @@
 {% import "macro/form.twig" as form %}
-<style>
-	.mb-3.card {
-		background: #174b84;
-		color: #fff;
-		font-weight: bold;
-		/* background-image: linear-gradient(#174b84, #fff) */
-	}
-	.form-control,
-	.form-control:disabled,
-	.form-control:focus {
-		background: #174b84;
-		color: #fff;
-		border-radius: 0;
-		border: none;
-		border-bottom: 1px solid #7f9ebf;
-		transition: 1s;
-	}
-	.form-control:disabled {
-		color: #aaa;
-		font-size: 18px;
-		text-transform: capitalize;
-	}
-	.form-control:hover,
-	.form-control:focus {
-		border: 1px solid #fff;
-		box-shadow: 0 0 10px #fff;
-	}
-	.frm-grid {
-		display: grid;
-		grid-template-areas: "auto auto";
-	}
-	.frm {
-		gap: 10px;
-		font-size: 17px;
-	}
-	button.btn-primary {
-		color: #174b84;
-		background-color: #a0bfe2;
-		border-color: #3f6ad8;
-		font-size: 20px;
-		font-weight: bold;
-	}
-
-	button.btn-primary:hover {
-		transform: scale(1.25);
-	}
-	#chb-5 .custom-control custom-checkbox {
-		display: grid;
-		grid-template-areas: "auto auto auto auto auto";
-		max-height: 300px;
-		overflow: auto
-	}
-	{
-		#tel-nos {
-			display: grid;
-			grid-template-areas: "auto auto";
-			gap: 10px;
-		}
-	}
-</style>
 <div class="mb-3 card">
 	<div class="card-header-tab card-header">
 		<div class="card-header-title font-size-lg text-capitalize font-weight-bold">
@@ -68,7 +8,7 @@
 		<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
 			<div class="btn-group dropdown">
 				<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
-					<i class="pe-7s-menu btn-icon-wrapper"></i>
+					<i class="pe-7s-menu btn-icon-edit"></i>
 				</button>
 				<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
 					<h6 tabindex="-1" class="dropdown-header">Header</h6>
@@ -96,25 +36,41 @@
 	<div class="card-body">
 		<form method="post">
 			<div class="row">
+
 				{% for item in profile.questions %}
-					<div class="{{item.class}}">
-					<span>{{loop.index}}</span>
-						<span>{{item._id}}</span>
-						{% set value = "" %}
-						{% if user[item.name] is defined %}
+					{% set value = "" %}
+					{% if ((user[item.name] is not defined) or (user[item.name] == "" )) %}
+					{% else %}
+						<div class="{{item.class}}">
+							<span class='hidden' data-qno>{{loop.index}}</span>
+							<span class='hidden' data-qid>{{item._id}}</span>
 							{% set value = user[item.name] %}
-						{% endif %}
-						{% if item.type == "select" %}
-							{{form.select(item.label[0],item.name,item.type,item.required,item.editable,value,item.option)}}
-						{# {% elseif(item.type == "date") %}
-							{{form.date(item.label[0],item.name,item.type,item.required,item.editable,value)}} #}
-						{% else %}
-							{{form.input(item.label[0],item.name,item.type,item.required,item.editable,value)}}
-						{% endif %}
-					</div>
+
+							{% if edit is defined %}
+
+								{% else %}
+									<div class="form-group">
+										<label for="">{{item.label[0].value}}</label>
+										<div class="input">
+											{% if value is iterable %}
+												{% if value.label is defined %}
+													{{value.label}}
+												{% else %}
+													{% for val in value %}
+														{{val}}
+													{% endfor %}
+												{% endif %}
+											{% else %}
+												{{value}}
+											{% endif %}
+										</div>
+									</div>
+							{% endif %}
+						</div>
+					{% endif %}
 				{% endfor %}
 			</div>
-			<button class="mt-1 btn btn-primary fr">Submit</button>
+			{# <button class="mt-1 btn btn-primary fr">Submit</button> #}
 		</form>
 	</div>
 </div>

@@ -25,15 +25,14 @@ router.route("/")
 router.use("/:profilename", getProfileInfo);
 router.route("/:profilename")
     .get((req, res) => {
-        console.log(req.params.profilename);
         let pageinfo = {};
+        console.log(req.user);
         req.user.profileCategories.map(e => {
             if (e.target === req.params.profilename) { e.active = true; pageinfo = e; }
             return e;
         })
 
-        // req.user.basicpro = JSON.parse(require("fs").readFileSync("./dummyData/profile.basic.json"));
-        res.render("form.twig", {
+        res.render("profileInfo.twig", {
             user: req.user, profile: req.profile, page: {
                 title: pageinfo.name,
                 icon: pageinfo.icon,
