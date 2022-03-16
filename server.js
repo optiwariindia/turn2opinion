@@ -2,8 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const { append } = require("express/lib/response");
 const mongoose = require("mongoose");
-const publicDir=__dirname.split("/").slice(0,-1).join("/")+"/public";
-// const publicDir = __dirname + "/public";
+// const publicDir=__dirname.split("/").slice(0,-1).join("/")+"/public";
+const publicDir = __dirname + "/public";
 console.log(publicDir);
 
 app = express();
