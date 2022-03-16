@@ -8,6 +8,7 @@ const twig = require("twig");
 const user = require('../modals/user');
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
+const Survey = mongoose.model("survey", require("../modals/survey"));
 
 console.log
 router.use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }));
@@ -148,7 +149,6 @@ router.post("/setpass", (req, res) => {
 
             console.log(usr);
             res.json({ "status": "ok", "user": usr });
-            // res.redirect("/user/dashboard");
         })
     }).catch(err => {
         res.json({ "status": "error", message: err.message });
@@ -174,14 +174,9 @@ router.get("/dashboard",
     userDetails,
     (req, res) => {
 
-        // console.log(req.user);
+        // console.log(req.user.survey);//availableSurveys);
         let filters = [];
-        req.user.availableSurveys.forEach(survey => {
-            if (survey.sstat !== "" && (filters.indexOf(survey.sstat) === -1))
-                filters.push(survey.sstat);
-            if (survey.sact !== "" && (filters.indexOf(survey.sact) === -1))
-                filters.push(survey.sact);
-        })
+        user.survey=req.user.availableSurveys;
         res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters });
     })
 router.use(fileUpload())
@@ -208,38 +203,91 @@ async function userDetails(req, res, next) {
     await keys.forEach(async key => {
         if (key == "_id" || key == "__v") return false;
         val = req.user[key];
-        console.log({ key: key, valtype: typeof val });
         if (typeof val == "string")
             if (mongoose.isValidObjectId(val)) {
                 req.user[key] = await ProfileOptions.findById(val);
             }
     });
-
     req.user.dob = new Date(num).toISOString().split("T")[0];
-    req.user.statusSummary = JSON.parse(require("fs").readFileSync("./dummyData/statusSummary.json"));
-
-    profileCategories = JSON.parse(require("fs").readFileSync("./dummyData/profileCategoires.json"));
-    
+    // Checking Profile Status
     profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 })));
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
-        marks={
-            total:0,
-            scored:0
+        marks = {
+            total: 0,
+            scored: 0
         }
         for (let j = 0; j < profile.questions.length; j++) {
             const question = profile.questions[j];
             marks.total++;
-            if(question.name in req.user)marks.scored++;
-            else console.log(question.label);
+            if (question.name in req.user) marks.scored++;
         }
-        profileCategories[index]['completed']=Math.round((marks.scored * 100)/(marks.total));
-        console.log(marks);
-        profileCategories[index]['marks']=marks;
+        profileCategories[index]['completed'] = Math.round((marks.scored * 100) / (marks.total));
+        profileCategories[index]['marks'] = marks;
     }
     req.user.profileCategories = profileCategories;
-    req.user.summary = JSON.parse(require("fs").readFileSync("./dummyData/summary.json"));
-    req.user.availableSurveys = JSON.parse(require("fs").readFileSync("./dummyData/availableSurvey.json"));
+console.log(req.user._id.toString());
+    req.user.availableSurveys =  await Survey.find({
+        completed:{
+            $ne:req.user._id
+        },
+        availableFor:
+        {
+            $in:[req.user._id.toString(),"all"]
+        }
+        }, {
+            name: 1,
+            uri: 1,
+            summary: 1,
+            source: 1,
+            category: 1,
+            surveyPoints: 1,
+            surveyID:1,
+            source:1,
+            completed:1,
+            availableFor:1
+        }).exec();
+    req.user.summary = [
+        {
+            name: "Available Surveys",
+            info: [
+                {
+                    name: "In House Survey",
+                    icon: "/img/inhouse.png",
+                    count: req.user.availableSurveys.filter(survey => survey.source == "inhouse").length,
+                    target: "#available-survey"
+                },
+                {
+                    name: "External Survey",
+                    icon: "/img/external.png",
+                    count: req.user.availableSurveys.filter(survey => survey.source == "external").length,
+                    target: "#available-survey"
+                },
+                {
+                    name: "Survey Participations",
+                    icon: "/img/participation.png",
+                    count: 0,//req.user.participations.length||0,
+                    target: "#available-survey"
+                }
+            ]
+        },
+        {
+            name: "Survey History",
+            info: [
+                {},
+                {},
+                {}
+            ]
+        },
+        {
+            name: "Claimed History",
+            info: [
+                {},
+                {},
+                {}
+            ]
+        }
+    ];
 
     next();
 }

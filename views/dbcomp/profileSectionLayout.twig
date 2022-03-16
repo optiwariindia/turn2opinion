@@ -1,0 +1,57 @@
+{% import "macro/survey.twig" as form %}
+<div class="mb-3 card">
+	<div class="card-header-tab card-header">
+		<div class="card-header-title font-size-lg text-capitalize font-weight-bold">
+			<img src="/images/categories/{{page.icon}}" class='pageicon'>
+			{{page.title}}
+		</div>
+		<div class="btn-actions-pane-right text-capitalize ">
+			<a href='?edit=true' class="btn-icon btn-icon-only btn btn-link">
+				<i class="pe-7s-menu fa-pencil-square-o fa"></i>
+			</a>
+		</div>
+	</div>
+	<div class="card-body">
+		<form method="post">
+			{% set counter = 1 %}
+			{% for page in profile.pages %}
+				<div class="page" page="{{loop.index}}" style='display:none'>
+					<div class="row">
+						{% for que in page %}
+							{% set item = profile.questions[que] %}
+							<div class="{{item.class}}">
+								{% if edit is defined %}
+									{{form.render(profile.questions[que],user,counter)}}
+								{% else %}
+									<div class="form-group">
+										<label for="">{{item.label[0].value}}</label>
+										<div class="input">
+											{% set value = user[item.name] %}
+											{% if value is iterable %}
+												{% if value.label is defined %}
+													{{value.label}}
+												{% else %}
+													{% for val in value %}
+														{{val}}
+													{% endfor %}
+												{% endif %}
+											{% else %}
+												{{value}}
+											{% endif %}
+										</div>
+									</div>
+                                {% endif %}
+                                {% set counter = counter + 1 %}
+                            </div>
+						{% endfor %}
+					</div>
+				</div>
+                
+			{% endfor %}
+			{# <button class="mt-1 btn btn-primary fr">Submit</button> #}
+		</form>
+        <div class="mb-3 progress">
+				<div class="progress-bar bg-info progress-bar-striped" role="progressbar" data-survey-progress="20"></div>
+			</div>
+	</div>
+</div>

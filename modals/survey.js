@@ -22,6 +22,18 @@ module.exports = new schema(
             type: String,
             required: true
         },
+        summary:String,
+        category:String,
+        source:String,
+        surveyID:String,
+        surveyPoints:Number,
+        availableFor:[String],
+        thankyou:String,
+        completed:[String],
+        active:{
+            from:Date,
+            to:Date
+        },
         pages: [[question ]]
     }
 )

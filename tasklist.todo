@@ -1,0 +1,58 @@
+Welcome Survey:
+  ✔ Match the survey information with available survey table @started @done (22-03-16 15:30)
+    ✔ Move survey from user to separate table [done] @done (22-03-16 15:30)
+    ✔ Update Table Structure [done] @done (22-03-16 15:30)
+    ✔ Store list of users who have completed this survey [to be connected with UI] @done (22-03-16 15:30)
+    ✔ Exclude this survey from available list for the user who has completed this survey [done] @done (22-03-16 15:30)
+  ✔ Add Thankyou message @done (22-03-16 15:30)
+  ✔ Close survey after Thankyou message @done (22-03-16 15:30)
+  ✔ Update survey status to be completed @started @done (22-03-16 15:31)
+    ✔ Added survey information from database to available survey section [done] @done (22-03-16 15:31)
+    ✔ Updated Available survey count as per surveys available for the user on the dashboard [done] @done (22-03-16 15:31)
+   ✔ Update Count of completed surveys @done (22-03-16 16:17)
+   ✔ Calculate points of user once survey is completed @done (22-03-16 16:17)
+Professional+Educational Survey:
+  ✔ Match the survey information with available survey table @started @done (22-03-16 16:17)
+    ✔ Move survey from user to separate table [done] @done (22-03-16 16:17)
+    ✔ Update Table Structure [done] @done (22-03-16 16:17)
+    ✔ Store list of users who have completed this survey [to be connected with UI] @done (22-03-16 16:17)
+    ✔ Exclude this survey from available list for the user who has completed this survey [done] @done (22-03-16 16:17)
+  ☐ Add Welcome Message
+  ✔ Add Thankyou message @done (22-03-16 16:17)
+  ✔ Add option to close after thankyou message @done (22-03-16 16:17)
+  ✔ Update survey Information to be completed @started @done (22-03-16 16:17)
+    ✔ Added survey information from database to available survey section [done] @done (22-03-16 16:17)
+    ✔ Updated Available survey count as per surveys available for the user on the dashboard [done] @done (22-03-16 16:17)
+Dashboard:
+  ✔ Display Reward Points on dashboard @done (22-03-16 16:18)
+    Reward Point for user creation :                       200
+    Reward point for welcome survey:                       300
+    Reward point for professional and educational profile: 300
+  ✔ Display List of available surveys @done (22-03-16 16:18)
+  ✔ Count Internal and External surveys and display numbers @done (22-03-16 16:18)
+  ✔ Add Threshold point and calculate percentage accordingly @done (22-03-16 16:19)
+Profile Pages:
+  ✔ Make it on theme of survey @started(22-03-16 16:20) @done (22-03-16 16:22) @lasted(0:02)
+  ☐ Break profiles into pages @started(22-03-16 16:23) 
+    ☐ Basic  Profile
+    ☐ Financial Profile
+    ☐ Professional Profile
+    ☐ Lifestyle Profile
+    ☐ Parenting Profile
+    ☐ Pet Profile
+    ☐ Technology Profile
+    ☐ Gaming Profile
+    ☐ Food & Beverage Profile
+    ☐ Health Profile
+    ☐ Beauty Profile
+    ☐ Travel Profile
+    ☐ Entertaintment Profile
+    ☐ Educational Profile
+    ☐ Mobile Profile
+    ☐ Homeowner Profile
+  ☐ Edit button will work on current page only
+  ☐ Only one page of profile can be submitted 
+  ☐ Default mode is edit mode unless user has reached the profile once
+  ☐ Sort profiles in specific order
+    ☐ Add sortable field @started
+    ☐ Add Query to soft by the field added

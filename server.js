@@ -3,6 +3,8 @@ const express = require("express");
 const { append } = require("express/lib/response");
 const mongoose = require("mongoose");
 const publicDir=__dirname.split("/").slice(0,-1).join("/")+"/public";
+// const publicDir = __dirname + "/public";
+console.log(publicDir);
 
 app = express();
 mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
@@ -13,6 +15,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             const connectLivereload = require("connect-livereload");
             const server = livereload.createServer();
             server.watch(publicDir);
+            // server.watch(__dirname);
             server.server.once("connection", () => {
                 setTimeout(() => {
                     server.refresh();

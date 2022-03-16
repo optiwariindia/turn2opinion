@@ -1,7 +1,7 @@
 {
   "name": "turn2opinion",
   "version": "1.0.0",
-  "description": "",
+  "description": "Trun 2 Opinion Website for Frequent Research",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

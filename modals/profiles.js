@@ -22,6 +22,7 @@ module.exports = new schema(
             type: String,
             required: true
         },
-        questions: [question ]
+        questions: [question ],
+        pages: [[]]
     }
 )

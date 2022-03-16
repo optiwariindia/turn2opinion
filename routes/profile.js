@@ -16,7 +16,7 @@ router.route("/")
         User.findOne({ email: req.user.email }).then(user => {
             user.propic = `/assets/images/avatars/${req.user._id}.${type[1]}`;
             user.save().then(usr => {
-                console.log(usr);
+                // console.log(usr);
                 req.session.user = usr;
                 res.redirect("/user/profile");
             });
@@ -26,19 +26,21 @@ router.use("/:profilename", getProfileInfo);
 router.route("/:profilename")
     .get((req, res) => {
         let pageinfo = {};
-        console.log(req.user);
+        // console.log(req.user);
         req.user.profileCategories.map(e => {
             if (e.target === req.params.profilename) { e.active = true; pageinfo = e; }
             return e;
         })
-
-        res.render("profileInfo.twig", {
+        // console.log(req.query);
+        let info={
             user: req.user, profile: req.profile, page: {
                 title: pageinfo.name,
                 icon: pageinfo.icon,
                 active: pageinfo.active
             }
-        });
+        };
+        if("edit" in req.query)info["edit"]=true;
+        res.render("profileInfo.twig", info);
     })
     .post(async (req, res) => {
         try {

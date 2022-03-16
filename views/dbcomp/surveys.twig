@@ -43,16 +43,16 @@
 			<tbody>
 				{% for survey in user.availableSurveys %}
 					<tr>
-						<td class='text-center'>{{survey.surveyid}}</td>
-						<td>{{survey.stopic}}</td>
+						<td class='text-center'>{{survey.surveyID}}</td>
+						<td>{{survey.name}}</td>
 						<td>{{survey.sinfo}}</td>
-						<td>{{survey.scat}}</td>
-						<td>{{survey.src}}</td>
-						<td style='text-align:center'>{{survey.spt}}</td>
-						<td style='text-align:center'>{{survey.lpt}}</td>
-						<td>{{survey.sact}}</td>
-						<td>{{survey.sstat}}</td>
-						<td>{{((survey.sact == "") and (survey.sstat=="Active"))?"Take Survey":""}}</td>
+						<td>{{survey.category}}</td>
+						<td>{{survey.source}}</td>
+						<td style='text-align:center'>{{survey.surveyPoints}}</td>
+						<td style='text-align:center'></td>
+						<td></td>
+						<td></td>
+						<td><a target="_new" href="/user/survey/{{survey.uri}}">Take Survey</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>
