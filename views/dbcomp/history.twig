@@ -1,0 +1,37 @@
+<div class="card mb-3">
+	<div class="card-header-tab card-header">
+		<div class="card-header-title font-size-lg text-capitalize">
+			<img src="{{info.icon}}" class='img-fluid' style='height:50px;margin-right:20px;' alt="">
+			<h3>Survey History</h3>
+		</div>
+	</div>
+	<div class="card-body">
+		<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Survey Name</th>
+					<th>Survey Type</th>
+					<th>Survey Date</th>
+					<th>Survey Status</th>
+					<th>Rewards</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for attempt in history %}
+					<tr>
+						<td>{{attempt._survey.surveyID}}</td>
+						<td>{{attempt._survey.name}}</td>
+						<td>{{attempt.category}}</td>
+						<td>{{attempt.attemp.start}}</td>
+						<td>{{attempt.status}}</td>
+						<td>
+							<i class='fa fa-database' style="color: #d6ab5a;"></i>
+							{{attempt.rewards}}</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>

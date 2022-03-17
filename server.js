@@ -23,7 +23,6 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             })
             app.use(connectLivereload());
         }
-
         app.use(express.static(publicDir))
             .use(express.urlencoded({ extended: true }))
             .use(express.json())
