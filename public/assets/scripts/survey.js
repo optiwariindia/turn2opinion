@@ -1,30 +1,30 @@
-const inputCheckbox={
-    add:function(e){
-        p=e.parentElement.parentElement;
-        inp=p.querySelector("input");
-        vals=[];
-        val=inp.value;
-        if(val!==""){
-            vals=JSON.parse(val);
+const inputCheckbox = {
+    add: function (e) {
+        p = e.parentElement.parentElement;
+        inp = p.querySelector("input");
+        vals = [];
+        val = inp.value;
+        if (val !== "") {
+            vals = JSON.parse(val);
         }
-        if(vals.indexOf(e.innerText) === -1){
+        if (vals.indexOf(e.innerText) === -1) {
             vals.push(e.innerText.trim());
-            p.querySelector(".input").innerHTML=p.querySelector(".input").innerHTML + `<span><i onclick=inputCheckbox.remove(this) class="fa fa-times"></i> ${e.innerText}</span>`;
+            p.querySelector(".input").innerHTML = p.querySelector(".input").innerHTML + `<span><i onclick=inputCheckbox.remove(this) class="fa fa-times"></i> ${e.innerText}</span>`;
             e.classList.add("disabled");
         }
-        inp.value=JSON.stringify(vals);
+        inp.value = JSON.stringify(vals);
     },
-    remove:function(e){
-        vals=[];
-        val=e.closest(".options").querySelector("input").value;
-        if(val!==""){
-            vals=JSON.parse(val);
+    remove: function (e) {
+        vals = [];
+        val = e.closest(".options").querySelector("input").value;
+        if (val !== "") {
+            vals = JSON.parse(val);
         }
-        index=vals.indexOf(e.parentElement.innerText.trim());
-        vals.splice(index,1);
-        e.closest(".options").querySelector("input").value=JSON.stringify(vals);
-        e.closest(".options").querySelectorAll("button").forEach(b=>{
-            if(b.innerText===e.parentElement.innerText){
+        index = vals.indexOf(e.parentElement.innerText.trim());
+        vals.splice(index, 1);
+        e.closest(".options").querySelector("input").value = JSON.stringify(vals);
+        e.closest(".options").querySelectorAll("button").forEach(b => {
+            if (b.innerText === e.parentElement.innerText) {
                 b.classList.remove("disabled");
             }
         });
@@ -33,7 +33,7 @@ const inputCheckbox={
 }
 const progress = {
     value: 1,
-    max: 1,
+    max: document.querySelectorAll("[page]").length,
     dom: {
         ui: document.querySelector("[data-survey-progress]"),
         page: document.querySelector("[data-pageno]"),
@@ -44,46 +44,47 @@ const progress = {
             submit: document.querySelector("[data-submit]")
         }
     },
-    getCurrentPage:async function(){
-      let page=null;
-      await document.querySelectorAll("[page]").forEach((item, i) => {
-        if(item.getAttribute("page")==progress.value)page=item;
-      });
-      return page;
+    getCurrentPage: async function () {
+        let page = null;
+        await document.querySelectorAll("[page]").forEach((item, i) => {
+            if (item.getAttribute("page") == progress.value) page = item;
+        });
+        return page;
     },
-    validate:async function(){
-      let page=await progress.getCurrentPage();
-      let fields=page.querySelectorAll("[name]:invalid");
-      if(fields.length == 0)return true;
+    validate: async function () {
+        let page = await progress.getCurrentPage();
+        let fields = page.querySelectorAll("[name]:invalid");
+        if (fields.length == 0) return true;
 
         switch (fields[0].getAttribute("name")) {
-          case "surveycategories":
-          case "interest":
-          console.table({page:page.getAttribute("page"),field:fields[0].name});
-            val=fields[0].value;
-            if(val==""){
-              alert("Please select at least 3");
-              return false;}
-              let vals=[];
-            vals=JSON.parse(val);
-            if(vals.length < 3){
-              alert("Please select at least 3");
-              return false;
-            }
-            return true;
-            break;
-          default:
+            case "surveycategories":
+            case "interest":
+                console.table({ page: page.getAttribute("page"), field: fields[0].name });
+                val = fields[0].value;
+                if (val == "") {
+                    alert("Please select at least 3");
+                    return false;
+                }
+                let vals = [];
+                vals = JSON.parse(val);
+                if (vals.length < 3) {
+                    alert("Please select at least 3");
+                    return false;
+                }
+                return true;
+                break;
+            default:
 
         }
 
-      fields[0].focus();
-      elm=fields[0].closest(".form-group").querySelector("label");
-      alert(`${elm.innerText} Seems to be invalid. Please check`);
-      console.log({invalid:fields[0].name});
-      return false;
+        fields[0].focus();
+        elm = fields[0].closest(".form-group").querySelector("label");
+        alert(`${elm.innerText} Seems to be invalid. Please check`);
+        console.log({ invalid: fields[0].name });
+        return false;
     },
     next: async function () {
-         if(! await progress.validate()) return false;
+        if (! await progress.validate()) return false;
         progress.value++;
         if (progress.value >= progress.max) {
             progress.value = progress.max;
@@ -98,7 +99,9 @@ const progress = {
         progress.show();
     },
     show: async function () {
-        progress.max = progress.dom.total.innerText;
+        // progress.max = progress.dom.total.innerText;
+        progress.dom.total.innerText = progress.max;
+        progress.dom.page.innerText = progress.value;
         await document.querySelectorAll("[page]").forEach(e => {
             e.style.display = "none";
             if (e.getAttribute("page") == progress.value)
@@ -110,7 +113,9 @@ const progress = {
             case 1:
                 progress.dom.buttons.prev.style.display = "none";
                 progress.dom.buttons.next.style.display = "block";
-                progress.dom.buttons.next.innerText = "Start";
+                if (location.pathname.startsWith("/user/survey")) {
+                    progress.dom.buttons.next.innerText = "Start";
+                }
                 progress.dom.buttons.submit.style.display = "none";
                 break;
             case (progress.max):
@@ -132,7 +137,7 @@ const progress = {
                 case "radio":
                     if (!e.checked) break;
                 default:
-                        inputs[e.name] = e.value;
+                    inputs[e.name] = e.value;
             }
         });
         console.log(inputs);
@@ -148,7 +153,7 @@ const progress = {
             case "success":
                 popup.show(`<h2>Thank you</h2> <p>${data.message}</p>`);
                 setTimeout(() => {
-                    location.href="/"
+                    location.href = "/"
                 }, 3000);
                 break;
             case "error":
@@ -175,11 +180,11 @@ progress.show();
                     body: JSON.stringify(info)
                 });
                 data = await resp.json();
-                if("zip" in data){
-                  let z=document.querySelector("[name=zipcode]");
-                  console.log(data.zip['zip']);
-                  z.setAttribute("pattern",data.zip['zip']);
-                  if(!z.validity.valid)z.value="";
+                if ("zip" in data) {
+                    let z = document.querySelector("[name=zipcode]");
+                    console.log(data.zip['zip']);
+                    z.setAttribute("pattern", data.zip['zip']);
+                    if (!z.validity.valid) z.value = "";
                 }
                 i = document.querySelector(`[name=${data.data[0].name}]`);
                 console.log(i);
@@ -195,23 +200,26 @@ progress.show();
             fetch(e.getAttribute("data-api"), {
                 method: "GET"
             }).then(resp => resp.json()).then(async data => {
-                i = document.querySelector(`[name=${data.data[0].name}]`);
-                switch (i.tagName.toLowerCase()) {
-                    case "select":
-                        options = `<option value="">Select</option>`;
-                        await data.data.forEach(e => {
-                            options += `<option value="${e._id}">${e.label}</option>`;
-                        });
-                        i.innerHTML = options;
-                        showSelect();
-                        break;
-                    case "input":
-                        options = "";
-                        await data.data.forEach(e => {
-                            // options += `<span class='custom-checkbox'> <input type="checkbox" name="${i.name}[]" value="${e._id}" id="r-${e._id}"> <label for="r-${e._id}">${e.label}</label> </span>`;
-                            options += `<button class='custom-checkbox' type=button onclick=inputCheckbox.add(this)> ${e.label}</button>`;
-                        });
-                        i.parentElement.querySelector(".option-values").innerHTML = options;
+                if (data.data[0] !== undefined) {
+
+                    i = document.querySelector(`[name=${data.data[0].name}]`);
+                    switch (i.tagName.toLowerCase()) {
+                        case "select":
+                            options = `<option value="">Select</option>`;
+                            await data.data.forEach(e => {
+                                options += `<option value="${e._id}">${e.label}</option>`;
+                            });
+                            i.innerHTML = options;
+                            showSelect();
+                            break;
+                        case "input":
+                            options = "";
+                            await data.data.forEach(e => {
+                                // options += `<span class='custom-checkbox'> <input type="checkbox" name="${i.name}[]" value="${e._id}" id="r-${e._id}"> <label for="r-${e._id}">${e.label}</label> </span>`;
+                                options += `<button class='custom-checkbox' type=button onclick=inputCheckbox.add(this)> ${e.label}</button>`;
+                            });
+                            i.parentElement.querySelector(".option-values").innerHTML = options;
+                    }
                 }
             })
         }
@@ -219,8 +227,8 @@ progress.show();
 })()
 function showSelect() {
     document.querySelectorAll("select").forEach(e => {
-      element=e.closest(".col-sm-6")||e.closest(".col-sm-12");
-      // console.log(element===null);
+        element = e.closest(".col-sm-6") || e.closest(".col-sm-12");
+        // console.log(element===null);
         if (e.querySelectorAll("option").length == 1) {
             element.style.display = "none";
         } else {
@@ -228,7 +236,8 @@ function showSelect() {
         }
     });
 }
-progress.value = 1;
+params = new URLSearchParams(location.search);
+progress.value = params.get("page") || 1;
 progress.show();
 const bindFields = {
     list: document.querySelectorAll("[bind-field]"),

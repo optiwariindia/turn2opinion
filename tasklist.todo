@@ -17,7 +17,7 @@ Professional+Educational Survey:
     ✔ Update Table Structure [done] @done (22-03-16 16:17)
     ✔ Store list of users who have completed this survey [to be connected with UI] @done (22-03-16 16:17)
     ✔ Exclude this survey from available list for the user who has completed this survey [done] @done (22-03-16 16:17)
-  ☐ Add Welcome Message
+  ✔ Add Welcome Message @started(22-03-17 10:35) @done (22-03-17 10:43) @lasted(0:08)
   ✔ Add Thankyou message @done (22-03-16 16:17)
   ✔ Add option to close after thankyou message @done (22-03-16 16:17)
   ✔ Update survey Information to be completed @started @done (22-03-16 16:17)
@@ -33,26 +33,41 @@ Dashboard:
   ✔ Add Threshold point and calculate percentage accordingly @done (22-03-16 16:19)
 Profile Pages:
   ✔ Make it on theme of survey @started(22-03-16 16:20) @done (22-03-16 16:22) @lasted(0:02)
-  ☐ Break profiles into pages @started(22-03-16 16:23) 
-    ☐ Basic  Profile
-    ☐ Financial Profile
-    ☐ Professional Profile
-    ☐ Lifestyle Profile
-    ☐ Parenting Profile
-    ☐ Pet Profile
-    ☐ Technology Profile
-    ☐ Gaming Profile
-    ☐ Food & Beverage Profile
-    ☐ Health Profile
-    ☐ Beauty Profile
-    ☐ Travel Profile
-    ☐ Entertaintment Profile
-    ☐ Educational Profile
-    ☐ Mobile Profile
-    ☐ Homeowner Profile
-  ☐ Edit button will work on current page only
+  ✔ Break profiles into pages @started(22-03-16 16:23) @done (22-03-17 11:54) @lasted(19:31)
+    ✔ Basic  Profile @done (22-03-17 11:19)
+    ✔ Financial Profile @done (22-03-16 19:01)
+    ✔ Professional Profile @done (22-03-17 11:19)
+    ✔ Lifestyle Profile @done (22-03-17 11:54)
+    ✔ Parenting Profile @done (22-03-17 11:54)
+    ✔ Pet Profile @done (22-03-17 11:54)
+    ✔ Technology Profile @done (22-03-17 11:54)
+    ✔ Gaming Profile @done (22-03-17 11:54)
+    ✔ Food & Beverage Profile @done (22-03-17 11:54)
+    ✔ Health Profile @done (22-03-17 11:54)
+    ✔ Beauty Profile @done (22-03-17 11:54)
+    ✔ Travel Profile @done (22-03-17 11:54)
+    ✔ Entertaintment Profile @done (22-03-17 11:54)
+    ✔ Educational Profile @done (22-03-17 11:54)
+    ✔ Mobile Profile @done (22-03-17 11:54)
+    ✔ Homeowner Profile @done (22-03-17 11:54)
+  ✔ Edit button will work on current page only @done (22-03-16 19:01)
+  Data Overwriting:
+    ☐ Change ###varname### to it's respective value from user object if defined.
+    ☐ List currency with country database
+    ☐ Read Exchange Rates for various currencies
+    ☐ Convert montitary values from given amount to user's respective currency
   ☐ Only one page of profile can be submitted 
-  ☐ Default mode is edit mode unless user has reached the profile once
-  ☐ Sort profiles in specific order
-    ☐ Add sortable field @started
-    ☐ Add Query to soft by the field added
+  ✔ Default mode is edit mode unless user has reached the profile once @done (22-03-17 13:30)
+  ✔ Do not display questions if not answered @done (22-03-17 13:31)
+  ✔ Do not show pages if all questions are unanswered @done (22-03-17 13:31)
+  ☐ Add save button to save current page data and exit out of edit mode
+  ☐ Do not show next button if next page is unavailable
+  ☐ Rewrite api calls to respond multiple inputs based on one single change [Case of chaining inputs]
+  ☐ Set default value as "-" for inputs that are not applied
+  ☐ Stop age calculation if date of birth is not present
+  ☐ Add phone number validation in alternate phone
+  Point calculations for profile:
+    ☐ Points for each profile shall be 300
+    ☐ Marks are equally distributed
+    ☐ Marks awarded question is answered or does not apply based on previous answers [Dependency Failure]
+  ☐ Pie chart should be updated on profile change

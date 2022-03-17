@@ -19,39 +19,52 @@
 					<div class="row">
 						{% for que in page %}
 							{% set item = profile.questions[que] %}
-							<div class="{{item.class}}">
-								{% if edit is defined %}
-									{{form.render(profile.questions[que],user,counter)}}
-								{% else %}
-									<div class="form-group">
-										<label for="">{{item.label[0].value}}</label>
-										<div class="input">
-											{% set value = user[item.name] %}
-											{% if value is iterable %}
-												{% if value.label is defined %}
-													{{value.label}}
+							{% if edit is defined %}
+								{{form.render(profile.questions[que],user,counter)}}
+							{% else %}
+								{# {% if item.ans is defined %} #}
+
+									<div class="{{item.class}}">
+										<div class="form-group">
+											<label for="">{{item.label[0].value}}</label>
+											<div class="input">
+												{% set value = user[item.name] %}
+												{% if value is iterable %}
+													{% if value.label is defined %}
+														{{value.label}}
+													{% else %}
+														{% for val in value %}
+															{{val}}
+														{% endfor %}
+													{% endif %}
 												{% else %}
-													{% for val in value %}
-														{{val}}
-													{% endfor %}
+													{{value}}
 												{% endif %}
-											{% else %}
-												{{value}}
-											{% endif %}
+											</div>
 										</div>
 									</div>
-                                {% endif %}
-                                {% set counter = counter + 1 %}
-                            </div>
+								{# {% endif %} #}
+							{% endif %}
+							{% set counter = counter + 1 %}
 						{% endfor %}
 					</div>
 				</div>
-                
+
 			{% endfor %}
 			{# <button class="mt-1 btn btn-primary fr">Submit</button> #}
 		</form>
-        <div class="mb-3 progress">
-				<div class="progress-bar bg-info progress-bar-striped" role="progressbar" data-survey-progress="20"></div>
-			</div>
+		<div class="mb-3 progress">
+			<div class="progress-bar bg-info progress-bar-striped" role="progressbar" data-survey-progress="20"></div>
+		</div>
+		<div class="text-right">
+			<button type="button" data-submit class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.submit()">Submit</button>
+			<button type="button" data-next class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.next()">Next</button>
+			<button type="button" data-prev class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.previous()">Previous</button>
+		</div>
+		<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
+			<span data-pageno>1</span>
+			of
+			<span data-totalpages>{{survey.pages|length}}</span>
+		</div>
 	</div>
 </div>

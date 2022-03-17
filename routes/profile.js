@@ -32,14 +32,14 @@ router.route("/:profilename")
             return e;
         })
         // console.log(req.query);
-        let info={
+        let info = {
             user: req.user, profile: req.profile, page: {
                 title: pageinfo.name,
                 icon: pageinfo.icon,
                 active: pageinfo.active
             }
         };
-        if("edit" in req.query)info["edit"]=true;
+        if ("edit" in req.query) info["edit"] = true;
         res.render("profileInfo.twig", info);
     })
     .post(async (req, res) => {
@@ -57,13 +57,35 @@ module.exports = router;
 
 async function getProfileInfo(req, res, next) {
     try {
+        user = req.user;
         profiles = await Profiles.find({ uri: req.params.profilename });
         if (profiles.length === 0) {
             req.profile = [];
             next();
             return;
         }
-        req.profile = profiles[0];
+        profile = JSON.parse(JSON.stringify(profiles[0]));
+        for (let index = 0; index < profile.questions.length; index++) {
+            if ([null, undefined, ""].indexOf(user[profile.questions[index].name]) === -1) {
+                profile.questions[index]["ans"] = user[profile.questions[index].name];
+            } else {
+                profile.pages = profile.pages.map(e => {
+                    e.indexOf(index) > -1 ? e.splice(e.indexOf(index), 1) : null;
+                    return e;
+                });
+            }
+        }
+        pages = [];
+        profile.pages.forEach(element => {
+            if (element.length > 0) pages.push(element);
+        });
+        profile.pages = pages;
+        if ("edit" in req.query)
+            req.profile = profiles[0];
+        else
+            req.profile = profile;
+        if (req.profile.pages.length == 0)
+            res.redirect("?edit=true");
         next();
         return;
 

@@ -42570,6 +42570,9 @@ a.card.no-shadow.rm-border.bg-transparent.widget-chart.text-center:hover {
 .hidden {
     display: none;
 }
+.input{
+    border-bottom:1px solid var(--theme-light);
+}
 
 :root {
     --progress-active: #924500;

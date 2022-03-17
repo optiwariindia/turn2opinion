@@ -492,7 +492,7 @@ router.post("/zone",async (req,res)=>{
 })
 router.post("/children",(req,res)=>{
   if(req.body.relationship==="621f0e26d69e48efe893d35f")
-  res.json({status:"success",data:[]});
+  res.json({status:"success",data:[],children:req.body.relationship});
   else
   res.json({status:"success",data:[{_id:0,label:0,name:'children'},{_id:1,label:1},{_id:2,label:2},{_id:3,label:3},{_id:4,label:4},{_id:5,label:5},{_id:6,label:6},{_id:7,label:7},{_id:8,label:8},{_id:9,label:9}]});
 })
@@ -500,7 +500,7 @@ router.route("/:component")
     .get((req, res) => {
         console.log(`Requesting ${req.params.component}`);
         ProfileOptions.find({ name: req.params.component }).then(options => {
-            res.json({ status: "success", data: options })
+            res.json({ status: "success", data: options,component:req.params.component })
         }).catch(err => {
             res.json({ status: "error", message: err.message })
         })
