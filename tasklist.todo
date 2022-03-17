@@ -64,7 +64,7 @@ Profile Pages:
   ☐ Do not show next button if next page is unavailable
   ☐ Rewrite api calls to respond multiple inputs based on one single change [Case of chaining inputs]
   ☐ Set default value as "-" for inputs that are not applied
-  ☐ Stop age calculation if date of birth is not present
+  ✔ Stop age calculation if date of birth is not present @done(22-03-17 15:50)
   ☐ Add phone number validation in alternate phone
   Point calculations for profile:
     ☐ Points for each profile shall be 300

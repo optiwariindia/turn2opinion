@@ -19,7 +19,7 @@
 							</li>
 						{% endfor %}
 					</ul>
-				
+
 				</div>
 			</div>
 		</div>
@@ -34,10 +34,8 @@
 					<th class='text-center'>Survey Category</th>
 					<th class='text-center'>Survey Source</th>
 					<th class='text-center'>Survey Points</th>
-					<th class='text-center'>Current Live Points</th>
 					<th class='text-center'>Action</th>
 					<th class='text-center'>Status</th>
-					<th class='text-center'></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -49,10 +47,10 @@
 						<td>{{survey.category}}</td>
 						<td>{{survey.source}}</td>
 						<td style='text-align:center'>{{survey.surveyPoints}}</td>
-						<td style='text-align:center'></td>
-						<td></td>
-						<td></td>
-						<td><a target="_new" href="/user/survey/{{survey.uri}}">Take Survey</a></td>
+						<td>
+							<a target="_new" class='btn btn-primary' href="/user/survey/{{survey.uri}}">Take Survey</a>
+						</td>
+						<td>Pending</td>
 					</tr>
 				{% endfor %}
 			</tbody>
