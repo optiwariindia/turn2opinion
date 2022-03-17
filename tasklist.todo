@@ -53,14 +53,14 @@ Profile Pages:
   ✔ Edit button will work on current page only @done (22-03-16 19:01)
   Data Overwriting:
     ☐ Change ###varname### to it's respective value from user object if defined.
-    ☐ List currency with country database
-    ☐ Read Exchange Rates for various currencies
     ☐ Convert montitary values from given amount to user's respective currency
-  ☐ Only one page of profile can be submitted 
+    ✔ Read Exchange Rates for various currencies @done(22-03-17 15:39)
+    ✔ List currency with country database @done(22-03-17 15:39)
   ✔ Default mode is edit mode unless user has reached the profile once @done (22-03-17 13:30)
   ✔ Do not display questions if not answered @done (22-03-17 13:31)
   ✔ Do not show pages if all questions are unanswered @done (22-03-17 13:31)
   ☐ Add save button to save current page data and exit out of edit mode
+  ☐ Only one page of profile can be submitted 
   ☐ Do not show next button if next page is unavailable
   ☐ Rewrite api calls to respond multiple inputs based on one single change [Case of chaining inputs]
   ☐ Set default value as "-" for inputs that are not applied

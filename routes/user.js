@@ -176,7 +176,7 @@ router.get("/dashboard",
 
         // console.log(req.user.survey);//availableSurveys);
         let filters = [];
-        user.survey=req.user.availableSurveys;
+        user.survey = req.user.availableSurveys;
         res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters });
     })
 router.use(fileUpload())
@@ -197,9 +197,12 @@ function getUserInfo(req, res, next) {
 }
 async function userDetails(req, res, next) {
     req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
-    num = Date.parse(req.user.dob);
-    let keys = Object.keys(req.user);
-    userprofile = {};
+    if ("dob" in req.user) {
+        num = Date.parse(req.user.dob);
+        req.user.dob = new Date(num).toISOString().split("T")[0];
+    }
+        let keys = Object.keys(req.user);
+        userprofile = {};
     await keys.forEach(async key => {
         if (key == "_id" || key == "__v") return false;
         val = req.user[key];
@@ -208,11 +211,12 @@ async function userDetails(req, res, next) {
                 req.user[key] = await ProfileOptions.findById(val);
             }
     });
-    req.user.dob = new Date(num).toISOString().split("T")[0];
+    
     // Checking Profile Status
     profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 })));
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
+        
         marks = {
             total: 0,
             scored: 0
@@ -226,27 +230,27 @@ async function userDetails(req, res, next) {
         profileCategories[index]['marks'] = marks;
     }
     req.user.profileCategories = profileCategories;
-console.log(req.user._id.toString());
-    req.user.availableSurveys =  await Survey.find({
-        completed:{
-            $ne:req.user._id
+    console.log(req.user._id.toString());
+    req.user.availableSurveys = await Survey.find({
+        completed: {
+            $ne: req.user._id
         },
         availableFor:
         {
-            $in:[req.user._id.toString(),"all"]
+            $in: [req.user._id.toString(), "all"]
         }
-        }, {
-            name: 1,
-            uri: 1,
-            summary: 1,
-            source: 1,
-            category: 1,
-            surveyPoints: 1,
-            surveyID:1,
-            source:1,
-            completed:1,
-            availableFor:1
-        }).exec();
+    }, {
+        name: 1,
+        uri: 1,
+        summary: 1,
+        source: 1,
+        category: 1,
+        surveyPoints: 1,
+        surveyID: 1,
+        source: 1,
+        completed: 1,
+        availableFor: 1
+    }).exec();
     req.user.summary = [
         {
             name: "Available Surveys",
