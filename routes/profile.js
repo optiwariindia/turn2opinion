@@ -85,7 +85,8 @@ async function getProfileInfo(req, res, next) {
         else
             req.profile = profile;
         if (req.profile.pages.length == 0)
-            res.redirect("?edit=true");
+            req.mode="edit";
+            
         next();
         return;
 

@@ -7,12 +7,20 @@
     },
     "socials":[
         {
-            "link":"https://www.facebook.com/sahil.kumar.9",
+            "link":"https://www.facebook.com/frequentrfs/",
             "icon":"icon-facebook"
         },
         {
-            "link":"https://www.linkedin.com/in/sahil-kumar-9b9b7b1a4/",
+            "link":"https://twitter.com/frequentrfs",
+            "icon":"icon-twitter"
+        },
+        {
+            "link":"https://www.linkedin.com/company/13338885/admin/",
             "icon":"icon-linkedin"
+        },
+        {
+            "link":"https://www.youtube.com/channel/UCLxmn2kq4aACAHaL2eT6QIQ",
+            "icon":"icon-youtube"
         }
     ],
     "navbar":[

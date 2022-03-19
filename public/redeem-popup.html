@@ -1,0 +1,174 @@
+<style media="screen">
+  .redeemPopup {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+  }
+  .popupcard {
+    width: 60%;
+    margin: auto;
+  }
+  .info h3 {
+    float: left;
+    width: 100%;
+    text-align: center;
+  }
+  .info span {
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
+  }
+  .redeemPopup ul {
+    list-style: none;
+  }
+  .redeemPopup li {
+    float: left;
+    width: 100%;
+  }
+  .redeemPopup li .fa {
+    font-size: 20px;
+    background: red;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 20px;
+    margin-top: 10px;
+    float: left;
+  }
+  .redeemPopup li .name {
+    padding: 20px;
+    font-size: 30px;
+    float: left;
+  }
+  .redeemPopup li .points::before {
+    content: "+";
+  }
+  .redeemPopup li .points {
+    font-size: 30px;
+    float: right;
+    padding: 20px;
+    font-weight: bold;
+  }
+  .redeemPopup li .points::after {
+    content: "Pts.";
+  }
+  .redeemPopup li .amount::before {
+    content: "$";
+  }
+  .redeemPopup li .amount {
+    float: right;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+</style>
+<div class="redeemPopup">
+  <div class="popupcard">
+    <div class="main-card mb-3 card">
+      <div class="card-body">
+        <h5 class="card-title">Redeem Points</h5>
+        <div class="row">
+          <div class="col-3">
+            <img src="/img/Rewards.png" alt="" class="img img-fluid" />
+          </div>
+          <div class="col-3">
+            <div class="info">
+              <h3>Redeem Points</h3>
+              <span style="font-weight: bold;">10000 Points</span>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="info">
+              <h3>Claim Amount</h3>
+              <span style="font-weight: bold;">$100.00 USD</span>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="info">
+              <h3>Last Claim</h3>
+              <span>$100.00 USD</span>
+              <span style="font-size: 14px;">on 10-Feb-2022</span>
+            </div>
+          </div>
+          <div class="col-12">
+            <ul style="max-height: 50vh; overflow: auto;">
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+              <li>
+                <i class="fa fa-poll"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300</span>
+                <span class="amount">300</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-12">
+            <form method="post">
+              <div class="form-group">
+                <label for="">Your Paypal ID</label>
+                <input type="email" class="form-control" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

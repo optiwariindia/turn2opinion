@@ -100,6 +100,9 @@ const progress = {
     },
     show: async function () {
         // progress.max = progress.dom.total.innerText;
+        if(progress.max==0){
+            location.href=location.href+"?edit=1";
+        }
         progress.dom.total.innerText = progress.max;
         progress.dom.page.innerText = progress.value;
         await document.querySelectorAll("[page]").forEach(e => {

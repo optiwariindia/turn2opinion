@@ -42573,10 +42573,16 @@ a.card.no-shadow.rm-border.bg-transparent.widget-chart.text-center:hover {
 .input{
     border-bottom:1px solid var(--theme-light);
 }
-
+button.btn.btn-disabled {
+    background: var(--progress-bg);
+    color: #fff;
+}
+button.btn{
+    font-weight:bold;
+}
 :root {
     --progress-active: #924500;
-    --progress-bg: #fddec0;
+    --progress-bg: #777;
     --theme-text: #e48027;
     --theme-dark: #b05113;
     --theme-light: #fddec0;
