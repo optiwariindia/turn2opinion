@@ -1,0 +1,49 @@
+{
+    "contact":{
+        "phone":{
+            "link":"tel:+918130202879",
+            "text":"+91 81302 02879"
+        }
+    },
+    "socials":[
+        {
+            "link":"https://www.facebook.com/sahil.kumar.9",
+            "icon":"icon-facebook"
+        },
+        {
+            "link":"https://www.linkedin.com/in/sahil-kumar-9b9b7b1a4/",
+            "icon":"icon-linkedin"
+        }
+    ],
+    "navbar":[
+        {
+            "target":"#home",
+            "name":"Home"
+        },
+        {
+            "target":"#about",
+            "name":"About"
+        },
+        {
+            "target":"#skills",
+            "name":"FAQ"
+        },
+        {
+            "target":"#projects",
+            "name":"Privacy Policy"
+        },
+        {
+            "target":"#contact",
+            "name":"Terms And Conditions"
+        },
+        {
+            "target":"#login",
+            "name":"Login"
+        },
+        {
+            "target":"#signup",
+            "name":"Sign Up"
+        }
+
+    ]
+}
