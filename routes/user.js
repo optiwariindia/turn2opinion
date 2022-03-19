@@ -2,10 +2,10 @@ const router = require('express').Router();
 const session = require('express-session');
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
-const User = mongoose.model("user", require("../modals/user"));
+const User = mongoose.model("users", require("../modals/user"));
 const email = require("../service/email");
 const twig = require("twig");
-const user = require('../modals/user');
+// const user = require('../modals/user');
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
@@ -25,26 +25,22 @@ router.use("/history", getUserInfo, userDetails, require("./history"));
 router.post("/validate/:field", (req, res) => {
     switch (req.params.field) {
         case "email":
-            if (!email.validate(req.body.email, (status, message) => {
-                if (status == "error") {
-                    res.json({ "status": "error", "message": message });
-                    return false;
-                }
-                User.findOne({ email: req.body.emaill }).then(user => {
-                    if (user) {
-                        res.json({ "status": "error", "message": "Already registered" });
-                        return false;
-                    }
+            email.validate(req.body.email, async (resp) => {
+                if (resp.status == "error") { res.json(resp); return; }
+                info = await User.findOne({ email: req.body.email });
+                if (info === null) {
                     res.json({ "status": "success", "message": "Email is available" });
                     return true;
-                })
-            }))
-                break;
+                }
+                res.json({ "status": "error", "message": "This e-mail is already registered with us." });
+                return false;
+            });
+            break;
         case "phone":
             phone = req.body.phone;
             User.findOne({ phone: phone }).then(user => {
                 if (user) {
-                    res.json({ "status": "error", "message": "Already registered" });
+                    res.json({ "status": "error", "message": "This Phone number is already registered with us." });
                     return false;
                 }
                 res.json({ "status": "success", "message": "Phone is available" });
@@ -199,8 +195,8 @@ async function userDetails(req, res, next) {
         num = Date.parse(req.user.dob);
         req.user.dob = new Date(num).toISOString().split("T")[0];
     }
-        let keys = Object.keys(req.user);
-        userprofile = {};
+    let keys = Object.keys(req.user);
+    userprofile = {};
     await keys.forEach(async key => {
         if (key == "_id" || key == "__v") return false;
         val = req.user[key];
@@ -209,12 +205,12 @@ async function userDetails(req, res, next) {
                 req.user[key] = await ProfileOptions.findById(val);
             }
     });
-    
+
     // Checking Profile Status
     profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 })));
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
-        
+
         marks = {
             total: 0,
             scored: 0
