@@ -28,7 +28,7 @@ module.exports=email={
         secure:true,
         auth:{
             user:'support@frequentresearch.com',
-            pass:'frfssupoort@123'
+            pass:'frfssupport@123'
         }
     },
     sendEmail:function(to,subject,text,html){

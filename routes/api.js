@@ -497,13 +497,23 @@ router.post("/children",(req,res)=>{
   res.json({status:"success",data:[{_id:0,label:0,name:'children'},{_id:1,label:1},{_id:2,label:2},{_id:3,label:3},{_id:4,label:4},{_id:5,label:5},{_id:6,label:6},{_id:7,label:7},{_id:8,label:8},{_id:9,label:9}]});
 })
 router.route("/:component")
-    .get((req, res) => {
-        console.log(`Requesting ${req.params.component}`);
-        ProfileOptions.find({ name: req.params.component }).then(options => {
-            res.json({ status: "success", data: options,component:req.params.component })
-        }).catch(err => {
+    .get(async (req, res) => {
+      try{
+        opts=Array.from(await ProfileOptions.find({ name: req.params.component }));
+          console.log(opts);
+          await opts.map(e=>{
+            str=JSON.stringify(e);
+            str=str.replaceAll("###country###",req.session.user.country);
+            str=str.replaceAll("###state###",req.session.user.state);
+            str=str.replaceAll("###city###",req.session.user.city);
+            
+            return JSON.parse(str);
+          })
+            res.json({ status: "success", data: opts,component:req.params.component })
+        }
+        catch(err){
             res.json({ status: "error", message: err.message })
-        })
+        }
     })
     .post(async (req, res) => {
         let dependency = [];

@@ -1,6 +1,28 @@
-// Load only when Authentication (Sign up and login) form is loaded 
-if (pagename==="signup") {
-    (() => {
+const visitor={
+    country:"",
+    ip:"",
+    loc:"",
+    region:"",
+    city:"",
+    timezone:""
+}
+async function getVisitor(){
+    resp=await fetch("//ipinfo.io/json?token=b3293fdc622fe6")
+    data=await resp.json()
+    visitor.ip=data.ip
+    visitor.country=data.country.toLowerCase()
+    visitor.loc=data.loc
+    visitor.region=data.region
+    visitor.city=data.city
+    visitor.timezone=data.timezone
+    document.querySelector("[name=cn]").value=visitor.country;
+    cn=window.intlTelInputGlobals.getCountryData().filter(c=>c.iso2==visitor.country.toLocaleLowerCase())[0];
+    console.log(cn);
+    document.querySelector("[data-country]").innerText=cn.name;
+}
+getVisitor();
+if (pagename === "signup") {
+    setTimeout(() => {
         navigator.geolocation.getCurrentPosition(function (position) {
             $("[name=lat]").val(position.coords.latitude);
             $("[name=lng]").val(position.coords.longitude);
@@ -18,16 +40,8 @@ if (pagename==="signup") {
 
             iti = window.intlTelInput(input, {
                 hiddenInput: "phone_full",
-                initialCountry: "auto",
-                geoIpLookup: function (callback) {
-                    fetch("http://ipinfo.io/?token=192c83fcdac0ea", { crossorigin: 1 }).then(resp => resp.json()).then(info => {
-                        let cnt = window.intlTelInputGlobals.getCountryData().find(c => {
-                            return (c.iso2 == info.country.toLowerCase())
-                        });
-                        document.querySelector("[name=cn]").value = cnt.name;
-                        callback(info.country);
-                    });
-                },
+                initialCountry: visitor.country,
+                onlyCountries:[visitor.country],
                 utilsScript: "/js/utils.js"
             });
 
@@ -94,5 +108,5 @@ if (pagename==="signup") {
                 }
             });
         })
-    })();
+    },1000)
 }

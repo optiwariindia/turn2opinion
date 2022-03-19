@@ -10,8 +10,6 @@ const ProfileOptions = mongoose.model("profileOptions", require("../modals/profi
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 
-console.log
-router.use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }));
 router.post("/auth", (req, res) => {
     User.find({ email: req.body.user, password: req.body.pass }).then(user => {
         if (user.length === 1) {
