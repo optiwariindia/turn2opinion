@@ -353,6 +353,7 @@ user = new schema({
     tech_pc_count: String,
     points:{type:Number,default:200},
 }, {
+    timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
 });

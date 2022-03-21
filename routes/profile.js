@@ -2,9 +2,23 @@ const mongoose = require("mongoose");
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const router = require("express").Router();
 const User = mongoose.model("user", require("../modals/user"));
+const request=require("request");
 router.route("/")
-    .get((req, res) => {
-        res.render("profile.twig", { user: req.user, page: { title: "Profile", icon: "profile.png" } });
+    .get(async (req, res) => {
+        // console.log(resp);
+        survey={
+            completed:Array.from(user.survey).filter(e=>e.status=="complete").length,
+            disqualified:Array.from(user.survey).filter(e=>e.status=="disqualified").length,
+            pending:Array.from(user.survey).filter(e=>e.status=="").length,
+            total:Array.from(user.survey).length
+        }
+        res.render("profile.twig", { 
+            survey,
+            conversion:process.env.conversion,
+            threshold:process.env.threshold,
+            user: req.user,
+            page: { title: "Profile", icon: "profile.png" }
+        });
     })
     .post((req, res) => {
         type = req.files.propic.mimetype.split("/");

@@ -1,0 +1,56 @@
+<div class="main-card mb-3 card">
+	<div class="table-responsive">
+		<table class="align-middle mb-0 table table-borderless table-striped table-hover">
+			<tr>
+				<th>
+					Full Name
+
+				</th>
+				<td>
+					{{ user.name | capitalize }}
+				</td>
+			</tr>
+		</th>
+	</tr>
+	<tr>
+		<th>
+			E-Mail
+
+
+		</th>
+		<td>
+			{{ user.email }}
+		</td>
+	</tr>
+</tr>
+<tr>
+<th>
+	Contact number
+
+
+</th>
+<td>
+	{{ user.phone }}
+</td></tr>
+</tr>
+<tr>
+<th>Gender</th>
+<td>{{ user.gender|capitalize }}</td>
+</tr>
+</tr>
+<tr>
+<th>Verification Status</th>
+<td>
+<span class="badge {{ (user.verified.email == true)? 'badge-success':'badge-warning' }}" title="{{ (user.verified.email == true)? 'E-Mail is verified':'E-Mail is not verified yet' }}"><i class="fa fa-envelope"></i>{{ (user.verified.email == true)? 'Verified':'Not Verified' }}</span>
+<span class="badge {{ (user.verified.phone == true)? 'badge-success':'badge-warning' }}" title="{{ (user.verified.phone == true)? 'Contact number is verified':'Contact number is not verified yet' }}"><i class='fa fa-phone'></i>{{ (user.verified.phone == true)? 'Verified':'Not Verified' }}</span>
+</td>
+</tr>
+</tr>
+<tr>
+<th>Created On</th>
+<td>{{ user.createdAt|date('d-M-Y')}}</td>
+</tr>
+</tr>
+</table>
+</div>
+</div>

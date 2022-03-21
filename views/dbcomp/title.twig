@@ -1,4 +1,4 @@
-{% set threshold = 10000 %}
+{# {% set threshold = 10000 %} #}
 <div class="row">
 	<div class="col-sm-12">
 		<div class="card">
@@ -85,7 +85,7 @@
 												<div class="progress-bar bg-{% if user.points > threshold %}success{% else %}primary{% endif %}" role="progressbar" aria-valuenow="{{user.points}}" aria-valuemin="0" aria-valuemax="{{(threshold * 1.5)}}" style="width: {{(user.points * 100) / (threshold * 1.5)}}%;"></div>
 											</div>
 											<div class="progress-sub-label">
-												<div class="sub-label-left" style='font-size:20px'>100 Points = USD 1</div>
+												<div class="sub-label-left" style='font-size:20px'>{{conversion}} Points = USD 1</div>
 												<div class="sub-label-right">Get {{threshold - user.points}} more points to redeem</div>
 											</div>
 										</div>
@@ -96,7 +96,7 @@
 
 					</div>
 					<div class="col-sm-2 redeem-btn">
-						<button class="btn btn-{% if user.points > threshold %}success{% else %}disabled{% endif %}" >Redeem now</button>
+						<button class="btn btn-{% if user.points > threshold %}success{% else %}disabled{% endif %}" onclick='redeem()'>Redeem now</button>
 					</div>
 				</div>
 

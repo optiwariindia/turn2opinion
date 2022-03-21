@@ -1,234 +1,54 @@
 {% import "macro/form.twig" as form %}
 <div class="app-main__inner">
 
-    <div class="tabs-animation">
-        <div class="row">
-            <div class="col-sm-6 col-lg-4 col-xl-3">
-                <div class="main-card mb-3 card">
-                    <div class="card-body">
-                        <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
-                            <img src="{{ user.propic }}" class="img-fluid" alt="">
-                                <div class="actions">
-                                    <a href="#" onclick="selectFile()">
-                                        <fa class="fa fa-upload" title='Upload Image'></fa>
-                                    </a>
-                                    <a href="#" onclick="selectFile()">
-                                        <i class="fa fa-edit" title='Change Image'></i>
-                                    </a>
-                                </div>
-                                <form action="/user/profile" method="post" enctype="multipart/form-data">
-                                    <input type="file" onchange="uploadFile(this)" accept=".jpg,.png,.jpeg" class="filepond" name="propic" data-allow-reorder="true" data-max-file-size="3MB" data-max-files="3" style='display:none'></form>
-                                </div>
-                                <h2 class="card-title">
-                                    <center>
-                                        {{ user.name | capitalize }}
-                                    </center>
-                                </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-8 col-xl-9">
-                        <div class="main-card mb-3 card profile">
-                            <div class="grid-menu grid-menu-2col">
-                                <div class="no-gutters row">
-                                    <div class="col-sm-4">
-                                        <div class="widget-chart widget-chart-hover">
-                                            <div class="icon-wrapper ">
-                                                <img class='icon' src="/img/reward-points.png" alt="" srcset=""></div>
-                                                <div class="widget-numbers">
-                                                    300 Survey Points
-                                                                                                                                            
-                                                </div>
-                                                <div class="widget-subheading">
-                                                    Total Rewards Earned                                                                                                                  
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="widget-chart widget-chart-hover">
-                                                <div class="icon-wrapper ">
-                                                    <img class='icon' src="/img/rewards-claimed.png" alt="" srcset=""></div>
-                                                    <div class="widget-numbers">
-                                                        $ 1.00                                                                                                           
-                                                                                                                                                
-                                                    </div>
-                                                    <div class="widget-subheading">
-                                                        Total Rewards Claimed                                    
-                                                                                                                                                
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                            <div class="widget-chart widget-chart-hover br-br">
-                                                <div class="icon-wrapper ">
-                                                    <img class='icon' src="/img/profile-status.png" alt=""></div>
-                                                    <div class="widget-numbers">
-                                                        4.5 %          
-                                                                                                                                                
-                                                    </div>
-                                                    <div class="widget-subheading">
-                                                        Total Profile Completion            
-                                                                                                                                                
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="widget-chart widget-chart-hover">
-                                                    <div class="icon-wrapper ">
-                                                        <img class='icon' src="/img/survey-taken.jpg" alt="" srcset=""></div>
-                                                        <div class="widget-numbers">
-                                                            25
-                                                                                                                                                    
-                                                        </div>
-                                                        <div class="widget-subheading">
-                                                            Total Survey Taken                      
-                                                                                                                                                    
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                               
-                                                    <div class="col-sm-4">
-                                                    <div class="widget-chart widget-chart-hover br-br">
-                                                        <div class="icon-wrapper ">
-                                                            <i class="fa fa-check" style='color:green'></i>
-                                                        </div>
-                                                            <div class="widget-numbers">
-                                                                15                                                                                        
-                                                            </div>
-                                                            <div class="widget-subheading">
-                                                            Completed Surveys
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                    <div class="widget-chart widget-chart-hover br-br">
-                                                        <div class="icon-wrapper ">
-                                                    <i class="fa fa-times" style='color:red'></i></div>
-                                                            <div class="widget-numbers">
-                                                                10                                                                                        
-                                                            </div>
-                                                            <div class="widget-subheading">
-                                                                Disqualified Surveys                                                                                        
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-lg-8 col-xl-9">
-                                        <div class="main-card mb-3 card">
-                                            <div class="table-responsive">
-                                                <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-                                                    <tr>
-                                                        <th>
-                                                            Full Name
-                                                                                                                                                                                
-                                                                                                                                        
-                                                                                                
-                                                        </th>
-                                                        <td>
-                                                            {{ user.name | capitalize }}
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            E-Mail
-                                                                                                                                                                                
-                                                                                                                                        
-                                                                                                
-                                                        </th>
-                                                        <td>
-                                                            {{ user.email }}
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            Contact number
-                                                                                                                                                                                
-                                                                                                                                        
-                                                                                                
-                                                        </th>
-                                                        <td>
-                                                            {{ user.phone }}
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            Gender
-                                                                                                                                                                                
-                                                                                                                                        
-                                                                                                
-                                                        </th>
-                                                        <td>
-                                                            {{ user.gender|capitalize }}
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            Verification Status
-                                                                                                                                                                                
-                                                                                                                                        
-                                                                                                
-                                                        </th>
-                                                        <td>
-                                                            <span class="badge {{ (user.verified.email == true)? 'badge-success':'badge-warning' }}" title="{{ (user.verified.email == true)? 'E-Mail is verified':'E-Mail is not verified yet' }}">
-                                                                <i class="fa fa-envelope"></i>
-                                                                {{ (user.verified.email == true)? 'Verified':'Not Verified' }}
-                                                            </span>
-
-                                                            <span class="badge {{ (user.verified.phone == true)? 'badge-success':'badge-warning' }}" title="{{ (user.verified.phone == true)? 'Contact number is verified':'Contact number is not verified yet' }}">
-                                                                <i class='fa fa-phone'></i>
-                                                                {{ (user.verified.phone == true)? 'Verified':'Not Verified' }}
-                                                            </span>
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>
-                                                            Created On
-                                                                                                                                                                                
-                                                                                                                                        
-                                                                                                
-                                                        </th>
-                                                        <td>
-                                                            {{ user.created | date("d-M-Y") }}
-                                                        </th>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        {% include "dbcomp/summary/rewards.twig" %}
-                                        {% include "dbcomp/summary/reward/processed.twig" %}
-                                        {% include "dbcomp/summary/reward/rejected.twig" %}
-
-                                    </div>
-
-                                    <div class="col-sm-6 col-lg-4 col-xl-3">
-                                        <div class="main-card mb-3 card">
-                                            <div class="table-responsive">
-                                                <form action="" class="frm">
-                                                    {{ form.input("text","Facebook","fbid",user.social.fb,true) }}
-                                                    {{ form.input("text","Twitter","twid",user.social.tw,true) }}
-                                                    {{ form.input("text","Linkedin","lid",user.social.li,true) }}
-                                                    {{ form.input("text","Google","gid",user.social.g,true) }}
-                                                    {{ form.input("text","Instagram","iid",user.social.ig,true) }}
-                                                    {{ form.input("text","Pinterest","pid",user.social.p,true) }}
-                                                    {{ form.input("text","Snapchat","sid",user.social.s,true) }}
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <script>
-        function selectFile(){
-            let finput=document.querySelector("[type=file]");
-            finput.click();
-    }
-    function uploadFile(e){
-        e.form.submit();
-    }
-        </script>
-                        
+	<div class="tabs-animation">
+		<div class="row">
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+				<div class="main-card mb-3 card">
+					<div class="card-body">
+						<div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+							<img src="
+							{{ user.propic }}" class="img-fluid" alt="">
+							<div class="actions">
+								<a href="#" onclick="selectFile()">
+									<fa class="fa fa-upload" title='Upload Image'></fa>
+								</a>
+								<a href="#" onclick="selectFile()">
+									<i class="fa fa-edit" title='Change Image'></i>
+								</a>
+							</div>
+							<form action="/user/profile" method="post" enctype="multipart/form-data">
+								<input type="file" onchange="uploadFile(this)" accept=".jpg,.png,.jpeg" class="filepond" name="propic" data-allow-reorder="true" data-max-file-size="3MB" data-max-files="3" style='display:none'></form>
+						</div>
+						<h2 class="card-title">
+							<center>
+								{{ user.name | capitalize }}
+							</center>
+						</h2>
+					</div>
+				</div>
+			</div>
+            {% include "dbcomp/earningsummary.twig" %}
+			<div class="col-sm-6 col-lg-8 col-xl-9">
+            {% include "dbcomp/summary/userinfo.twig" %}
+			{% include "dbcomp/summary/rewards.twig" %}
+			{% include "dbcomp/summary/reward/processed.twig" %}
+			{% include "dbcomp/summary/reward/rejected.twig" %}
+			</div>
+			<div class="col-sm-6 col-lg-4 col-xl-3">
+			<div class="main-card mb-3 card">
+			<div class="table-responsive">
+			<form action="" class="frm">
+			{{ form.input("text","Facebook","fbid",user.social.fb,true) }}
+			{{ form.input("text","Twitter","twid",user.social.tw,true) }}
+			{{ form.input("text","Linkedin","lid",user.social.li,true) }}
+			{{ form.input("text","Google","gid",user.social.g,true) }}
+			{{ form.input("text","Instagram","iid",user.social.ig,true) }}
+			{{ form.input("text","Pinterest","pid",user.social.p,true) }}
+			{{ form.input("text","Snapchat","sid",user.social.s,true) }}</form></div></div></div> </div></div></div><script>function selectFile() {
+let finput = document.querySelector("[type=file]");
+finput.click();
+}
+function uploadFile(e) {
+e.form.submit();
+}</script>

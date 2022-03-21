@@ -9,7 +9,11 @@ const twig = require("twig");
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
-
+const Redeem=mongoose.model("redeem",require("../modals/redeem"));
+router.get("/logout",(req,res)=>{
+    req.session.destroy();
+    res.redirect("/");    
+})
 router.post("/auth", (req, res) => {
     User.find({ email: req.body.user, password: req.body.pass }).then(user => {
         if (user.length === 1) {
@@ -21,7 +25,46 @@ router.post("/auth", (req, res) => {
     })
 })
 router.use("/history", getUserInfo, userDetails, require("./history"));
-
+router.post("/redeem",getUserInfo, userDetails,async (req,res)=>{
+    points=1000;
+    money="$10.00USD";
+    let=paymentMethod={}
+    await Object.keys(req.body).forEach(key=>{
+        switch(key){
+            case "paypalid":
+                paymentMethod["paypal"]=req.body[key];
+                break;
+            case "upiid":
+                paymentMethod["upi"]=req.body[key];
+                break;
+            default:
+                paymentMethod["bank"]={
+                    ifsc:req.body["ifsc"],
+                    account:req.body["account"],
+                    name:req.body["acname"]
+                }
+                break;
+        }
+    })
+    let redeemDate=new Date();
+    let today=new Date();
+    redeemDate.setDate(15);
+    if(redeemDate<today)
+    redeemDate.setMonth(redeemDate.getMonth()+1);
+    redeem=await Redeem.create({
+        respondent:mongoose.Types.ObjectId(req.user._id),
+        paymentMethod:paymentMethod,
+        amount:money,
+        points:points,
+        redeemDate:redeemDate
+    });
+    redeem.save();
+    user=req.user;
+    twig.renderFile("mailers/template.twig", { message:"redeem", user:user,claim:redeem,money:money,points:points }, (e, h) => {
+    email.sendEmail("om.tiwari@frequentresearch.com",`Turn2Opinion Panelist - ${user.name} - ${user.email} - Request for Panel Redemption`,"",h);
+    });
+    res.json({status:"ok",message:`Your request to redeem ${points} equivalent to ${money} has been sent to corresponing department. You will be notified by email once it is credited in your account.`});
+})
 router.post("/validate/:field", (req, res) => {
     switch (req.params.field) {
         case "email":
@@ -167,11 +210,9 @@ router.get("/dashboard",
     getUserInfo,
     userDetails,
     (req, res) => {
-
-        // console.log(req.user.survey);//availableSurveys);
         let filters = [];
         user.survey = req.user.availableSurveys;
-        res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters });
+        res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters,threshold:process.env.threshold,conversion:process.env.conversion });
     })
 router.use(fileUpload())
     .use(getUserInfo, userDetails)
@@ -182,7 +223,6 @@ router.use(fileUpload())
 function getUserInfo(req, res, next) {
     if (("user" in req.session)) {
         req.user = req.session.user;
-        console.log("User found in session variable");
         next();
         return;
     } else {
@@ -194,6 +234,9 @@ async function userDetails(req, res, next) {
     if ("dob" in req.user) {
         num = Date.parse(req.user.dob);
         req.user.dob = new Date(num).toISOString().split("T")[0];
+    }
+    if("createdAt" in req.user){
+        req.user.createdAt=new Date(req.user.createdAt);
     }
     let keys = Object.keys(req.user);
     userprofile = {};

@@ -1,18 +1,15 @@
 <div class="main-card mb-3 card">
     <div class="card-header">
         Rewards Summary
-            
     </div>
     <div class="table-responsive">
         <table class="align-middle mb-0 table table-borderless table-striped table-hover">
             <tr>
                 <th>
                     Current Rewards   
-                            
                 </th>
                 <td>
-                    100 Points
-                            
+                    {{user.points}} Points
                 </td>
             </tr>
             <tr>
@@ -21,37 +18,19 @@
                         
                 </th>
                 <td>
-                    $ 0.10 (USD)
+                    $ {{user.points / conversion}} (USD)
                         
                 </td>
             </tr>
             <tr>
                 <th>
-                    Needed reward conversion for payout
+                    Needed reward points for payout
                     
                 </th>
                 <td>
-                    $9.90 (USD)
-                    
+                    {{threshold - user.points}} Points
                 </td>
             </tr>
-
-            <tr>
-                <th>
-                    Next Payout Date
-                    
-                </th>
-                <td>
-                    March 1
-                    <sup>
-                        st
-                    </sup>
-                    2022
-                    
-                </td>
-            </tr>
-
         </table>
     </div>
-
 </div>

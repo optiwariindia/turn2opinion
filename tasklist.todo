@@ -64,7 +64,7 @@ Profile Pages:
   ✔ Default mode is edit mode unless user has reached the profile once @done (22-03-17 13:30)
   ✔ Do not display questions if not answered @done (22-03-17 13:31)
   ✔ Do not show pages if all questions are unanswered @done (22-03-17 13:31)
-  ☐ Add save button to save current page data and exit out of edit mode
+  ☐ Add save button to save current page data and exit out of edit mode 
   ☐ Only one page of profile can be submitted 
   ☐ Do not show next button if next page is unavailable
   ☐ Rewrite api calls to respond multiple inputs based on one single change [Case of chaining inputs]
@@ -72,7 +72,23 @@ Profile Pages:
   ✔ Stop age calculation if date of birth is not present @done(22-03-17 15:50)
   ☐ Add phone number validation in alternate phone
   Point calculations for profile:
-    ☐ Points for each profile shall be 300
-    ☐ Marks are equally distributed
+    ☐ Points for each profile shall be 300 
+    ☐ Marks are equally distributed 
     ☐ Marks awarded question is answered or does not apply based on previous answers [Dependency Failure]
-  ☐ Pie chart should be updated on profile change @started(22-03-19 10:39)
+  ✔ Pie chart should be updated on profile change @started @done (22-03-21 11:48)
+  ✔ Create option to logout @done(22-03-21 12:02)
+  ✔ Move Tawkto plugin form html to js file and make it common for all pages @done (22-03-21 15:59)
+  ✔ Design page for redumption of points @done (22-03-21 15:59)
+  ✔ Save redumption request to database and reset points. @done (22-03-21 17:34)
+  ✔ Send email to admin to confirm about redumption request @done (22-03-21 17:34)
+  ✔ Display Message to user on dashboard about redumption request @done (22-03-21 17:34)
+  ✔ Add logo of paypal @done (22-03-21 15:58)
+  ✔ Add logo of upi @done (22-03-21 15:58)
+  ✔ Add close button on redeem popup @done (22-03-21 15:17)
+Points for Various activities:
+  ✔ Joining: 200 point @started(22-03-21 17:37) @done (22-03-21 17:37) @lasted(a bit)
+  ✔ Welcome Survey: 85 @done (22-03-21 17:40)
+  ✔ Survey 2 : 85 @done (22-03-21 17:40)
+  ✔ Profiles : 10 points each @done (22-03-21 19:01)
+  ✔ threshold: 1500 @done (22-03-21 19:01)
+  ✔ 1 USD: 100 Points @done (22-03-21 19:01)
