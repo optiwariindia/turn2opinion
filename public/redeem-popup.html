@@ -1,0 +1,173 @@
+<link rel="stylesheet" href="/css/redeem.css" />
+<div class="redeemPopup">
+  <div class="popupcard">
+    <div class="main-card mb-3 card">
+      <div class="card-body">
+        <a href="javascript:void(0)" class="fr" onclick="dontRedeem(this)">
+
+          <i class="fa fa-times"></i>
+        </a>
+        <h5 class="card-title">Redeem Points</h5>
+        <div class="topbanner">
+          <div class="picture">
+            <img src="/img/Rewards.png" alt="" class="img img-fluid" />
+          </div>
+          <div class="points">
+            <h3>Redeem Points</h3>
+            <span>10000 Points</span>
+          </div>
+          <div class="amount">
+            <h3>Claim Amount</h3>
+            <span>$10 USD</span>
+          </div>
+          <div class="lastredeem">
+            <h3>Last Claim</h3>
+            <span>$100.00 USD</span>
+            <span>on 10-Feb-2022</span>
+          </div>
+        </div>
+        <div class="main-body">
+          <div class="left-section">
+            <ul style="max-height: 50vh; overflow: auto;">
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Welcome Survey</span>
+                <span class="points">500 points</span>
+                <span class="amount">$ 5.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Educational and Financial Survey</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Profile Completion</span>
+                <span class="points">130 points</span>
+                <span class="amount">$ 1.30 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+              <li>
+                <i class="pe-7s-graph3"></i>
+                <span class="name">Joining Points</span>
+                <span class="points">300 points</span>
+                <span class="amount">$ 3.00 USD</span>
+              </li>
+            </ul>
+          </div>
+          <div class="right-section">
+            <ul>
+              <li>
+                <label onclick="selectForm(this)" class="active" for="paypal"
+                  >Paypal</label
+                >
+              </li>
+              <li><label onclick="selectForm(this)" for="upi">UPI</label></li>
+              <li>
+                <label onclick="selectForm(this)" for="neft"
+                  >Bank Account</label
+                >
+              </li>
+            </ul>
+            <input type="radio" name="pmode" id="paypal" checked />
+            <form  method="post">
+              <div class="form-group">
+                <img src="/img/paypal.svg" alt="">
+              </div>
+              <div class="form-group">
+                <label for="paypal">Paypal ID</label>
+                <input
+                  type="email"
+                  class="form-control" required
+                  id="paypal"
+                  name="paypalid"
+                />
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary fr">Submit</button>
+              </div>
+            </form>
+            <input type="radio" name="pmode" id="upi" />
+            <form  method="post">
+              <div class="form-group">
+                <img src="/img/upi.svg" alt="">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" required id="upi" name="upiid" />
+                <label for="upi">UPI</label>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary fr">Submit</button>
+              </div>
+            </form>
+            <input type="radio" name="pmode" id="neft" />
+            <form  method="post">
+              <div class="form-group">
+                <input type="text" class="form-control" required id="ifsc" name="ifsc" />
+                <label for="ifsc">IFSC Code</label>
+              </div>
+              <div class="form-group">
+                <input
+                type="text"
+                class="form-control" required
+                id="account"
+                name="account"
+                />
+                <label for="account">Account Number</label>
+              </div>
+              <div class="form-group">
+                <input
+                type="text"
+                class="form-control" required
+                id="acname"
+                name="acname"
+                />
+                <label for="acname">Name as in Account</label>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-primary fr">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
