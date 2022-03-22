@@ -57,7 +57,12 @@ $("form").submit(function (e) {
             body: JSON.stringify(flds)
         }).then(res => res.json()).then(resp => {
             if (resp.status === "ok") {
-                popup.show(`<h2>Password Changed Successfully</h2><br><p> Your password has been successfully changed. Please <a href='/'>Sign In</a> to your account.</p>`);
+                if(location.pathname.startsWith("/user/verify")){
+                    popup.show(`<h2>Password Set Successfully</h2><br><p> Your password has been set. Please <a href='/'>Click here to Sign In</a> to your account.</p>`,"/");
+                }else{
+                    
+                    popup.show(`<h2>Password Changed Successfully</h2><br><p> Your password has been successfully changed. Please <a href='/'>Sign In</a> to your account.</p>`,"/");
+                }
             } else {
                 // document.querySelector("[data=autherror]").innerText = resp.message;
                 popup.show(`<h2>Password Change Failed</h2><br><p>${resp.message}</p>`);
@@ -128,7 +133,6 @@ $("form").submit(function (e) {
                 if(flds.staysignedin)localDB.store("auth",btoa(JSON.stringify(info)));
                 location.href = "/user/dashboard";
             } else {
-                // document.querySelector("[data=autherror]").innerText = resp.message;
                 popup.show(`<h2>Authentication Failed</h2><br><p>${resp.message}</p>`);
                 setTimeout(() => {
                     popup.close();
@@ -228,3 +232,4 @@ cookiePopup = {
 if (!cookiePopup.accepted()) {
     cookiePopup.open();
 }
+user/dashboard

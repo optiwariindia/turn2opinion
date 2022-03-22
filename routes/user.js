@@ -183,7 +183,6 @@ router.post("/setpass", (req, res) => {
         user.security.answer = req.body.ans;
         user.save().then(usr => {
             req.session.user = usr;
-
             console.log(usr);
             res.json({ "status": "ok", "user": usr });
         })
