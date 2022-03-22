@@ -19,6 +19,10 @@ module.exports = new schema(
             }
         },
         amount:String,
+        txnId:{
+            type:String,
+            required:false
+        },
         points:Number,
         redeemDate:{
             type:Date,

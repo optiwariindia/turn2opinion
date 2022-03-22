@@ -4,28 +4,9 @@
 			<img src="{{info.icon}}" class='img-fluid' style='height:50px;margin-right:20px;' alt="">
 			<h3>{{info.title}}</h3>
 		</div>
-		{# <div class="btn-actions-pane-right actions-icon-btn">
-									<div class="btn-group dropdown">
-										<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-icon btn-icon-only btn btn-link">
-											<i class="pe-7s-menu btn-icon-wrapper"></i>
-										</button>
-										<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
-											<ul>
-												{% for filter in filters %}
-						
-													<li>
-														<input type="checkbox" name="filter[]" value="{{filter}}" id="filter-{{loop.index}}">
-														<label for="filter-{{loop.index}}">{{filter}}</label>
-													</li>
-												{% endfor %}
-											</ul>
-										
-										</div>
-									</div>
-								</div> #}
 	</div>
 	<div class="card-body">
-		<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+		<table style="width: 100%;" id="history" class="table table-hover table-striped table-bordered datatable">
 			<thead>
 				<tr>
 					{% for heading in info.headings %}
@@ -35,12 +16,9 @@
 			</thead>
 			<tbody>
 				{% for data in info.data %}
-				<tr>
-					{% for item in data %}
-						<td>{{item | json_encode}}</td>
-							{# {% if item is string %}
-								<td>{{item}}</td>
-							{% endif %} #}
+					<tr>
+						{% for item in data %}
+							<td>{{item|upper}}</td>
 						{% endfor %}
 					</tr>
 				{% endfor %}

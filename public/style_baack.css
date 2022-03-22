@@ -42588,3 +42588,41 @@ button.btn{
     --theme-light: #fddec0;
     --theme-primary:#b05113; /*#3f6ad8; */
 }
+.modal-body {
+    background: var(--theme-dark);
+    color: var(--theme-light);
+}
+.modal-body .form-control{
+border-bottom:1px solid var(--theme-light);
+}
+
+input#newPass.weak {
+    border-bottom:red 2px solid;
+}
+input#newPass.medium {
+    border-bottom:yellow 2px solid;
+}
+input#newPass.strong {
+    border-bottom:green 2px solid;
+}
+input#newPass.weak+span{
+    content:"Weak"
+}
+input#newPass.medium + span::before{
+    content:"Average";
+    text-align: right;
+    width: 100%;
+    float:left;
+}
+input#newPass.weak + span::before{
+    content:"Weak";
+    text-align: right;
+    width: 100%;
+    float:left;
+}
+input#newPass.strong + span::before{
+    content:"Strong";
+    text-align: right;
+    width: 100%;
+    float:left;
+}

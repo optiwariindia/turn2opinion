@@ -9,10 +9,11 @@ const twig = require("twig");
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
-const Redeem=mongoose.model("redeem",require("../modals/redeem"));
-router.get("/logout",(req,res)=>{
+const Redeem = mongoose.model("redeem", require("../modals/redeem"));
+const Attempt = mongoose.model("attempt", require("../modals/attempt"));
+router.get("/logout", (req, res) => {
     req.session.destroy();
-    res.redirect("/");    
+    res.redirect("/");
 })
 router.post("/auth", (req, res) => {
     User.find({ email: req.body.user, password: req.body.pass }).then(user => {
@@ -25,45 +26,45 @@ router.post("/auth", (req, res) => {
     })
 })
 router.use("/history", getUserInfo, userDetails, require("./history"));
-router.post("/redeem",getUserInfo, userDetails,async (req,res)=>{
-    points=1000;
-    money="$10.00USD";
-    let=paymentMethod={}
-    await Object.keys(req.body).forEach(key=>{
-        switch(key){
+router.post("/redeem", getUserInfo, userDetails, async (req, res) => {
+    points = 1000;
+    money = "$10.00USD";
+    let = paymentMethod = {}
+    await Object.keys(req.body).forEach(key => {
+        switch (key) {
             case "paypalid":
-                paymentMethod["paypal"]=req.body[key];
+                paymentMethod["paypal"] = req.body[key];
                 break;
             case "upiid":
-                paymentMethod["upi"]=req.body[key];
+                paymentMethod["upi"] = req.body[key];
                 break;
             default:
-                paymentMethod["bank"]={
-                    ifsc:req.body["ifsc"],
-                    account:req.body["account"],
-                    name:req.body["acname"]
+                paymentMethod["bank"] = {
+                    ifsc: req.body["ifsc"],
+                    account: req.body["account"],
+                    name: req.body["acname"]
                 }
                 break;
         }
     })
-    let redeemDate=new Date();
-    let today=new Date();
+    let redeemDate = new Date();
+    let today = new Date();
     redeemDate.setDate(15);
-    if(redeemDate<today)
-    redeemDate.setMonth(redeemDate.getMonth()+1);
-    redeem=await Redeem.create({
-        respondent:mongoose.Types.ObjectId(req.user._id),
-        paymentMethod:paymentMethod,
-        amount:money,
-        points:points,
-        redeemDate:redeemDate
+    if (redeemDate < today)
+        redeemDate.setMonth(redeemDate.getMonth() + 1);
+    redeem = await Redeem.create({
+        respondent: mongoose.Types.ObjectId(req.user._id),
+        paymentMethod: paymentMethod,
+        amount: money,
+        points: points,
+        redeemDate: redeemDate
     });
     redeem.save();
-    user=req.user;
-    twig.renderFile("mailers/template.twig", { message:"redeem", user:user,claim:redeem,money:money,points:points }, (e, h) => {
-    email.sendEmail("om.tiwari@frequentresearch.com",`Turn2Opinion Panelist - ${user.name} - ${user.email} - Request for Panel Redemption`,"",h);
+    user = req.user;
+    twig.renderFile("mailers/template.twig", { message: "redeem", user: user, claim: redeem, money: money, points: points }, (e, h) => {
+        email.sendEmail("om.tiwari@frequentresearch.com", `Turn2Opinion Panelist - ${user.name} - ${user.email} - Request for Panel Redemption`, "", h);
     });
-    res.json({status:"ok",message:`Your request to redeem ${points} equivalent to ${money} has been sent to corresponing department. You will be notified by email once it is credited in your account.`});
+    res.json({ status: "ok", message: `Your request to redeem ${points} equivalent to ${money} has been sent to corresponing department. You will be notified by email once it is credited in your account.` });
 })
 router.post("/validate/:field", (req, res) => {
     switch (req.params.field) {
@@ -94,6 +95,10 @@ router.post("/validate/:field", (req, res) => {
             break;
     }
 })
+router.route("/pwchange")
+    .post((req, res) => {
+
+    });
 router.route("/forgot")
     .get((req, res) => {
         res.render("index.twig", { form: "forgot" });
@@ -211,7 +216,7 @@ router.get("/dashboard",
     (req, res) => {
         let filters = [];
         user.survey = req.user.availableSurveys;
-        res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters,threshold:process.env.threshold,conversion:process.env.conversion });
+        res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion });
     })
 router.use(fileUpload())
     .use(getUserInfo, userDetails)
@@ -234,8 +239,8 @@ async function userDetails(req, res, next) {
         num = Date.parse(req.user.dob);
         req.user.dob = new Date(num).toISOString().split("T")[0];
     }
-    if("createdAt" in req.user){
-        req.user.createdAt=new Date(req.user.createdAt);
+    if ("createdAt" in req.user) {
+        req.user.createdAt = new Date(req.user.createdAt);
     }
     let keys = Object.keys(req.user);
     userprofile = {};
@@ -287,6 +292,10 @@ async function userDetails(req, res, next) {
         completed: 1,
         availableFor: 1
     }).exec();
+    req.user.surveyTaken = await Survey.find({ completed: req.user._id }, { name: 1, uri: 1, summary: 1, source: 1, category: 1, surveyPoints: 1, surveyID: 1, source: 1 }).exec();
+    req.user.attempts = Array.from(await Attempt.find({ respondent: req.user._id }));
+    const today = new Date();
+    req.redeem = Array.from(await Redeem.find({ user: req.user._id }).exec());
     req.user.summary = [
         {
             name: "Available Surveys",
@@ -306,7 +315,7 @@ async function userDetails(req, res, next) {
                 {
                     name: "Survey Participations",
                     icon: "/img/participation.png",
-                    count: 0,//req.user.participations.length||0,
+                    count: req.user.surveyTaken.length,
                     target: "#available-survey"
                 }
             ]
@@ -314,17 +323,65 @@ async function userDetails(req, res, next) {
         {
             name: "Survey History",
             info: [
-                {},
-                {},
-                {}
+                {
+                    "name": "Monthly Survey",
+                    "icon": "/img/monthly.png",
+                    "count": req.user.attempts.filter(attempt => {
+                        atdate = new Date(attempt.attemp.start);
+                        return atdate.getMonth() == today.getMonth();
+                    }).length,
+                    "target": "/user/history/survey/monthly"
+                },
+                {
+                    "name": "Quarterly Survey",
+                    "icon": "/img/quarterly.png",
+                    "count": req.user.attempts.filter(attempt => {
+                        atdate = new Date(attempt.attemp.start);
+                        return Math.floor(atdate.getMonth() / 3) == Math.floor(today.getMonth() / 3);
+                    }).length,
+                    "target": "/user/history/survey/quarterly"
+                },
+                {
+                    "name": "Yearly Survey",
+                    "icon": "/img/yearly.png",
+                    "count": req.user.attempts.filter(attempt => {
+                        atdate = new Date(attempt.attemp.start);
+                        return atdate.getYear() == today.getYear();
+                    }).length,
+                    "target": "/user/history/survey/yearly"
+                }
             ]
         },
         {
             name: "Claimed History",
             info: [
-                {},
-                {},
-                {}
+                {
+                    "name": "Monthly Claimed",
+                    "icon": "/img/money.png",
+                    "count": req.redeem.filter(redeem => {
+                        rddate = new Date(redeem.redeemDate);
+                        return rddate.getMonth() == today.getMonth();
+                    }).reduce((acc, cur) => { return acc + cur.points }, 0) / process.env.conversion,
+                    "target": "/user/history/claimes/monthly"
+                },
+                {
+                    "name": "Quarterly Claimed",
+                    "icon": "/img/money.png",
+                    "count": req.redeem.filter(redeem => {
+                        rddate = new Date(redeem.redeemDate);
+                        return Math.floor(rddate.getMonth() / 3) == Math.floor(today.getMonth() / 3);
+                    }).reduce((acc, cur) => { return acc + cur.points }, 0) / process.env.conversion,
+                    "target": "/user/history/claimes/quarterly"
+                },
+                {
+                    "name": "Yearly Claimed",
+                    "icon": "/img/money.png",
+                    "count": req.redeem.filter(redeem => {
+                        rddate = new Date(redeem.redeemDate);
+                        return rddate.getYear() == today.getYear();
+                    }).reduce((acc, cur) => { return acc + cur.points }, 0) / process.env.conversion,
+                    "target": "/user/history/claimes/yearly"
+                }
             ]
         }
     ];

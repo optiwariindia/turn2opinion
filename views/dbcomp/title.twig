@@ -9,54 +9,6 @@
 						{{user.name | title}}
 					</b>
 				</div>
-				<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-					<div class="btn-group dropdown">
-						<div class="dropdown">
-							<button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="p-0 mr-2 btn btn-link">
-								<span class="icon-wrapper icon-wrapper-alt rounded-circle">
-									<span class="icon-wrapper-bg bg-primary"></span>
-									<i class="icon text-primary ion-android-apps"></i>
-								</span>
-							</button>
-							<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
-								<div class="dropdown-menu-header">
-									<div class="dropdown-menu-header-inner bg-plum-plate">
-										<div class="menu-header-image" style="background-image: url('/assets/images/dropdown-header/abstract4.jpg');"></div>
-										<div class="menu-header-content text-white"></div>
-									</div>
-								</div>
-								<div class="grid-menu grid-menu-xl grid-menu-3col">
-									<div class="no-gutters row">
-										<div class="col-sm-4 col-xl-4">
-											<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-												<i class="pe-7s-world icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>
-												Available Surveys
-											</button>
-										</div>
-										<div class="col-sm-4 col-xl-4">
-											<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-												<i class="pe-7s-piggy icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>
-												Survey History
-											</button>
-										</div>
-										<div class="col-sm-4 col-xl-4">
-											<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link">
-												<i class="pe-7s-config icon-gradient bg-night-fade btn-icon-wrapper btn-icon-lg mb-3"></i>
-												Claimed Rewards
-											</button>
-										</div>
-									</div>
-								</div>
-								<ul class="nav flex-column">
-									<li class="nav-item-divider nav-item"></li>
-									<li class="nav-item-btn text-center nav-item">
-										<button class="btn-shadow btn btn-primary btn-sm">Follow-ups</button>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 
 			<div class="p-0 card-body">
@@ -96,12 +48,11 @@
 
 					</div>
 					<div class="col-sm-2 redeem-btn">
-						<button class="btn btn-{% if user.points > threshold %}success{% else %}disabled{% endif %}" onclick='redeem()'>Redeem now</button>
+						<button class="btn btn-{% if user.points > threshold %}success{% else %}disabled{% endif %}" {% if user.points > threshold %}onclick='redeem()'{% else %}title='You are only {{(threshold - user.points)}} points away to redeem'{% endif %}  >Redeem now</button>
 					</div>
 				</div>
 
 			</div>
 		</div>
 	</div>
-
 </div>

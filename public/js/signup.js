@@ -82,7 +82,7 @@ if (pagename === "signup") {
         });
         $("[name=email]").on("change", function (e) {
             let email = $(this).val();
-            fetch(location.origin + "/user/validate/email", {
+            fetch(location.orsignupigin + "/user/validate/email", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
