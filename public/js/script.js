@@ -15,7 +15,7 @@ $("form").submit(function (e) {
         flds['timezone'] = "UTC + " + new Date().getTimezoneOffset() / (-60);
         flds['cntry'] = iti.getSelectedCountryData();
         flds['phone'] = iti.getNumber();
-        e.target.innerHTML = `Thanks for signing up,<br> Your information is under review and shall be communicated over email once approved. Make sure your email ${flds.email} is active for activation link.`;
+        e.target.innerHTML = `Thanks for signing up, Your information is under review and shall be communicated over email once approved. Make sure your email ${flds.email} is active for activation link. <br> You can alternatively try signing up again after some time by clicking <a href="/">this link</a>`;
         if ("g-recaptcha-response" in flds) {
             if (flds['g-recaptcha-response'] === "") { popup.info("Please verify you are not a robot"); return false; }
             else {

@@ -77,29 +77,24 @@
 	</label><br>
 	<form action="/user/welcome" method="post" class="terms-checkbox">
 		{% set i= i + 1 %}
-		<input value=true type="checkbox" name="dataPrivacy" style='display:none;' id="tnc-{{ i }}">
+		<input value=true type="checkbox" name="dataPrivacy" style='display:none;' id="tnc-{{ i }}" checked>
 		<label for="tnc-{{ i }}">
-			I accept to the Privacy Notice and Terms and Conditions
+	I accept to the <a href='/policy/privacy' > Privacy Policy</a> and <a href='/policy/terms' >Terms and Conditions</a> * (required)
 		</label><br>
 		{% set i= i + 1 %}
-		<input value=true type="checkbox" name="surveyParticipation" style='display:none;' id="tnc-{{ i }}">
+		<input value=true type="checkbox" name="surveyParticipation" style='display:none;' id="tnc-{{ i }}" checked>
 		<label for="tnc-{{ i }}">
-			I accept to take participate in surveys and other market research activities
+			I accept to participate in surveys and other market research opinion activities * (required)
 		</label><br>
 		{% set i= i + 1 %}
-		<input value=true type="checkbox" name="cookiesAccept" style='display:none;' id="tnc-{{ i }}">
+		<input value=true type="checkbox" name="cookiesAccept" style='display:none;' id="tnc-{{ i }}" checked>
 		<label for="tnc-{{ i }}">
-			I accept to the use of cookies will be used market research purposes
+			I accept to have Turn2Opinion and it's trusted third parties to use cookies to improve your experience and to personalize content for market research * (required)
 		</label><br>
 		{% set i= i + 1 %}
 		<input value=true type="checkbox" name="dataSensitivity" style='display:none;' id="tnc-{{ i }}">
 		<label for="tnc-{{ i }}">
 			I accept to share my sensitive data for market research purposes
-		</label><br>
-		{% set i= i + 1 %}
-		<input value=true type="checkbox" name="thirdPartyCookies" style='display:none;' id="tnc-{{ i }}">
-		<label for="tnc-{{ i }}">
-			I accept to the use of third-party cookies for market research purposes
 		</label><br>
 		{% set i= i + 1 %}
 		<input value=true type="checkbox" name="profileShare" style='display:none;' id="tnc-{{ i }}">
@@ -114,7 +109,7 @@
 		{% set i= i + 1 %}
 		<input value=true type="checkbox" name="deviceID" style='display:none;' id="tnc-{{ i }}">
 		<label for="tnc-{{ i }}">
-			I accept to the use of cookies and the collection of my device ID information for market research purposes.
+			I accept to the use of cookies and the collection of my device ID information for market research purposes
 		</label><br>
 		{% set i= i + 1 %}
 		<button id="termsButton" type="button" class="btn btn-secondary fr" title="Accept at least 3 terms to proceed">Accept</button>
