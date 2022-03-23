@@ -1,28 +1,33 @@
-const visitor={
-    country:"",
-    ip:"",
-    loc:"",
-    region:"",
-    city:"",
-    timezone:""
+const visitor = {
+    country: "",
+    ip: "",
+    loc: "",
+    region: "",
+    city: "",
+    timezone: ""
 }
-async function getVisitor(){
-    resp=await fetch("//ipinfo.io/json?token=b3293fdc622fe6")
-    data=await resp.json()
-    visitor.ip=data.ip
-    visitor.country=data.country.toLowerCase()
-    visitor.loc=data.loc
-    visitor.region=data.region
-    visitor.city=data.city
-    visitor.timezone=data.timezone
-    document.querySelector("[name=cn]").value=visitor.country;
-    cn=window.intlTelInputGlobals.getCountryData().filter(c=>c.iso2==visitor.country.toLocaleLowerCase())[0];
-    console.log(cn);
-    document.querySelector("[data-country]").innerText=cn.name;
+async function getVisitor() {
+    resp = await fetch("//ipinfo.io/json?token=b3293fdc622fe6")
+    data = await resp.json()
+    visitor.ip = data.ip
+    visitor.country = data.country.toLowerCase()
+    visitor.loc = data.loc
+    visitor.region = data.region
+    visitor.city = data.city
+    visitor.timezone = data.timezone
+    document.querySelector("[name=cn]").value = visitor.country;
+    cn = window.intlTelInputGlobals.getCountryData().filter(c => c.iso2 == visitor.country.toLocaleLowerCase())[0];
+    document.querySelector("[data-country]").innerText = cn.name;
 }
-getVisitor();
+
 if (pagename === "signup") {
-    setTimeout(() => {
+    setTimeout(async () => {
+        await getVisitor();
+        // Detecting VPN
+        if (visitor.timezone != "" && visitor.timezone != "undefined") {
+            if (luxon.DateTime.fromObject({}, { zone: visitor.timezone }).offset != Date().offset)
+                alert("Are you using a VPN? If so, please disable it and try again.");
+        }
         navigator.geolocation.getCurrentPosition(function (position) {
             $("[name=lat]").val(position.coords.latitude);
             $("[name=lng]").val(position.coords.longitude);
@@ -41,7 +46,7 @@ if (pagename === "signup") {
             iti = window.intlTelInput(input, {
                 hiddenInput: "phone_full",
                 initialCountry: visitor.country,
-                onlyCountries:[visitor.country],
+                onlyCountries: [visitor.country],
                 utilsScript: "/js/utils.js"
             });
 
@@ -108,5 +113,5 @@ if (pagename === "signup") {
                 }
             });
         })
-    },1000)
+    }, 1000)
 }

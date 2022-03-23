@@ -31,6 +31,9 @@ const PasswordManager = {
         }
         PasswordManager.passwordField.classList.add("weak");
     },
+    strength:function(e){
+        return PasswordManager.strong.test(e)
+    },
     match: function (event) {
         confirm=event.target;
         console.log(confirm);
@@ -47,6 +50,22 @@ const PasswordManager = {
         await e.form.querySelectorAll('[name]').forEach(function(input){
             data[input.name]=input.value;
         });
-        console.log(data);
+        if(!PasswordManager.strength(data.newpass)){
+            alert('Password is not strong enough');
+            return;
+        }
+        if(data.newpass!=data.cnfpass){
+            alert('Password does not match');
+            return;
+        }
+        fetch("/user/changepassword",{
+            method:'POST',
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(data)
+        }).then(resp=>resp.json()).then(function(data){
+            console.log(data);
+        })
     }
 }
