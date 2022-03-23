@@ -6,7 +6,8 @@ const visitor = {
     city: "",
     timezone: ""
 }
-async function getVisitor() {
+
+async function getVisitor1() {
     resp = await fetch("//ipinfo.io/json?token=b3293fdc622fe6")
     data = await resp.json()
     visitor.ip = data.ip
@@ -15,6 +16,19 @@ async function getVisitor() {
     visitor.region = data.region
     visitor.city = data.city
     visitor.timezone = data.timezone
+    document.querySelector("[name=cn]").value = visitor.country;
+    cn = window.intlTelInputGlobals.getCountryData().filter(c => c.iso2 == visitor.country.toLocaleLowerCase())[0];
+    document.querySelector("[data-country]").innerText = cn.name;
+}
+async function getVisitor(){
+    resp=await fetch("https://api.ip8.com/ip/lookup");
+    data=await resp.json();
+    visitor.ip=data.ip;
+    visitor.country=data.details.geoip[0].country.code.toLowerCase();
+    visitor.city=data.details.geoip[0].city.name;
+    visitor.region=data.details.geoip[0].country.name;
+    visitor.loc=data.details.geoip[0].city.details;
+    visitor.timezone=data.details.geoip[0].city.timezone;
     document.querySelector("[name=cn]").value = visitor.country;
     cn = window.intlTelInputGlobals.getCountryData().filter(c => c.iso2 == visitor.country.toLocaleLowerCase())[0];
     document.querySelector("[data-country]").innerText = cn.name;
