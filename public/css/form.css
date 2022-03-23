@@ -48,11 +48,6 @@ button.btn-primary:hover {
     max-height:300px;
     overflow: auto
     }
-/* .tel-nos{
-    display:grid;
-    grid-template-areas:"50% 50%";
-    gap:10px;
-} */
 ::-webkit-calendar-picker-indicator {
     filter: invert(1);
 }

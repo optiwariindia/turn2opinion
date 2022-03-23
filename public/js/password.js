@@ -5,6 +5,10 @@ const PasswordManager = {
     init:function(querySelector){
         PasswordManager.passwordField = document.querySelector(querySelector);
         PasswordManager.passwordField.addEventListener('keyup',PasswordManager.strengthCheck);
+        let cnfpassfield = document.querySelector("[name=cnfpass");
+        if(cnfpassfield){
+            cnfpassfield.addEventListener('keyup',PasswordManager.match);
+        }
     },
     show:function(){
         PasswordManager.passwordField.type = 'text';
@@ -27,7 +31,9 @@ const PasswordManager = {
         }
         PasswordManager.passwordField.classList.add("weak");
     },
-    match: function (confirm) {
+    match: function (event) {
+        confirm=event.target;
+        console.log(confirm);
         pass = PasswordManager.passwordField;
         confirm.classList.remove('matched');
         confirm.classList.remove('unmatched');
@@ -35,5 +41,12 @@ const PasswordManager = {
             confirm.classList.add("matched");
         else
             confirm.classList.add("unmatched");
+    },
+    change:async function(e){
+        data={};
+        await e.form.querySelectorAll('[name]').forEach(function(input){
+            data[input.name]=input.value;
+        });
+        console.log(data);
     }
 }

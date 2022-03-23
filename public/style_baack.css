@@ -42626,3 +42626,9 @@ input#newPass.strong + span::before{
     width: 100%;
     float:left;
 }
+.matched+span::before{
+    content:"Password Matched";
+    text-align:right;
+    width:100%;
+    float:left;
+}
