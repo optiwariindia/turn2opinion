@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
-const autoIncrement=require("mongoose-sequence")(mongoose);
+// const autoIncrement=require("mongoose-sequence")(mongoose);
 const Country = require("./country");
 user = new schema({
     fn: {
@@ -367,7 +367,7 @@ user = new schema({
     timestamps: true,
     toJSON: { virtuals: true },
     toObject: { virtuals: true },
-    
+
 });
 user.virtual("age").get(function () {
     let today = new Date();
