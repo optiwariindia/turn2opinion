@@ -275,8 +275,10 @@ function getUserInfo(req, res, next) {
 async function userDetails(req, res, next) {
     req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
     if ("dob" in req.user) {
-        num = Date.parse(req.user.dob);
-        req.user.dob = new Date(num).toISOString().split("T")[0];
+        if(req.user.dob != null){
+            num = Date.parse(req.user.dob);
+            req.user.dob = new Date(num).toISOString().split("T")[0];
+        }
     }
     if ("createdAt" in req.user) {
         req.user.createdAt = new Date(req.user.createdAt);
