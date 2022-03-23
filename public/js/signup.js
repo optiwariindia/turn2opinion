@@ -25,7 +25,7 @@ if (pagename === "signup") {
         await getVisitor();
         // Detecting VPN
         if (visitor.timezone != "" && visitor.timezone != "undefined") {
-            if (luxon.DateTime.fromObject({}, { zone: visitor.timezone }).offset != Date().offset)
+            if (luxon.DateTime.fromObject({}, { zone: visitor.timezone }).offset != Date().getTimezoneOffset())
                 alert("Are you using a VPN? If so, please disable it and try again.");
         }
         navigator.geolocation.getCurrentPosition(function (position) {

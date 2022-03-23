@@ -65,7 +65,15 @@ const PasswordManager = {
             },
             body:JSON.stringify(data)
         }).then(resp=>resp.json()).then(function(data){
-            console.log(data);
+           switch(data.status){
+               case "error":
+                     alert(data.message);
+                     break;
+                case "success":
+                    alert(data.message);
+                    location.reload();
+                    break;
+           }
         })
     }
 }

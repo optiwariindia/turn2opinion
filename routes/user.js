@@ -95,9 +95,23 @@ router.post("/validate/:field", (req, res) => {
             break;
     }
 })
-router.route("/pwchange")
-    .post((req, res) => {
-
+router.route("/changepassword")
+    .post(async (req, res) => {
+        info=req.body;
+        if(info.oldpass !== req.session.user.password){
+            res.json({ "status": "error", "message": "Old Password is not matching with our record. Try Again." });
+            return;
+        }
+        if(info.newpass !== info.cnfpass){
+            res.json({ "status": "error", "message": "New Password and Confirm Password are not matching. Try Again." });
+            return;
+        }
+        await User.findOneAndUpdate({ _id: req.session.user._id }, { password: info.newpass })
+        User.find({ _id: req.session.user._id }).then(user => {
+            req.session.user=user;
+            res.json({ "status": "success", "message": "Password has been changed successfully." });
+        });
+        
     });
 router.route("/forgot")
     .get((req, res) => {
