@@ -5,6 +5,7 @@ const fileUpload = require('express-fileupload');
 const User = mongoose.model("users", require("../modals/user"));
 const email = require("../service/email");
 const twig = require("twig");
+const fs=require("fs");
 // const user = require('../modals/user');
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
@@ -16,7 +17,7 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
 })
 router.post("/auth", (req, res) => {
-    User.find({ email: req.body.user, password: req.body.pass }).then(user => {
+    User.find({ email: req.body.user, password: req.body.pass,deletedOn:null }).then(user => {
         if (user.length === 1) {
             req.session.user = user[0];
             res.json({ "status": "ok", "user": user[0], "redirect": "/user/dashboard" });
@@ -95,6 +96,28 @@ router.post("/validate/:field", (req, res) => {
             break;
     }
 })
+router.route("/delete")
+    .get(async(req,res)=>{
+        fs.existsSync("../archives")||fs.mkdirSync("../archives");
+        let text=JSON.stringify(req.session.user);
+        console.log(text);
+        await fs.writeFile(`../archives/${req.session.user._id}.json`,text,(e)=>{console.log({error:e});});
+        await User.updateOne({_id:req.session.user._id},{$set:{deletedOn:new Date()}});
+        // req.session.destroy();
+        res.redirect("/");
+    })
+    .delete(async (req,res)=>{
+        util=require("util");
+        render=util.promisify(twig.renderFile);
+        h=await render("mailers/template.twig", {user: req.session.user, message: "team/deleteAccount", link: process.env.site + "/user/delete?user=" + req.session.user._id});
+        await email.sendEmail(process.env.team, "Turn2Opinion - Profile Deletion Request - Username - TP000001", h, h);
+        h=await render("mailers/template.twig", {user: req.session.user, message: "deleteAccount", link: process.env.site + "/user/delete?user=" + req.session.user._id });
+        await email.sendEmail(req.session.user.email, "Request to delete my account from Turn2Opinion", h, h);
+        res.json({
+            status: "ok",
+            message: "Please check your email and follow the instructions to delete your account."
+        })
+    })
 router.route("/changepassword")
     .post(async (req, res) => {
         info=req.body;
@@ -240,6 +263,8 @@ router.use(fileUpload())
 
 function getUserInfo(req, res, next) {
     if (("user" in req.session)) {
+        if(req.session.user.deletedOn != null)
+            {req.session.destroy(); res.redirect("/");}
         req.user = req.session.user;
         next();
         return;

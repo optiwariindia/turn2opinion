@@ -351,6 +351,11 @@ user = new schema({
     tech_mac_type: String,
     tech_office_suite: String,
     tech_pc_count: String,
+    deletedOn:{
+        type: Date,
+        required: false,
+        default:null
+    },
     points:{type:Number,default:200},
 }, {
     timestamps: true,

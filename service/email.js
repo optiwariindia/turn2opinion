@@ -31,18 +31,20 @@ module.exports=email={
             pass:'frfssupport@123'
         }
     },
-    sendEmail:function(to,subject,text,html){
+    sendEmail:async function(to,subject,text,html){
         let transporter = nodemailer.createTransport(email.setup);
-        transporter.sendMail({
-            from:`${email.setup.sender.name} <${email.setup.sender.email}>`,
-            to:to,
-            subject:subject,
-            text:text,
-            html:html
-        }).then(info=>{
-            console.log('Message sent: %s', info.messageId);
-        }).catch(err=>{
-            console.log('Error sending email: %s', err);
-        });
+        try{
+
+            return await transporter.sendMail({
+                from:`${email.setup.sender.name} <${email.setup.sender.email}>`,
+                to:to,
+                subject:subject,
+                text:text,
+                html:html
+            })
+        }
+        catch(err){
+            return 'Error sending email: '+err;
+        }
     }
 }

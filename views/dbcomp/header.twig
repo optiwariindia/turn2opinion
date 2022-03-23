@@ -264,7 +264,7 @@
 														<div class="vertical-timeline-element-content bounce-in">
 															<h4 class="timeline-title">Build the production release</h4>
 															<p>Lorem ipsum dolor sit amit,consectetur eiusmdd tempor incididunt ut
-																																																																																																																                                labore et dolore magna elit enim at minim veniam quis nostrud
+																																																																																																																																                                labore et dolore magna elit enim at minim veniam quis nostrud
 															</p>
 															<span class="vertical-timeline-element-date"></span>
 														</div>
@@ -320,7 +320,7 @@
 														<div class="vertical-timeline-element-content bounce-in">
 															<h4 class="timeline-title">Build the production release</h4>
 															<p>Lorem ipsum dolor sit amit,consectetur eiusmdd tempor incididunt ut
-																																																																																																																                                labore et dolore magna elit enim at minim veniam quis nostrud
+																																																																																																																																                                labore et dolore magna elit enim at minim veniam quis nostrud
 															</p>
 															<span class="vertical-timeline-element-date"></span>
 														</div>
@@ -463,7 +463,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button"  onclick="PasswordManager.change(this)" class="btn btn-primary">Save changes</button>
+				<button type="button" onclick="PasswordManager.change(this)" class="btn btn-primary">Save changes</button>
 			</div>
 		</form>
 	</div>
@@ -485,13 +485,13 @@
 				<p>Deleting your account will delete all your profiles under the account as well as your reward points, your claimed reward requests, and your survey participation history. This will also lead you to keep waiting for 2 months to create a new account with us.</p>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-danger">Delete Anyways</button>
-				<button class="btn btn-success">Cancel</button>
+				<button type="button" onclick="deleteMyAccount()" class="btn btn-danger">Delete Anyways</button>
+				<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
 </div>
-
+<script src="/js/deleteAccount.js"></script>
 <script src="/js/password.js"></script>
 <script>
 	PasswordManager.init("[name=newpass]");

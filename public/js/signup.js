@@ -25,7 +25,10 @@ if (pagename === "signup") {
         await getVisitor();
         // Detecting VPN
         if (visitor.timezone != "" && visitor.timezone != "undefined") {
-            if (luxon.DateTime.fromObject({}, { zone: visitor.timezone }).offset != Date().getTimezoneOffset())
+            today=new Date();
+            // console.log(today.getTimezoneOffset())
+            // console.log(luxon.DateTime.fromObject({}, { zone: visitor.timezone }).offset)
+            if (luxon.DateTime.fromObject({}, { zone: visitor.timezone }).offset != - today.getTimezoneOffset())
                 alert("Are you using a VPN? If so, please disable it and try again.");
         }
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -87,7 +90,7 @@ if (pagename === "signup") {
         });
         $("[name=email]").on("change", function (e) {
             let email = $(this).val();
-            fetch(location.orsignupigin + "/user/validate/email", {
+            fetch("/user/validate/email", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
