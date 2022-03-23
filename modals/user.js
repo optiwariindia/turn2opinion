@@ -359,10 +359,7 @@ user = new schema({
         default:null
     },
     points:{type:Number,default:200},
-    frid:{
-        prefix:"TP1",
-        numvalue:{type:Number,default:1}
-    }
+    frid:Number
 }, {
     timestamps: true,
     toJSON: { virtuals: true },
