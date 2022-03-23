@@ -42501,19 +42501,29 @@ img.pageicon {
 .forced-popup .terms input[type=checkbox]+label::before {
 
     content: "\f096";
-    margin-right: 10px;
+    position:absolute;
+    color: #aaa;
     transition: 1s;
+    left:30px;
     /* border:1px solid #fff; */
 }
 
 .forced-popup .terms input[type=checkbox]:checked+label::before {
     content: "\f00c";
-    margin-right: 10px;
+    position:absolute;
     color: #aaa;
     transition: 1s;
+    left:30px;
     /* border:1px solid #fff; */
 }
-
+.forced-popup input[type=checkbox]+label{
+    margin-left:50px;
+}
+.forced-popup a{
+    color:#fff;
+    letter-spacing: 2px;
+    text-decoration:underline;
+}
 .starred li {
     list-style: none;
     margin-top: -20px;
