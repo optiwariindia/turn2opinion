@@ -8,7 +8,8 @@
     "start": "node server.js",
     "devstart": "sudo systemctl start mongod; code .;nodemon server.js",
     "download": "git pull",
-    "upload": "cd databaseBackup; mongodump --db Turn2Opinion; cd ..; git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master;git push server master"
+    "backupdb":"cd databaseBackup; mongodump --db Turn2Opinion",
+    "upload": "git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master;git push server master"
   },
   "keywords": [],
   "author": "",
