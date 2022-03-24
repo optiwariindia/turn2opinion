@@ -79,7 +79,8 @@
 	<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-6{% endif %}" {% if params.for is defined %} bind-field='{{params.for.field}}' data-for='{{params.for.value|json_encode}}' {% endif %}>
 		<div class="form-group">
 			<label for="">{{label}}</label>
-			<input type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
+			
+			<input {% if params.editable == false %}disabled{% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
 		</div>
 	</div>
 {% endif %}{% endmacro %}{% macro render1(params) %}

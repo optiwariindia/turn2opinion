@@ -12,7 +12,7 @@
     transition: 1s;
 }
 .form-control:disabled {
-    /* color: #aaa; */
+    color: #aaa;
     font-size: 18px;
     text-transform: capitalize;
 }

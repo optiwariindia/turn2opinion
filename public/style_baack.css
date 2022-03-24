@@ -42642,3 +42642,26 @@ input#newPass.strong + span::before{
     width:100%;
     float:left;
 }
+.widget-progress-wrapper {
+    
+    display: grid;
+    grid-template-areas:
+    "icon name name name"
+    "progress progress progress progress"
+    ". . . percentage";
+    grid-template-columns: repeat(4, 1fr);
+   grid-template-rows: "auto auto auto"
+}
+
+.widget-progress-wrapper img{
+    grid-area: icon;
+}
+.widget-progress-wrapper .label-left{
+    grid-area:name;
+}
+.widget-progress-wrapper .progress-bar-sm{
+    grid-area:progress
+}
+.widget-progress-wrapper .progress-sub-label{
+    grid-area:percentage
+}
