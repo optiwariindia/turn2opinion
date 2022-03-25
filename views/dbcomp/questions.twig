@@ -8,8 +8,12 @@
 				<div class="page" page="{{loop.index}}" style='display:none'>
 					<div class="row">
 						{% for que in page %}
-							{{form.render(que,user,counter)}}
-							{% set counter = counter + 1 %}
+							{% if que.type=="note" %}
+								{{form.note(que)}}
+							{% else %}
+								{{form.render(que,user)}}
+								{% set counter = counter + 1 %}
+							{% endif %}
 						{% endfor %}
 					</div>
 				</div>

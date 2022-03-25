@@ -8,92 +8,87 @@
 	{% if user[params.name] %}
 		{% set value = user[params.name] %}
 	{% endif %}
-	{% if params.type == "note" %}
-		<div class="logo">
-			<img src="/assets/images/logo.png" class='img-fluid' alt=""/>
-		</div>
-		<div class="note">
-			<h2>{{params.title}}</h2>
-			<p>{{params.message|raw}}</p>
-		</div>
-
-	{% elseif (params.type == "radio") %}
-		<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-12{% endif %}">
-			<div class="form-group options">
-				<label for="">{{label}}</label>
-				{% for option in params.options %}
-					<span>
-						<input type="radio" name="{{params.name}}" value="{{option}}" {% if value == option %} checked {% endif %} id="r-{{param.name}}-{{loop.index}}">
-						<label for="r-{{param.name}}-{{loop.index}}">{{option}}</label>
-					</span>
-				{% endfor %}
-			</div>
-		</div>
-	{% elseif params.type == "select" %}
-		<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-6{% endif %}" {% if params.for is defined %} bind-field='{{params.for.field}}' data-for='{{params.for.value|json_encode}}' {% endif %}>
-			<div class="form-group">
-				<label for="">{{label}}</label>
-				<select name="{{params.name}}" id="{{params.name}}" class='form-control' {% if params.options.api is defined %} data-api="{{params.options.api}}" data-depends='{{params.options.depends|json_encode}}' {% endif %} class="custom-select">
-					<option value="">
-						-- Please Select --
-					</option>
-
-					{% if params.options.api is defined %}
+<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-6{% endif %}" {% if params.for is defined %} bind-field='{{params.for.field}}' data-for='{{params.for.value|json_encode}}' {% endif %}>
+	{% if (params.type == "radio") %}
+				<div class="form-group options">
+					<label for="">{{label}}</label>
+					{% for option in params.options %}
+						<span>
+							<input type="radio" name="{{params.name}}" value="{{option}}" {% if value == option %} checked {% endif %} id="r-{{param.name}}-{{loop.index}}">
+							<label for="r-{{param.name}}-{{loop.index}}">{{option}}</label>
+						</span>
+					{% endfor %}
+				</div>
+		{% elseif params.type == "select" %}
+				<div class="form-group">
+					<label for="">{{label}}</label>
+					<select required name="{{params.name}}" id="{{params.name}}" class='form-control' {% if ((user[params.name] is not defined) or (user[params.name]['_id'] is defined and user[params.name]['_id'] !="" )) and (params.options.api is defined) %} data-api="{{params.options.api}}" data-depends='{{params.options.depends|json_encode}}' {% endif %} class="custom-select">
+						<option value="">
+							-- Please Select --
+						</option>
+						{% if (user[params.name] is defined) %}
+							<option selected value="{{user[params.name]["_id"]}}">{{user[params.name]["label"]}}</option>
+						{% elseif params.options.api is defined %}
 						{% else %}
 							{% for option in params.options %}
 								<option value="{{option}}" {% if value == option %} selected {% endif %}></option>
 								{{option}}
 							</option>
-					{% endfor %}
-				{% endif %}
-			</select>
-		</div>
-	</div>
-{% elseif params.type == "autocomplete" %}
-	<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-12{% endif %}">
-		<div class="form-group options">
-			<label for="">{{label}}</label>
-			<input value="{{value}}" list="{{params.name}}-options" type="text" class='form-control' name="{{params.name}}" id="{{params.name}}" {% if params.options.api is defined %} data-api="{{params.options.api}}" data-depends="{{params.dependson}}" {% endif %}>
-			<datalist id="{{params.name}}-options">
-				{% if params.options.api is defined %}
-					{% else %}
-						{% for option in params.options %}
-							<option value="{{option}}"></option>
 						{% endfor %}
-				{% endif %}
-			</datalist>
-		</div>
+					{% endif %}
+				</select>
+			</div>
+	{% elseif params.type == "autocomplete" %}
+			<div class="form-group options">
+				<label for="">{{label}}</label>
+				<input value="{{value}}" list="{{params.name}}-options" type="text" class='form-control' name="{{params.name}}" id="{{params.name}}" {% if params.options.api is defined %} data-api="{{params.options.api}}" data-depends="{{params.dependson}}" {% endif %}>
+				<datalist id="{{params.name}}-options">
+					{% if params.options.api is defined %}
+						{% else %}
+							{% for option in params.options %}
+								<option value="{{option}}"></option>
+							{% endfor %}
+					{% endif %}
+				</datalist>
+			</div>
 
-	</div>
-{% elseif params.type == "checkbox" %}
-	<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-12{% endif %}">
+	{% elseif params.type == "checkbox" %}
+			<div class="form-group options">
+				<label for="">{{label}}</label>
+				<div class="input "></div>
+				<input type="hidden" name='{{params.name}}' {% if params.options.api is defined %} data-api="{{params.options.api}}" data-depends='{{params.options.depends|json_encode}}' {% endif %}>
+				<div class="option-values"></div>
+
+			</div>
+	{% else %}
+			<div class="form-group">
+				<label for="">{{label}}</label>
+
+				<input {% if params.editable == false %} disabled {% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
+			</div>
+	{% endif %}
+</div>
+{% endmacro %}
+{% macro render1(params) %}
 		<div class="form-group options">
 			<label for="">{{label}}</label>
-			<div class="input "></div>
-			<input type="hidden" name='{{params.name}}' {% if params.options.api is defined %} data-api="{{params.options.api}}" data-depends='{{params.options.depends|json_encode}}' {% endif %}>
-			<div class="option-values"></div>
-
+			<div class="input form-control"></div>
+			{% for option in params.options %}
+				<span>
+					<input type="radio" name="{{params.name}}" value="{{option}}" id="r-{{param.name}}-{{loop.index}}">
+					<label for="r-{{param.name}}-{{loop.index}}">{{option}}</label>
+				</span>
+			{% endfor %}
 		</div>
 	</div>
-{% else %}
-	<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-6{% endif %}" {% if params.for is defined %} bind-field='{{params.for.field}}' data-for='{{params.for.value|json_encode}}' {% endif %}>
-		<div class="form-group">
-			<label for="">{{label}}</label>
-			
-			<input {% if params.editable == false %}disabled{% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
-		</div>
-	</div>
-{% endif %}{% endmacro %}{% macro render1(params) %}
+{% endmacro %}
 
-<div class="{% if params.class is defined %}{{params.class}}{% else %}col-sm-12{% endif %}">
-	<div class="form-group options">
-		<label for="">{{label}}</label>
-		<div class="input form-control"></div>
-		{% for option in params.options %}
-			<span>
-				<input type="radio" name="{{params.name}}" value="{{option}}" id="r-{{param.name}}-{{loop.index}}">
-				<label for="r-{{param.name}}-{{loop.index}}">{{option}}</label>
-			</span>
-		{% endfor %}
+{% macro note(params) %}
+	<div class="logo">
+		<img src="/assets/images/logo.png" class='img-fluid' alt=""/>
 	</div>
-</div>{% endmacro %}
+	<div class="note">
+		<h2>{{params.title}}</h2>
+		<p>{{params.message|raw}}</p>
+	</div>
+{% endmacro %}

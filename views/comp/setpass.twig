@@ -23,11 +23,13 @@
 				<div class="group">
 					<label for="pass" class="label">Password</label>
 					<input id="pass" name="pass" type="password" class="input">
-					<a href="javascript:void(0)" onclick="showPassword(this)" style=""><i class="fa fa-eye" style="
-    position: absolute;
-    top: 40px;
-    right: 15px;
-"></i></a>
+					<a href="javascript:void(0)" onclick="showPassword(this)" style="">
+						<i class="fa fa-eye" style="
+							    position: absolute;
+							    top: 40px;
+							    right: 15px;
+							"></i>
+					</a>
 					<span id="StrengthDisp" class="badge displayBadge" style="margin:8px 80px"></span>
 					<span class="strength"></span>
 				</div>
@@ -39,7 +41,7 @@
 				<div class="group">
 					<label for="secque" class="label">Please Choose Security Questions</label>
 					<select id="secque" name="secque" class="input" style="background:#666;color:#fff">
-					<option value="false" selected disabled>-- Please Select --</option>
+						<option value="false" selected disabled>-- Please Select --</option>
 						{% for security in securityqs %}
 							<option value="{{security}}">{{security}}</option>
 						{% endfor %}
@@ -47,7 +49,14 @@
 				</div>
 				<div class="group">
 					<label for="ans" class="label">Your security answer</label>
-					<input id="ans" name="ans" type="password" class="input" data-type="password">
+					<input id="ans" name="ans" type="password" class="input">
+					<a href="javascript:void(0)" onclick="showPassword(this)" style="">
+					<i class="fa fa-eye" style="
+							position: absolute;
+							top: 40px;
+							right: 15px;
+						"></i>
+				</a>
 				</div>
 				<div class="group" style="margin:30px;">
 					<input type="hidden" name="id" value="{{id}}">
@@ -78,7 +87,7 @@ strength.textContent = 'Average';
 strengthBadge.style.backgroundColor = 'red';
 // strength.style.color = 'red';
 strength.textContent = 'Weak';
-if (PasswordParameter.length <= 0) {
+if (PasswordParameter.length<= 0) {
 	strength.textContent = '';
 	password.style.borderColor = 'gray';
 }
@@ -94,5 +103,6 @@ strengthBadge.style.display != 'block';
 } else {
 strengthBadge.style.display = 'none';
 }
-});
+}) 
+
 </script>

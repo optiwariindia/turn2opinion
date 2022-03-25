@@ -32,6 +32,10 @@ module.exports = new schema({
         required: true,
         default: "col-sm-12"
     },
+    for:{
+        field:String,
+        value:[String]
+    },
     title:String,
     message:String,
     for:Object

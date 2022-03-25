@@ -5,9 +5,10 @@ const User = mongoose.model("user", require("../modals/user"));
 const request=require("request");
 router.route("/")
     .get(async (req, res) => {
-        // console.log(resp);
+        
+        console.log(user.survey);
         survey={
-            completed:Array.from(user.survey).filter(e=>e.status=="complete").length,
+            completed:Array.from(user.survey).filter(e=>e.status=="completed").length,
             disqualified:Array.from(user.survey).filter(e=>e.status=="disqualified").length,
             pending:Array.from(user.survey).filter(e=>e.status=="").length,
             total:Array.from(user.survey).length

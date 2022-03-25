@@ -1,37 +1,40 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
+const User = mongoose.model("users", require("../modals/user"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
-
+router.get("/userinfo", (req, res) => {
+  res.json(req.session.user);
+})
 router.get("/addData", async (req, res) => {
   res.json({});
 });
-router.get("/profileStatus",async (req,res)=>{
-profiles=Array.from(await Profiles.find({},{name:1,uri:1,questions:1}));
-if(req.session.user === undefined){
-  res.json({
-    status: "error",
-    message: "You are not logged in"
-  });
-  return;
-}
-let profileStatus=[];
-for (let index = 0; index < profiles.length; index++) {
-  const profile = profiles[index];
-  let status=0;
-  for (let qno = 0; qno < profile.questions.length; qno++) {  
-    const question = profile.questions[qno]['name'];
-    if(req.session.user[question]!==undefined){
-      status++;
-    }
+router.get("/profileStatus", async (req, res) => {
+  profiles = Array.from(await Profiles.find({}, { name: 1, uri: 1, questions: 1 }));
+  if (req.session.user === undefined) {
+    res.json({
+      status: "error",
+      message: "You are not logged in"
+    });
+    return;
   }
-  profileStatus.push([profile.uri,status,profile.questions.length]);
-}
-res.json(profileStatus);
-return;
-res.json({});
+  let profileStatus = [];
+  for (let index = 0; index < profiles.length; index++) {
+    const profile = profiles[index];
+    let status = 0;
+    for (let qno = 0; qno < profile.questions.length; qno++) {
+      const question = profile.questions[qno]['name'];
+      if (req.session.user[question] !== undefined) {
+        status++;
+      }
+    }
+    profileStatus.push([profile.uri, status, profile.questions.length]);
+  }
+  res.json(profileStatus);
+  return;
+  res.json({});
 })
 router.route("/professions")
   .get((req, res) => {
@@ -60,10 +63,6 @@ router.get("/professions/:industry", async (req, res) => {
 })
 router.get("/professions/:industry/:department", async (req, res) => {
   professions = JSON.parse(require("fs").readFileSync("./databank/professions.json")).filter(e => (e.Industry === req.params.industry && e.Department === req.params.department)).map(e => e.Jobrole);
-  // await professions.forEach(e=>{
-  //     if(department.indexOf(e.Department)!==-1)return ;
-  //     department.push(e.Department)
-  // })
   res.json(professions);
 })
 router.post("/zone", async (req, res) => {
@@ -92,6 +91,16 @@ router.post("/children", (req, res) => {
     res.json({ status: "success", data: [], children: req.body.relationship });
   else
     res.json({ status: "success", data: [{ _id: 0, label: 0, name: 'children' }, { _id: 1, label: 1 }, { _id: 2, label: 2 }, { _id: 3, label: 3 }, { _id: 4, label: 4 }, { _id: 5, label: 5 }, { _id: 6, label: 6 }, { _id: 7, label: 7 }, { _id: 8, label: 8 }, { _id: 9, label: 9 }] });
+})
+router.post("/save/:field", async (req, res) => {
+  // updating user info
+  // req.session.user[req.params.field]=req.body[req.params.field];
+  user = await User.findOneAndUpdate({ _id: req.session.user._id }, { $set: { [req.params.field]: req.body[req.params.field] } }, { new: true })
+  options = [];
+  if (mongoose.isValidObjectId(user[req.params.field]))
+    options = await ProfileOptions.find({ dependency: mongoose.Types.ObjectId(user[req.params.field]) });
+  req.session.user = user;
+  res.json({ options: options });
 })
 router.route("/:component")
   .get(async (req, res) => {

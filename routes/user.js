@@ -5,9 +5,9 @@ const fileUpload = require('express-fileupload');
 const User = mongoose.model("users", require("../modals/user"));
 const email = require("../service/email");
 const twig = require("twig");
-const fs=require("fs");
+const fs = require("fs");
 // const user = require('../modals/user');
-const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
+const ProfileOptions = mongoose.model("profileoptions", require("../modals/profileOptions"));
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
@@ -17,10 +17,10 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
 })
 router.post("/auth", (req, res) => {
-    User.find({ email: req.body.user, password: req.body.pass,deletedOn:null }).then(user => {
+    User.find({ email: req.body.user, password: req.body.pass, deletedOn: null }).then(user => {
         if (user.length === 1) {
             req.session.user = user[0];
-            res.json({ "status": "ok", "user": user[0], "redirect": "/user/dashboard" });
+            res.json({ "status": "ok", "user": user[0], "redirect": "/user/dashboard", "sessiontimeout": process.env.sessiontimeout });
         } else {
             res.json({ "status": "error", "message": "User not found", "info": user, "inputs": req.body });
         }
@@ -97,21 +97,21 @@ router.post("/validate/:field", (req, res) => {
     }
 })
 router.route("/delete")
-    .get(async(req,res)=>{
-        fs.existsSync("../archives")||fs.mkdirSync("../archives");
-        let text=JSON.stringify(req.session.user);
+    .get(async (req, res) => {
+        fs.existsSync("../archives") || fs.mkdirSync("../archives");
+        let text = JSON.stringify(req.session.user);
         console.log(text);
-        await fs.writeFile(`../archives/${req.session.user._id}.json`,text,(e)=>{console.log({error:e});});
-        await User.updateOne({_id:req.session.user._id},{$set:{deletedOn:new Date()}});
+        await fs.writeFile(`../archives/${req.session.user._id}.json`, text, (e) => { console.log({ error: e }); });
+        await User.updateOne({ _id: req.session.user._id }, { $set: { deletedOn: new Date() } });
         // req.session.destroy();
         res.redirect("/");
     })
-    .delete(async (req,res)=>{
-        util=require("util");
-        render=util.promisify(twig.renderFile);
-        h=await render("mailers/template.twig", {user: req.session.user, message: "team/deleteAccount", link: process.env.site + "/user/delete?user=" + req.session.user._id});
+    .delete(async (req, res) => {
+        util = require("util");
+        render = util.promisify(twig.renderFile);
+        h = await render("mailers/template.twig", { user: req.session.user, message: "team/deleteAccount", link: process.env.site + "/user/delete?user=" + req.session.user._id });
         await email.sendEmail(process.env.team, "Turn2Opinion - Profile Deletion Request - Username - TP000001", h, h);
-        h=await render("mailers/template.twig", {user: req.session.user, message: "deleteAccount", link: process.env.site + "/user/delete?user=" + req.session.user._id });
+        h = await render("mailers/template.twig", { user: req.session.user, message: "deleteAccount", link: process.env.site + "/user/delete?user=" + req.session.user._id });
         await email.sendEmail(req.session.user.email, "Request to delete my account from Turn2Opinion", h, h);
         res.json({
             status: "ok",
@@ -120,21 +120,21 @@ router.route("/delete")
     })
 router.route("/changepassword")
     .post(async (req, res) => {
-        info=req.body;
-        if(info.oldpass !== req.session.user.password){
+        info = req.body;
+        if (info.oldpass !== req.session.user.password) {
             res.json({ "status": "error", "message": "Old Password is not matching with our record. Try Again." });
             return;
         }
-        if(info.newpass !== info.cnfpass){
+        if (info.newpass !== info.cnfpass) {
             res.json({ "status": "error", "message": "New Password and Confirm Password are not matching. Try Again." });
             return;
         }
         await User.findOneAndUpdate({ _id: req.session.user._id }, { password: info.newpass })
         User.find({ _id: req.session.user._id }).then(user => {
-            req.session.user=user;
+            req.session.user = user;
             res.json({ "status": "success", "message": "Password has been changed successfully." });
         });
-        
+
     });
 router.route("/forgot")
     .get((req, res) => {
@@ -159,7 +159,8 @@ router.post("/securityquestion", (req, res) => {
     });
     res.json({ "status": "ok", "question": "In what city were you born?" });
 })
-router.post("/new", (req, res) => {
+router.post("/new", async (req, res) => {
+    cntry = await ProfileOptions.findOne({iso2_code:req.body.cn});
     new User({
         fn: req.body.fn,
         ln: req.body.ln,
@@ -168,7 +169,8 @@ router.post("/new", (req, res) => {
         gender: req.body.gender,
         cn: req.body.cn,
         cntry: req.body.cntry,
-        timezone: req.body.timezone
+        timezone: req.body.timezone,
+        country:cntry._id
     }).save().then(usr => {
         twig.renderFile("mailers/template.twig", { message: "activation", site: process.env.site, fn: usr.fn, id: usr._id }, (e, h) => {
             email.sendEmail(usr.email, "Activate Your Turn2Opinion Account", "", h);
@@ -192,10 +194,18 @@ router.post("/login", (req, res) => {
         res.json({ "status": "error", message: err.message });
     })
 })
-router.get("/verify/:id", (req, res) => {
-    securityqs = JSON.parse(require("fs").readFileSync("./dummyData/security.json"));
-    User.findById(req.params.id).then(user => { user.verified.email = true; user.save(); });
-    res.render("index.twig", { form: "setpass", id: req.params.id, securityqs });
+router.get("/verify/:id", async (req, res) => {
+    try{
+        user= await User.findById(req.params.id);
+        user.verified.email=true;
+        user.save();
+        securityqs = JSON.parse(require("fs").readFileSync("./databank/securityQuestions.json"));
+        res.render("index.twig", { form: "setpass", id: req.params.id, securityqs });
+
+    }catch(e){
+        res.redirect("/");
+        return;
+    }
 })
 router.route("/resetpass/:id")
     .get((req, res) => {
@@ -205,12 +215,10 @@ router.route("/resetpass/:id")
 
         console.log(req.params.id);
         User.findById(req.params.id).then(u => {
-
             console.log(u);
             u.password = req.body.pass;
             u.save().then(usr => {
                 req.session.user = usr;
-
                 console.log(usr);
                 res.json({ "status": "ok", "user": usr });
             })
@@ -263,8 +271,7 @@ router.use(fileUpload())
 
 function getUserInfo(req, res, next) {
     if (("user" in req.session)) {
-        if(req.session.user.deletedOn != null)
-            {req.session.destroy(); res.redirect("/");}
+        if (req.session.user.deletedOn != null) { req.session.destroy(); res.redirect("/"); }
         req.user = req.session.user;
         next();
         return;
@@ -275,7 +282,7 @@ function getUserInfo(req, res, next) {
 async function userDetails(req, res, next) {
     req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
     if ("dob" in req.user) {
-        if(req.user.dob != null){
+        if (req.user.dob != null) {
             num = Date.parse(req.user.dob);
             req.user.dob = new Date(num).toISOString().split("T")[0];
         }
@@ -357,7 +364,7 @@ async function userDetails(req, res, next) {
                     name: "Survey Participations",
                     icon: "/img/participation.png",
                     count: req.user.surveyTaken.length,
-                    target: "#available-survey"
+                    target: "/user/history/survey"
                 }
             ]
         },
