@@ -9,7 +9,7 @@
     "devstart": "sudo systemctl start mongod; code .;nodemon server.js",
     "download": "git pull",
     "backupdb": "cd databaseBackup; mongodump --db Turn2Opinion",
-    "upload": "git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master;git push server master"
+    "upload": "git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master;git push linode master"
   },
   "keywords": [],
   "author": "",
