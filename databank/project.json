@@ -29,19 +29,19 @@
             "name":"Home"
         },
         {
-            "target":"#about",
+            "target":"/about",
             "name":"About"
         },
         {
-            "target":"#skills",
+            "target":"/faq",
             "name":"FAQ"
         },
         {
-            "target":"#projects",
+            "target":"/policy/privacy",
             "name":"Privacy Policy"
         },
         {
-            "target":"#contact",
+            "target":"/policy/terms",
             "name":"Terms And Conditions"
         },
         {

@@ -3,9 +3,9 @@ const express = require("express");
 const session = require("express-session");
 const { append } = require("express/lib/response");
 const mongoose = require("mongoose");
-const publicDir = __dirname.split("/").slice(0, -1).join("/") + "/public";
+// const publicDir = __dirname.split("/").slice(0, -1).join("/") + "/public";
 
-// const publicDir = __dirname + "/public";
+ const publicDir = __dirname + "/public";
 // console.log(publicDir);
 
 app = express();
@@ -30,7 +30,12 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             .use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }))
             .use(require("./routes/index"))
             .use("/user", require("./routes/user"))
+            .use("/page", require("./routes/page"))
             .use("/api/v1/", require("./routes/api"))
+            .use((req,res)=>{
+                project=JSON.parse(require("fs").readFileSync("./databank/project.json"));
+                res.status(404).render("404.twig",{project});
+            })
             .listen(process.env.port, () => {
                 console.log("Server started on port " + process.env.port);
             });

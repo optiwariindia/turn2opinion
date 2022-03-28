@@ -32,7 +32,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="widget-progress-wrapper" style='font-style:italic'>
+										<div class="widget-progress-wrapper" style='font-style:italic;display:block'>
 											<div class="progress-bar-sm progress-bar-animated-alt progress" style='height:1rem'>
 												<div class="progress-bar bg-{% if user.points > threshold %}success{% else %}primary{% endif %}" role="progressbar" aria-valuenow="{{user.points}}" aria-valuemin="0" aria-valuemax="{{(threshold * 1.5)}}" style="width: {{(user.points * 100) / (threshold * 1.5)}}%;"></div>
 											</div>

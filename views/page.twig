@@ -4,21 +4,31 @@
     <style>
     body{
         background-color: #444;
+        background-image:url("/img/pagebg.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
         color: #ccc;
+    }
+    #page{
+        background:rgba(0,0,0,0.8);
     }
     .main-content{
         margin-top: 150px;
         min-height:100vh;
     }
     .center-text{
-        max-width:500px;
+        padding:30px;
         margin:0 auto;
         line-height:2;
     }
-    .center-text h1{
-     color:#fff;
-     text-align:center;
-     font-size:20rem;
+    h1,h2,h3,h4{
+        color:#fff;
+    }
+    p{
+        font-weight:100;
+        text-align:justify;
     }
     </style>
 	<body>
@@ -26,8 +36,7 @@
 			{% include "comp/navbar.twig" %}
 			<div class="main-content">
 				<div class="center-text">
-                    <h1>404</h1>
-                        <p>The page you requested is currently not available. Please click a correct link to proceed further. You may go back to homepage by clicking <a href="/">here</a>. Thanks for your co-operation.</p>
+                    {% include "comp/"~page.name~".twig" %}
                 </div>
 			</div>
             {% include "comp/footer.twig" %}

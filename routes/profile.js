@@ -5,7 +5,6 @@ const User = mongoose.model("user", require("../modals/user"));
 const request=require("request");
 router.route("/")
     .get(async (req, res) => {
-        
         console.log(user.survey);
         survey={
             completed:Array.from(user.survey).filter(e=>e.status=="completed").length,
