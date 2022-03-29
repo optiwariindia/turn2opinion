@@ -1,0 +1,32 @@
+<div class="main-slider-container">
+	<div class="owl-carousel main-slider">
+		{% for slide in slider %}
+			<div class="item">
+				<div class="main-slide text-center">
+					<div class="img-container">
+						<img src="/slider/slide{{loop.index}}.jpg" alt="" class="img-fluid">
+					</div>
+					<div class="text-container">
+						<div class="row">
+							<div class="col-sm-8">
+								<div class="banner-text">
+									<h1>{{slide.h1}}</h1>
+									<h2>{{slide.h2}}</h2>
+									<p>{{slide.p}}</p>
+								</div>
+							</div>
+							<div class="col-sm-4"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="row">
+		<div class="col-sm-8"></div>
+		<div class="col-sm-4">
+			{% include "comp/auth.twig" %}
+		</div>
+	</div>
+
+</div>

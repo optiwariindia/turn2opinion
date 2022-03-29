@@ -1850,7 +1850,7 @@ a {
 
 .login-html {
     padding: 30px;
-    min-height:650px;
+    min-height: 698px;
     background: rgba(76, 76, 76, .9);
 }
 
@@ -2005,7 +2005,7 @@ a {
 }
 
 .gender {
-    margin: 0 0 30px 20px;
+    margin: 0 0 0 20px;
 }
 
 .gender .title {
@@ -2058,14 +2058,14 @@ form.sign-up-htm {
     font-size: 20px;
     text-align: justify;
 }
-.social-signbtns ul{
-    list-style:none;
-    display:flex;
-    font-size:50px;
-    color:#fff;
+.social-signbtns ul {
+    list-style: none;
+    display: flex;
+    font-size: 50px;
+    color: #fff;
+    justify-content: space-between;
 }
 .social-signbtns ul>li{
-    padding:30px;
     transition:1s;
     cursor:pointer;
 }
@@ -2159,4 +2159,75 @@ form.sign-up-htm {
     right: 40px;
     font-size: 12px;
     color: rgb(248, 233, 94);
+}
+.main-slide.text-center {
+    position: relative;
+}
+
+.text-container {
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+.main-slider-container .row{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:9;
+}
+.banner-text {
+    margin-top: 50%;
+    transform: translate(0,-50%);
+    padding:20px;
+}
+.banner-text h1,.banner-text h2 {
+    color:#fff;
+}
+.banner-text h1{
+    font-size:40px;
+    margin-bottom:0px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.banner-text h2{
+    font-size:30px;
+    font-style:italic;
+    text-transform: capitalize;
+}
+.banner-text h2::after{
+    content:"!"
+}
+.banner-text p{
+    font-size:20px;
+    font-weight: 100;
+    text-transform: none;
+    color: #ccc;
+    line-height: initial;
+    text-align: center;
+}
+.main-slider .owl-controls{
+    display:none;
+}
+.login-html .message{
+    float:right;
+    color:#fff;
+    font-size:24px;
+    width:100%;
+    text-align:center;
+    margin-bottom:20px;
+    font-style:italic;
+}
+.col-md-3.text-center.animate-box.fadeInUp.animated-fast:nth-child(2)
+span.fh5co-counter.js-counter::before {
+    content: "$";
+}
+.about p{
+    font-size:18px;
+    font-weight:100;
+    line-height:30px;
+    text-align: justify;
 }

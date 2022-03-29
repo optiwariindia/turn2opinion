@@ -1,8 +1,24 @@
 {
+    "startDate":1648552879466,
+    "footer":{
+        "links":[
+            {"name":"Privacy Policy","target":"/page/privacy"},
+            {"name":"GDPR Compilance","target":"/page/gdpr"},
+            {"name":"Cookie Policy","target":"/page/cookie"},
+            {"name":"FAQ","target":"/faq"}
+    ]},
     "contact":{
+        "address":{
+            "link":"",
+            "text":"2nd Floor, A – 00/164,  Sector 2, Rohini Delhi – 110085"
+        },
         "phone":{
             "link":"tel:+918130015743",
             "text":"+91 81300 15743"
+        },
+        "email":{
+            "link":"mailto:support@frequentresearch.com",
+            "text":"support@frequentresearch.com"
         }
     },
     "socials":[
@@ -37,12 +53,17 @@
             "name":"FAQ"
         },
         {
-            "target":"/policy/privacy",
-            "name":"Privacy Policy"
+            "target":"/page/privacy",
+            "name":"Privacy &amp; Terms"
         },
         {
-            "target":"/policy/terms",
-            "name":"Terms And Conditions"
+            "target":"/page/cookies",
+            "name":"Cookies Policy"
+        },
+        {
+            "target":"/page/gdpr",
+            "name":"GDPR",
+            "title":"General Data Protection Regulation"
         },
         {
             "target":"#login",

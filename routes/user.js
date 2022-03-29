@@ -12,6 +12,7 @@ const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
 const Attempt = mongoose.model("attempt", require("../modals/attempt"));
+router.use("/social", require("./social"));
 router.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/");

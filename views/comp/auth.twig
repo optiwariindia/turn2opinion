@@ -1,6 +1,7 @@
 {% import "macro/form1.twig" as form %}
 <div class="login-wrap">
-	<div class="login-html">
+<div class="login-html">
+<div class="message">Join us free today !!! </div>
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
 		<div class="login-form">
@@ -15,16 +16,17 @@
 					<input id="pass" type="password" name="pass" class="input" data-type="password">
 				</div>
 				<div class="group">
-					<input id="check" name="staysignedin" value=1 type="checkbox" class="check" checked>
+					<input id="check" name="staysignedin" value="1" type="checkbox" class="check" checked>
 					<label for="check">
 						<span class="icon"></span>
-						Remember me </label>
+						Remember me
+					</label>
 				</div>
 				<div class="group">
-					<div class="action-btns">
-						<div class="g-recaptcha" data-sitekey="{{captchakey}}"></div>
-						<input type="submit" class="button" value="Sign In">
-					</div>
+					<div class="g-recaptcha" data-sitekey="{{captchakey}}"></div>
+				</div>
+				<div class="group">
+					<input type="submit" class="button" value="Sign In">
 				</div>
 				<div class="group">
 					<span data='autherror'></span>
@@ -37,7 +39,7 @@
 				<div class="group social-signbtns">
 					<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign in with Social Accounts</label>
 					<ul>
-						<li class='facebook'>
+						<li class='facebook' onclick="window.location='/social/login/facebook'">
 							<i class="fa-brands fa-facebook"></i>
 						</li>
 						<li class='twitter'>
@@ -82,11 +84,11 @@
 							class="group">
 							<!-- <label for="pass" class="label">Country</label> -->
 							<div class="input" data-country></div>
-							<input type="hidden"  name="cn">
+							<input type="hidden" name="cn">
 
 						</div>
 					</div>
-					<div class="col-xs-4">
+					<div class="col-xs-12">
 						<div class="gender">
 							<div class="title">Gender:</div>
 							<input type="radio" name="gender" value="male" id="male">
@@ -103,7 +105,7 @@
 							</label>
 						</div>
 					</div>
-					<div class="col-xs-8">
+					<div class="col-xs-12">
 						<div class="g-recaptcha" style='margin-top:15px;' data-sitekey="{{captchakey}}"></div>
 					</div>
 					<input type="hidden" name="lat">

@@ -241,11 +241,25 @@
 			smartSpeed: 800,
 			autoHeight: true
 		});
-
+		
 	};
-
+const mainSlider=function(){
+	$('.main-slider').owlCarousel({
+		items: 1,
+		loop:true,
+		margin:0,
+		dots:true,
+		nav:true,
+		autoHeight:true,
+		smartSpeed: 500,
+		autoplay:true, 
+		animateOut: 'flipOutX',
+		animateIn: 'flipInX',
+	})
+}
 	
 	$(function(){
+		mainSlider();
 		mobileMenuOutsideClick();
 		offcanvasMenu();
 		burgerMenu();
