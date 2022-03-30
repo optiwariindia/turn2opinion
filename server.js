@@ -32,6 +32,13 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             .use(express.urlencoded({ extended: true }))
             .use(express.json())
             .use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }))
+            .use((req, res, next) => {
+                if(req.session.passport){
+                    info={provider:req.session.passport.user.provider,id:req.session.passport.user.id};
+                    console.log(info);
+                }
+                next();
+            })
             .use(require("./routes/index"))
             .use("/social", require("./routes/social.js"))
             .use("/faq", require("./routes/faq"))

@@ -62,9 +62,11 @@ p {
 
 h1, h2, h3, h4, h5, h6, figure {
     color: #000;
-    font-family: "Work Sans", Arial, sans-serif;
-    font-weight: 400;
+    font-weight: 600;
     margin: 0 0 20px 0;
+    font-size: 25px;
+    text-align: center;
+    text-transform: capitalize;
 }
 
 ::-webkit-selection {
@@ -556,7 +558,7 @@ h1, h2, h3, h4, h5, h6, figure {
 #fh5co-blog,
 #fh5co-contact,
 #fh5co-footer {
-    padding: 7em 0;
+    padding: 2em 0;
     clear: both;
 }
 
@@ -859,7 +861,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .fh5co-heading {
-    margin-bottom: 5em;
+    margin-bottom: 2em;
 }
 
 .fh5co-heading.fh5co-heading-sm {
@@ -877,6 +879,7 @@ h1, h2, h3, h4, h5, h6, figure {
     font-size: 18px;
     line-height: 1.5;
     color: #828282;
+    font-weight:bold;
 }
 
 .fh5co-heading span {
@@ -1816,9 +1819,13 @@ h1, h2, h3, h4, h5, h6, figure {
 
 body {
     margin: 0;
-    color: #6a6f8c;
-    background: #c8c8c8;
     font: 600 16px/18px 'Open Sans', sans-serif;
+    background: #c8c8c8;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: justify;
+    color: #828282;
+    font-weight: 100;
 }
 
 *, :after, :before {
@@ -1935,7 +1942,7 @@ a {
 }
 
 .login-form .group .button {
-    background: #1161ee;
+    background: #ea9215;
 }
 
 .login-form .group label .icon {
@@ -2169,7 +2176,7 @@ input::placeholder {
     background: rgba(0,0,0,0.5);
     top:0;
     left:0;
-    right:0;
+    right: 0;
     bottom:0;
 }
 .main-slider-container .row{
@@ -2180,9 +2187,9 @@ input::placeholder {
     z-index:9;
 }
 .banner-text {
-    margin-top: 50%;
-    transform: translate(0,-50%);
-    padding:20px;
+    padding-right: 550px;
+    margin-top: 266px;
+    padding-left: 20px;
 }
 .banner-text h1,.banner-text h2 {
     color:#fff;
@@ -2259,3 +2266,22 @@ footer .contact ul.fh5co-footer-links li{
 .options {
     margin-top: 5px;
  }
+ .list-nav{
+     list-style:none;
+     display:grid;
+     gap:10px;
+ }
+ .list-nav li::before{
+     content:"\e97d";
+     font-family: 'icomoon';
+     position:absolute;
+     left:20px;
+     color:#ea9215
+ }
+ .list-nav li{
+     margin-left:0px;
+ }
+ .comment-date {
+    font-size: 10px;
+    font-style: italic;
+}
