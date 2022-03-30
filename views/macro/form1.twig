@@ -1,6 +1,7 @@
 {% macro input(name,type,id,placeholder,pattern,value,required,error) %}
-<div class="group">
+	<div
+		class="group">
 		<!-- <label for="{{id}}" class="label">{{placeholder}}</label> -->
-		<input {% if required == true %} required {% endif %} id="{{id}}" {% if pattern !="" %} pattern="{{pattern}}" {% endif %} type="{{type}}" class="input" name="{{name}}" placeholder="{{placeholder}}" emismatched="{{error}}">
+		<input {% if required == true %} required {% endif %} id="{{id}}" {% if pattern !="" %} pattern="{{pattern}}" {% endif %} type="{{type}}" class="input" name="{{name}}" placeholder="{{placeholder}}" emismatched="{{error}}" value="{{value}}">
 	</div>
 {% endmacro %}

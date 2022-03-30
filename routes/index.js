@@ -4,6 +4,18 @@ let captchakey = "6LemN6UeAAAAAMqv3WRb0kGJ4kKZWN374FVW2z7-";
 const router = require('express').Router();
 router.route("/")
     .get((req, res) => {
+        passport=req.session.passport||null;
+        if(passport!=null){
+        user={
+            fn:passport.user.displayName.split(" ")[0]||"",
+            ln:passport.user.displayName.split(" ")[1]||passport.user.name.familyName||"",
+            // email:passport.user.emails[0].value||"",
+            phone:passport.user.phoneNumber||"",
+            gender:passport.user.gender||""
+        }
+    }
+    else user={};
+    console.log(user);
         slider = [{
             h1: "We value your feedback",
             h2: "your opinion gets rewarded",
@@ -39,7 +51,7 @@ router.route("/")
                 count:25264 + (Date.now()-project.startDate)/(3600000*4)
             },
         ]
-        res.render("index", { captchakey, project,slider,counters,testimonials });
+        res.render("index", { captchakey, project,slider,counters,testimonials,user});
     })
     .post((req, res) => {
         res.send("post");

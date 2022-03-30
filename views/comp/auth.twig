@@ -39,7 +39,7 @@
 				<div class="group social-signbtns">
 					<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign in with Social Accounts</label>
 					<ul>
-						<li class='facebook' onclick="window.location='/social/login/facebook'">
+						<li class='facebook' onclick="window.location='/social/facebook/login'">
 							<i class="fa-brands fa-facebook"></i>
 						</li>
 						<li class='twitter'>
@@ -62,19 +62,19 @@
 			<form method="post" class="sign-up-htm" action="/user/register">
 				<div class="row">
 					<div class="col-xs-6">
-						{{form.input("fn","text","fn","First Name *","[a-zA-Z]{3,100}","",true,"Please enter your first name correctly")}}
+						{{form.input("fn","text","fn","First Name *","[a-zA-Z]{2,100}",user.fn,true,"Please enter your first name correctly")}}
 					</div>
 					<div class="col-xs-6">
-						{{form.input("ln","text","ln","Last Name *","[a-zA-Z]{3,100}","",true,"Please enter your last name correctly")}}
+						{{form.input("ln","text","ln","Last Name *","[a-zA-Z]{2,100}",user.ln,true,"Please enter your last name correctly")}}
 					</div>
 					<div class="col-xs-12">
-						{{form.input("email","email","email","E-Mail *","","",true,"Please enter your email correctly")}}
+						{{form.input("email","email","email","E-Mail *","",user.email,true,"Please enter your email correctly")}}
 					</div>
 					<div class="col-xs-6">
 						<div
 							class="group">
 							<!-- <label for="pass" class="label">Contact Number</label> -->
-							<input required type="tel" class="input" placeholder="Contact Number *" name="phone">
+							<input required type="tel" class="input" placeholder="Contact Number *" value='{{user.value}}' name="phone">
 							<span id="valid-msg" class="hide">✓</span>
 							<span id="error-msg" class="hide"></span>
 						</div>
@@ -119,7 +119,7 @@
 						<div class="group social-signbtns">
 							<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign up with Social Accounts</label>
 							<ul>
-								<li class='facebook'>
+								<li class='facebook'  onclick="window.location='/social/facebook/login'">
 									<i class="fa-brands fa-facebook"></i>
 								</li>
 								<li class='twitter'>
