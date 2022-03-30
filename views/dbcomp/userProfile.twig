@@ -8,7 +8,7 @@
 					<div class="card-body">
 						<div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
 							<img src="
-							{{ user.propic }}" class="img-fluid" alt="">
+															{{ user.propic }}" class="img-fluid" alt="">
 							<div class="actions">
 								<a href="#" onclick="selectFile()">
 									<fa class="fa fa-upload" title='Upload Image'></fa>
@@ -28,27 +28,58 @@
 					</div>
 				</div>
 			</div>
-            {% include "dbcomp/earningsummary.twig" %}
-			<div class="col-sm-6 col-lg-8 col-xl-9">
-            {% include "dbcomp/summary/userinfo.twig" %}
-			{% include "dbcomp/summary/rewards.twig" %}
-			{% include "dbcomp/summary/reward/processed.twig" %}
-			{% include "dbcomp/summary/reward/rejected.twig" %}
+			{% include "dbcomp/earningsummary.twig" %}
+			<div class="col-sm-6 col-lg-11 col-xl-11">
+				{% include "dbcomp/summary/userinfo.twig" %}
+				{% include "dbcomp/summary/rewards.twig" %}
+				{% include "dbcomp/summary/reward/processed.twig" %}
+				{% include "dbcomp/summary/reward/rejected.twig" %}
 			</div>
-			<div class="col-sm-6 col-lg-4 col-xl-3">
-			<div class="main-card mb-3 card">
-			<div class="table-responsive">
-			<form action="" class="frm">
-			{{ form.input("text","Facebook","fbid",user.social.fb,true) }}
-			{{ form.input("text","Twitter","twid",user.social.tw,true) }}
-			{{ form.input("text","Linkedin","lid",user.social.li,true) }}
-			{{ form.input("text","Google","gid",user.social.g,true) }}
-			{{ form.input("text","Instagram","iid",user.social.ig,true) }}
-			{{ form.input("text","Pinterest","pid",user.social.p,true) }}
-			{{ form.input("text","Snapchat","sid",user.social.s,true) }}</form></div></div></div> </div></div></div><script>function selectFile() {
+			<div class="col-sm-6 col-lg-1 col-xl-1">
+				<div class="main-card mb-3 card">
+					<div class="table-responsive">
+						<form action="" class="frm">
+							<div class="btn">
+								<i class="fa fa-facebook"></i>
+							</div>
+							<div class="btn">
+								<i class="fa fa-twitter"></i>
+							</div>
+							<div class="btn">
+								<i class="fa fa-google-plus"></i>
+							</div>
+							<div class="btn">
+								<i class="fa fa-linkedin"></i>
+							</div>
+							<div class="btn">
+								<i class="fa fa-instagram"></i>
+							</div>
+							<div class="btn">
+								<i class="fa fa-youtube"></i>
+							</div>
+							<div class="btn">
+								<i class="fa fa-whatsapp"></i>
+							</div>
+							{# {{ form.input("text","Facebook","fbid",user.social.fb,true) }}
+										{{ form.input("text","Twitter","twid",user.social.tw,true) }}
+										{{ form.input("text","Linkedin","lid",user.social.li,true) }}
+										{{ form.input("text","Google","gid",user.social.g,true) }}
+										{{ form.input("text","Instagram","iid",user.social.ig,true) }}
+										{{ form.input("text","Pinterest","pid",user.social.p,true) }}
+										{{ form.input("text","Snapchat","sid",user.social.s,true) }} #}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function selectFile() {
 let finput = document.querySelector("[type=file]");
 finput.click();
 }
 function uploadFile(e) {
 e.form.submit();
-}</script>
+}
+</script>

@@ -41,29 +41,20 @@
     ],
     "navbar":[
         {
-            "target":"#home",
+            "target":"/",
             "name":"Home"
         },
         {
-            "target":"/about",
+            "target":"/#howItWorks",
+            "name":"How It Works"
+        },
+        {
+            "target":"/#whoWeAre",
             "name":"About"
         },
         {
-            "target":"/faq",
-            "name":"FAQ"
-        },
-        {
-            "target":"/page/privacy",
-            "name":"Privacy &amp; Terms"
-        },
-        {
-            "target":"/page/cookies",
-            "name":"Cookies Policy"
-        },
-        {
-            "target":"/page/gdpr",
-            "name":"GDPR",
-            "title":"General Data Protection Regulation"
+            "target":"/#stepsToJoin",
+            "name":"Steps to Join"
         },
         {
             "target":"#login",

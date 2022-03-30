@@ -6,7 +6,8 @@ router.route("/")
     .get((req, res) => {
         FAQ
             .find({}).then(faqs => {
-                res.render("page.twig",{faqs,page:{title:"Frequently Asked Questions",name:"faq"}});
+                project = JSON.parse(require("fs").readFileSync("./databank/project.json"));
+                res.render("page.twig",{faqs,page:{title:"Frequently Asked Questions",name:"faq"},project});
             })
             .catch(err => {
                 res.json(err);
