@@ -4,17 +4,17 @@
 			<div class="col-md-6 fh5co-widget">
 				<h4>About</h4>
 				<p>Turn2Opinion is a world wide Consumer and Business Community of Frequent Research. It is a platform which helps you to generate more and more revenues in high incentive rewards. You get the studies that are best fit for you. The more participation you do in the surveys, You will be able to earn more and more money.
-
-				This is a very unique and fast earning site with a fairly low pay-out threshold of $15.</p>
-					<ul class="fh5co-social" style='display:flex;list-style:none;justify-content:space-between'>
-						{% for social in project.socials %}
-							<li>
-								<a href="{{social.link}}">
-									<i class="{{social.icon}}"></i>
-								</a>
-							</li>
-						{% endfor %}
-					</ul>
+																									
+																													This is a very unique and fast earning site with a fairly low pay-out threshold of $15.</p>
+				<ul class="fh5co-social" style='display:flex;list-style:none;justify-content:space-between'>
+					{% for social in project.socials %}
+						<li>
+							<a href="{{social.link}}">
+								<i class="{{social.icon}}"></i>
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
 			</div>
 			<div class="col-md-3 col-sm-4 col-xs-6 col-md-push-1">
 				<h4>Links</h4>
@@ -27,33 +27,34 @@
 				</ul>
 			</div>
 
-		
-		
 
-			<div class="col-md-3 col-sm-4 col-xs-6 col-md-push-1">
+			<div class="col-md-3 col-sm-4 col-xs-6 col-md-push-1 contact">
 				<h4>Contact us</h4>
 				<ul class="fh5co-footer-links">
 					<li>
+						<i class="fa fa-address-card"></i>
 						<a href="{{project.contact.address.link}}">{{project.contact.address.text}}</a>
 					</li>
 					<li>
-					<a href='{{project.contact.phone.link}}' class="num">{{project.contact.phone.text}}</a>
+						<i class="fa fa-phone"></i>
+						<a href='{{project.contact.phone.link}}' class="num">{{project.contact.phone.text}}</a>
 					</li>
 					<li>
-					<a href='{{project.contact.email.link}}' class="num">{{project.contact.email.text}}</a>
+						<i class="fa fa-envelope"></i>
+						<a href='{{project.contact.email.link}}' class="num">{{project.contact.email.text}}</a>
 					</li>
 
 				</ul>
 			</div>
 		</div>
-
-		<div class="row copyright">
-			<div class="col-md-12 text-center">
-				<p>
-					<small class="block">&copy; {{"now"|date('M-Y')}} Frequent Research Fieldwork Solutions Pvt. Ltd. (dba Turn2Opinion). All Rights Reserved</small>
-				</p>
-			</div>
-		</div>
-
 	</div>
 </footer>
+<div class="row copyright">
+	<div class="col-md-12 text-center">
+		<p>
+			<small class="block">&copy;
+				{{"now"|date('M-Y')}}
+				Frequent Research Fieldwork Solutions Pvt. Ltd. (dba Turn2Opinion). All Rights Reserved</small>
+		</p>
+	</div>
+</div>

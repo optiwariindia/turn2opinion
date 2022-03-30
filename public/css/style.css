@@ -2231,3 +2231,28 @@ span.fh5co-counter.js-counter::before {
     line-height:30px;
     text-align: justify;
 }
+footer h4
+{
+    font-size:30px;
+}
+footer p{
+    font-weight:100;
+    line-height:30px;
+}
+footer ul.fh5co-footer-links{
+    display:flex;
+    flex-direction: column;
+    gap:15px;
+    font-weight:100;
+}
+footer .contact ul.fh5co-footer-links li{
+    display:grid;
+    grid-template-columns:1fr 15fr;
+    gap:20px;
+}
+.copyright{
+    position:absolute;
+    bottom:0;
+    padding:10px;
+    width:100%;
+}
