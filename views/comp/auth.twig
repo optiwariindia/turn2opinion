@@ -1,9 +1,10 @@
 {% import "macro/form1.twig" as form %}
 <div class="login-wrap">
-<div class="login-html">
-<div class="message">Join us free today !!! </div>
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+	<div class="login-html">
+		<div class="message">Join us free today !!!
+		</div>
+		<input id="tab-1" type="radio" name="tab" class="sign-in"><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up" checked><label for="tab-2" class="tab">Sign Up</label>
 		<div class="login-form">
 			<form method="post" class="sign-in-htm" action="/user/login">
 				<div class="group">
@@ -62,19 +63,19 @@
 			<form method="post" class="sign-up-htm" action="/user/register">
 				<div class="row">
 					<div class="col-xs-6">
-						{{form.input("fn","text","fn","First Name *","[a-zA-Z]{2,100}",user.fn,true,"Please enter your first name correctly")}}
+						{{form.input("fn","text","fn","First Name *","[a-zA-Z]{2,100}","",true,"Please enter your first name correctly")}}
 					</div>
 					<div class="col-xs-6">
-						{{form.input("ln","text","ln","Last Name *","[a-zA-Z]{2,100}",user.ln,true,"Please enter your last name correctly")}}
+						{{form.input("ln","text","ln","Last Name *","[a-zA-Z]{2,100}","",true,"Please enter your last name correctly")}}
 					</div>
 					<div class="col-xs-12">
-						{{form.input("email","email","email","E-Mail *","",user.email,true,"Please enter your email correctly")}}
+						{{form.input("email","email","email","E-Mail *","","",true,"Please enter your email correctly")}}
 					</div>
-					<div class="col-xs-6">
+					<div class="col-xs-12">
 						<div
 							class="group">
 							<!-- <label for="pass" class="label">Contact Number</label> -->
-							<input required type="tel" class="input" placeholder="Contact Number *" value='{{user.value}}' name="phone">
+							<input required type="tel" class="input" placeholder="Phone *" name="phone">
 							<span id="valid-msg" class="hide">✓</span>
 							<span id="error-msg" class="hide"></span>
 						</div>
@@ -88,24 +89,26 @@
 
 						</div>
 					</div>
-					<div class="col-xs-12">
+					<div class="col-xs-6">
 						<div class="gender">
 							<div class="title">Gender:</div>
-							<input type="radio" name="gender" value="male" id="male">
-							<label for="male">
-								<i class="fa fa-person"></i>
-							</label>
-							<input type="radio" name="gender" value="female" id="female">
-							<label for="female">
-								<i class="fa fa-person-dress"></i>
-							</label>
-							<input type="radio" name="gender" value="trans" id="trans">
-							<label for="trans">
-								<i class="fa fa-transgender"></i>
-							</label>
+							<div class="options">
+								<input type="radio" name="gender" value="male" id="male">
+								<label for="male">
+									<i class="fa fa-person"></i>
+								</label>
+								<input type="radio" name="gender" value="female" id="female">
+								<label for="female">
+									<i class="fa fa-person-dress"></i>
+								</label>
+								<input type="radio" name="gender" value="trans" id="trans">
+								<label for="trans">
+									<i class="fa fa-transgender"></i>
+								</label>
+							</div>
 						</div>
 					</div>
-					<div class="col-xs-12">
+					<div class="col-xs-12" style='display:grid;justify-content:center;'>
 						<div class="g-recaptcha" style='margin-top:15px;' data-sitekey="{{captchakey}}"></div>
 					</div>
 					<input type="hidden" name="lat">
@@ -119,7 +122,7 @@
 						<div class="group social-signbtns">
 							<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign up with Social Accounts</label>
 							<ul>
-								<li class='facebook'  onclick="window.location='/social/facebook/login'">
+								<li class='facebook' onclick="window.location='/social/facebook/login'">
 									<i class="fa-brands fa-facebook"></i>
 								</li>
 								<li class='twitter'>
