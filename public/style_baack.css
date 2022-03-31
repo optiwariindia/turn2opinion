@@ -42477,10 +42477,6 @@ img.pageicon {
     text-align: center;
 }
 
-.forced-popup .logo-container .logo img {
-    width: 200px;
-    margin: 15px auto;
-}
 
 .forced-popup .terms::before {
     content: " ";
