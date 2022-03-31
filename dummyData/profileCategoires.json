@@ -1,132 +1,132 @@
 [
     {
-        "name": "Basic Profile",
+        "name": "Basic",
         "completed":0,
         "icon":"basic-profile.png",
         "target":"basic"
     },
     {
-        "name":"Professional Profile",
+        "name":"Professional",
         "completed":0,
         "icon":"professional-profile.png",
         "target":"professional"
     },
     {
-        "name":"Financial Profile",
+        "name":"Financial",
         "completed":0,
         "icon":"financial-profile.png",
         "target":"financial"
     },
     {
-        "name":"Education Profile",
+        "name":"Education",
         "completed":0,
         "icon":"education-profile.png",
         "target":"educational"
     },
     {
-        "name":"Lifestyle Profile",
+        "name":"Lifestyle",
         "completed":0,
         "icon":"lifestyle-profile.png",
         "target":"lifestyle"
     },
     {
-        "name":"Health Profile",
+        "name":"Health",
         "completed":0,
         "icon":"health-profile.png",
         "target":"health"
     },
     {
-        "name":"Hobbies Profile",
+        "name":"Hobbies",
         "completed":0,
         "icon":"hobbies-profile.png",
         "target":"hobbies"
     },
     {
-        "name":"Parenting Profile",
+        "name":"Parenting",
         "completed":0,
         "icon":"parenting-profile.png",
         "target":"parenting"
     },
     {
-        "name":"Technology Profile",
+        "name":"Technology",
         "completed":0,
         "icon":"technology-profile.png",
         "target":"tech"
     },
     {
-        "name":"Home Owner Profile",
+        "name":"Home Owner",
         "completed":0,
         "icon":"Homeowner-profile.png",
         "target":"homeowner"
     },
     {
-        "name":"Pet Profile",
+        "name":"Pet",
         "completed":0,
         "icon":"technology.png",
         "target":"pet"
     },
     {
-        "name":"Automotive Profile",
+        "name":"Automotive",
         "completed":0,
         "icon":"automotive-profile.png",
         "target":"automotive"
     },
     {
-        "name":"Gaming Profile",
+        "name":"Gaming",
         "completed":0,
         "icon":"game-profile.png",
         "target":"game"
     },
     {
-        "name":"Food & Beverage Profile",
+        "name":"Food & Beverage",
         "completed":0,
         "icon":"food and beverages.png",
         "target":"food"
     },
     {
-        "name":"Entertaintment Profile",
+        "name":"Entertaintment",
         "completed":0,
         "icon":"Entertainment.png",
         "target":"entertaintment"
     },
     {
-        "name":"Beauty & Fitness Profile",
+        "name":"Beauty & Fitness",
         "completed":0,
         "icon":"Fitness.png",
         "target":"beauty"
     },
     {
-        "name":"Sports Profile",
+        "name":"Sports",
         "completed":0,
         "icon":"Sports.png",
         "target":"sports"
     },
     {
-        "name":"Travel Profile",
+        "name":"Travel",
         "completed":0,
         "icon":"travel-profile.png",
         "target":"travel"
     },
     {
-        "name":"Mobile Profile",
+        "name":"Mobile",
         "completed":0,
-        "icon":"Mobile Profile.png",
+        "icon":"Mobile.png",
         "target":"mobile"
     },
     {
-        "name":"Business Profile",
+        "name":"Business",
         "completed":0,
         "icon":"Business-profile.png",
         "target":"business"
     },
     {
-        "name":"Work Profile",
+        "name":"Work",
         "completed":0,
-        "icon":"Work Profile.png",
+        "icon":"Work.png",
         "target":"work"
     },
     {
-        "name":"Other Profile",
+        "name":"Other",
         "completed":0,
         "icon":"other-profile.png",
         "target":"other"

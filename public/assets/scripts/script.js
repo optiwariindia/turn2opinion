@@ -22,7 +22,7 @@
           label: 'Profile Status',
           data: [value,total-value],
           backgroundColor: [
-            'rgb(54, 162, 235)',
+            '#ea9215',
             'rgb(200,200,200)'
           ],
           hoverOffset: 1,

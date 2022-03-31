@@ -303,7 +303,7 @@ async function userDetails(req, res, next) {
     });
 
     // Checking Profile Status
-    profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 })));
+    profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 }).sort("seqno")));
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
 

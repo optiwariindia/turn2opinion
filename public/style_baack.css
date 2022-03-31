@@ -16007,7 +16007,7 @@ body {
 }
 
 .btn-primary {
-    color: #fff;
+    color:var(--theme-text);
     background-color: var(--theme-primary);
     border-color: var(--theme-primary)
 }
@@ -42591,12 +42591,12 @@ button.btn{
     font-weight:bold;
 }
 :root {
-    --progress-active: #924500;
+    --progress-active: #ea9215;
     --progress-bg: #777;
-    --theme-text: #e48027;
-    --theme-dark: #b05113;
-    --theme-light: #fddec0;
-    --theme-primary:#b05113; /*#3f6ad8; */
+    --theme-text: #444;
+    --theme-dark: rgba(76, 76, 76, .9);
+    --theme-light: #c8c8c8;
+    --theme-primary:#ea9215; /*#3f6ad8; */
 }
 .modal-body {
     background: var(--theme-dark);
@@ -42643,14 +42643,17 @@ input#newPass.strong + span::before{
     float:left;
 }
 .widget-progress-wrapper {
-    
     display: grid;
     grid-template-areas:
     "icon name name name"
     "progress progress progress progress"
     ". . . percentage";
     grid-template-columns: repeat(4, 1fr);
-   grid-template-rows: "auto auto auto"
+   grid-template-rows: "auto auto auto";
+   row-gap:10px;
+   justify-content: "center";
+   align-self: center;
+   height:"max-content";
 }
 
 .widget-progress-wrapper img{
@@ -42664,4 +42667,9 @@ input#newPass.strong + span::before{
 }
 .widget-progress-wrapper .progress-sub-label{
     grid-area:percentage
+}
+.widget-progress-wrapper .label-left{
+    display:flex;
+    align-items: center;
+    justify-content:flex-start;
 }

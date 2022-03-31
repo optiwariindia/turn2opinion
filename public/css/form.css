@@ -32,13 +32,6 @@
 .text-right .btn{
   margin-left:20px;
 }
-button.btn-primary {
-    color: var(--theme-text);
-    background-color:var(--theme-light);
-    border-color: var(--theme-dark);
-    font-size: 20px;
-    font-weight: bold;
-}
 button.btn-primary:hover {
     transform: scale(1.25);
 }
@@ -70,8 +63,7 @@ button.btn-primary:hover {
     font-size:18px;
 }
 .app-theme-white.app-container{
-    background-size:"cover";
-    background:url(/img/bg2.jpg);
+    background-color: #c8c8c8;
 }
 .option-values{
     float:left;

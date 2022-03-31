@@ -2,22 +2,46 @@ const mongoose = require("mongoose");
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const router = require("express").Router();
 const User = mongoose.model("user", require("../modals/user"));
-
+const Survey = mongoose.model("survey", require("../modals/survey"));
 router.route("/")
     .get(async (req, res) => {
-        console.log(user.survey);
-        survey={
-            completed:Array.from(user.survey).filter(e=>e.status=="completed").length,
-            disqualified:Array.from(user.survey).filter(e=>e.status=="disqualified").length,
-            pending:Array.from(user.survey).filter(e=>e.status=="").length,
-            total:Array.from(user.survey).length
+        attempts =req.user.attempts;
+        
+        survey = {
+            completed: Array.from(attempts).filter(e => e.status == "completed").length,
+            disqualified: Array.from(attempts).filter(e => e.status == "disqualified").length,
+            total: attempts.length,
+            claimed: Array.from(req.redeem).reduce((a, b) => a + parseInt(b.amount.replace(/[^\d.-]/g, '')), 0)
         }
-        res.render("profile.twig", { 
+        redeem = await Array.from(req.redeem).map(e => {
+            info=JSON.parse(JSON.stringify(e));
+            info['rDate'] = new Date(e.redeemDate).toDateString();
+            info['txnid'] = (e.redeemDate > new Date())?"-":"TXN_"+Date.parse(e.redeemDate)/1000;
+            info['pmode']=(e.paymentMethod.paypal)?`PayPal:${e.paymentMethod.paypal}`:`UPI:${e.paymentMethod.upi}`;
+            
+            return info;
+        })
+        let data=[];
+        for (let index = 0; index < attempts.length; index++) {
+            const attempt = attempts[index];
+            let info = JSON.parse(JSON.stringify(attempt));
+            let temp=await Survey.find({_id:attempt.survey},{pages:0,completed:0,active:0});
+            info.survey=temp[0]||{};
+            if(info.status=="disqualified")
+                info.reason=" Closed before completion";
+            if(["disqualified","overquota"].indexOf(info.status)!=  -1)
+            data.push(info);            
+        }
+// res.json(data);return;
+        res.render("profile.twig", {
+            rejected:data,
+            redeem,
             survey,
-            conversion:process.env.conversion,
-            threshold:process.env.threshold,
+            conversion: process.env.conversion,
+            threshold: process.env.threshold,
             user: req.user,
-            page: { title: "Profile", icon: "profile.png" }
+            page: { title: "Profile", icon: "profile.png" },
+            profilestatus: 100 * (req.user.profileCategories.filter(e => e.completed == 100).length) / (req.user.profileCategories.length)
         });
     })
     .post((req, res) => {
@@ -99,8 +123,8 @@ async function getProfileInfo(req, res, next) {
         else
             req.profile = profile;
         if (req.profile.pages.length == 0)
-            req.mode="edit";
-            
+            req.mode = "edit";
+
         next();
         return;
 

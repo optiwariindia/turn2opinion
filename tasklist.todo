@@ -9,3 +9,9 @@
    ✔ Remove Twitter Link from social logins till it is not working @done (22-03-31 12:31)
    ✔ Update User table to store Social Signin options @@started(22-03-31 12:37) @done (22-03-31 13:12) @lasted(0:35)
    ✔ Check social id and provider to confirm if user exists send him to dashboard if yes @done (22-03-31 13:12)
+My Profile:
+  ☐ update count of Completed Survey @started(22-03-31 13:17)
+  ☐ Update count of disqualified survey
+  ☐ Update total profile completion
+  ☐ Update rewards Processing summary
+  ☐ Update List of rejected responses

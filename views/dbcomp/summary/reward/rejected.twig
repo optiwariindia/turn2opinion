@@ -1,60 +1,54 @@
 <div class="main-card mb-3 card">
-    <div class="card-header">
-        Rejected Responses                
-        <div class="btn-actions-pane-right">
-            <div role="group" class="btn-group-sm btn-group">
-                <button class="active btn btn-focus">
-                    2022                                    
-                </button>
-                <button class="btn btn-focus">
-                    2023                                    
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="align-middle mb-0 table table-borderless table-striped table-hover">
-            <thead>
-                <tr>
-                    <th class="text-center">
-                        Survey ID                                          
-                    </th>
-                    <th class="text-center">
-                        Project Name
-                    </th>
-                    <th class="text-center">
-                        Rejection Reason
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center text-muted">
-                        FR_XXXXXXX
-                    </td>
-                    
-                    <td class="text-center">
-                        Project: AAAAA                        
-                    </td>
-                    <td class="text-center" style="width: 150px;">
-                        Termination before completion                        
-                    </td>
-                </tr>
+	<div class="card-header">
+		Rejected Responses
+		<div class="btn-actions-pane-right">
+			<div
+				role="group" class="btn-group-sm btn-group">{# <button class="active btn btn-focus">
+										                        2022                                    
+										                    </button>
+										                    <button class="btn btn-focus">
+										                        2023                                    
+										                    </button> #}
+			</div>
+		</div>
+	</div>
+	<div class="table-responsive">
+		<table class="align-middle mb-0 table table-borderless table-striped table-hover">
+			<thead>
+				<tr>
+					<th class="text-center">
+						Survey ID
+					</th>
+					<th class="text-center">
+						Project Name
+					</th>
+					<th class="text-center">
+						Rejection Reason
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in rejected %}
 
-                <tr>
-                    <td class="text-center text-muted">
-                        FR_XXXXXXX
-                    </td>
-                    
-                    <td class="text-center">
-                        Project: AAAAA                        
-                    </td>
-                    <td class="text-center" style="width: 150px;">
-                        Quota Exceeded
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+					<tr>
+						<td class="text-center text-muted">
+							{{item.survey.surveyID}}
+						</td>
 
+						<td class="text-center">
+							{{item.survey.name}}
+						</td>
+						<td class="text-center" style="width: 150px;">
+							{{item.status}}
+							{% if item.status == "disqualified" %}
+								<span>
+									{{item.reason}}
+								</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 </div>
