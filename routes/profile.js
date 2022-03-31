@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const router = require("express").Router();
 const User = mongoose.model("user", require("../modals/user"));
-const request=require("request");
+
 router.route("/")
     .get(async (req, res) => {
         console.log(user.survey);

@@ -92,6 +92,10 @@ h1, h2, h3, h4, h5, h6, figure {
     width: 100%;
     padding: 0;
     z-index: 1001;
+    background:rgba(0,0,0, 0.3)
+}
+#home .fh5co-nav{
+    background:initial;
 }
 
 .fh5co-nav .top-menu {
@@ -164,12 +168,15 @@ h1, h2, h3, h4, h5, h6, figure {
     margin: 0;
     list-style: none;
     display: inline;
+    
+
 }
 
 .fh5co-nav ul li a {
     font-size: 15px;
-    padding: 30px 15px;
-    color: rgba(255, 255, 255, 0.5);
+    /* padding: 30px 15px; */
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
     -webkit-transition: 0.5s;
     -o-transition: 0.5s;
     transition: 0.5s;
@@ -1013,7 +1020,7 @@ h1, h2, h3, h4, h5, h6, figure {
 .bs-wizard>.bs-wizard-step>.progress>.progress-bar {
     width: 0px;
     box-shadow: none;
-    background: #fbe8aa;
+    background: #eee;
 }
 
 .bs-wizard>.bs-wizard-step.complete>.progress>.progress-bar {
@@ -1847,17 +1854,10 @@ a {
     text-decoration: none
 }
 
-/* .login-wrap {
-    width: 100%;
-    margin: auto;
-    margin-top: 130px;
-    position: relative;
-    box-shadow: 0 12px 15px 0 rgba(0, 0, 0, .24), 0 17px 50px 0 rgba(0, 0, 0, .19);
-} */
 
 .login-html {
     padding: 30px;
-    min-height: 770px;
+    min-height: 850px;
     background: rgba(76, 76, 76, .9);
     position:absolute;
     top:150px;
@@ -2190,6 +2190,10 @@ input::placeholder {
     padding-right: 550px;
     margin-top: 266px;
     padding-left: 20px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content:space-between;    
 }
 .banner-text h1,.banner-text h2 {
     color:#fff;
@@ -2284,4 +2288,17 @@ footer .contact ul.fh5co-footer-links li{
  .comment-date {
     font-size: 10px;
     font-style: italic;
+}
+
+.dashboard-img-container{
+    /* background-color: red; */
+    display:flex;
+    gap:50px;
+    justify-content:space-around;
+    flex-direction: column;
+}
+#page .main-content .center-text{
+    background:#c8c8c8;
+    margin-top:150px;
+    padding:50px;
 }

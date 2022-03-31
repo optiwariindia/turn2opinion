@@ -29,7 +29,7 @@
 					<ul>
 						{% for link in project.navbar %}
 							<li {% if link.active is defined %}class="active"{% endif %} >
-								<a href="{{link.target}}" {{(link.title is defined)?"title='"~ link.title ~"'":""}}>{{link.name}}</a>
+								<a href="{{link.target}}" {{(link.action is defined)?"onclick=" ~ link.action : ""}} {{(link.title is defined)?"title='"~ link.title ~"'":""}}>{{link.name}}</a>
 							</li>
 						{% endfor %}
 					</ul>

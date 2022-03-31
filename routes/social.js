@@ -1,5 +1,7 @@
 const router=require("express").Router();
+const mongoose = require('mongoose');
 const passport=require("passport");
+const User = mongoose.model("users", require("../modals/user"));
 
 passport.serializeUser((user, done) => {
     done(null, user);
@@ -10,7 +12,28 @@ passport.deserializeUser((user, done) => {
 
 router.use(passport.initialize());
 router.use(passport.session());
-
+router.get("/confirm",(req,res)=>{
+    if(!("session" in req && "passport" in req.session && "user" in req.session.passport))
+        return res.redirect("/");
+    auth={
+        provider:req.session.passport.user.provider,
+        id:req.session.passport.user.id
+    };
+    User.find({"social.provider":auth.provider,"social.id":auth.id}).then(user=>{
+        if(user.length==1)
+            {
+                req.session.user=user[0];
+                res.redirect("/user/dashboard");
+                return false;
+            }
+            res.redirect("/");
+    
+    })
+    .catch(e=>{
+        res.redirect("/");
+    })
+    // res.json(req.session);
+})
 router.use("/facebook",require("./social/facebook"));
 router.use("/twitter",require("./social/twitter"));
 router.use("/linkedin",require("./social/linkedin"));

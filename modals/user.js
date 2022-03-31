@@ -359,7 +359,11 @@ user = new schema({
         default:null
     },
     points:{type:Number,default:200},
-    frid:Number
+    frid:Number,
+    social:[{
+        id:String,
+        provider:String,
+    }]
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

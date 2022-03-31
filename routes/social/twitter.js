@@ -18,7 +18,7 @@ router.route("/login").get(passport.authenticate("twitter", {
 router.route("/callback")
     .get(passport.authenticate("twitter", {
         failureRedirect: "/failure",
-        successRedirect: "/"
+        successRedirect: "/social/confirm"
     }))
 module.exports = router;
 

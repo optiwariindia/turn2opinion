@@ -10,7 +10,7 @@ passport.use(new FacebookStrategy({
     callbackURL: `${process.env.site}/social/facebook/callback`,
     profileFields: ['id', 'displayName', 'email','gender']
 }, (accessToken, refreshToken, profile, done) => {
-    console.log({AccessToken:accessToken,RefreshToken:refreshToken,Profile:profile});
+    // console.log({AccessToken:accessToken,RefreshToken:refreshToken,Profile:profile});
     done(null, profile);
 }))
 
@@ -21,6 +21,6 @@ router.route("/login").get(passport.authenticate("facebook",{
 
 router.get("/callback", passport.authenticate("facebook", {
     failureRedirect: "/failure",
-    successRedirect: "/"
+    successRedirect: "/social/confirm"
 }))
 module.exports = router;

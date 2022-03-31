@@ -4,13 +4,13 @@
         "links":[
             {"name":"Privacy Policy","target":"/page/privacy"},
             {"name":"GDPR Compilance","target":"/page/gdpr"},
-            {"name":"Cookie Policy","target":"/page/cookie"},
+            {"name":"Cookie Policy","target":"/page/cookies"},
             {"name":"FAQ","target":"/faq"}
     ]},
     "contact":{
         "address":{
             "link":"",
-            "text":"2nd Floor, A – 00/164,  Sector 2, Rohini Delhi – 110085"
+            "text":"2nd Floor, A – 00/164,  Sector 2, Rohini Delhi – 110085 (INDIA)"
         },
         "phone":{
             "link":"tel:+918130015743",
@@ -57,12 +57,14 @@
             "name":"Steps to Join"
         },
         {
-            "target":"#login",
+            "target":"javascript:void(0)",
+            "action":"form.show('sign-in')",
             "name":"Login"
         },
         {
-            "target":"#signup",
-            "name":"Sign Up"
+            "target":"javascript:void(0)",
+            "name":"Sign Up",
+            "action":"form.show('sign-up')"
         }
 
     ]

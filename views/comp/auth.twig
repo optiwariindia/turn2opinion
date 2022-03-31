@@ -3,8 +3,9 @@
 	<div class="login-html">
 		<div class="message">Join us free today !!!
 		</div>
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+
+		<input id="tab-1" type="radio" name="tab" class="sign-in" {% if (user.fn is not defined) %} checked {% else %} {% endif %}><label for="tab-1" class="tab">Sign In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up" {% if (user.fn is defined) %} checked {% else %} {% endif %}><label for="tab-2" class="tab">Sign Up</label>
 		<div class="login-form">
 			<form method="post" class="sign-in-htm" action="/user/login">
 				<div class="group">
@@ -43,13 +44,13 @@
 						<li class='facebook' onclick="window.location='/social/facebook/login'">
 							<i class="fa-brands fa-facebook"></i>
 						</li>
-						<li class='twitter'>
-							<i class="fa-brands fa-twitter"></i>
-						</li>
-						<li class='linkedin'>
+						{# <li class='twitter'>
+													<i class="fa-brands fa-twitter"></i>
+												</li> #}
+						<li class='linkedin' onclick="window.location='/social/linkedin/login'">
 							<i class="fa-brands fa-linkedin"></i>
 						</li>
-						<li class='google-plus'>
+						<li class='google-plus' onclick="window.location='/social/google/login'">
 							<i class="fa-brands fa-google-plus-g"></i>
 						</li>
 					</ul>
@@ -125,9 +126,9 @@
 								<li class='facebook' onclick="window.location='/social/facebook/login'">
 									<i class="fa-brands fa-facebook"></i>
 								</li>
-								<li class='twitter' onclick="window.location='/social/twitter/login'">
-									<i class="fa-brands fa-twitter"></i>
-								</li>
+								{# <li class='twitter' onclick="window.location='/social/twitter/login'">
+																	<i class="fa-brands fa-twitter"></i>
+																</li> #}
 								<li class='linkedin' onclick="window.location='/social/linkedin/login'">
 									<i class="fa-brands fa-linkedin"></i>
 								</li>

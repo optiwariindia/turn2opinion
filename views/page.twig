@@ -1,60 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 	{% include "comp/head.twig" %}
-    <link rel="stylesheet" href="/css/custom.css">
-    <style>
-    body{
-        background-color: #444;
-        background-image:url("/img/pagebg.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: #ccc;
-    }
-    #page{
-        background:rgba(0,0,0,0.8);
-    }
-    .main-content{
-        margin-top: 150px;
-        min-height:100vh;
-    }
-    .center-text{
-        padding:30px;
-        margin:0 auto;
-        line-height:2;
-    }
-    h1,h2,h3,h4{
-        color:#fff;
-    }
-    p{
-        font-weight:100;
-        text-align:justify;
-    }
-    </style>
+	<link rel="stylesheet" href="/css/custom.css">
 	<body>
 		<div id="page">
 			{% include "comp/navbar.twig" %}
+			<div class="mt"></div>
 			<div class="main-content">
 				<div class="center-text">
-                    {% include "comp/"~page.name~".twig" %}
-                </div>
+					{% include "comp/"~page.name~".twig" %}
+				</div>
 			</div>
-            {% include "comp/footer.twig" %}
+			{% include "comp/footer.twig" %}
 		</div>
 	</body>
-    <script src="/js/custom.js"></script>
-	<script type="text/javascript">
-		var Tawk_API = Tawk_API || {},
-Tawk_LoadStart = new Date();
-(function () {
-var s1 = document.createElement("script"),
-s0 = document.getElementsByTagName("script")[0];
-s1.async = true;
-s1.src = 'https://embed.tawk.to/6235adc6a34c2456412bce27/1fugqtkbu';
-s1.charset = 'UTF-8';
-s1.setAttribute('crossorigin', '*');
-s0.parentNode.insertBefore(s1, s0);
-})();
-	</script>
+	<script src="/js/custom.js"></script>
 </html>

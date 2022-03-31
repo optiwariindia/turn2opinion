@@ -21,6 +21,6 @@ router.route("/login").get(passport.authenticate("google",{
 
 router.get("/callback", passport.authenticate("google", {
     failureRedirect: "/failure",
-    successRedirect: "/"
+    successRedirect: "/social/confirm"
 }))
 module.exports=router;
