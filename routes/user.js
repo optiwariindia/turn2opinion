@@ -12,6 +12,7 @@ const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
 const Attempt = mongoose.model("attempt", require("../modals/attempt"));
+const homepage=require("../service/homepage.js");
 router.use("/social", require("./social"));
 router.get("/logout", (req, res) => {
     req.session.destroy();
@@ -138,9 +139,12 @@ router.route("/changepassword")
 
     });
 router.route("/forgot")
-    .get((req, res) => {
-        res.render("index.twig", { form: "forgot" });
-    })
+    .get((req, res,next) => {
+        req.extrainfo={
+            form: "forgot"
+        }
+        next();
+    },homepage)
     .post((req, res) => {
         User.findOne({ email: req.body.email }).then(user => {
             if (user.security.answer == req.body.security) {
@@ -195,19 +199,23 @@ router.post("/login", (req, res) => {
         res.json({ "status": "error", message: err.message });
     })
 })
-router.get("/verify/:id", async (req, res) => {
-    try{
-        user= await User.findById(req.params.id);
+router.get("/verify/:id",(req, res,next) => {
+        User.findById(req.params.id).then(user => {
         user.verified.email=true;
         user.save();
         securityqs = JSON.parse(require("fs").readFileSync("./databank/securityQuestions.json"));
-        res.render("index.twig", { form: "setpass", id: req.params.id, securityqs });
-
-    }catch(e){
+        req.extrainfo={
+            form:"setpass",
+            id: req.params.id,
+            securityqs:securityqs
+        }
+        next();
+    }).catch(e=>{
         res.redirect("/");
         return;
-    }
-})
+    });
+},
+homepage);
 router.route("/resetpass/:id")
     .get((req, res) => {
         res.render("index.twig", { form: "resetpass", id: req.params.id });
