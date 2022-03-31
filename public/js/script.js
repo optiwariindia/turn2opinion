@@ -188,7 +188,7 @@ popup = {
         popup.show(`<h2>${e}</h2>`);
         setTimeout(() => {
            popup.close();
-        },5000);
+        },60000);
     }
 }
 showPassword = function (e) {
