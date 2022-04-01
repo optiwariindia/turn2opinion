@@ -3,7 +3,7 @@
 		<ul class="list-group list-group-flush profile-list">
 			{% for category in user.profileCategories %}
 				<li class="p-3 bg-transparent list-group-item">
-					<a href="/user/profile/{{category.target}}" class="widget-progress-wrapper">
+					<a href="/user/profile/{{category.target}}" class="widget-progress-wrapper profile">
 						<img src="/images/categories/{{category.icon}}" alt="" srcset="">
 						<div class="label-left" style='font-size:17px'>{{category.name}}</div>
 						<div class="progress-bar-sm progress-bar-animated-alt progress" style='height:12px'>

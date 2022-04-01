@@ -42638,7 +42638,7 @@ input#newPass.strong + span::before{
     width:100%;
     float:left;
 }
-.widget-progress-wrapper {
+.widget-progress-wrapper.profile {
     display: grid;
     grid-template-areas:
     "icon name name name"

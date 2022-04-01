@@ -24,25 +24,25 @@
 							{% else %}
 								{# {% if item.ans is defined %} #}
 
-									<div class="{{item.class}}">
-										<div class="form-group">
-											<label for="">{{item.label[0].value}}</label>
-											<div class="input">
-												{% set value = user[item.name] %}
-												{% if value is iterable %}
-													{% if value.label is defined %}
-														{{value.label}}
-													{% else %}
-														{% for val in value %}
-															{{val}}
-														{% endfor %}
-													{% endif %}
+								<div class="{{item.class}}">
+									<div class="form-group">
+										<label for="">{{item.label[0].value}}</label>
+										<div class="input">
+											{% set value = user[item.name] %}
+											{% if value is iterable %}
+												{% if value.label is defined %}
+													{{value.label}}
 												{% else %}
-													{{value}}
+													{% for val in value %}
+														{{val}}
+													{% endfor %}
 												{% endif %}
-											</div>
+											{% else %}
+												{{value}}
+											{% endif %}
 										</div>
 									</div>
+								</div>
 								{# {% endif %} #}
 							{% endif %}
 							{% set counter = counter + 1 %}
