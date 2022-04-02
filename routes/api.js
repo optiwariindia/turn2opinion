@@ -7,6 +7,14 @@ const ProfileOptions = mongoose.model("profileOptions", require("../modals/profi
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
+router.get("/exrate/:cur1/:cur2",(req,res)=>{
+  exrate=JSON.parse(require("fs").readFileSync("./databank/exrate.json"));
+  res.json({rate:(exrate.rates[req.params.cur2]/exrate.rates[req.params.cur1])});
+})
+router.get("/getCurrency",(req,res)=>{
+  currencies=JSON.parse(require("fs").readFileSync("./databank/theworld.json"));
+  res.json(currencies[req.session.user.cn.toUpperCase()].currency);
+})
 router.get("/userinfo", (req, res) => {
   res.json(req.session.user);
 })

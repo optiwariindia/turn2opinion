@@ -177,7 +177,7 @@ const progress = {
 progress.show();
 
 
-(function () {
+loadData = function () {
     let apireq = document.querySelectorAll("[data-api]");
     apireq.forEach(async e => {
         if (["country", "state", "city"].indexOf(e.name) != -1) return;
@@ -203,6 +203,7 @@ progress.show();
                 await data.data.forEach(e => {
                     options += `<option value="${e._id}">${e.label}</option>`;
                 });
+                options = currency.localize(options);
                 i.innerHTML = options;
                 showSelect();
             })
@@ -217,7 +218,7 @@ progress.show();
                         await data.data.forEach(e => {
                             options += `<option value="${e._id}">${e.label}</option>`;
                         });
-                        i.innerHTML = options;
+                        i.innerHTML = currency.localize(options);
                         showSelect();
                         break;
                     case "input":
@@ -230,14 +231,14 @@ progress.show();
             }
         }
     });
-})()
+}
 function showSelect() {
-    
+
     document.querySelectorAll("select").forEach(e => {
-        if(["city","state","country"].indexOf(e.name)!= -1)return;
+        if (["city", "state", "country"].indexOf(e.name) != -1) return;
         element = e.closest(".col-sm-6") || e.closest(".col-sm-12");
         element.style.display = "none";
-        console.table({fld:e.name,options:e.querySelectorAll("option").length})
+        // console.table({fld:e.name,options:e.querySelectorAll("option").length})
         if (e.querySelectorAll("option").length > 1) {
             element.style.display = "block";
         }
@@ -284,7 +285,7 @@ showFields = {
         cntry = document.querySelector("[name=country]");
         if (cntry == null) return;
         callAPI("/api/v1/country", "get", {}).then(data => {
-            if (Object.keys(data).indexOf("name")== - 1) {
+            if (Object.keys(data).indexOf("name") == - 1) {
                 console.log(Object.keys(data))
                 options = `<option value="" disabled selected>Select</option>`;
                 Object.keys(data).forEach(k => {
@@ -299,27 +300,27 @@ showFields = {
                 showFields.state();
             }
         });
-        cntry.addEventListener("change",showFields.state);
+        cntry.addEventListener("change", showFields.state);
     },
     state: () => {
         state = document.querySelector("[name=state]");
         if (state == null) return;
         callAPI("/api/v1/zipcode", "post", {
             cn: document.querySelector("[name=country]").value
-        }).then(i=>{
-            if(i.options.zip !=null){
+        }).then(i => {
+            if (i.options.zip != null) {
                 let z = document.querySelector("[name=zipcode]");
-                    z.setAttribute("pattern", i.options.zip);
-                    z.removeAttribute("disabled");
-                    if (!z.validity.valid) z.value = "";
+                z.setAttribute("pattern", i.options.zip);
+                z.removeAttribute("disabled");
+                if (!z.validity.valid) z.value = "";
             }
-                
+
         })
         callAPI("/api/v1/country", "get", {}).then(data => {
-            info=data;
-            if (Object.keys(data).indexOf("name")== - 1) {
-                cn=document.querySelector("[name=country]").value;
-                info=data[cn];
+            info = data;
+            if (Object.keys(data).indexOf("name") == - 1) {
+                cn = document.querySelector("[name=country]").value;
+                info = data[cn];
             }
             options = `<option value="" disabled selected>Select</option>`;
             Object.keys(info.states).forEach(k => {
@@ -327,22 +328,22 @@ showFields = {
                 options += `<option value="${e.code}">${e.name}</option>`;
             })
             state.innerHTML = options;
-            state.addEventListener("change",showFields.city);
+            state.addEventListener("change", showFields.city);
         });
     },
-    city:()=>{
+    city: () => {
         console.log("city");
-        city=document.querySelector("[name=city]");
+        city = document.querySelector("[name=city]");
         if (city == null) return;
         callAPI("/api/v1/country", "get", {}).then(data => {
-            cn=document.querySelector("[name=country]").value;
-            st=document.querySelector("[name=state]").value;
-            if (Object.keys(data).indexOf("name")== - 1)
-            info=data[cn].states[st];
+            cn = document.querySelector("[name=country]").value;
+            st = document.querySelector("[name=state]").value;
+            if (Object.keys(data).indexOf("name") == - 1)
+                info = data[cn].states[st];
             else
-            info=data.states[st];
+                info = data.states[st];
             options = `<option value="" disabled selected>Select</option>`;
-            info.cities.forEach(e=>{
+            info.cities.forEach(e => {
                 options += `<option value="${e}">${e}</option>`;
             });
             city.innerHTML = options;
@@ -350,3 +351,63 @@ showFields = {
     }
 }
 showFields.country();
+let currency = {
+    local: {
+        code: "",
+        symbol: "",
+        rate: 1
+    },
+    localize: function (mystring) {
+        // return mystring.replace(/\$/g,currency.local.symbol);
+
+        data = mystring.match(/\$[\.\d\,]+/g);
+        if (data == null) return mystring;
+        data = data.map(e => e.replace(/[\$\,]/g, ""));
+        mystring = mystring.replace(/\$[\.\d\,]+/g, "$");
+        mystring = mystring.replace(/\$/g, "###");
+        mystring = mystring.split("###");
+        // console.log(mystring);
+        output = "";
+        for (i = 0; i < mystring.length; i++) {
+            output += mystring[i];
+            if (data[i] != null) {
+                oldval = Number(data[i]);
+                extradigit = currency.local.rate.toFixed(0).toString().length;
+                unitdigit = oldval % 10;
+                output += currency.local.symbol;
+                output += oldval.toFixed(0);
+                for (j = 0; j < extradigit; j++)
+                    output += unitdigit;
+            }
+        }
+        return output;
+    },
+    init: async function () {
+        let mycur = await callAPI("/api/v1/getCurrency", "get", {})
+        currency.local.symbol = mycur.symbol;
+        currency.local.code = mycur.code;
+        let rate = await callAPI(`/api/v1/exrate/USD/${mycur.code}`, "get", {});
+        currency.local.rate = rate.rate;
+        console.log(currency.local);
+        loadData();
+    }
+}
+
+country = {
+    info: {},
+    init: async function () {
+        let cntry = await callAPI("/api/v1/country", "get", {});
+        country.info = cntry;
+        country.updateQuestions();
+    },
+    updateQuestions: function () {
+        que = document.querySelectorAll("label");
+        que.forEach(e => {
+            e.innerText=e.innerText.replace("###country###",country.info.name);
+        })
+
+    }
+}
+
+country.init();
+currency.init();
