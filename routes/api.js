@@ -4,34 +4,34 @@ const mongoose = require("mongoose");
 const User = mongoose.model("users", require("../modals/user"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
-const Redeem=mongoose.model("redeem",require("../modals/redeem"));
-const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const Redeem = mongoose.model("redeem", require("../modals/redeem"));
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 router.get("/userinfo", (req, res) => {
   res.json(req.session.user);
 })
-router.get("/earnings",async (req,res)=>{
-  redeem=await Redeem.aggregate([
-    {$project:{"did":{$dayOfYear:"$redeemDate"},"month":{$month:"$redeemDate"},"year":{$year:"$redeemDate"},"amount":1,"status":1}},
-    {$group:{_id:{year:"$year",month:"$month",did:"$did"},total:{$push:"$amount"},status:{$first:"$status"}}}
+router.get("/earnings", async (req, res) => {
+  redeem = await Redeem.aggregate([
+    { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },
+    { $group: { _id: { year: "$year", month: "$month", did: "$did" }, total: { $push: "$amount" }, status: { $first: "$status" } } }
   ]);
-$info=new Set();//[];
-min=null;
-max=0;
-await redeem.forEach(async e=>{
-  amount=await e.total.reduce((a,b)=>a+Number(b.toString().replace(/[^\d.-]/g, '')),0);
-  min=(min == null || e._id.year*100 + e._id.month < min) ? e._id.year*100 + e._id.month : min;
-  max=(max<e._id.year*100 + e._id.month) ? e._id.year*100 + e._id.month : max;
-  $info[`${e._id.year*100 + e._id.month}`]=amount;
-});
-console.log([min,max]);
-  data={
-    month:[],
-    amount:[]
+  $info = new Set();//[];
+  min = null;
+  max = 0;
+  await redeem.forEach(async e => {
+    amount = await e.total.reduce((a, b) => a + Number(b.toString().replace(/[^\d.-]/g, '')), 0);
+    min = (min == null || e._id.year * 100 + e._id.month < min) ? e._id.year * 100 + e._id.month : min;
+    max = (max < e._id.year * 100 + e._id.month) ? e._id.year * 100 + e._id.month : max;
+    $info[`${e._id.year * 100 + e._id.month}`] = amount;
+  });
+  console.log([min, max]);
+  data = {
+    month: [],
+    amount: []
   }
-  for(i=min;i<=max;i++){
-    data.month.push(monthNames[i%100-1]+" "+Math.floor(i/100));
-    data.amount.push($info[`${i}`]||0);
+  for (i = min; i <= max; i++) {
+    data.month.push(monthNames[i % 100 - 1] + " " + Math.floor(i / 100));
+    data.amount.push($info[`${i}`] || 0);
   }
   res.json(data);
 })
@@ -70,8 +70,6 @@ router.route("/professions")
   });
 router.get("/professions/industry", async (req, res) => {
   professions = JSON.parse(require("fs").readFileSync("./databank/professions.json"));
-  // console.log(professions);
-  // return;
   let industry = [];
   await professions.forEach(e => {
     if (industry.indexOf(e.Industry) !== -1) return;
@@ -128,6 +126,19 @@ router.post("/save/:field", async (req, res) => {
     options = await ProfileOptions.find({ dependency: mongoose.Types.ObjectId(user[req.params.field]) });
   req.session.user = user;
   res.json({ options: options });
+})
+router.post("/zipcode", async (req, res) => {
+  countries = JSON.parse(require("fs").readFileSync("./databank/theworld.json"))
+  options = await ProfileOptions.find({ name: 'country', label: countries[req.body.cn].name });
+  console.log(options);
+  res.json({ options: options[0] });
+})
+router.get("/country", (req, res) => {
+  countries = JSON.parse(require("fs").readFileSync("./databank/theworld.json"))
+  if ("cn" in req.session.user)
+  res.json(countries[req.session.user.cn.toUpperCase()]);
+  else
+  res.json(countries);
 })
 router.route("/:component")
   .get(async (req, res) => {

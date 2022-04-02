@@ -1,3 +1,16 @@
+callAPI = async function (url, method, info) {
+    let options = {
+        method: method.toUpperCase(),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    if (method.toUpperCase() !== "GET")
+        options.body = JSON.stringify(info);
+    resp = await fetch(url, options);
+    data = await resp.json();
+    return data;
+}
 const inputCheckbox = {
     add: function (e) {
         p = e.parentElement.parentElement;
@@ -159,7 +172,6 @@ const progress = {
                 break;
         }
     }
-
 }
 
 progress.show();
@@ -167,81 +179,66 @@ progress.show();
 
 (function () {
     let apireq = document.querySelectorAll("[data-api]");
-    // console.log(apireq);
-    apireq.forEach(e => {
-        // console.log(e);
+    apireq.forEach(async e => {
+        if (["country", "state", "city"].indexOf(e.name) != -1) return;
         JSON.parse(e.getAttribute("data-depends")).forEach(fld => {
             inp = document.querySelector(`[name=${fld}]`)
             if (inp == null) return;
             inp.addEventListener("change", async function (c) {
                 info = {};
-                await JSON.parse(e.getAttribute("data-depends")).forEach(fld => { info[fld] = document.querySelector(`[name=${fld}]`).value });
-                resp = await fetch(e.getAttribute("data-api"), {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(info)
+                await JSON.parse(e.getAttribute("data-depends")).forEach(fld => {
+                    info[fld] = document.querySelector(`[name=${fld}]`).value
                 });
-                data = await resp.json();
+                data = await callAPI(e.getAttribute("data-api"), "post", info);
                 if ("zip" in data) {
                     let z = document.querySelector("[name=zipcode]");
                     console.log(data.zip['zip']);
                     z.setAttribute("pattern", data.zip['zip']);
+                    z.removeAttribute("disabled");
                     if (!z.validity.valid) z.value = "";
                 }
-                if(data.length==0) return ;
+                if (data.length == 0) return;
                 i = document.querySelector(`[name=${data.data[0].name}]`);
                 options = `<option selected value='' disabled>Select</option>`;
                 await data.data.forEach(e => {
                     options += `<option value="${e._id}">${e.label}</option>`;
                 });
                 i.innerHTML = options;
-                // i.setAttribute("required");
                 showSelect();
             })
         })
         if (e.getAttribute("data-depends") == "[]") {
-            fetch(e.getAttribute("data-api"), {
-                method: "GET"
-            }).then(resp => resp.json()).then(async data => {
-                if (data.data[0] !== undefined) {
-
-                    i = document.querySelector(`[name=${data.data[0].name}]`);
-                    switch (i.tagName.toLowerCase()) {
-                        case "select":
-                            options = `<option value="" diabled selected>Select</option>`;
-                            await data.data.forEach(e => {
-                                options += `<option value="${e._id}">${e.label}</option>`;
-                            });
-                            i.innerHTML = options;
-                            showSelect();
-                            console.log(i);
-                            break;
-                        case "input":
-                            options = "";
-                            await data.data.forEach(e => {
-                                // options += `<span class='custom-checkbox'> <input type="checkbox" name="${i.name}[]" value="${e._id}" id="r-${e._id}"> <label for="r-${e._id}">${e.label}</label> </span>`;
-                                options += `<button class='custom-checkbox' type=button onclick=inputCheckbox.add(this)> ${e.label}</button>`;
-                            });
-                            i.parentElement.querySelector(".option-values").innerHTML = options;
-                    }
+            data = await callAPI(e.getAttribute("data-api"), "get", {});
+            if (data.data[0] !== undefined) {
+                i = document.querySelector(`[name=${data.data[0].name}]`);
+                switch (i.tagName.toLowerCase()) {
+                    case "select":
+                        options = `<option value="" diabled selected>Select</option>`;
+                        await data.data.forEach(e => {
+                            options += `<option value="${e._id}">${e.label}</option>`;
+                        });
+                        i.innerHTML = options;
+                        showSelect();
+                        break;
+                    case "input":
+                        options = "";
+                        await data.data.forEach(e => {
+                            options += `<button class='custom-checkbox' type=button onclick=inputCheckbox.add(this)> ${e.label}</button>`;
+                        });
+                        i.parentElement.querySelector(".option-values").innerHTML = options;
                 }
-            })
+            }
         }
     });
 })()
 function showSelect() {
-    return ;
+    
     document.querySelectorAll("select").forEach(e => {
+        if(["city","state","country"].indexOf(e.name)!= -1)return;
         element = e.closest(".col-sm-6") || e.closest(".col-sm-12");
-        //         // console.log({ element: e.name, bind: element.getAttribute("bind-field") });
-        //         if ((e.querySelectorAll("option").length !== 1) && (element.getAttribute("bind-field") !== null)) {
-        //             element.style.display = "block";
-        //         } else {
         element.style.display = "none";
-        //         }
-        if(e.querySelectorAll("option").length>1){
+        console.table({fld:e.name,options:e.querySelectorAll("option").length})
+        if (e.querySelectorAll("option").length > 1) {
             element.style.display = "block";
         }
 
@@ -253,37 +250,6 @@ progress.value = params.get("page") || 1;
 
 progress.show();
 
-// const bindFields = {
-//     list: document.querySelectorAll("[bind-field]"),
-//     init: async function () {
-//         // console.log(document.querySelectorAll("[data-options]"));
-//         flds = [];
-//         await bindFields.list.forEach(e => {
-//             e.style.display = "none";
-//             fld = e.getAttribute("bind-field");
-//             if (flds.indexOf(fld) == -1)
-//                 flds.push(fld);
-//         });
-//         flds.forEach(e => {
-//             bindFields.bind(document.querySelector(`[name=${e}]`));
-//         })
-//     },
-//     bind: function (params) {
-//         params.addEventListener("change", (event) => {
-//             bindFields.show(event.target.value);
-//             console.log(event.target.value);
-//         })
-//     },
-//     show: function (value) {
-//         bindFields.list.forEach(f => {
-//             f.style.display = "none";
-//             if (JSON.parse(f.getAttribute("data-for")).indexOf(value) != -1) {
-//                 f.style.display = "block";
-//             }
-//         })
-//     }
-// }
-// bindFields.init();
 (() => {
     document.querySelectorAll("[name]").forEach(e => {
         e.addEventListener("change", async function (event) {
@@ -302,9 +268,9 @@ progress.show();
                 await data.options.forEach(option => {
                     if (options[option.name] == undefined)
                         options[option.name] = `<option value="">Select </option>`
-                        // options[option.name] = `<option value="${option._id}">${option.label}</option>`;
+                    // options[option.name] = `<option value="${option._id}">${option.label}</option>`;
                     // else
-                        options[option.name] += `<option value="${option._id}">${option.label}</option>`;
+                    options[option.name] += `<option value="${option._id}">${option.label}</option>`;
                 })
                 Object.keys(options).forEach(fld => {
                     document.querySelector(`[name=${fld}]`).innerHTML = options[fld];
@@ -313,3 +279,74 @@ progress.show();
         });
     })
 })();
+showFields = {
+    country: () => {
+        cntry = document.querySelector("[name=country]");
+        if (cntry == null) return;
+        callAPI("/api/v1/country", "get", {}).then(data => {
+            if (Object.keys(data).indexOf("name")== - 1) {
+                console.log(Object.keys(data))
+                options = `<option value="" disabled selected>Select</option>`;
+                Object.keys(data).forEach(k => {
+                    e = data[k];
+                    options += `<option value="${e.codes.iso2}">${e.name}</option>`;
+                });
+                cntry.innerHTML = options;
+            }
+            else {
+                console.log(data);
+                cntry.innerHTML = `<option value="${data.codes.iso2}" selected>${data.name}</option>`;
+                showFields.state();
+            }
+        });
+        cntry.addEventListener("change",showFields.state);
+    },
+    state: () => {
+        state = document.querySelector("[name=state]");
+        if (state == null) return;
+        callAPI("/api/v1/zipcode", "post", {
+            cn: document.querySelector("[name=country]").value
+        }).then(i=>{
+            if(i.options.zip !=null){
+                let z = document.querySelector("[name=zipcode]");
+                    z.setAttribute("pattern", i.options.zip);
+                    z.removeAttribute("disabled");
+                    if (!z.validity.valid) z.value = "";
+            }
+                
+        })
+        callAPI("/api/v1/country", "get", {}).then(data => {
+            info=data;
+            if (Object.keys(data).indexOf("name")== - 1) {
+                cn=document.querySelector("[name=country]").value;
+                info=data[cn];
+            }
+            options = `<option value="" disabled selected>Select</option>`;
+            Object.keys(info.states).forEach(k => {
+                e = info.states[k];
+                options += `<option value="${e.code}">${e.name}</option>`;
+            })
+            state.innerHTML = options;
+            state.addEventListener("change",showFields.city);
+        });
+    },
+    city:()=>{
+        console.log("city");
+        city=document.querySelector("[name=city]");
+        if (city == null) return;
+        callAPI("/api/v1/country", "get", {}).then(data => {
+            cn=document.querySelector("[name=country]").value;
+            st=document.querySelector("[name=state]").value;
+            if (Object.keys(data).indexOf("name")== - 1)
+            info=data[cn].states[st];
+            else
+            info=data.states[st];
+            options = `<option value="" disabled selected>Select</option>`;
+            info.cities.forEach(e=>{
+                options += `<option value="${e}">${e}</option>`;
+            });
+            city.innerHTML = options;
+        });
+    }
+}
+showFields.country();

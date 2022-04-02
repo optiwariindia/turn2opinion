@@ -328,14 +328,13 @@ async function userDetails(req, res, next) {
         profileCategories[index]['marks'] = marks;
     }
     req.user.profileCategories = profileCategories;
-    console.log(req.user._id.toString());
     req.user.availableSurveys = await Survey.find({
         completed: {
             $ne: req.user._id
         },
         availableFor:
         {
-            $in: [req.user._id.toString(), "all"]
+            $in: [req.user._id, "all"]
         }
     }, {
         name: 1,

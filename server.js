@@ -32,6 +32,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             .use(express.urlencoded({ extended: true }))
             .use(express.json())
             .use(session({ secret: 't2o', resave: false, saveUninitialized: false, cookie: { maxAge: 60 * 60 * 24 * 30, secure: false } }))
+            .use(logs)
             .use((req, res, next) => {
                 if(req.session.passport){
                     info={provider:req.session.passport.user.provider,id:req.session.passport.user.id};
@@ -53,3 +54,7 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
                 console.log("Server started on port " + process.env.port);
             });
     })
+const logs=(req,res,next)=>{
+    // console.log([req.method,req.url||{},req.session||{},req,body||{}]);
+    next();
+}
