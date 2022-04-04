@@ -51,12 +51,12 @@ const homepage=(req, res) => {
     today = new Date();
     counters = [
         {
-            title: "Panellist registered",
+            title: "Panellist registered till now",
             count: 498099 + (Date.now() - project.startDate) / 3600000,
         },
         {
-            title: "Incentives released",
-            count: (498099 + (Date.now() - project.startDate) / 3600000) *  16 / 10,
+            title: "Incentives released in April",
+            count: (14884) * ((today.getDate()+today.getHours()/24) / 30),
         },
         {
             title: "Monthly Available Surveys",
