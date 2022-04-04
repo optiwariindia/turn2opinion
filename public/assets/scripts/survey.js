@@ -403,7 +403,7 @@ country = {
     updateQuestions: function () {
         que = document.querySelectorAll("label");
         que.forEach(e => {
-            e.innerText=e.innerText.replace("###country###",country.info.name);
+            e.innerText=e.innerText.replace("###country###",country.info.adj);
         })
 
     }
