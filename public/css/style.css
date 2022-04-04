@@ -1851,10 +1851,10 @@ body {
     display: block
 }
 
-a {
+/* a {
     color: inherit;
     text-decoration: none
-}
+} */
 
 
 .login-html {
@@ -2437,11 +2437,11 @@ footer .contact ul.fh5co-footer-links li {
     margin-left: 50px;
 }
 
-.forced-popup a {
+/* .forced-popup a {
     color: #fff;
     letter-spacing: 2px;
     text-decoration: underline;
-}
+} */
 
 .starred li {
     list-style: none;
@@ -2483,10 +2483,15 @@ footer .contact ul.fh5co-footer-links li {
 }
 
 .forced-popup h2 {
-    color: #fff;
-    text-decoration: none;
+    color: var(--progress-active);
+    font-style:italic;
 }
-
+.forced-popup h2::after{
+    content:"!";
+}
+.forced-popup h2+p{
+    text-align:center
+}
 :root {
     --progress-active: #ea9215;
     --progress-bg: #777;

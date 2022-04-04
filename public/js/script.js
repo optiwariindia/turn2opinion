@@ -28,7 +28,7 @@ $("form").submit(function (e) {
                 }).then(res => res.json()).then(res => {
                     if (res.status === "ok") {
                         e.target.innerHTML="";
-                        popup.show(`<h2>Thanks for Joining</h2><br><p>Dear ${res.user.fn}, Your sign up requiest has been successfully submitted. Please open your email (${res.user.email}) and click the verify Link to setup your password and login to your dashboard.</p>`,"/");
+                        popup.show(`<h2>Thanks for Signing Up!</h2><p>Dear ${res.user.fn}, Your sign up request has been successfully submitted. Please open your email (${res.user.email}) and click the "verify" Link to setup your password and become our community member and start earning by your opinions.</p>`,"/");
                     }
                 }).catch(err => {
                     console.log(err);
