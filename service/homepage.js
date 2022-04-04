@@ -56,7 +56,7 @@ const homepage=(req, res) => {
         },
         {
             title: "Incentives released",
-            count: (498099 + (Date.now() - project.startDate) / 3600000) * randomInt(1, 20) / 10,
+            count: (498099 + (Date.now() - project.startDate) / 3600000) *  16 / 10,
         },
         {
             title: "Monthly Available Surveys",

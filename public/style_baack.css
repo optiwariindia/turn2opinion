@@ -1342,7 +1342,7 @@ a.bg-alternate:hover, a.bg-alternate:focus, button.bg-alternate:hover, button.bg
     --teal: #20c997;
     --cyan: #17a2b8;
     --white: #fff;
-    --gray: #6c757d;
+    --gray: #838688;
     --gray-dark: #343a40;
     --primary: var(--theme-primary);
     --secondary: #6c757d;
@@ -42379,7 +42379,7 @@ label span {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--theme-dark);
+    background: #838688;
 }
 
 .fr {
@@ -42547,10 +42547,11 @@ img.pageicon {
     font-style: italic;
 }
 
-.forced-popup .popup-body-small .body img.smilee {
+
+.forced-popup .popup-body .body img.smilee {
     float: left;
-    width: 120px;
-    margin-right: 20px
+    width: 60px;
+    margin-right: 20px;
 }
 
 a.card.no-shadow.rm-border.bg-transparent.widget-chart.text-center {

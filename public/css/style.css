@@ -2476,12 +2476,6 @@ footer .contact ul.fh5co-footer-links li {
     font-style: italic;
 }
 
-.forced-popup .popup-body-small .body img.smilee {
-    float: left;
-    width: 120px;
-    margin-right: 20px
-}
-
 .forced-popup h2 {
     color: var(--progress-active);
     font-style:italic;

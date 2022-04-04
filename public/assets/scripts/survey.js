@@ -212,6 +212,8 @@ loadData = function () {
             data = await callAPI(e.getAttribute("data-api"), "get", {});
             if (data.data[0] !== undefined) {
                 i = document.querySelector(`[name=${data.data[0].name}]`);
+                if(i==null)
+                i=e;
                 switch (i.tagName.toLowerCase()) {
                     case "select":
                         options = `<option value="" diabled selected>Select</option>`;
@@ -238,9 +240,11 @@ function showSelect() {
         if (["city", "state", "country"].indexOf(e.name) != -1) return;
         element = e.closest(".col-sm-6") || e.closest(".col-sm-12");
         element.style.display = "none";
+        e.removeAttribute("required");
         // console.table({fld:e.name,options:e.querySelectorAll("option").length})
         if (e.querySelectorAll("option").length > 1) {
             element.style.display = "block";
+            e.setAttribute("required", "true");
         }
 
     });
