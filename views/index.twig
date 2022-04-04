@@ -3,9 +3,36 @@
 
 	{% include "comp/head.twig" %}
 	<body id="home">
+		<div class="loader">
+			<div class="waviy">
+				<span style="--i:1">T</span>
+				<span style="--i:2">U</span>
+				<span style="--i:3">R</span>
+				<span style="--i:4">N</span>
+				<span style="--i:5;color:#EA9215">2</span>
+				<span style="--i:6">O</span>
+				<span style="--i:7">P</span>
+				<span style="--i:8">I</span>
+				<span style="--i:9">N</span>
+				<span style="--i:10">I</span>
+				<span style="--i:11">O</span>
+				<span style="--i:12">N</span>
+				<span style="--i:13">.</span>
+				<span style="--i:14">.</span>
+				<span style="--i:15">.</span>
+			</div>
+			{# <img src="/images/loader.gif" alt="" srcset=""> #}
+		</div>
 		<div id="page">
 			{% include "comp/navbar.twig" %}
-			{% include "comp/slider.twig" %}			
+			{% include "comp/slider.twig" %}
+			<div class="extrasegment">
+				<div class="container row">
+					<div class="col-sm-8">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magni rerum, deserunt consequuntur tempora obcaecati placeat, harum ex in impedit mollitia assumenda, nam suscipit quaerat veritatis magnam. Et dolore quae laborum cum in at. Praesentium commodi, possimus id quidem nihil nisi distinctio impedit illum hic, aperiam perferendis voluptas veritatis fugit unde atque at explicabo laborum! Aut aspernatur placeat doloremque quasi cumque labore nulla animi nobis dicta? Veniam, fugit quam! Fugiat, consectetur repellat! Sed in numquam molestiae nostrum iure dolor aspernatur magnam distinctio atque, porro iusto laborum fugit sequi incidunt possimus neque ex voluptates alias maxime hic assumenda asperiores, explicabo minus recusandae?
+					</div>
+				</div>
+			</div>
 			{% include "comp/counters.twig" %}
 			{% include "comp/howItWork.twig" %}
 			{% include "comp/whoWeAre.twig" %}
@@ -15,15 +42,25 @@
 			{% include "comp/testimonials.twig" %}
 			{# {% include "comp/blog.twig" %} #}
 			{% include "comp/started.twig" %}
-			{% include "comp/footer.twig" %}
+		{% include "comp/footer.twig" %}
 		</div>
-		<div class="gototop js-top">
-			<a href="#" class="js-gotop">
+			<div class="gototop js-top"> <a href="#" class="js-gotop">
 				<i class="icon-arrow-up"></i>
 			</a>
 		</div>
 		{% include "comp/scripts.twig" %}
 		<script src="/js/custom.js"></script>
+		<script>
+			window.onload = function () {
+var loader = document.querySelector('.loader');
+loader.style.display = 'none';
+}; /* 
+window.load = function (e) {
+console.log("Document Loaded");
+}
+window.addEventListener("load", function () { // loaded
+}, false); */
+		</script>
 	</body>
 
 </html>
