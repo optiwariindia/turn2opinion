@@ -45,10 +45,7 @@ if (!(typeof pagename =="undefined") && pagename === "signup") {
             if (luxon.DateTime.fromObject({}, { zone: visitor.timezone }).offset != - today.getTimezoneOffset())
                 alert("Are you using a VPN? If so, please disable it and try again.");
         }
-        navigator.geolocation.getCurrentPosition(function (position) {
-            $("[name=lat]").val(position.coords.latitude);
-            $("[name=lng]").val(position.coords.longitude);
-        });
+      
 
         var input = document.querySelector("[type=tel]");
         errorMap = [

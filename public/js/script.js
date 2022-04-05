@@ -1,3 +1,6 @@
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
 $("form").submit(function (e) {
     e.preventDefault();
     if (this.classList.contains("sign-up-htm")) {

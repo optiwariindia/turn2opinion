@@ -7,8 +7,8 @@
 					<picture>
 						<source  srcset="/slider/slide{{loop.index}}.webp" type="image/webp">
 						<source  srcset="/slider/slide{{loop.index}}.jpg" type="image/jpg">
-						<img src="/slider/slide{{loop.index}}.jpg" alt="Slide-{{loop.index}}" class="img-fluid" loading="lazy" width="1024" height="615">
-					  </picture>
+						<img src="/slider/slide{{loop.index}}.jpg" alt="Slide-{{loop.index}}" class="img-fluid" {% if loop.index != 1 %} loading="lazy"{% endif %} width="1345" height="807">
+					</picture>
 					</div>
 					<div class="text-container">
 						<div class="banner-text">
@@ -22,15 +22,6 @@
 			</div>
 		{% endfor %}
 	</div>
-	<div class="row">
-		<div class="col-sm-7 col-lg-8"></div>
-		<div class="col-sm-5 col-lg-4">
-			{% if form is defined %}
-				{% include "comp/"~form~".twig" %}
-			{% else %}
-				{% include "comp/auth.twig" %}
-			{% endif %}
-		</div>
-	</div>
-
+	
+	
 </div>

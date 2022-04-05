@@ -212,7 +212,9 @@ loadData = function () {
             inp = document.querySelector(`[name=${fld}]`)
             if (inp == null) return;
             inp.addEventListener("change", async function (c) {
-                console.log(c);
+                if(e.tagName=="SELECT"){
+                    e.innerHTML = "<option>...</option>";
+                }
                 info = {};
                 await JSON.parse(e.getAttribute("data-depends")).forEach(fld => {
                     info[fld] = document.querySelector(`[name=${fld}]`).value

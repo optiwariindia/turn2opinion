@@ -1,0 +1,54 @@
+<form method="post" class="sign-in-htm" action="/user/login">
+	<div class="group moblogo">
+		TURN<SPAN>2</SPAN>OPINION
+	</div>
+	<div class="group">
+		<label for="user" class="label">E-Mail</label>
+		<input id="user" type="email" name="user" class="input">
+	</div>
+
+	<div class="group">
+		<label for="pass" class="label">Password</label>
+		<input id="pass" type="password" name="pass" class="input" data-type="password">
+	</div>
+	<div class="group">
+		<input id="check" name="staysignedin" value="1" type="checkbox" class="check" checked>
+		<label for="check">
+			<span class="icon"></span>
+			Remember me
+		</label>
+	</div>
+	<div class="group" style='display:flex;justify-content:center'>
+		<div class="g-recaptcha" data-sitekey="{{captchakey}}"></div>
+	</div>
+	<div class="group">
+		<input type="submit" class="button" value="Sign In">
+	</div>
+	<div class="group">
+		<span data='autherror'></span>
+	</div>
+	<div class="hr"></div>
+	<div class="foot-lnk">
+		<a href="/user/forgot">Forgot Password?</a>
+	</div>
+	<div class="hr"></div>
+	<div class="group social-signbtns">
+		<label for="" style='text-align:center;color:#fff;width:100%'>Or Sign in with Social Accounts</label>
+		<ul>
+			<li class='facebook' onclick="window.location='/social/facebook/login'">
+				<i class="fa-brands fa-facebook"></i>
+			</li>
+			<li class='linkedin' onclick="window.location='/social/linkedin/login'">
+				<i class="fa-brands fa-linkedin"></i>
+			</li>
+			<li class='google-plus' onclick="window.location='/social/google/login'">
+				<i class="fa-brands fa-google-plus-g"></i>
+			</li>
+		</ul>
+	</div>
+	<div class="group" style='text-align:center'>
+		Not a member yet?
+		<label for="tab-2" style='color:#fff'>
+			Create an Account</label>
+	</div>
+</form>

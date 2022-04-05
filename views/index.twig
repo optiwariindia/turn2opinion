@@ -26,40 +26,47 @@
 		<div id="page">
 			{% include "comp/navbar.twig" %}
 			{% include "comp/slider.twig" %}
+			{% if form is defined %}
+				{% include "comp/"~form~".twig" %}
+			{% else %}
+				{% include "comp/auth.twig" %}
+			{% endif %}
 			<div class="extrasegment">
-				<div class="container row">
-					<div class="col-sm-8">
+				<div class="extrasegment-container">
+					<div class="extra-text">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem magni rerum, deserunt consequuntur tempora obcaecati placeat, harum ex in impedit mollitia assumenda, nam suscipit quaerat veritatis magnam. Et dolore quae laborum cum in at. Praesentium commodi, possimus id quidem nihil nisi distinctio impedit illum hic, aperiam perferendis voluptas veritatis fugit unde atque at explicabo laborum! Aut aspernatur placeat doloremque quasi cumque labore nulla animi nobis dicta? Veniam, fugit quam! Fugiat, consectetur repellat! Sed in numquam molestiae nostrum iure dolor aspernatur magnam distinctio atque, porro iusto laborum fugit sequi incidunt possimus neque ex voluptates alias maxime hic assumenda asperiores, explicabo minus recusandae?
 					</div>
+					<div class="blank-area"></div>
 				</div>
 			</div>
 			{% include "comp/counters.twig" %}
 			{% include "comp/howItWork.twig" %}
 			{% include "comp/whoWeAre.twig" %}
-			{# {% include "comp/takeacourse.twig" %} #}
-			{# {% include "comp/project.twig" %} #}
 			{% include "comp/steps.twig" %}
 			{% include "comp/testimonials.twig" %}
-			{# {% include "comp/blog.twig" %} #}
 			{% include "comp/started.twig" %}
-		{% include "comp/footer.twig" %}
+
+			{% include "comp/footer.twig" %}
 		</div>
-			<div class="gototop js-top"> <a href="#" class="js-gotop">
+		<div class="gototop js-top">
+			<a href="#" class="js-gotop">
 				<i class="icon-arrow-up"></i>
 			</a>
 		</div>
+		{# <div class="mob-popup">
+					<a onclick='popup.close(this)' class="fa fa-times"></a>
+					<div class="login-form">
+						{% include "comp/forms/signup.twig" %}
+					</div>
+				</div> #}
+
 		{% include "comp/scripts.twig" %}
 		<script src="/js/custom.js"></script>
 		<script>
 			window.onload = function () {
 var loader = document.querySelector('.loader');
 loader.style.display = 'none';
-}; /* 
-window.load = function (e) {
-console.log("Document Loaded");
-}
-window.addEventListener("load", function () { // loaded
-}, false); */
+};
 		</script>
 	</body>
 

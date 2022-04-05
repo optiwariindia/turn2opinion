@@ -1865,6 +1865,7 @@ body {
     top: 150px;
     right: 20px;
     width: 500px;
+    z-index:99999
 }
 
 .login-html .sign-in-htm,
@@ -2020,7 +2021,10 @@ body {
 .gender {
     display: flex;
 }
-
+.gender .options{
+    display:flex;
+    gap:10px;
+}
 .gender .title {
     margin: auto;
     color: #aaa;
@@ -2031,7 +2035,6 @@ body {
 }
 
 .gender [type=radio]+label {
-    width: 35px;
     font-size: 20px;
     color: #aaa;
 }
@@ -2076,7 +2079,7 @@ input::placeholder {
     display: flex;
     font-size: 50px;
     color: #fff;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .social-signbtns ul>li {
@@ -2257,7 +2260,6 @@ input::placeholder {
 }
 
 .login-html .message {
-    float: right;
     color: #fff;
     font-size: 24px;
     width: 100%;
@@ -2538,5 +2540,68 @@ footer .contact ul.fh5co-footer-links li {
 
     20% {
         transform: translateY(-40px)
+    }
+}
+.extrasegment-container {
+    display:grid;
+    grid-template-columns: 1fr 575px;
+    font-size:26px;
+    justify-content:space-around;
+    align-items:center;
+}
+
+@media only screen and (max-device-width: 1400px) {
+    .extrasegment-container {
+        font-size:18px;
+    }
+}
+@media only screen and (max-device-width: 1200px) {
+    .extrasegment-container {
+        font-size:15px;
+    }
+}
+
+
+@media only screen and (max-device-width: 1024px) {
+    .extrasegment-container {
+        font-size:12px;
+    }
+}
+.moblogo{
+    display:none;
+}
+.login-html a.fa-times{
+    display:none;
+}
+@media only screen and (max-device-width: 820px) {
+    .extrasegment-container {
+        grid-template-columns: 1fr;
+        font-size:16px;
+    }
+    .banner-text{
+        padding-right:10px;
+    }
+    .login-html{
+        position:fixed;
+        left:0;
+        right:10px;
+        top:0;
+        bottom:0;
+        background:rgba(0, 0, 0,0.9);
+        z-index:999999;
+        width:auto;
+        display:none;
+    }
+    .login-form{
+        display:flex;
+    }
+    .hr{
+        margin:10px 0px;
+    }
+    a.fa-times{
+        position:fixed;
+        right:10px;
+        top:10px;
+        display:initial;
     }
 }
