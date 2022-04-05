@@ -2598,10 +2598,14 @@ footer .contact ul.fh5co-footer-links li {
     .hr{
         margin:10px 0px;
     }
-    a.fa-times{
+    .login-html a.fa-times{
         position:fixed;
         right:10px;
         top:10px;
-        display:initial;
+        display:block;
+    }
+    .cookie-popup p{
+        font-size:12px;
+        line-height: 2;
     }
 }
