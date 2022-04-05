@@ -5,18 +5,18 @@ async function FetchUserInfo() {
     Object.keys(userinfo).forEach(fld => {
         temp = document.querySelector(`[name=${fld}]`);
         if ((userinfo[fld] != null) && (temp != null)) {
-            // console.log({userinfo:userinfo[fld],filed:fld});
             if (typeof userinfo[fld] == "object") {
                 temp.value = userinfo[fld]['_id']||"";
             } else {
                 temp.value = userinfo[fld]||"";
             }
+            if((temp.type=="hidden")&&(temp.closest(".options")!=null)){
+                inputCheckbox.init(temp);
+            }
         }
     });
-    // setting validator for zipcode 
     let zip = document.querySelector("[name=zipcode]");
     if(zip != null)zip.setAttribute("pattern",userinfo.country.zip);
-    // console.log(userinfo.country);
     document.querySelectorAll("[name]:disabled").forEach(e => {
         if(userinfo[e.name] === undefined){
             e.removeAttribute("disabled");

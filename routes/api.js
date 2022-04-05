@@ -171,16 +171,22 @@ router.route("/:component")
     let dependency = [];
     await Object.keys(req.body).forEach(
       key => {
+        if(mongoose.isValidObjectId(req.body[key]))
         dependency.push(`${req.body[key]}`);
+        try{
+          dependency=JSON.parse(req.body[key]);
+          
+        }catch(err){
+          console.log(err);
+        }
       }
     );
-    console.log(dependency);
     ProfileOptions.find({ name: req.params.component }).then(data => {
       data = data.filter(info => {
-        out = true;
+        out = false;
+        console.log(dependency);
         for (let i = 0; i < dependency.length; i++) {
-          out = out && (info.dependency.indexOf(dependency[i]) !== -1);
-
+          out = out || (info.dependency.indexOf(dependency[i]) !== -1);
         }
         return out;
       });

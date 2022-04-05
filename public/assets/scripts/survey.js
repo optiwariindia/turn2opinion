@@ -26,6 +26,7 @@ const inputCheckbox = {
             e.classList.add("disabled");
         }
         inp.value = JSON.stringify(vals);
+        inp.dispatchEvent(new Event('change'));
     },
     remove: function (e) {
         vals = [];
@@ -36,14 +37,30 @@ const inputCheckbox = {
         index = vals.indexOf(e.parentElement.innerText.trim());
         vals.splice(index, 1);
         e.closest(".options").querySelector("input").value = JSON.stringify(vals);
+        e.closest(".options").querySelector("input").dispatchEvent(new Event('change'));
         e.closest(".options").querySelectorAll("button").forEach(b => {
             if (b.innerText === e.parentElement.innerText) {
                 b.classList.remove("disabled");
             }
         });
         e.parentElement.remove();
+    },
+    init: function (e) {
+        inpgrp = e.closest(".options");
+        if(inpgrp==null)return ;
+        inp = inpgrp.querySelector("input");
+        vals = inp.value;
+        if (vals == "") return;
+        val = JSON.parse(inp.value);
+        if(inpgrp.querySelector(".input").innerText !== vals){
+            for (let index = 0; index < val.length; index++) {
+                const element = val[index];
+                inpgrp.querySelector(".input").innerHTML = inpgrp.querySelector(".input").innerHTML + `<span><i onclick=inputCheckbox.remove(this) class="fa fa-times"></i> ${element}</span>`;
+            }
+        }
     }
 }
+
 const progress = {
     value: 1,
     max: document.querySelectorAll("[page]").length,
@@ -171,6 +188,16 @@ const progress = {
                 popup.autohide(`<h2>Error</h2><p>${data.message}</p>`, 5000);
                 break;
         }
+    },
+    go: function (e) {
+        if (progress.max > e) return;
+        progress.value = e;
+        progress.show();
+    },
+    skip: function () {
+        if (progress.max <= progress.value) return;
+        progress.value++;
+        progress.show();
     }
 }
 
@@ -185,6 +212,7 @@ loadData = function () {
             inp = document.querySelector(`[name=${fld}]`)
             if (inp == null) return;
             inp.addEventListener("change", async function (c) {
+                console.log(c);
                 info = {};
                 await JSON.parse(e.getAttribute("data-depends")).forEach(fld => {
                     info[fld] = document.querySelector(`[name=${fld}]`).value
@@ -212,8 +240,8 @@ loadData = function () {
             data = await callAPI(e.getAttribute("data-api"), "get", {});
             if (data.data[0] !== undefined) {
                 i = document.querySelector(`[name=${data.data[0].name}]`);
-                if(i==null)
-                i=e;
+                if (i == null)
+                    i = e;
                 switch (i.tagName.toLowerCase()) {
                     case "select":
                         options = `<option value="" diabled selected>Select</option>`;
@@ -234,6 +262,7 @@ loadData = function () {
         }
     });
 }
+
 function showSelect() {
 
     document.querySelectorAll("select").forEach(e => {
@@ -284,6 +313,12 @@ progress.show();
         });
     })
 })();
+// (() => {
+//     elms = document.querySelectorAll("[type=hidden]");
+//     elms.forEach(e => {
+//         inputCheckbox.init(e)
+//     })
+// })();
 showFields = {
     country: () => {
         cntry = document.querySelector("[name=country]");
@@ -407,7 +442,7 @@ country = {
     updateQuestions: function () {
         que = document.querySelectorAll("label");
         que.forEach(e => {
-            e.innerText=e.innerText.replace("###country###",country.info.adj);
+            e.innerText = e.innerText.replace("###country###", country.info.adj);
         })
 
     }
