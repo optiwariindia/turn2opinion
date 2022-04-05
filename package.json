@@ -8,10 +8,10 @@
     "start": "node server.js",
     "publicaway": "mv public ../public",
     "publicback": "mv ../public public",
-    "devstart": "sudo systemctl start mongod; code .;nodemon server.js",
+    "devstart": "mv public ../public; sudo systemctl start mongod; code .;nodemon server.js;",
     "download": "git pull",
     "backupdb": "cd databaseBackup; mongodump --db Turn2Opinion",
-    "upload": "git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master;git push linode master"
+    "upload": "npm run backupdb; npm run publicback; git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master;git push linode master"
   },
   "keywords": [],
   "author": "",
