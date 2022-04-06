@@ -50,30 +50,15 @@ const claim = {
   }
 }
 async function loadChart() {
-  resp = await fetch("/api/v1/earnings");
-  data = await resp.json();
-
-  let chart = new Chart(
-    document.querySelector("#spark-earnings")
-    , {
-      type: 'line',
-      data: {
-        labels: data.month,
-        datasets: [{
-          label: "Earnings",
-          data: data.amount
-        }],
-      }
-    //   options: {
-    //     scales: {
-    //       x: {
-    //         type: "time",
-    //         time: {
-    //           unit: "month"
-    //         }
-    //       }
-    //     }
-    //   }
-    });
+  
 }
 loadChart();
+(()=>{
+  tablinks=document.querySelectorAll("label.nav-link");
+  tablinks.forEach(t=>{
+    t.addEventListener("click",e=>{
+      document.querySelector("label.nav-link.active").classList.remove("active");
+      t.classList.add("active")
+    })
+  })
+})()

@@ -9,67 +9,42 @@
 			</div>
 		</div>
 
-		<div class="row bs-wizard animate-box earningsteps" style="border-bottom:0;">
+		<div class="main-timeline">
+			{% for step in steps %}
 
-			<div class="col-xs-3 bs-wizard-step complete">
-				<div class="text-center bs-wizard-stepnum">
-					<h4>Register</h4>
+				<div href="#" class="timeline">
+					<div class="timeline-icon">
+					<img src="/images/steps/{{step.img}}.png" class='step-icon' alt="" srcset="">
+					</div>
+					<div class="timeline-content">
+						<h3 class="title">{{step.title}}</h3>
+						<p class="description">
+							{{step.info}}
+						</p>
+					</div>
 				</div>
-				<div class="progress">
-					<div class="progress-bar"></div>
-				</div>
-				<a href="#" class="bs-wizard-dot"></a>
-				<div class="bs-wizard-info text-center">
+			{% endfor %}
 
-					<p>Register with your Active email id and contact number.</p>
-				</div>
-			</div>
-
-			<div
-				class="col-xs-3 bs-wizard-step complete">
-				<!-- complete -->
-				<div class="text-center bs-wizard-stepnum">
-					<h4>Verify</h4>
-				</div>
-				<div class="progress">
-					<div class="progress-bar"></div>
-				</div>
-				<a href="#" class="bs-wizard-dot"></a>
-				<div class="bs-wizard-info text-center">
-					<p>Check your mail and Phone and click on verification links to complete your registration</p>
-				</div>
-			</div>
-
-			<div
-				class="col-xs-3 bs-wizard-step complete">
-				<!-- complete -->
-				<div class="text-center bs-wizard-stepnum">
-					<h4>Access Surveys</h4>
-				</div>
-				<div class="progress">
-					<div class="progress-bar"></div>
-				</div>
-				<a href="#" class="bs-wizard-dot"></a>
-				<div class="bs-wizard-info text-center">
-					<p>After Activating your account participate in available surveys and start sharing your ideas</p>
-				</div>
-			</div>
-
-			<div
-				class="col-xs-3 bs-wizard-step complete">
-				<!-- active -->
-				<div class="text-center bs-wizard-stepnum">
-					<h4>Get rewarded</h4>
-				</div>
-				<div class="progress">
-					<div class="progress-bar"></div>
-				</div>
-				<a href="#" class="bs-wizard-dot"></a>
-				<div class="bs-wizard-info text-center">
-					<p>Acheive your threshold to claim the rewards via paypal</p>
-				</div>
-			</div>
 		</div>
+{# 
+		<div class="row bs-wizard animate-box earningsteps" style="border-bottom:0;">
+			{% for step in steps %}
+
+				<div class="col-xs-3 bs-wizard-step complete">
+					<div class="text-center bs-wizard-stepnum">
+						<h4>{{step.title}}</h4>
+					</div>
+					<div class="progress">
+						<div class="progress-bar"></div>
+					</div>
+					<a href="#" class="bs-wizard-dot"></a>
+					<div class="bs-wizard-info text-center">
+
+						<p>{{step.info}}</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div> #}
 
 	</div>
 </div>

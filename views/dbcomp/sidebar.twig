@@ -39,13 +39,13 @@
 				</li>
 				<li {% if page.title == "Profile" %}class=mm-active{% endif %}>
 					<a href="/user/profile" {% if page.title == "Profile" %}class=mm-active{% endif %} >
-						<i class="metismenu-icon"></i>My Profile</a>
+						<i class="metismenu-icon "></i>My Profile</a>
 				</li>
 				<li class="app-sidebar__heading">Survey Profiling Categories</li>
 				{% for category in user.profileCategories %}
 					<li {% if category.active == true %}class=mm-active{% endif %}>
 						<a href="/user/profile/{{category.target}}"  {% if category.active == true %}class=mm-active{% endif %} >
-							<img src="/images/categories/{{category.icon}}" alt="" srcset="">
+							<img class='sidebar-icons' src="/images/categories/{{category.icon}}" alt="" srcset="">
 							{{ category.name }} Profile
 						</a>
 					</li>

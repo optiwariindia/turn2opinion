@@ -1,43 +1,40 @@
 <!doctype html>
 <html lang="en">
 
-    {% include "dbcomp/head.twig" %}
-    <link href="/css/form.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/font-awesome.css">
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
-    <link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet" />
-    <body>
-        <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-            {% include "dbcomp/header.twig" %}
-            <div class="app-main">
-                {% include "dbcomp/sidebar.twig" %}
-                <div class="app-main__outer">
-                    <div class="app-main__inner">
-                    {% include "dbcomp/" ~ page ~ ".twig" %}
-                    {# {% include "dbcomp/survey.twig" %} #}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="app-drawer-overlay d-none animated fadeIn"></div>
-        <script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
-<script src="//code.jquery.com/jquery-3.5.1.js"></script>
-<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="//cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="//cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
-<script src="//cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
-        <script>
-            $('.datatable').DataTable( {
-        dom: 'Bfrtip',
-        buttons: [
-            'csv', 'excel', 'pdf'
-        ]
-    } );
-        </script>
-<script type="text/javascript">
- </script>
-    </body>
+	{% include "dbcomp/head.twig" %}
+	<link href="/css/form.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/font-awesome.css">
+	<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
+	<link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet"/>
+	<body>
+		<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+			{% include "dbcomp/header.twig" %}
+			<div class="app-main">
+				{% include "dbcomp/sidebar.twig" %}
+				<div class="app-main__outer">
+					<div class="app-main__inner">
+						{% include "dbcomp/" ~ page ~ ".twig" %}
+						{# {% include "dbcomp/survey.twig" %} #}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="app-drawer-overlay d-none animated fadeIn"></div>
+		<script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
+		<script src="//code.jquery.com/jquery-3.5.1.js"></script>
+		<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+		<script src="//cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+		<script src="//cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+		<script src="//cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+		<script>
+			$('.datatable').DataTable({
+dom: 'Bfrtip',
+buttons: ['csv', 'excel', 'pdf']
+});
+		</script>
+		<script type="text/javascript" src="/assets/scripts/script.js"></script>
+	</body>
 </html>

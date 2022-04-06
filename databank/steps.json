@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Register",
+        "info": "Register with your Active email id and contact number.",
+        "img": "register"
+    },
+    {
+        "title": "Verify",
+        "info": "Check your mail and Phone and click on verification links to complete your registration",
+        "img": "verify"
+    },
+    {
+        "title": "Access Surveys",
+        "info": "After Activating your account participate in available surveys and start sharing your ideas",
+        "img": "survey"
+    },
+    {
+        "title": "Get rewarded",
+        "info": "Acheive your threshold to claim the rewards via paypal",
+        "img": "rewarded"
+    }
+]

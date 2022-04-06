@@ -2550,19 +2550,19 @@ footer .contact ul.fh5co-footer-links li {
     align-items:center;
 }
 
-@media only screen and (max-device-width: 1400px) {
+@media only screen and (max-width: 1400px) {
     .extrasegment-container {
         font-size:18px;
     }
 }
-@media only screen and (max-device-width: 1200px) {
+@media only screen and (max-width: 1200px) {
     .extrasegment-container {
         font-size:15px;
     }
 }
 
 
-@media only screen and (max-device-width: 1024px) {
+@media only screen and (max-width: 1024px) {
     .extrasegment-container {
         font-size:12px;
     }
@@ -2573,7 +2573,7 @@ footer .contact ul.fh5co-footer-links li {
 .login-html a.fa-times{
     display:none;
 }
-@media only screen and (max-device-width: 820px) {
+@media only screen and (max-width: 820px) {
     .extrasegment-container {
         grid-template-columns: 1fr;
         font-size:16px;

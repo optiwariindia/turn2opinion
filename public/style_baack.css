@@ -42664,3 +42664,10 @@ input#newPass.strong + span::before{
     align-items: center;
     justify-content:flex-start;
 }
+td .badge .fa{
+    padding:0 5px 0 0 ;
+}
+.sidebar-icons{
+    position:absolute;
+    left:0;
+}
