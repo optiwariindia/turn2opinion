@@ -1,3 +1,4 @@
+const fs=require("fs")
 const mongoose = require("mongoose");
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const router = require("express").Router();
@@ -60,6 +61,18 @@ router.route("/")
             });
         })
     })
+router.get("/automobile",async (req,res)=>{
+     vehichles=fs.readFileSync("databank/automobile.json").toString();
+     vehichles=JSON.parse(vehichles);
+     let info = {
+        user: req.user, profile: "automobile", page: {
+            title:"Automobile profile",
+            icon:"automobile.png"
+        },
+        vehichles
+    };
+    res.render("autoprofile.twig", info);
+})
 router.use("/:profilename", getProfileInfo);
 router.route("/:profilename")
     .get((req, res) => {

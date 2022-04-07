@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+	{% include "dbcomp/head.twig" %}
+	<style>
+		label.title+input[type=checkbox] {
+			display: none;
+		}
+		label.title {
+			display: flex;
+			justify-content: space-between;
+			background: var(--theme-dark);
+			color: #fff;
+			padding: 0 10px;
+			align-items: center;
+		}
+		input[type=checkbox]+.questions {
+			display: none;
+			transition: 1s;
+		}
+		input[type=checkbox]:checked +.questions {
+			display: grid;
+			grid-template-columns: auto auto;
+			justify-content: space-between;
+			gap: 20px;
+			padding-left: 20px;
+		}
+
+		.que-options {
+			display: flex;
+			gap: 10px;
+		}
+
+		.que-options span {
+			color: #fff;
+			padding: 5px 10px;
+			border-radius: 10px;
+			font-weight: bold;
+			transition: 1s;
+			background: var(--theme-dark);
+		}
+		.que-options input[type=radio] {
+			display: none;
+		}
+		.que-options input[type=radio]:checked + span {
+			background: var(--theme-primary);
+		}
+		.qgridoptions {
+			display: flex;
+			gap: 20px;
+		}
+	</style>
+	<body>
+		<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+			{% include "dbcomp/header.twig" %}
+			<div class="app-main">
+				{% include "dbcomp/sidebar.twig" %}
+				<div class="app-main__outer">
+					<div class="app-main__inner">
+						<div class="mb-3 card mt-3">
+							<div class="card-header">
+								<strong>{{page.title}}</strong>
+							</div>
+							<div class="card-body">
+								<form method="post">
+									{% for vehichle in vehichles %}
+										<div class="gadi">
+											<label for="{{vehichle.basename}}" class="title">
+												{{vehichle.heading}}
+												<i class="fa fa-plus"></i>
+											</label>
+											<input type="checkbox" name="{{vehichle.basename}}" id="{{vehichle.basename}}">
+											<div class="questions">
+												<div class="que-group">
+													<label class="que">Do you have
+														{{vehichle.heading}}?</label>
+													<div class="que-options">
+														{% for option in ["Yes","No"] %}
+															<label for="{{vehichle.basename}}-{{loop.index}}">
+																<input type="radio" name="{{vehichle.basename}}" value="{{option}}" id="{{vehichle.basename}}-{{loop.index}}" onchange="showQuestion(this)">
+																<span>{{option}}</span>
+															</label>
+														{% endfor %}
+													</div>
+												</div>
+												<div class="que-group hidden">
+													<label class="que">How many
+														{{vehichle.heading}}
+														do you have?</label>
+													<div class="que-options">
+														{% for option in [1,2,3,4,5,"More than 5"] %}
+															<label for="{{vehichle.basename}}-cnt-{{loop.index}}">
+																<input type="radio" name="{{vehichle.basename}}-cnt" value="{{option}}" id="{{vehichle.basename}}-cnt-{{loop.index}}" onchange="showQgrid(this)">
+																<span>{{option}}</span>
+															</label>
+														{% endfor %}
+													</div>
+												</div>
+
+
+											</div>
+											<div class="qgrid hidden">
+												<label for="">Please select brand, model and year of purchase of your
+													{{vehichle.heading}}</label>
+												<div class="qgridoptions hidden">
+													<select name="" id="" class="form-control">
+														<option value="">Brand</option>
+													</select>
+													<select name="" id="" class="form-control">
+														<option value="">Model</option>
+													</select>
+													{# <select name="" id="" class="form-control">
+														<option value="">Year of purchase</option>
+													</select> #}
+												</div>
+											</div>
+										</div>
+									{% endfor %}
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="app-drawer-overlay d-none animated fadeIn"></div>
+		<script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
+		<script src="/assets/scripts/script.js"></script>
+	</body>
+</html>
+<script>
+	function showQuestion(e) {
+e.closest(".que-group").nextElementSibling.classList.add("hidden");
+if (e.value == "Yes") {
+e.closest(".que-group").nextElementSibling.classList.remove("hidden");
+}
+}
+function showQgrid(e) {
+e.closest(".questions").nextElementSibling.classList.remove("hidden");
+switch (e.value) {
+    case "More than 5":
+        maxcnt=5;
+        break;
+
+    default:
+        maxcnt=e.value;
+        break;
+    }
+    elm=e.closest(".questions").nextElementSibling.querySelector(".qgridoptions");
+    let html="";
+    for (let i = 0; i < maxcnt; i++) {
+        html+=elm.outerHTML;      
+    }
+    e.closest(".questions").nextElementSibling.innerHTML=html;
+}
+</script>

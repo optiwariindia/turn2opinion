@@ -1,0 +1,66 @@
+[
+	{
+		"basename": "car",
+		"heading": "Car"
+	},
+	{
+		"basename": "aircraft",
+		"heading": "Aircraft"
+	},
+	{
+		"basename": "bicycle",
+		"heading": "Bicycle"
+	},
+	{
+		"basename": "bus",
+		"heading": "Bus"
+	},
+	{
+		"basename": "truck",
+		"heading": "Trucks"
+	},
+	{
+		"basename": "buggy",
+		"heading": "Dune buggies / Sand rails"
+	},
+	{
+		"basename": "gokart",
+		"heading": "Go karts"
+	},
+	{
+		"basename": "golfcart",
+		"heading": "Golf cart"
+	},
+	{
+		"basename": "motorcycle",
+		"heading": "Motorcycle / Scooter"
+	},
+	{
+		"basename": "boat",
+		"heading": "Personal water craft / Boat"
+	},
+	{
+		"basename": "quadbike",
+		"heading": "Quad / ATV’s"
+	},
+	{
+		"basename": "racers",
+		"heading": "Race cars"
+	},
+	{
+		"basename": "rv",
+		"heading": "RV / Camper"
+	},
+	{
+		"basename": "snowmobiles",
+		"heading": "Snowmobiles"
+	},
+	{
+		"basename": "threewheel",
+		"heading": "Three wheeler"
+	},
+	{
+		"basename": "van",
+		"heading": "Van"
+	}
+]
