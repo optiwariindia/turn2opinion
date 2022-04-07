@@ -40,7 +40,6 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             .use((req, res, next) => {
                 if (req.session.passport) {
                     info = { provider: req.session.passport.user.provider, id: req.session.passport.user.id };
-                    console.log(info);
                 }
                 next();
             })

@@ -32,7 +32,6 @@ router.get("/earnings", async (req, res) => {
     max = (max < e._id.year * 100 + e._id.month) ? e._id.year * 100 + e._id.month : max;
     $info[`${e._id.year * 100 + e._id.month}`] = amount;
   });
-  console.log([min, max]);
   data = {
     month: [],
     amount: []
@@ -138,7 +137,7 @@ router.post("/save/:field", async (req, res) => {
 router.post("/zipcode", async (req, res) => {
   countries = JSON.parse(require("fs").readFileSync("./databank/theworld.json"))
   options = await ProfileOptions.find({ name: 'country', label: countries[req.body.cn].name });
-  console.log(options);
+
   res.json({ options: options[0] });
 })
 router.get("/country", (req, res) => {
@@ -148,11 +147,21 @@ router.get("/country", (req, res) => {
   else
   res.json(countries);
 })
+router.route("/automobile/:type").get((req,res)=>{
+  let data = JSON.parse(require("fs").readFileSync("./databank/automobile.json"));
+  if(req.params.type in data)
+  res.json(data[req.params.type]);
+  else
+  res.json({
+    status:"error",
+    error:"No record found"
+  });
+})
 router.route("/:component")
   .get(async (req, res) => {
     try {
       opts = Array.from(await ProfileOptions.find({ name: req.params.component }));
-      console.log(opts);
+      
       await opts.map(e => {
         str = JSON.stringify(e);
         str = str.replaceAll("###country###", req.session.user.country);
@@ -211,7 +220,7 @@ router.route("/:component/:id")
         dependency.push(`${req.body[key]}`);
       }
     );
-    console.log(dependency);
+    
     ProfileOptions.find({ name: req.params.component }).then(data => {
       data = data.filter(info => {
         out = true;

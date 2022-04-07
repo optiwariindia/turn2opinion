@@ -49,10 +49,6 @@ const claim = {
     return false;
   }
 }
-async function loadChart() {
-  
-}
-loadChart();
 (()=>{
   tablinks=document.querySelectorAll("label.nav-link");
   tablinks.forEach(t=>{

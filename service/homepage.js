@@ -5,7 +5,6 @@ let captchakey = process.env.google_captcha_key;
 const homepage=(req, res) => {
     steps=fs.readFileSync("databank/steps.json");
     steps=JSON.parse(steps);
-    console.log(steps);
     journey =
         ["Create a free account via your active E-mail ID & valid Contact Number",
             "You will receive a verification link to verify your email and contact number with OTP.",

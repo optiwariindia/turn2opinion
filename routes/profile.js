@@ -67,7 +67,7 @@ router.get("/automobile",async (req,res)=>{
      let info = {
         user: req.user, profile: "automobile", page: {
             title:"Automobile profile",
-            icon:"automobile.png"
+            icon:"automotive-profile.png"
         },
         vehichles
     };
