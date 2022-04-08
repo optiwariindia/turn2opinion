@@ -150,7 +150,15 @@ router.get("/country", (req, res) => {
 router.route("/automobile/:type").get((req,res)=>{
   let data = JSON.parse(require("fs").readFileSync("./databank/automobile.json"));
   if(req.params.type in data)
-  res.json(data[req.params.type]);
+  {
+    info=data[req.params.type];
+    for (let i = 0; i < info.seq.length; i++) {
+      const seq = info.seq[i];
+      temp=info.options[seq].sort();
+      info.options[seq]=Array.from(new Set(temp));      
+    }
+  res.json(info);
+  }
   else
   res.json({
     status:"error",

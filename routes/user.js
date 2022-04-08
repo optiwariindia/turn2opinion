@@ -22,7 +22,7 @@ router.post("/auth", (req, res) => {
     User.find({ email: req.body.user, password: req.body.pass, deletedOn: null }).then(user => {
         if (user.length === 1) {
             req.session.user = user[0];
-            res.json({ "status": "ok", "user": user[0], "redirect": "/user/profile/automobile", "sessiontimeout": process.env.sessiontimeout });
+            res.json({ "status": "ok", "user": user[0], "redirect": "/user/dashboard", "sessiontimeout": process.env.sessiontimeout });
         } else {
             res.json({ "status": "error", "message": "User not found", "info": user, "inputs": req.body });
         }

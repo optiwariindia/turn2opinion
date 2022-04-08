@@ -98,9 +98,25 @@ async function showQgrid(e) {
     let html = "";
     for (let i = 0; i < gadi.seq.length; i++) {
         const seq = gadi.seq[i];
-        options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
+        switch (choice.gadi) {
+            case "truck":
+                if(typeof gadi.options[seq][0] == "object"){
+                    options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e.category}" data-name='type' data-option='${JSON.stringify(e.type)}'>${e.category}</option>`))).join("");
+                }else
+                options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
+                break;
+            case "rv":
+                if(typeof gadi.options[seq][0] == "object"){
+                    options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e.type}" data-name='brand' data-option='${JSON.stringify(e.brand)}'>${e.type}</option>`))).join("");
+                }else
+                options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
+                break;
+                default:
+                options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
+                break;
+        }
         // console.log(options);
-        html += `<div class="que-group"><select name="${choice.gadi}-${seq}" onchange="fieldUpdated({gadi:${choice.gadi},field:${seq}})" class="form-control"><option value="">Select ${seq}</option>${options}</select></div>`;
+        html += `<div class="que-group"><select name="${choice.gadi}-${seq}[]" onchange="fieldUpdated(this)" class="form-control"><option value="">Select ${seq}</option>${options}</select></div>`;
     }
     if(choice.gadi != "bicycle"){
         num=[];
@@ -109,7 +125,7 @@ async function showQgrid(e) {
         console.log(num);
         seq="year";
         options = await Array.from(new Set(num.map(e => `<option value="${e}">${e}</option>`))).join("");
-        html += `<div class="que-group"><select name="${choice.gadi}-${seq}" onchange="fieldUpdated({gadi:${choice.gadi},field:${seq}})" class="form-control"><option value="">Select ${seq}</option>${options}</select></div>`;
+        html += `<div class="que-group"><select name="${choice.gadi}-${seq}[]" onchange="fieldUpdated(this)" class="form-control"><option value="">Select ${seq}</option>${options}</select></div>`;
     }
     opts = e.closest(".questions").nextElementSibling;
     opts.classList.remove("hidden");
@@ -278,7 +294,7 @@ const progress = {
                 popup.show(`<h2>Thank you</h2> <p>${data.message}</p>`);
                 setTimeout(() => {
                     location.href = "/user/dashboard"
-                }, 3000);
+                }, 30000);
                 break;
             case "error":
                 popup.autohide(`<h2>Error</h2><p>${data.message}</p>`, 5000);
@@ -296,5 +312,34 @@ const progress = {
         progress.show();
     }
 }
-
+const fieldUpdated=function(e){
+    e.querySelectorAll("option").forEach(o=>{
+        if(!o.selected)return;
+        let el1=o;
+        let opts=el1.getAttribute("data-option");
+        if(opts==null)return;
+        opts=JSON.parse(opts);
+        let name=el1.getAttribute("data-name");
+        options=Array.from(new Set(opts.map(e => `<option value="${e}">${e}</option>`))).join("");
+        let html= `<div class="que-group"><select name="${choice.gadi}-${name}[]" onchange="fieldUpdated(this)" class="form-control"><option value="">Select ${name}</option>${options}</select></div>`;
+        e.parentElement.parentElement.insertAdjacentHTML("beforeend",html);
+    })
+}
 progress.show();
+
+popup = {
+    show: function (e) {
+        document.querySelector(".forced-popup").style.display = "block";
+        document.querySelector(".popup-body").innerHTML = e;
+    },
+    hide: function (e) {
+        document.querySelector(".forced-popup").style.display = "none";
+        document.querySelector(".popup-body").innerHTML = "";
+    },
+    autohide: function (e, timeOut) {
+        popup.show(e);
+        setTimeout(() => {
+            popup.hide();
+        }, 300);
+    }
+}

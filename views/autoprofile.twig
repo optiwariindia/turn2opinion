@@ -2,6 +2,7 @@
 <html lang="en">
 
 	{% include "dbcomp/head.twig" %}
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
 	<style>
 		label.title+input[type=checkbox] {
 			display: none;
@@ -65,57 +66,79 @@
 							</div>
 							<div class="card-body">
 								<form method="post">
-									{% set counter = 1 %}
-
-									<div class="page" page="1" style='display:none'>
-										{% if loop.index == 1 %}
-
-											{% for vehichle in vehichles %}
-												<div class="gadi">
-													<label for="{{vehichle.basename}}" class="title">
-														{{vehichle.heading}}
-														<i class="fa fa-plus"></i>
-													</label>
-													<input type="checkbox" name="{{vehichle.basename}}" id="{{vehichle.basename}}">
-													<div class="questions">
-														<div class="que-group">
-															<label class="que">Do you have
-																{{vehichle.heading}}?</label>
-															<div class="que-options">
-																{% for option in ["Yes","No"] %}
-																	<label for="{{vehichle.basename}}-{{loop.index}}">
-																		<input type="radio" name="{{vehichle.basename}}" value="{{option}}" id="{{vehichle.basename}}-{{loop.index}}" onchange="showQuestion(this)">
-																		<span>{{option}}</span>
-																	</label>
-																{% endfor %}
-															</div>
-														</div>
-														<div class="que-group hidden">
-															<label class="que">How many
-																{{vehichle.heading}}
-																do you have?</label>
-															<div class="que-options">
-																{% for option in [1,2,3,4,5,"More than 5"] %}
-																	<label for="{{vehichle.basename}}-cnt-{{loop.index}}">
-																		<input type="radio" name="{{vehichle.basename}}-cnt" value="{{option}}" id="{{vehichle.basename}}-cnt-{{loop.index}}" onchange="showQgrid(this)">
-																		<span>{{option}}</span>
-																	</label>
-																{% endfor %}
-															</div>
-														</div>
-
-
-													</div>
-													<div class="qgrid hidden">
-														<label for="">Please select brand, model and year of purchase of your
-															{{vehichle.heading}}</label>
-														<div class="qgridoptions hidden"></div>
+									<div class="page" page="1" style="display:none;">
+										<div class="gadi">
+											<div class="questions">
+												<div class="que-group">
+													<label class="que">Do you have driving licence</label>
+													<div class="que-options">
+														{% for option in ["Yes","No"] %}
+															<label for="dl-{{loop.index}}">
+																<input type="radio" name="dl" value="{{option}}" id="dl-{{loop.index}}" onchange="showQuestion(this)">
+																<span>{{option}}</span>
+															</label>
+														{% endfor %}
 													</div>
 												</div>
-											{% endfor %}
-										{% endif %}
+												<div class="que-group hidden">
+													<label class="que">Which type of Driving License you have?</label>
+													<div class="que-options">
+														{% for option in ["Learner’s licence","Permanent licence","Commercial Driving licence","International Driving Permit"] %}
+															<label for="dl-type-{{loop.index}}">
+																<input type="radio" name="dl-type" value="{{option}}" id="dl-type-{{loop.index}}" onchange="showQuestion(this)">
+																<span>{{option}}</span>
+															</label>
+														{% endfor %}
+													</div>
+												</div>
+												{# Insurance List #}
+											</div>
+										</div>
 									</div>
-									<div class="page" page="2" style="display:none;">
+									<div class="page" page="2" style='display:none'>
+										{% for vehichle in vehichles %}
+											<div class="gadi">
+												<label for="{{vehichle.basename}}" class="title">
+													{{vehichle.heading}}
+													<i class="fa fa-plus"></i>
+												</label>
+												<input type="checkbox" name="{{vehichle.basename}}" id="{{vehichle.basename}}">
+												<div class="questions">
+													<div class="que-group">
+														<label class="que">Do you have
+															{{vehichle.heading}}?</label>
+														<div class="que-options">
+															{% for option in ["Yes","No"] %}
+																<label for="{{vehichle.basename}}-{{loop.index}}">
+																	<input type="radio" name="{{vehichle.basename}}" value="{{option}}" id="{{vehichle.basename}}-{{loop.index}}" onchange="showQuestion(this)">
+																	<span>{{option}}</span>
+																</label>
+															{% endfor %}
+														</div>
+													</div>
+													<div class="que-group hidden">
+														<label class="que">How many
+															{{vehichle.heading}}
+															do you have?</label>
+														<div class="que-options">
+															{% for option in [1,2,3,4,5,"More than 5"] %}
+																<label for="{{vehichle.basename}}-cnt-{{loop.index}}">
+																	<input type="radio" name="{{vehichle.basename}}-cnt" value="{{option}}" id="{{vehichle.basename}}-cnt-{{loop.index}}" onchange="showQgrid(this)">
+																	<span>{{option}}</span>
+																</label>
+															{% endfor %}
+														</div>
+													</div>
+												</div>
+												<div class="qgrid hidden">
+													<label for="">Please select brand, model and year of purchase of your
+														{{vehichle.heading}}</label>
+													<div class="qgridoptions hidden"></div>
+												</div>
+											</div>
+										{% endfor %}
+									</div>
+									<div class="page" page="3" style="display:none;">
 										<div class="gadi">
 											<div class="questions">
 												<div class="que-group">
@@ -140,17 +163,27 @@
 														{% endfor %}
 													</div>
 												</div>
-												{# Insurance List #}
+												<div class="que-group hidden">
+													<label class="que">Who is your insurance provider</label>
+													<div class="que-options">
+														<select name="insurance-org" id="insurance-org" class="form-control">
+															{% for cname in insurers %}
+																<option value="{{cname}}">{{cname}}</option>
+															{% endfor %}
+														</select>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="mb-3 progress">
+									<span class="mb-3"></span>
+									<div class="mb-3 progress" style='margin-top:40px'>
 										<div class="progress-bar bg-primary" role="progressbar" data-survey-progress="20"></div>
 									</div>
-									<div class="text-right">
-										<button type="button" data-submit class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.submit()">Submit</button>
-										<button type="button" data-next class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.next()">Next</button>
+									<div class="text-right" style='display:flex;gap:20px; justify-content:end'>
 										<button type="button" data-prev class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.previous()">Previous</button>
+										<button type="button" data-next class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.next()">Next</button>
+										<button type="button" data-submit class="mt-1 btn btn-primary fr" style='display:none' onclick="progress.submit()">Submit</button>
 									</div>
 									<div class="btn-actions-pane-right text-capitalize actions-icon-btn">
 										<span data-pageno>1</span>
@@ -165,8 +198,14 @@
 			</div>
 		</div>
 		<div class="app-drawer-overlay d-none animated fadeIn"></div>
+		<div class="forced-popup" style='display:none'>
+			<div class="popup-body"></div>
+		</div>
 		<script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
 		<script src="/assets/scripts/script.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	</body>
-</html>
-<script src="/js/automobile.js"></script>
+	<script src="/js/automobile.js"></script>
+	<script>// $("select[name=insurance-org]").select2({allowClear: true});</script>
+		</html>

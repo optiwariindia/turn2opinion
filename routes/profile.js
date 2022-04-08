@@ -64,12 +64,15 @@ router.route("/")
 router.get("/automobile",async (req,res)=>{
      vehichles=fs.readFileSync("databank/automobile.json").toString();
      vehichles=JSON.parse(vehichles);
+     insurers=fs.readFileSync("databank/autoInsurance.json").toString();
+    insurers=JSON.parse(insurers);
      let info = {
         user: req.user, profile: "automobile", page: {
             title:"Automobile profile",
             icon:"automotive-profile.png"
         },
-        vehichles
+        vehichles,
+        insurers
     };
     res.render("autoprofile.twig", info);
 })
@@ -96,9 +99,10 @@ router.route("/:profilename")
         try {
             profile=await Profiles.findOne({uri:req.params.profilename},{name:1});
             user = await User.findById(req.user._id)
-            user = await user.updateOne(req.body);
+            await user.updateOne(req.body);
+            user = await User.findById(req.user._id)
             req.session.user = user;
-            res.json({ status: "success", message: `<h2>Thank you for Completing you ${profile.name}</h2> <p>You have earned 85 Pts. To earn more please complete your renaming profiles to reach your threshold points to claim your rewards.</p>` });
+            res.json({ status: "success", message: `<h2>Thank you for Completing you ${profile.name} Profile</h2> <p>You have earned 85 Pts. To earn more please complete your renaming profiles to reach your threshold points to claim your rewards.</p>` });
         }
         catch (err) {
             res.json({ status: "error", message: err.message });

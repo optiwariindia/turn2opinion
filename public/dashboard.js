@@ -49,6 +49,93 @@ const claim = {
     return false;
   }
 }
+
+
+const api = {
+  endpoint: "/api/v1/",
+  get: async function (url) {
+      try {
+          let response = await fetch(api.endpoint + url);
+          let data = await response.json();
+          return data;
+
+      } catch (error) {
+          return { status: "error", error: error };
+      }
+  },
+  post: async function (url, data) {
+      try {
+          let response = await fetch(api.endpoint + url, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(data)
+          });
+          let data = await response.json();
+          return data;
+
+      } catch (error) {
+          return { status: "error", error: error };
+      }
+  },
+  put: async function (url, data) {
+      try {
+          let response = await fetch(api.endpoint + url, {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(data)
+          });
+          let data = await response.json();
+          return data;
+
+      } catch (error) {
+          return { status: "error", error: error };
+      }
+  },
+  patch: async function (url, data) {
+      try {
+          let response = await fetch(api.endpoint + url, {
+              method: "PATCH",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(data)
+          });
+          let data = await response.json();
+          return data;
+
+      } catch (error) {
+          return { status: "error", error: error };
+      }
+  },
+  delete: async function (url, data) {
+      try {
+          let response = await fetch(api.endpoint + url, {
+              method: "DELETE",
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify(data)
+          });
+          let data = await response.json();
+          return data;
+
+      } catch (error) {
+          return { status: "error", error: error };
+      }
+  }
+}
+
+async function read(){
+info = await api.get("userinfo");
+console.log(info);
+}
+read();
+
+
 (()=>{
   tablinks=document.querySelectorAll("label.nav-link");
   tablinks.forEach(t=>{
