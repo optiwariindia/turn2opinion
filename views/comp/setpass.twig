@@ -13,7 +13,8 @@
 	}
 </style>
 <div class="login-wrap">
-	<div class="login-html">
+	<div class="login-html" style='display:block'>
+		<a class="fa fa-times" onclick='form.hide()'></a>
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
 		<label for="tab-1" class="tab">Set up your password</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
@@ -25,10 +26,10 @@
 					<input id="pass" name="pass" type="password" class="input">
 					<a href="javascript:void(0)" onclick="showPassword(this)" style="">
 						<i class="fa fa-eye" style="
-							    position: absolute;
-							    top: 40px;
-							    right: 15px;
-							"></i>
+														    position: absolute;
+														    top: 40px;
+														    right: 15px;
+														"></i>
 					</a>
 					<span id="StrengthDisp" class="badge displayBadge" style="margin:8px 80px"></span>
 					<span class="strength"></span>
@@ -51,12 +52,12 @@
 					<label for="ans" class="label">Your security answer</label>
 					<input id="ans" name="ans" type="password" class="input">
 					<a href="javascript:void(0)" onclick="showPassword(this)" style="">
-					<i class="fa fa-eye" style="
-							position: absolute;
-							top: 40px;
-							right: 15px;
-						"></i>
-				</a>
+						<i class="fa fa-eye" style="
+														position: absolute;
+														top: 40px;
+														right: 15px;
+													"></i>
+					</a>
 				</div>
 				<div class="group" style="margin:30px;">
 					<input type="hidden" name="id" value="{{id}}">

@@ -13,7 +13,8 @@
 	}
 </style>
 <div class="login-wrap">
-	<div class="login-html">
+	<div class="login-html" style='display:block'>
+		<a class="fa fa-times" onclick='form.hide()'></a>
 		<input id="tab-1" type="radio" name="tab" class="sign-in" checked>
 		<label for="tab-1" class="tab">Forgot Password ?</label>
 		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab"></label>
@@ -39,41 +40,4 @@
 		</div>
 	</div>
 </div>
-<script>
 
-	let timeout;
-let password = document.querySelector('[name=pass]');
-let strengthBadge = document.getElementById('StrengthDisp');
-let strength = document.querySelector(".strength");
-let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
-let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
-function StrengthChecker(PasswordParameter) {
-if (strongPassword.test(PasswordParameter)) {
-strengthBadge.style.backgroundColor = "green";
-// strength.style.color = "green";
-strength.textContent = 'Strong';
-} else if (mediumPassword.test(PasswordParameter)) {
-strengthBadge.style.backgroundColor = 'yellow';
-// strength.style.color = 'yellow';
-strength.textContent = 'Average';
-} else {
-strengthBadge.style.backgroundColor = 'red';
-// strength.style.color = 'red';
-strength.textContent = 'Weak';
-if (PasswordParameter.length > 0) {
-password.style.borderColor = '';
-}
-}
-}
-
-password.addEventListener("input", () => {
-strengthBadge.style.display = 'block';
-clearTimeout(timeout);
-timeout = setTimeout(() => StrengthChecker(password.value), 500);
-if (password.value.length !== 0) {
-strengthBadge.style.display != 'block';
-} else {
-strengthBadge.style.display = 'none';
-}
-});
-</script>
