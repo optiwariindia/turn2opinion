@@ -1,8 +1,3 @@
-/*!* Fancytree "Win8" skin.
-var(--theme-primary)
-*
-* DON'T EDIT THE CSS FILE DIRECTLY, since it is automatically generated from
-* the LESS templates.*/
 .fancytree-helper-hidden {
     display: none
 }
@@ -42426,7 +42421,7 @@ img.pageicon {
 }
 
 .widget-numbers {
-    font-size: 1rem !important;
+    font-size: 1.5rem !important;
 }
 
 .forced-popup {
@@ -42547,10 +42542,19 @@ img.pageicon {
     font-style: italic;
 }
 
-
+.forced-popup .body{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+.forced-popup .body span{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 .forced-popup .popup-body .body img.smilee {
-    float: left;
-    width: 60px;
+    width:35px;
+    height:35px;
     margin-right: 20px;
 }
 
@@ -42670,4 +42674,9 @@ td .badge .fa{
 .sidebar-icons{
     position:absolute;
     left:0;
+}
+.status100 {color: green;}
+.widget-numbers-large{
+    color:var(--theme-primary);
+    font-weight:600;
 }

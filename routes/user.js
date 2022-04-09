@@ -293,6 +293,10 @@ router.get("/dashboard",
     (req, res) => {
         let filters = [];
         user.survey = req.user.availableSurveys;
+        // res.json({ page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion });
+        // return;
+        // res.json({message:"New Survey: "+ req.user.availableSurveys[0].surveyPoints});
+        req.user.rating=1.75;
         res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion });
     })
 router.use(fileUpload())
