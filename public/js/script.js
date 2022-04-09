@@ -18,10 +18,11 @@ $("form").submit(function (e) {
         flds['timezone'] = "UTC + " + new Date().getTimezoneOffset() / (-60);
         flds['cntry'] = iti.getSelectedCountryData();
         flds['phone'] = iti.getNumber();
-        e.target.innerHTML = `Thanks for signing up, Your information is under review and shall be communicated over email once approved. Make sure your email ${flds.email} is active for activation link. <br> You can alternatively try signing up again after some time by clicking <a href="/">this link</a>`;
         if ("g-recaptcha-response" in flds) {
             if (flds['g-recaptcha-response'] === "") { popup.info("Please verify you are not a robot"); return false; }
             else {
+        e.target.innerHTML = `Thanks for signing up, Your information is under review and shall be communicated over email once approved. Make sure your email ${flds.email} is active for activation link. <br> You can alternatively try signing up again after some time by clicking <a href="/">this link</a>`;
+        
                 fetch("/user/new", {
                     method: "POST",
                     headers: {
@@ -62,14 +63,14 @@ $("form").submit(function (e) {
         }).then(res => res.json()).then(resp => {
             if (resp.status === "ok") {
                 if(location.pathname.startsWith("/user/verify")){
-                    popup.show(`<h2>Password Set Successfully</h2><br><p> Your password has been set. Please <a href='/'>Click here to Sign In</a> to your account.</p>`,"/");
+                    popup.show(`<h2>Password Set Successfully</h2><p> Your password has been set. Please <a href='/'>Click here to Sign In</a> to your account.</p>`,"/");
                 }else{
                     
-                    popup.show(`<h2>Password Changed Successfully</h2><br><p> Your password has been successfully changed. Please <a href='/'>Sign In</a> to your account.</p>`,"/");
+                    popup.show(`<h2>Password Changed Successfully</h2><p> Your password has been successfully changed. Please <a href='/'>Sign In</a> to your account.</p>`,"/");
                 }
             } else {
                 // document.querySelector("[data=autherror]").innerText = resp.message;
-                popup.show(`<h2>Password Change Failed</h2><br><p>${resp.message}</p>`);
+                popup.show(`<h2>Password Change Failed</h2><p>${resp.message}</p>`);
                 setTimeout(() => {
                     popup.close();
                     document.querySelector("[data=autherror]").innerText = "";
@@ -90,9 +91,14 @@ $("form").submit(function (e) {
                 if (res.status === "ok") {
                     secque = document.querySelector("[data=securityque]");
                     secque.innerText = res.question;
-                    console.log(secque);
                     secque.parentElement.style.display = "block";
                     e.target.querySelector("[type=submit]").value = "Reset Password";
+                }
+                else{
+                    popup.show(`<h2>${email} is not registered</h2> <p>Your email ${email} is not registered. Click on <a href='/?frm=sign-up'>sign up</a> to register with us or try other email alternatively.</p> `);
+                    setTimeout(() => {
+                        popup.hide();
+                    }, 5000);
                 }
             });
         } else {
@@ -191,7 +197,7 @@ popup = {
         popup.show(`<h2>${e}</h2>`);
         setTimeout(() => {
            popup.close();
-        },60000);
+        },3000);
     }
 }
 showPassword = function (e) {

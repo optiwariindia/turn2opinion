@@ -11,7 +11,7 @@ body {
     font-weight: 400;
     font-size: 16px;
     line-height: 1.7;
-    color: #828282;
+    /* color: #828282; */
     background: #fff;
 }
 
@@ -62,7 +62,7 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6, figure {
-    color: #000;
+    color: var(--theme-primary);
     font-weight: 600;
     margin: 0 0 20px 0;
     font-size: 25px;
@@ -556,7 +556,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .fh5co-bg-section {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--theme-dark);
 }
 
 #fh5co-explore,
@@ -609,7 +609,7 @@ h1, h2, h3, h4, h5, h6, figure {
 .fh5co-counters .fh5co-counter {
     font-size: 44px;
     display: block;
-    color: rgba(0, 0, 0, 0.7);
+    color: var(--theme-primary);
     font-family: "Work Sans", Arial, sans-serif;
     width: 100%;
     font-weight: 400;
@@ -617,7 +617,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .fh5co-counters .fh5co-counter-label {
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--theme-dark);
     text-transform: uppercase;
     font-size: 14px;
     letter-spacing: 5px;
@@ -881,7 +881,7 @@ h1, h2, h3, h4, h5, h6, figure {
     font-size: 32px;
     margin-bottom: 20px;
     line-height: 1.5;
-    color: #000;
+    color: var(--theme-primary);
 }
 
 .fh5co-heading p {
@@ -1478,7 +1478,7 @@ h1, h2, h3, h4, h5, h6, figure {
     width: 50px;
     height: 50px;
     display: table;
-    background: rgba(0, 0, 0, 0.5);
+    background: var(--theme-primary);
     color: #fff;
     text-align: center;
     -webkit-border-radius: 4px;
@@ -1833,7 +1833,7 @@ body {
     font-size: 18px;
     line-height: 1.5;
     text-align: justify;
-    color: #828282;
+    /* color: #828282; */
     font-weight: 100;
 }
 
@@ -2171,6 +2171,7 @@ input::placeholder {
     padding: 20px;
     text-align: justify;
     margin: 0px 60px;
+    z-index:99999;
 }
 
 .cookie-popup p {
@@ -2356,7 +2357,7 @@ footer .contact ul.fh5co-footer-links li {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 9999;
+    z-index: 99999;
 }
 
 .forced-popup .popup-body, .forced-popup .popup-body-small {
@@ -2501,6 +2502,7 @@ footer .contact ul.fh5co-footer-links li {
     background: #474747;
     color: #ccc;
     padding: 30px 10px;
+    font-size:14px;
 }
 
 .loader {
@@ -2545,14 +2547,22 @@ footer .contact ul.fh5co-footer-links li {
 .extrasegment-container {
     display:grid;
     grid-template-columns: 1fr 575px;
-    font-size:26px;
+    font-size:20px;
     justify-content:space-around;
     align-items:center;
 }
-
+.em{
+    font-weight:600;
+}
+.cen{
+    text-align:center;
+}
+.big{
+    font-size:20px;
+}
 @media only screen and (max-width: 1400px) {
     .extrasegment-container {
-        font-size:18px;
+        font-size:15px;
     }
 }
 @media only screen and (max-width: 1200px) {

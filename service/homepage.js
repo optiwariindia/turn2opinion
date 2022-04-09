@@ -10,7 +10,7 @@ const homepage=(req, res) => {
             "You will receive a verification link to verify your email and contact number with OTP.",
             "After verify you will be able to access the available surveys.",
             "To earn more rewards and to have access maximum surveys per week you need to complete all your Profiles Particulars.",
-            "As soon as you complete your profiles you would be able to achieve your threshhold amount to claim.",
+            "As soon as you complete your profiles you would be able to achieve your threshold amount to claim.",
             "Once you achieve your threshold you will be able to claim your rewards money via Paypal, Gift-vouchers , or it can be directly transfers to your account as per request and availability."];
     passport = req.session.passport || null;
     if (passport != null) {
@@ -38,7 +38,7 @@ const homepage=(req, res) => {
     slider = [{
         h1: "We value your feedback",
         h2: "your opinion gets rewarded",
-        p: "Our service will give you more opportunities to enhance your knowledge and experience. Our community gives a high value monitory rewards on sharing your thoghts knowldege and experiences."
+        p: "Our service will give you more opportunities to enhance your knowledge and experience. Our community gives a high value monitory rewards on sharing your thought, knowledge and experiences."
     }, {
         h1: "Let's make your opinion reach the world",
         h2: "Earn more & more money with us",
@@ -71,7 +71,7 @@ const homepage=(req, res) => {
         },
     ]
     let info={ captchakey, project, slider, counters, testimonials, user, journey,steps, ...req.extrainfo||{}}
-// console.log(req.extrainfo);
+console.log(req.extrainfo);
     
     res.render("index", info);
 }

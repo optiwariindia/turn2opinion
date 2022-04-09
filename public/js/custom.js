@@ -4,7 +4,12 @@ const expand = function (e) {
 }
 const form = {
     show: function (e) {
+        
         elmt = document.querySelector(".login-html");
+        if(elmt == null){
+            location.href = "/?frm=" + e;
+            return;
+        }
         if (getComputedStyle(elmt)['display'] == "none")
             elmt.style.display = "block";
         elm = document.querySelector(`.${e}`);
@@ -14,7 +19,7 @@ const form = {
                 $("[name=lng]").val(position.coords.longitude);
             });
         }
-        if (elm == null) {
+        if ((elm == null)||location.pathname != "/"){
             location.href = "/?frm=" + e;
             return false;
         }

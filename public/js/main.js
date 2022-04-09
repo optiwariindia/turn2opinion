@@ -238,8 +238,9 @@
 			margin: 0,
 			nav: false,
 			dots: true,
-			smartSpeed: 800,
-			autoHeight: true
+			smartSpeed: 1000,
+			// autoHeight: true,
+			autoplay:true
 		});
 		
 	};

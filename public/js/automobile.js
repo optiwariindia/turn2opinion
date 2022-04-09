@@ -1,5 +1,10 @@
 Array.prototype.generate=function(from,to){
     temp=[];
+    if(from>to){
+        for(let i=from;i>=to;i--)
+        temp.push(i);
+        return temp;
+    }
     for(let i=from;i<=to;i++)
         temp.push(i);
     return temp;
@@ -83,9 +88,11 @@ const api = {
 }
 
 function showQuestion(e) {
-    e.closest(".que-group").nextElementSibling.classList.add("hidden");
+    nextq=e.closest(".que-group").nextElementSibling;
+    if(nextq.classList.contains("not-hide"))return ;
+    nextq.classList.add("hidden");
     if (e.value == "Yes") {
-        e.closest(".que-group").nextElementSibling.classList.remove("hidden");
+        nextq.classList.remove("hidden");
     }
 }
 async function showQgrid(e) {
@@ -121,7 +128,7 @@ async function showQgrid(e) {
     if(choice.gadi != "bicycle"){
         num=[];
         dt=new Date();
-        num=num.generate(1990,dt.getFullYear());
+        num=num.generate(dt.getFullYear(),1990);
         console.log(num);
         seq="year";
         options = await Array.from(new Set(num.map(e => `<option value="${e}">${e}</option>`))).join("");
@@ -199,8 +206,8 @@ const progress = {
         let fields = page.querySelectorAll("[name]:invalid");
         if (fields.length !== 0) {
             fields[0].focus();
-            elm = fields[0].closest(".form-group").querySelector("label");
-            alert(`${elm.innerText} Seems to be invalid. Please check`);
+            elm = fields[0].closest(".gadi").querySelector("label");
+            alert(`${elm.innerText} section seems to be incomplete. Please click the plus sign to complete.`);
             console.log({ invalid: fields[0].name });
             return false;
         }
@@ -272,7 +279,8 @@ const progress = {
     },
     submit: async function () {
         let inputs = {};
-        await document.querySelectorAll("[name]").forEach(e => {
+        let inpform=document.querySelector(".gadi-form")
+        await inpform.querySelectorAll("[name]").forEach(e => {
             switch (e.type) {
                 case "radio":
                     if (!e.checked) break;
@@ -292,9 +300,9 @@ const progress = {
         switch (data.status) {
             case "success":
                 popup.show(`<h2>Thank you</h2> <p>${data.message}</p>`);
-                setTimeout(() => {
-                    location.href = "/user/dashboard"
-                }, 30000);
+                // setTimeout(() => {
+                //     location.href = "/user/dashboard"
+                // }, 30000);
                 break;
             case "error":
                 popup.autohide(`<h2>Error</h2><p>${data.message}</p>`, 5000);

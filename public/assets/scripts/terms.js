@@ -10,10 +10,14 @@
           if(frm.querySelectorAll("[type=checkbox]:checked").length>4 && frm.querySelectorAll("[type=checkbox][required]:not(:checked)").length == 0){
               submitButton.classList.remove("btn-secondary");
               submitButton.classList.add("btn-primary");
+              submitButton.classList.remove("disabled");
+              submitButton.setAttribute("title","Click to Accept Terms and Conditions");
               submitButton.type="submit";
           }else{
             submitButton.classList.add("btn-secondary");
             submitButton.classList.remove("btn-primary");
+            submitButton.classList.add("disabled");
+            submitButton.setAttribute("title","Select at least 5 terms and conditions to continue");
             submitButton.type="button";
           }
         })
@@ -28,11 +32,15 @@ function checkall(e){
             checkboxInput.checked=true;
         if(e.checked){
             submitButton.classList.remove("btn-secondary");
+            submitButton.classList.remove("disabled");
             submitButton.classList.add("btn-primary");
+            submitButton.setAttribute("title","Click to Accept Terms and Conditions");
             submitButton.type="submit";
         }else{
             submitButton.classList.add("btn-secondary");
             submitButton.classList.remove("btn-primary");
+            submitButton.classList.add("disabled");
+            submitButton.setAttribute("title","Select at least 5 terms and conditions to continue");
             submitButton.type="button";
         }
     })

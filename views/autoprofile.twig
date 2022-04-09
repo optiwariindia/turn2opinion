@@ -65,7 +65,7 @@
 								<strong>{{page.title}}</strong>
 							</div>
 							<div class="card-body">
-								<form method="post">
+								<form method="post" class='gadi-form'>
 									<div class="page" page="1" style="display:none;">
 										<div class="gadi">
 											<div class="questions">
@@ -102,7 +102,7 @@
 													{{vehichle.heading}}
 													<i class="fa fa-plus"></i>
 												</label>
-												<input type="checkbox" name="{{vehichle.basename}}" id="{{vehichle.basename}}">
+												<input type="checkbox" name='v-type' value='{{vehichle.basename}}' id="{{vehichle.basename}}" required>
 												<div class="questions">
 													<div class="que-group">
 														<label class="que">Do you have
@@ -141,7 +141,7 @@
 									<div class="page" page="3" style="display:none;">
 										<div class="gadi">
 											<div class="questions">
-												<div class="que-group">
+												<div class="que-group" style='margin:12px 0px'>
 													<label class="que">Are you primary decision maker in your household for automotive related purchases?</label>
 													<div class="que-options">
 														{% for option in ["Yes","I contribute equally in automotive decisions","No","Prefer not to say"] %}
@@ -152,7 +152,7 @@
 														{% endfor %}
 													</div>
 												</div>
-												<div class="que-group">
+												<div class="que-group  not-hide"  style='margin:12px 0px'>
 													<label class="que">If your vehichles are insured</label>
 													<div class="que-options">
 														{% for option in ["Yes","No"] %}
@@ -163,10 +163,11 @@
 														{% endfor %}
 													</div>
 												</div>
-												<div class="que-group hidden">
+												<div class="que-group hidden"  style='margin:12px 0px'>
 													<label class="que">Who is your insurance provider</label>
 													<div class="que-options">
-														<select name="insurance-org" id="insurance-org" class="form-control">
+														<select required name="insurance-org" id="insurance-org" class="form-control">
+														<option value="" disabled selected>Select</option>
 															{% for cname in insurers %}
 																<option value="{{cname}}">{{cname}}</option>
 															{% endfor %}

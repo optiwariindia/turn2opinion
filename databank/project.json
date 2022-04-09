@@ -3,7 +3,7 @@
     "footer":{
         "links":[
             {"name":"Privacy Policy","target":"/page/privacy"},
-            {"name":"GDPR Compilance","target":"/page/gdpr"},
+            {"name":"GDPR Compliance","target":"/page/gdpr"},
             {"name":"Cookie Policy","target":"/page/cookies"},
             {"name":"FAQ","target":"/faq"}
     ]},

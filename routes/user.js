@@ -148,7 +148,7 @@ router.route("/forgot")
     .post((req, res) => {
         User.findOne({ email: req.body.email }).then(user => {
             if (user.security.answer == req.body.security) {
-                twig.renderFile("mailers/template.twig", { fn: user.fn, message: "forgotPassword", reset_link: process.env.site + "/user/pwreset/" + user._id }, (e, h) => {
+                twig.renderFile("mailers/template.twig", { fn: user.fn, message: "forgotPassword", reset_link: process.env.site + "/user/resetpass/" + user._id }, (e, h) => {
                     email.sendEmail(user.email, "Turn2Opinion: Reset Password", h, h);
                     res.json({ "status": "ok", "user": user });
                 });
@@ -158,11 +158,32 @@ router.route("/forgot")
         });
         // res.json({"status":"error","message":"Not implemented yet"});
     })
-router.post("/securityquestion", (req, res) => {
-    User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => {
-        // console.log(user);
-    });
-    res.json({ "status": "ok", "question": "In what city were you born?" });
+router.post("/securityquestion", async (req, res) => {
+    if(!("email" in req.body))res.json({status:"error",message:"Email is required"});
+    try{
+        let user = await User.findOne({ email: req.body.email });
+    if("answer" in req.body){
+        if (user.security.answer == req.body.answer) {
+            res.json({ "status": "success", "user": user });
+        } else {
+            res.json({ "status": "error", "message": "Security answer is incorrect" });
+        }
+    }else{
+        res.json({ "status": "ok", "question": user.security.question });
+    }
+    }
+    catch(e){
+        res.json({ "status": "error", "message": "Email is not registered with us" });
+    }
+    // User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => {
+    //     console.log(user);
+    //     res.json({ "status": "ok", "question": "In what city were you born?" });
+    // })
+    // .catch(e=>{
+    //     console.log("user nahi mila");
+    //     res.json({ "status": "error", "message": "User not found" });
+    // })
+    // ;
 })
 router.post("/new", async (req, res) => {
     cntry = await ProfileOptions.findOne({iso2_code:req.body.cn});
@@ -217,9 +238,11 @@ router.get("/verify/:id",(req, res,next) => {
 },
 homepage);
 router.route("/resetpass/:id")
-    .get((req, res) => {
-        res.render("index.twig", { form: "resetpass", id: req.params.id });
-    })
+    .get((req, res,next) => {
+        req.extrainfo={ form: "resetpass", id: req.params.id };
+        // console.log("calling home page");
+        next();
+    },homepage)
     .post((req, res) => {
 
         console.log(req.params.id);
