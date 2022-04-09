@@ -2127,7 +2127,7 @@ input::placeholder {
     text-align: center;
     padding-top: 50px;
     background: rgba(0, 0, 0, 0.7);
-    z-index: 9999;
+    z-index: 999999;
 }
 
 .forced-popup .popup-body {
@@ -2139,6 +2139,7 @@ input::placeholder {
     font-size: 20px;
     line-height: 30px;
     border-radius: 10px;
+    max-width:100%;
     box-shadow: 0 0 30px #fff;
 }
 
@@ -2357,7 +2358,7 @@ footer .contact ul.fh5co-footer-links li {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
-    z-index: 99999;
+    z-index: 9999999;
 }
 
 .forced-popup .popup-body, .forced-popup .popup-body-small {
