@@ -21,8 +21,10 @@ $("form").submit(function (e) {
         if ("g-recaptcha-response" in flds) {
             if (flds['g-recaptcha-response'] === "") { popup.info("Please verify you are not a robot"); return false; }
             else {
-        e.target.innerHTML = `Thanks for signing up, Your information is under review and shall be communicated over email once approved. Make sure your email ${flds.email} is active for activation link. <br> You can alternatively try signing up again after some time by clicking <a href="/">this link</a>`;
-        
+                e.target.innerHTML = `<div style='display:flex;flex-direction:column;align-item:center;justify-content: center;align-items: center;'><img src='/images/loader.gif'> <br> <p style='color:#fff'>Please Wait. We are processing your information.</p></div>`;
+                p1=setTimeout(() => {
+                    popup.show("<h2><i class='fa fa-exclamation-triangle'></i> Session Time out</h2><p>Your session has expired due to inactivity.Please try again after sometime</p><a href='/' class='btn btn-primary fr'>Ok</a>");
+                }, 120000);
                 fetch("/user/new", {
                     method: "POST",
                     headers: {
@@ -31,12 +33,14 @@ $("form").submit(function (e) {
                     body: JSON.stringify(flds)
                 }).then(res => res.json()).then(res => {
                     if (res.status === "ok") {
-                        e.target.innerHTML="";
-                        popup.show(`<h2>Thanks for Signing Up!</h2><p>Dear ${res.user.fn}, Your sign up request has been successfully submitted. Please open your email (${res.user.email}) and click the "verify" Link to setup your password and become our community member and start earning by your opinions.</p>`,"/");
+                        e.target.innerHTML = "";
+                        clearTimeout(p1);
+                        popup.show(`<h2>Thanks for Signing Up!</h2><p>Dear ${res.user.fn}, Your sign up request has been successfully submitted. Please open your email (${res.user.email}) and click the "verify" Link to setup your password and become our community member and start earning by your opinions.</p>`, "/");
                     }
                 }).catch(err => {
                     console.log(err);
-                    e.target.innerHTML = `<div id="fh5co-logo"><a href="index.html">Turn<span>2</span>Opinion</a></div><h2>Declined</h2><br><p>Your request to register is decliend due to some system error. Please try after some time and try again. </p>`
+                    clearTimeout(p1)
+                    popup.show(`<h2><i class='fa fa-exclamation-triangle'></i> Declined</h2><p>Your request to register is decliend due to some system error. Please try again after some time.</p>`);
                 });
             }
         }
@@ -62,11 +66,11 @@ $("form").submit(function (e) {
             body: JSON.stringify(flds)
         }).then(res => res.json()).then(resp => {
             if (resp.status === "ok") {
-                if(location.pathname.startsWith("/user/verify")){
-                    popup.show(`<h2>Password Set Successfully</h2><p> Your password has been set. Please <a href='/'>Click here to Sign In</a> to your account.</p>`,"/");
-                }else{
-                    
-                    popup.show(`<h2>Password Changed Successfully</h2><p> Your password has been successfully changed. Please <a href='/'>Sign In</a> to your account.</p>`,"/");
+                if (location.pathname.startsWith("/user/verify")) {
+                    popup.show(`<h2>Password Set Successfully</h2><p> Your password has been set. Please <a href='/'>Click here to Sign In</a> to your account.</p>`, "/");
+                } else {
+
+                    popup.show(`<h2>Password Changed Successfully</h2><p> Your password has been successfully changed. Please <a href='/'>Sign In</a> to your account.</p>`, "/");
                 }
             } else {
                 // document.querySelector("[data=autherror]").innerText = resp.message;
@@ -94,7 +98,7 @@ $("form").submit(function (e) {
                     secque.parentElement.style.display = "block";
                     e.target.querySelector("[type=submit]").value = "Reset Password";
                 }
-                else{
+                else {
                     popup.show(`<h2>${email} is not registered</h2> <p>Your email ${email} is not registered. Click on <a href='/?frm=sign-up'>sign up</a> to register with us or try other email alternatively.</p> `);
                     setTimeout(() => {
                         popup.hide();
@@ -121,37 +125,37 @@ $("form").submit(function (e) {
         // Authentication
         let flds = {};
         e.target.querySelectorAll("[name]").forEach(inp => {
-          switch (inp.type) {
-            case "checkbox":
-              flds[inp.name] = inp.checked;
-              break;
-            default:
-            flds[inp.name] = inp.value;
-          }
+            switch (inp.type) {
+                case "checkbox":
+                    flds[inp.name] = inp.checked;
+                    break;
+                default:
+                    flds[inp.name] = inp.value;
+            }
 
         })
-        if(("g-recaptcha-response" in flds) && (flds['g-recaptcha-response'] !== "")){
-        fetch(e.target.getAttribute("action"), {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(flds)
-        }).then(res => res.json()).then(resp => {
-            if (resp.status === "ok") {
-              let info={user:resp.user.email,pass:resp.user.password,name:resp.user.name};
-                if(flds.staysignedin)localDB.store("auth",btoa(JSON.stringify(info)));
-                location.href = "/user/dashboard";
-            } else {
-                popup.show(`<h2>Authentication Failed</h2><br><p>${resp.message}</p>`);
-                setTimeout(() => {
-                    popup.close();
-                }, 5000);
-            }
-        }).catch(err => { console.log(err) })
-    }else{
-        popup.info("Please verify you are not a robot");
-    }
+        if (("g-recaptcha-response" in flds) && (flds['g-recaptcha-response'] !== "")) {
+            fetch(e.target.getAttribute("action"), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(flds)
+            }).then(res => res.json()).then(resp => {
+                if (resp.status === "ok") {
+                    let info = { user: resp.user.email, pass: resp.user.password, name: resp.user.name };
+                    if (flds.staysignedin) localDB.store("auth", btoa(JSON.stringify(info)));
+                    location.href = "/user/dashboard";
+                } else {
+                    popup.show(`<h2>Authentication Failed</h2><br><p>${resp.message}</p>`);
+                    setTimeout(() => {
+                        popup.close();
+                    }, 5000);
+                }
+            }).catch(err => { console.log(err) })
+        } else {
+            popup.info("Please verify you are not a robot");
+        }
     }
 });
 
@@ -193,11 +197,11 @@ popup = {
         popupElement.classList.add("forced-popup");
         document.body.appendChild(popupElement);
     },
-    info:function(e){
+    info: function (e) {
         popup.show(`<h2>${e}</h2>`);
         setTimeout(() => {
-           popup.close();
-        },3000);
+            popup.close();
+        }, 3000);
     }
 }
 showPassword = function (e) {
