@@ -20,6 +20,7 @@ router.get("/userinfo", (req, res) => {
 })
 router.get("/earnings", async (req, res) => {
   redeem = await Redeem.aggregate([
+    {$match:{respondent:req.session.user._id}},
     { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },
     { $group: { _id: { year: "$year", month: "$month", did: "$did" }, total: { $push: "$amount" }, status: { $first: "$status" } } }
   ]);
@@ -34,12 +35,15 @@ router.get("/earnings", async (req, res) => {
   });
   data = {
     month: [],
-    amount: []
+    amount: [],
+    total:0
   }
   for (i = min; i <= max; i++) {
+    if(i==null)continue;
     data.month.push(monthNames[i % 100 - 1] + " " + Math.floor(i / 100));
     data.amount.push($info[`${i}`] || 0);
   }
+  data.total=await data.amount.reduce(e=>e+Number(e.toString().replace(/[^\d.-]/g, '')),0);
   res.json(data);
 })
 router.get("/addData", async (req, res) => {

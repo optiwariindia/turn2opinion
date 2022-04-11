@@ -48,7 +48,7 @@
       earnings: async function () {
         resp = await fetch("/api/v1/earnings");
         data = await resp.json();
-
+        document.querySelector("[data=totalearnings]").innerHTML = data.total;
         let chart = new Chart(
           document.querySelector("#spark-earnings")
           , {
