@@ -12,7 +12,7 @@ const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
 const Attempt = mongoose.model("attempt", require("../modals/attempt"));
-const homepage=require("../service/homepage.js");
+const homepage = require("../service/homepage.js");
 router.use("/social", require("./social"));
 router.get("/logout", (req, res) => {
     req.session.destroy();
@@ -139,12 +139,12 @@ router.route("/changepassword")
 
     });
 router.route("/forgot")
-    .get((req, res,next) => {
-        req.extrainfo={
+    .get((req, res, next) => {
+        req.extrainfo = {
             form: "forgot"
         }
         next();
-    },homepage)
+    }, homepage)
     .post((req, res) => {
         User.findOne({ email: req.body.email }).then(user => {
             if (user.security.answer == req.body.security) {
@@ -159,21 +159,25 @@ router.route("/forgot")
         // res.json({"status":"error","message":"Not implemented yet"});
     })
 router.post("/securityquestion", async (req, res) => {
-    if(!("email" in req.body))res.json({status:"error",message:"Email is required"});
-    try{
+    if (!("email" in req.body)) res.json({ status: "error", message: "Email is required" });
+    try {
         let user = await User.findOne({ email: req.body.email });
-    if("answer" in req.body){
-        if (user.security.answer == req.body.answer) {
-            res.json({ "status": "success", "user": user });
+        console.log(user);
+        if ("answer" in req.body) {
+            if (user.security.answer == req.body.answer) {
+                res.json({ "status": "success", "user": user });
+            } else {
+                res.json({ "status": "error","type":"unregistered", "message": "Security answer is incorrect" });
+            }
         } else {
-            res.json({ "status": "error", "message": "Security answer is incorrect" });
+            if (user.security.question === undefined) {
+                res.json({ "status": "error","type":"nopass", "message": "Please check your mail for verification link and set your password." })
+            } else
+                res.json({ "status": "ok", "question": user.security.question });
         }
-    }else{
-        res.json({ "status": "ok", "question": user.security.question });
     }
-    }
-    catch(e){
-        res.json({ "status": "error", "message": "Email is not registered with us" });
+    catch (e) {
+        res.json({ "status": "error","type":"unregistered", "message": "Email is not registered with us" });
     }
     // User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => {
     //     console.log(user);
@@ -186,7 +190,7 @@ router.post("/securityquestion", async (req, res) => {
     // ;
 })
 router.post("/new", async (req, res) => {
-    cntry = await ProfileOptions.findOne({iso2_code:req.body.cn});
+    cntry = await ProfileOptions.findOne({ iso2_code: req.body.cn });
     new User({
         fn: req.body.fn,
         ln: req.body.ln,
@@ -196,7 +200,7 @@ router.post("/new", async (req, res) => {
         cn: req.body.cn,
         cntry: req.body.cntry,
         timezone: req.body.timezone,
-        country:cntry._id
+        country: cntry._id
     }).save().then(usr => {
         twig.renderFile("mailers/template.twig", { message: "activation", site: process.env.site, fn: usr.fn, id: usr._id }, (e, h) => {
             email.sendEmail(usr.email, "Activate Your Turn2Opinion Account", "", h);
@@ -220,29 +224,29 @@ router.post("/login", (req, res) => {
         res.json({ "status": "error", message: err.message });
     })
 })
-router.get("/verify/:id",(req, res,next) => {
-        User.findById(req.params.id).then(user => {
-        user.verified.email=true;
+router.get("/verify/:id", (req, res, next) => {
+    User.findById(req.params.id).then(user => {
+        user.verified.email = true;
         user.save();
         securityqs = JSON.parse(require("fs").readFileSync("./databank/securityQuestions.json"));
-        req.extrainfo={
-            form:"setpass",
+        req.extrainfo = {
+            form: "setpass",
             id: req.params.id,
-            securityqs:securityqs
+            securityqs: securityqs
         }
         next();
-    }).catch(e=>{
+    }).catch(e => {
         res.redirect("/");
         return;
     });
 },
-homepage);
+    homepage);
 router.route("/resetpass/:id")
-    .get((req, res,next) => {
-        req.extrainfo={ form: "resetpass", id: req.params.id };
+    .get((req, res, next) => {
+        req.extrainfo = { form: "resetpass", id: req.params.id };
         // console.log("calling home page");
         next();
-    },homepage)
+    }, homepage)
     .post((req, res) => {
 
         console.log(req.params.id);
@@ -293,14 +297,14 @@ router.get("/dashboard",
     async (req, res) => {
         let filters = [];
         user.survey = req.user.availableSurveys;
-        req.user.rating=1.75;
+        req.user.rating = 1.75;
         claims = await Redeem.aggregate([
             { $match: { respondent: req.user._id } },
             { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },
             { $group: { _id: { year: "$year", month: "$month", did: "$did" }, total: { $push: "$amount" }, status: { $first: "$status" } } }
-          ]);
-          
-        info={ claims,page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion };
+        ]);
+
+        info = { claims, page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion };
         // res.json(info);
         res.render("dashboard.twig", info);
     })
@@ -384,12 +388,12 @@ async function userDetails(req, res, next) {
     req.user.attempts = Array.from(await Attempt.find({ respondent: req.user._id }));
     const today = new Date();
     req.redeem = Array.from(await Redeem.find({ respondent: req.user._id }).exec());
-    temp=await req.redeem.map(e=>{
-        dt=new Date(e.createdAt);
-        e["reqdate"]=dt.getDate()+"/"+(dt.getMonth()+1)+"/"+dt.getFullYear();
+    temp = await req.redeem.map(e => {
+        dt = new Date(e.createdAt);
+        e["reqdate"] = dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
         return e;
     })
-    req.user.redeem=req.redeem;
+    req.user.redeem = req.redeem;
     req.user.summary = [
         {
             name: "Available Surveys",
@@ -479,8 +483,8 @@ async function userDetails(req, res, next) {
             ]
         }
     ];
-// res.json(req.user);
-next();
+    // res.json(req.user);
+    next();
 }
 
 module.exports = router;

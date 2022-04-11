@@ -22,7 +22,7 @@ $("form").submit(function (e) {
             if (flds['g-recaptcha-response'] === "") { popup.info("Please verify you are not a robot"); return false; }
             else {
                 e.target.innerHTML = `<div style='display:flex;flex-direction:column;align-item:center;justify-content: center;align-items: center;'><img src='/images/loader.gif'> <br> <p style='color:#fff'>Please Wait. We are processing your information.</p></div>`;
-                p1=setTimeout(() => {
+                p1 = setTimeout(() => {
                     popup.show("<h2><i class='fa fa-exclamation-triangle'></i> Session Time out</h2><p>Your session has expired due to inactivity.Please try again after sometime</p><a href='/' class='btn btn-primary fr'>Ok</a>");
                 }, 120000);
                 fetch("/user/new", {
@@ -99,10 +99,16 @@ $("form").submit(function (e) {
                     e.target.querySelector("[type=submit]").value = "Reset Password";
                 }
                 else {
-                    popup.show(`<h2>${email} is not registered</h2> <p>Your email ${email} is not registered. Click on <a href='/?frm=sign-up'>sign up</a> to register with us or try other email alternatively.</p> `);
-                    setTimeout(() => {
-                        popup.hide();
-                    }, 5000);
+                    switch (res.type) {
+                        case "nopass":
+                            popup.show(`<h2>${email} is not verified yet</h2> <p>Your email ${email} is not verified yet, please check your email and click the verification link to setup your password.</p>`);
+                            break;
+                        default:
+                            popup.show(`<h2>${email} is not registered</h2> <p>Your email ${email} is not registered. Click on <a href='/?frm=sign-up'>sign up</a> to register with us or try other email alternatively.</p> `);
+                            setTimeout(() => {
+                                popup.hide();
+                            }, 5000);
+                    }
                 }
             });
         } else {
