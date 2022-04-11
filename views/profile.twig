@@ -1,26 +1,41 @@
 <!doctype html>
 <html lang="en">
 
-    {% include "dbcomp/head.twig" %}
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet" />
+	{% include "dbcomp/head.twig" %}
+	<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet"/>
 
-    <link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet" />
-    <body>
-        <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
-            {% include "dbcomp/header.twig" %}
-            <div class="app-main">
-                {% include "dbcomp/sidebar.twig" %}
-                <div class="app-main__outer">
-                    <div class="app-main__inner">
-                        {% include "dbcomp/userProfile.twig" %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="app-drawer-overlay d-none animated fadeIn"></div>
-        <script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
-        
-    <script src="https://unpkg.com/js-datepicker@5.18.0/dist/datepicker.min.js"></script>
-        <script src="/assets/scripts/script.js"></script>
-    </body>
+	<link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet"/>
+	<body>
+		<div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+			{% include "dbcomp/header.twig" %}
+			<div class="app-main">
+				{% include "dbcomp/sidebar.twig" %}
+				<div class="app-main__outer">
+					<div class="app-main__inner">
+						{% include "dbcomp/userProfile.twig" %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="app-drawer-overlay d-none animated fadeIn"></div>
+		<div class="pop-up-form hidden" id="social-form">
+			<form action="/user/profile" method="post">
+				<a onclick='contact.hide()' class="fa fa-times fr"></a>
+				<div class="form-group">
+					<label for="" data="socialLabel"></label>
+					<input type="text" class="form-control" name='userid'>
+				</div>
+				<div class="form-group">
+					<input type="hidden" name="platform">
+                    <input type="hidden" name="action" value="add-contact">
+					<button class="btn btn-primary fr">Submit</button>
+
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
+
+		<script src="https://unpkg.com/js-datepicker@5.18.0/dist/datepicker.min.js"></script>
+		<script src="/assets/scripts/script.js"></script>
+	</body>
 </html>

@@ -35,7 +35,8 @@
 								{% endif %}
 							{% endfor %}
 						</ul>
-						<span style='display:flex;justify-content:center;align-items:center; font-size:10px;'>Created on {{user.createdAt|date('d-M-Y')}}</span>
+						<span style='display:flex;justify-content:center;align-items:center; font-size:10px;'>Created on
+							{{user.createdAt|date('d-M-Y')}}</span>
 					</div>
 				</div>
 			</div>
@@ -49,42 +50,20 @@
 			<div class="col-sm-6 col-lg-1 col-xl-1">
 				<div class="main-card mb-3 card">
 					<div class="table-responsive">
-						<form action="" class="frm">
-							<div class="btn">
-								<i class="fa fa-facebook"></i>
-							</div>
-							<div class="btn">
-								<i class="fa fa-twitter"></i>
-							</div>
-							<div class="btn">
-								<i class="fa fa-google-plus"></i>
-							</div>
-							<div class="btn">
-								<i class="fa fa-linkedin"></i>
-							</div>
-							<div class="btn">
-								<i class="fa fa-instagram"></i>
-							</div>
-							<div class="btn">
-								<i class="fa fa-youtube"></i>
-							</div>
-							<div class="btn">
-								<i class="fa fa-whatsapp"></i>
-							</div>
-							{# {{ form.input("text","Facebook","fbid",user.social.fb,true) }}
-																	{{ form.input("text","Twitter","twid",user.social.tw,true) }}
-																	{{ form.input("text","Linkedin","lid",user.social.li,true) }}
-																	{{ form.input("text","Google","gid",user.social.g,true) }}
-																	{{ form.input("text","Instagram","iid",user.social.ig,true) }}
-																	{{ form.input("text","Pinterest","pid",user.social.p,true) }}
-																	{{ form.input("text","Snapchat","sid",user.social.s,true) }} #}
-						</form>
+						<div class="frm" style="padding:5px;display: flex; flex-direction: column; gap: 10px;">
+							{% for name,value in user.contact %}
+								<div  class="btn btn-{% if value == null %}secondary{% else %}primary{% endif %}" title='USERID: {{value}}, Click to update' onclick="contact.add('{{name}}')">
+									<i class="fa fa-{{name}}"></i>
+								</div>
+							{% endfor %}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
 <script>
 	function selectFile() {
 let finput = document.querySelector("[type=file]");

@@ -765,6 +765,7 @@
 .fa-google-plus-square:before {
   content: "\f0d4";
 }
+.fa-googleplus:before,
 .fa-google-plus:before {
   content: "\f0d5";
 }

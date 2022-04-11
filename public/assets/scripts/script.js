@@ -48,7 +48,9 @@
       earnings: async function () {
         resp = await fetch("/api/v1/earnings");
         data = await resp.json();
-        document.querySelector("[data=totalearnings]").innerHTML = data.total;
+        totalearnings=document.querySelector("[data=totalearnings]");
+        if(totalearnings==null )return;
+        totalearnings.innerHTML = data.total;
         let chart = new Chart(
           document.querySelector("#spark-earnings")
           , {
@@ -71,5 +73,22 @@ const user = {
   logout: function () {
     localStorage.removeItem("auth");
     window.location.href = "/user/logout";
+  }
+}
+const contact={
+  form:document.querySelector("#social-form"),
+  add:function(e){
+    if(contact.form == null )
+    return false;
+    contact.showForm(e);
+  },
+  showForm:function(e){    
+    contact.form.classList.remove("hidden");
+    label=contact.form.querySelector("[data=socialLabel]");
+    if(label!=null)label.innerText=`Add ${e} id`;
+    contact.form.querySelector("[name=platform]").value=e;
+  },
+  hide:function(){
+    contact.form.classList.add("hidden");
   }
 }

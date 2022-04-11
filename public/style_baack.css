@@ -42681,3 +42681,13 @@ td .badge .fa{
     color:var(--theme-primary);
     font-weight:600;
 }
+
+div#social-form {position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.4);width: 100%;height: 100%;z-index: 12;display: flex;flex-direction: row;justify-content: center;align-items: center;}
+#social-form form{
+    background:var(--theme-dark);
+    color:var(--theme-light);
+    padding:30px;
+}
+div#social-form.hidden{
+    display:none;
+}

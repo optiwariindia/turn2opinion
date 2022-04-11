@@ -45,7 +45,17 @@ router.route("/")
             profilestatus: 100 * (req.user.profileCategories.filter(e => e.completed == 100).length) / (req.user.profileCategories.length)
         });
     })
-    .post((req, res) => {
+    .post(async (req, res) => {
+        if("action" in req.body){
+            user=await User.findOne({
+                _id: req.session.user._id
+            });
+            user.contact[req.body.platform]=req.body.userid;
+            user.save();
+            req.session.user=user;
+            res.redirect("/user/profile");
+            return;
+        }
         type = req.files.propic.mimetype.split("/");
         if (type[0] !== "image") {
             res.json({ "error": "Only Image Files are allowed" });

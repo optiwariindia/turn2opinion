@@ -353,17 +353,26 @@ user = new schema({
     tech_mac_type: String,
     tech_office_suite: String,
     tech_pc_count: String,
-    deletedOn:{
+    deletedOn: {
         type: Date,
         required: false,
-        default:null
+        default: null
     },
-    points:{type:Number,default:200},
-    frid:Number,
-    social:[{
-        id:String,
-        provider:String,
-    }]
+    points: { type: Number, default: 200 },
+    frid: Number,
+    social: [{
+        id: String,
+        provider: String,
+    }],
+    contact: {
+        facebook: { type: String, default: null },
+        twitter: { type: String, default: null },
+        googleplus: { type: String, default: null },
+        linkedin: { type: String, default: null },
+        instagram: { type: String, default: null },
+        youtube: { type: String, default: null },
+        whatsapp: { type: String, default: null }
+    }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

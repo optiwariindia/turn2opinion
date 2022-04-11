@@ -288,7 +288,7 @@ router.get("/dashboard",
     async (req, res) => {
         let filters = [];
         user.survey = req.user.availableSurveys;
-        req.user.rating = 1.75;
+        req.user.rating =0;
         claims = await Redeem.aggregate([
             { $match: { respondent: req.user._id } },
             { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },

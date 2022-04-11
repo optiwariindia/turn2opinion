@@ -4,7 +4,6 @@
 			<tr>
 				<th>
 					Full Name
-
 				</th>
 				<td>
 					{{ user.name | capitalize }}
@@ -15,8 +14,6 @@
 	<tr>
 		<th>
 			E-Mail
-
-
 		</th>
 		<td>
 			{{ user.email }}
@@ -26,19 +23,14 @@
 <tr>
 <th>
 	Contact number
-
-
 </th>
 <td>
-	{# {{user|json_encode}} #}
 	{{ user.phone }}
 </td>
-</tr>
 </tr>
 <tr>
 <th>Gender</th>
 <td>{{ user.gender|capitalize }}</td>
-</tr>
 </tr>
 <tr>
 <th>Verification Status</th>
@@ -47,11 +39,9 @@
 <span class="badge {{ (user.verified.phone == true)? 'badge-success':'badge-warning' }}" title="{{ (user.verified.phone == true)? 'Contact number is verified':'Contact number is not verified yet' }}"><i class='fa fa-phone'></i>{{ (user.verified.phone == true)? 'Verified':'Not Verified' }}</span>
 </td>
 </tr>
-</tr>
 <tr>
 <th>Created On</th>
 <td>{{ user.createdAt|date('d-M-Y')}}</td>
-</tr>
 </tr>
 </table>
 </div>
