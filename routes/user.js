@@ -290,14 +290,19 @@ router.route("/welcome")
 router.get("/dashboard",
     getUserInfo,
     userDetails,
-    (req, res) => {
+    async (req, res) => {
         let filters = [];
         user.survey = req.user.availableSurveys;
-        // res.json({ page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion });
-        // return;
-        // res.json({message:"New Survey: "+ req.user.availableSurveys[0].surveyPoints});
         req.user.rating=1.75;
-        res.render("dashboard.twig", { page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion });
+        claims = await Redeem.aggregate([
+            { $match: { respondent: req.user._id } },
+            { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },
+            { $group: { _id: { year: "$year", month: "$month", did: "$did" }, total: { $push: "$amount" }, status: { $first: "$status" } } }
+          ]);
+          
+        info={ claims,page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion };
+        // res.json(info);
+        res.render("dashboard.twig", info);
     })
 router.use(fileUpload())
     .use(getUserInfo, userDetails)
@@ -378,7 +383,13 @@ async function userDetails(req, res, next) {
     req.user.surveyTaken = await Survey.find({ completed: req.user._id }, { name: 1, uri: 1, summary: 1, source: 1, category: 1, surveyPoints: 1, surveyID: 1, source: 1 }).exec();
     req.user.attempts = Array.from(await Attempt.find({ respondent: req.user._id }));
     const today = new Date();
-    req.redeem = Array.from(await Redeem.find({ user: req.user._id }).exec());
+    req.redeem = Array.from(await Redeem.find({ respondent: req.user._id }).exec());
+    temp=await req.redeem.map(e=>{
+        dt=new Date(e.createdAt);
+        e["reqdate"]=dt.getDate()+"/"+(dt.getMonth()+1)+"/"+dt.getFullYear();
+        return e;
+    })
+    req.user.redeem=req.redeem;
     req.user.summary = [
         {
             name: "Available Surveys",
@@ -468,8 +479,8 @@ async function userDetails(req, res, next) {
             ]
         }
     ];
-
-    next();
+// res.json(req.user);
+next();
 }
 
 module.exports = router;
