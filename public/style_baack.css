@@ -41998,7 +41998,7 @@ span.multiselect-native-select select {
 
     .body-tabs {
         padding: 0 15px;
-        display: block
+        /* display: block */
     }
 
     .body-tabs .nav-item .nav-link {

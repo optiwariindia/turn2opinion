@@ -13,9 +13,9 @@
 
 			<div class="p-0 card-body">
 				<div class="row">
-					<div class="col-sm-2 money-img">
+					<div class="col-md-2 col-sm-2 money-img">
 					</div>
-					<div class="col-sm-8">
+					<div class="col-md-8 col-sm-10">
 						<ul class="list-group list-group-flush">
 							<li class="p-3 bg-transparent list-group-item">
 								<div class="widget-content p-0">
@@ -47,7 +47,7 @@
 						</ul>
 
 					</div>
-					<div class="col-sm-2 redeem-btn">
+					<div class="col-md-2 col-sm-12 redeem-btn">
 						<button class="btn btn-{% if user.points > threshold %}success{% else %}disabled{% endif %}" {% if user.points > threshold %}onclick='redeem()'{% else %}title='You are only {{(threshold - user.points)}} points away to redeem'{% endif %}  >Redeem now</button>
 					</div>
 				</div>

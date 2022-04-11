@@ -17,4 +17,10 @@ router.route("/")
     .delete((req, res) => {
         res.send("delete");
     });
+router.get("/mailer/:type",(req,res)=>{
+    twig.renderFile("mailers/template.twig", { message: req.params.type, site: process.env.site, fn: "Om",link:"dsakfjdsaf/dsajflkdsa",reset_link:"dsakfjdsaf/dsajflkdsa", id: "dsaf2r54325" }, (e, h) => {
+        // email.sendEmail(usr.email, "Activate Your Turn2Opinion Account", "", h);
+        res.send(h);
+    })
+})
 module.exports = router;
