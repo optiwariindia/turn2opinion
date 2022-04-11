@@ -179,15 +179,6 @@ router.post("/securityquestion", async (req, res) => {
     catch (e) {
         res.json({ "status": "error","type":"unregistered", "message": "Email is not registered with us" });
     }
-    // User.findOne({ email: req.body.email, security: { answer: req.body.answer } }).then(user => {
-    //     console.log(user);
-    //     res.json({ "status": "ok", "question": "In what city were you born?" });
-    // })
-    // .catch(e=>{
-    //     console.log("user nahi mila");
-    //     res.json({ "status": "error", "message": "User not found" });
-    // })
-    // ;
 })
 router.post("/new", async (req, res) => {
     cntry = await ProfileOptions.findOne({ iso2_code: req.body.cn });

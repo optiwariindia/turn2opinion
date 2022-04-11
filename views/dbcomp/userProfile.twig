@@ -7,8 +7,7 @@
 				<div class="main-card mb-3 card">
 					<div class="card-body">
 						<div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
-							<img src="
-								{{ user.propic }}" class="img-fluid" alt="">
+							<img src="{{ user.propic }}" class="img-fluid" alt="">
 							<div class="actions">
 								<a href="#" onclick="selectFile()">
 									<fa class="fa fa-upload" title='Upload Image'></fa>
@@ -25,6 +24,18 @@
 								{{ user.name | capitalize }}
 							</center>
 						</h2>
+						<ul class="nav flex" style='justify-content: center;gap: 10px;font-size: 20px;color: var(--theme-primary);'>
+							{% for rating in [1,2,3,4,5] %}
+								{% if user.rating >= rating %}
+									<li class="fa fa-star"></li>
+								{% elseif (user.rating + 0.5) >= rating %}
+									<li class="fa fa-star-half-o"></li>
+								{% else %}
+									<li class="fa fa-star-o"></li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+						<span style='display:flex;justify-content:center;align-items:center; font-size:10px;'>Created on {{user.createdAt|date('d-M-Y')}}</span>
 					</div>
 				</div>
 			</div>
@@ -61,12 +72,12 @@
 								<i class="fa fa-whatsapp"></i>
 							</div>
 							{# {{ form.input("text","Facebook","fbid",user.social.fb,true) }}
-										{{ form.input("text","Twitter","twid",user.social.tw,true) }}
-										{{ form.input("text","Linkedin","lid",user.social.li,true) }}
-										{{ form.input("text","Google","gid",user.social.g,true) }}
-										{{ form.input("text","Instagram","iid",user.social.ig,true) }}
-										{{ form.input("text","Pinterest","pid",user.social.p,true) }}
-										{{ form.input("text","Snapchat","sid",user.social.s,true) }} #}
+																	{{ form.input("text","Twitter","twid",user.social.tw,true) }}
+																	{{ form.input("text","Linkedin","lid",user.social.li,true) }}
+																	{{ form.input("text","Google","gid",user.social.g,true) }}
+																	{{ form.input("text","Instagram","iid",user.social.ig,true) }}
+																	{{ form.input("text","Pinterest","pid",user.social.p,true) }}
+																	{{ form.input("text","Snapchat","sid",user.social.s,true) }} #}
 						</form>
 					</div>
 				</div>

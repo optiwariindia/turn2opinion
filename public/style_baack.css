@@ -11384,20 +11384,20 @@ a, button, .btn {
 }
 
 .app-sidebar {
-    width: 280px;
+    width: 300px;
     display: flex;
     z-index: 11;
     overflow: hidden;
-    min-width: 280px;
+    min-width: 300px;
     position: relative;
-    flex: 0 0 280px;
+    flex: 0 0 300px;
     margin-top: -60px;
     padding-top: 60px;
     transition: all .2s
 }
 
 .app-sidebar .app-sidebar__inner {
-    padding: 2px 1.5rem 1.5rem
+    padding: 2px 1rem 1rem
 }
 
 .app-sidebar .scrollbar-sidebar {
@@ -11502,7 +11502,8 @@ a, button, .btn {
     color: #343a40;
     white-space: nowrap;
     transition: all .2s;
-    margin: .1rem 0
+    margin: .1rem 0;
+    font-size: 1.2rem;
 }
 
 .vertical-nav-menu li a:hover {

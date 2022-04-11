@@ -5,6 +5,7 @@ const { append } = require("express/lib/response");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const compression = require("compression");
+const Twig= require("twig");
 let publicDir;
 if (fs.existsSync("./public"))
     publicDir = __dirname + "/public";
@@ -12,6 +13,14 @@ else
     publicDir = __dirname.split("/").slice(0, -1).join("/") + "/public";
 
 // console.log(publicDir);
+Twig.extendFilter("textformat",(value,params)=>{
+    switch(params[0]){
+        case "percent":
+            return value.toFixed(2) + "%";
+        case "money":
+            return "$" + value.toFixed(2)+ " USD";
+    }
+})
 
 app = express();
 mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
