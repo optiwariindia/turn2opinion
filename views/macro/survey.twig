@@ -33,8 +33,8 @@
 						</option>
 					{% endfor %}
 				{% endif %}
-			</select>
-		</div>
+				</select>
+			</div>
 	{% elseif params.type == "autocomplete" %}
 		<div class="form-group options">
 			<label for="">{{label}}</label>
@@ -61,7 +61,7 @@
 		<div class="form-group">
 			<label for="">{{label}}</label>
 
-			<input {% if params.editable == false %} disabled {% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
+			<input {% if params.editable == false %}  {% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
 		</div>
 	{% endif %}
 </div>{% endmacro %}{% macro render1(params) %}
@@ -78,3 +78,5 @@
 <img src="/assets/images/logo.png" class='img-fluid' alt=""/></div><div class="note">
 <h2>{{params.title}}</h2>
 <p>{{params.message|raw}}</p></div>{% endmacro %}
+
+	

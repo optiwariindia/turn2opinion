@@ -10717,7 +10717,7 @@ a.bg-alternate:hover, a.bg-alternate:focus, button.bg-alternate:hover, button.bg
 }
 
 .text-right {
-    text-align: right !important
+    text-align: right !important    
 }
 
 .text-center {
@@ -42306,7 +42306,6 @@ span.multiselect-native-select select {
 
 .redeem-btn {
     display: grid;
-    padding:10px;
 }
 
 .redeem-btn button {
@@ -42450,6 +42449,7 @@ img.pageicon {
     font-size: 14px;
     text-align: justify;
     padding: 20px;
+    box-shadow:0 0 10px #fff;
 }
 
 .forced-popup .popup-body h2 {
@@ -42691,35 +42691,4 @@ div#social-form {position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.4);widt
 }
 div#social-form.hidden{
     display:none;
-}
-.welcome::before{
-    content:"WELCOME";
-    margin-right:5px;
-}
-.welcome{    
-    font-size:30px !important
-}
-@media (max-width:560px){
-    .welcome::before{
-        content:"";
-    }
-    .welcome{
-        font-size:15px !important;
-    }
-    .welcome b{
-        display: block;
-        width:100%;
-        text-align:center;
-        margin:0;
-    }
-    .widget-numbers.text-success{
-        font-size:20px!important;
-    }
-    .profile-list{
-        display:flex;
-    }
-    .profile-list li{
-        margin:5px;
-        box-shadow:0 0 10px black;  
-    }
 }

@@ -167,8 +167,8 @@ const progress = {
                 default:
                     inputs[e.name] = e.value;
             }
+            if(inputs[e.name]=="")inputs[e.name]="N/A"
         });
-        console.log(inputs);
         let response = await fetch(location.href, {
             method: "POST",
             headers: {
@@ -179,7 +179,7 @@ const progress = {
         let data = await response.json();
         switch (data.status) {
             case "success":
-                popup.show(`<h2>Thank you</h2> <p>${data.message}</p>`);
+                popup.show(`${data.message}`);
                 setTimeout(() => {
                     location.href = "/user/dashboard"
                 }, 3000);

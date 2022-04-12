@@ -288,7 +288,6 @@ router.get("/dashboard",
     async (req, res) => {
         let filters = [];
         user.survey = req.user.availableSurveys;
-        req.user.rating =0;
         claims = await Redeem.aggregate([
             { $match: { respondent: req.user._id } },
             { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },
@@ -338,21 +337,10 @@ async function userDetails(req, res, next) {
     });
 
     // Checking Profile Status
-    profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 }).sort("seqno")));
+    profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1,seqno:1 }).sort("seqno")));
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
-
-        marks = {
-            total: 0,
-            scored: 0
-        }
-        for (let j = 0; j < profile.questions.length; j++) {
-            const question = profile.questions[j];
-            marks.total++;
-            if (question.name in req.user) marks.scored++;
-        }
-        profileCategories[index]['completed'] = Math.round((marks.scored * 100) / (marks.total));
-        profileCategories[index]['marks'] = marks;
+        profileCategories[index]['completed'] = (req.user.profiles.indexOf(profile.target) > -1)?100:0;
     }
     req.user.profileCategories = profileCategories;
     req.user.availableSurveys = await Survey.find({
