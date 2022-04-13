@@ -100,4 +100,4 @@ const contact={
   hide:function(){
     contact.form.classList.add("hidden");
   }
-}
+};
