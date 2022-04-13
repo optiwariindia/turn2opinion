@@ -16,7 +16,7 @@ else
 Twig.extendFilter("textformat",(value,params)=>{
     switch(params[0]){
         case "percent":
-            return value.toFixed(2) + "%";
+            return value.toFixed(0) + "%";
         case "money":
             return "$" + value.toFixed(2)+ " USD";
     }

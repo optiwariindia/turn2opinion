@@ -280,44 +280,17 @@ const progress = {
     submit: async function () {
         let inputs = {};
         let inpform = document.querySelector(".gadi-form")
-        await inpform.querySelectorAll("[name]").forEach(e => {
-            switch (e.type) {
-                case "radio":
-                    if (!e.checked) break;
-                default:
-                    inputs[e.name] = e.value;
-            }
-        });
         invalid = inpform.querySelectorAll("[name]:invalid");
         if (invalid.length != 0) {
             for (let index = 0; index < invalid.length; index++) {
                 const inv = invalid[index];
-                if ([null,undefined].indexOf(inv.closest(".hidden")) !== -1) 
+                if ([null, undefined].indexOf(inv.closest(".hidden")) !== -1)
                     continue;
                 return;
             }
         }
-        if(invalid.length ==0)inpform.submit();
+        if (invalid.length == 0) inpform.submit();
 
-        // let response = await fetch(location.href, {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(inputs)
-        // });
-        // let data = await response.json();
-        // switch (data.status) {
-        //     case "success":
-        //         popup.show(`<h2>Thank you</h2> <p>${data.message}</p>`);
-        //         // setTimeout(() => {
-        //         //     location.href = "/user/dashboard"
-        //         // }, 30000);
-        //         break;
-        //     case "error":
-        //         popup.autohide(`<h2>Error</h2><p>${data.message}</p>`, 5000);
-        //         break;
-        // }
     },
     go: function (e) {
         if (progress.max > e) return;

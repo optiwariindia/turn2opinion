@@ -502,7 +502,8 @@ user = new schema({
     Entertainment26: String,
     Entertainment27: String,
     Entertainment28: String,
-    Entertainment29: String
+    Entertainment29: String,
+    autoprofile:{}
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

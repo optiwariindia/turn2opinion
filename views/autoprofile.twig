@@ -208,5 +208,12 @@
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	</body>
 	<script src="/js/automobile.js"></script>
-	<script>// $("select[name=insurance-org]").select2({allowClear: true});</script>
+	{% if (popup|length) > 0 %}
+	<script>
+		popup.show("{{popup}}");
+		setTimeout(() => {
+			location.href="/user/dashboard";
+		}, 3000);
+		</script>
+		{% endif %}
 		</html>

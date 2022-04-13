@@ -71,21 +71,35 @@ router.route("/")
             });
         })
     })
-router.get("/automobile", async (req, res) => {
-    vehichles = fs.readFileSync("databank/automobile.json").toString();
-    vehichles = JSON.parse(vehichles);
-    insurers = fs.readFileSync("databank/autoInsurance.json").toString();
-    insurers = JSON.parse(insurers);
-    let info = {
-        user: req.user, profile: "automobile", page: {
-            title: "Automobile profile",
-            icon: "automotive-profile.png"
-        },
-        vehichles,
-        insurers
-    };
-    res.render("autoprofile.twig", info);
-})
+router.route("/automobile").get(autoprofile)
+    .post(async (req, res,next) => {
+        info = {};
+        Object.keys(req.body).forEach(e => {
+            temp = e.split("-");
+            if (temp.length == 1)
+                info[e] = req.body[e];
+            else
+                info[temp[0]]=(info[temp[0]==null])?{[temp[1]]:req.body[e]}:{...info[temp[0]], [temp[1]]:req.body[e]};
+        })
+        user=await User.findOne({ email: req.user.email });
+        console.log(user);
+        user.autoprofile=info;
+        if (user.profiles.indexOf("automobile") == -1) {
+            user.profiles.push("automobile");
+            user.points = Number(user.points) + Number(process.env.profile);
+            user.rating = Number(user.rating) + Number(0.1);
+            await user.save();
+            req.session.user = user;
+            remaining=user.profiles.length < process.env.profilecount?"Please complete your remaining profiles.":"";
+            message=`<h2>Thank you for Completing you Automobile Profile</h2> <p>You have earned ${process.env.profile} Pts. To earn more, & reach your threshold points to be claimed, ${remaining}</p>`;
+        } else {
+            await user.save();
+            req.session.user = user;
+            message=`<h2>Thank you for Updating you Automobile Profile</h2> <p>You have successfully updated your Automobile Profile.</p>`;
+        }
+        req.message=message;
+        next();        
+    }, autoprofile);
 router.use("/:profilename", getProfileInfo);
 router.route("/:profilename")
     .get((req, res) => {
@@ -111,14 +125,15 @@ router.route("/:profilename")
             user = await User.findById(req.user._id)
             await user.updateOne(req.body);
             user = await User.findById(req.user._id)
-            if(user.profiles.indexOf(req.params.profilename)== -1){
+            if (user.profiles.indexOf(req.params.profilename) == -1) {
                 user.profiles.push(req.params.profilename);
                 user.points = Number(user.points) + Number(process.env.profile);
-                user.rating=Number(user.rating)+Number(0.1);
+                user.rating = Number(user.rating) + Number(0.1);
                 user.save();
                 req.session.user = user;
-                res.json({ status: "success", message: `<h2>Thank you for Completing you ${profile.name} Profile</h2> <p>You have earned ${process.env.profile} Pts. To earn more, & reach your threshold points to be claimed, Please complete your remaining profiles.</p>` });
-            }else{
+                remaining=user.profiles.length < process.env.profilecount?"Please complete your remaining profiles.":"";
+                res.json({ status: "success", message: `<h2>Thank you for Completing you ${profile.name} Profile</h2> <p>You have earned ${process.env.profile} Pts. To earn more, & reach your threshold points to be claimed,${remaining}</p>` });
+            } else {
                 req.session.user = user;
                 res.json({ status: "success", message: `<h2>Thank you for Updating you ${profile.name} Profile</h2> <p>You have successfully updated your ${profile.name}.</p>` });
             }
@@ -168,4 +183,21 @@ async function getProfileInfo(req, res, next) {
     catch (err) {
         res.json({ status: "error", message: err.message });
     }
+}
+async function autoprofile (req, res){
+    vehichles = fs.readFileSync("databank/automobile.json").toString();
+    vehichles = JSON.parse(vehichles);
+    insurers = fs.readFileSync("databank/autoInsurance.json").toString();
+    insurers = JSON.parse(insurers);
+    popup=req.message||"";
+    let info = {
+        user: req.user, profile: "automobile", page: {
+            title: "Automobile profile",
+            icon: "automotive-profile.png"
+        },
+        vehichles,
+        insurers,
+        popup
+    };
+    res.render("autoprofile.twig", info);
 }
