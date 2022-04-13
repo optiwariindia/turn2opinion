@@ -324,6 +324,7 @@ progress.show();
 showFields = {
     country: () => {
         cntry = document.querySelector("[name=country]");
+        cntry.setAttribute("disabled",true)
         if (cntry == null) return;
         callAPI("/api/v1/country", "get", {}).then(data => {
             if (Object.keys(data).indexOf("name") == - 1) {
