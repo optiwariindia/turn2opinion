@@ -249,16 +249,16 @@ cookiePopup = {
         document.querySelector(".cookie-popup").remove();
     }
 }
-if(typeof socialValidate == "function")socialValidate();
+if (typeof socialValidate == "function") socialValidate();
 if (!cookiePopup.accepted()) {
     cookiePopup.open();
 }
 ;
 
-window.addEventListener("scroll",()=>{
-    if(window.scrollY>window.innerHeight){
+window.addEventListener("scroll", () => {
+    if (window.scrollY > window.innerHeight) {
         document.querySelector("nav").classList.add("fixednav");
-    }else{
+    } else {
         document.querySelector("nav").classList.remove("fixednav");
     }
 })
