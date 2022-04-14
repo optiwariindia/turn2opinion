@@ -42,6 +42,7 @@
 	}
 }
 
+
 ul.fancytree-container {
 	font-family: tahoma, arial, helvetica;
 	font-size: 10pt;
@@ -1995,6 +1996,7 @@ pre code {
 	margin-right: auto;
 	margin-left: auto
 }
+
 
 @media(min-width:576px) {
 	.container {
@@ -43701,3 +43703,5 @@ span.multiselect-native-select select {
 font-size:25px;
 font-weight:bold
 }
+.fixednav nav.fh5co-nav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
+.fixednav nav.fh5co-nav .top{display:none;}
