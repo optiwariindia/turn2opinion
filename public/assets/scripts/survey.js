@@ -167,6 +167,7 @@ const progress = {
                 default:
                     inputs[e.name] = e.value;
             }
+            if(inputs[e.name]=="")inputs[e.name]="N/A"
         });
         console.log(inputs);
         let response = await fetch(location.href, {

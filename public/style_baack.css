@@ -1379,7 +1379,7 @@ body {
     font-size: .88rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
+    color: #000;
     text-align: left;
     background-color: #fff
 }
@@ -11058,7 +11058,10 @@ a, button, .btn {
     display: flex;
     margin-left: auto
 }
-
+.widget-subheading .opacity-08{
+    max-width: 196px;
+    overflow: hidden;
+}
 .app-header .header-user-info>.widget-heading, .app-header .header-user-info>.widget-subheading {
     white-space: nowrap
 }
@@ -11077,9 +11080,9 @@ a, button, .btn {
 }
 
 .app-header__logo .logo-src {
-    height: 23px;
-    width: 97px;
-    background: url(assets/images/logo-inverse.png)
+    height: 28px;
+    width: 197px;
+    background: url(assets/images/Capture.png)
 }
 
 .app-header__menu, .app-header__mobile-menu {
@@ -11980,7 +11983,7 @@ a, button, .btn {
 }
 
 .app-theme-white .app-footer .app-footer__inner, .app-theme-white .app-header {
-    background: #fafbfc
+    background: darkgray;
 }
 
 .app-theme-white.fixed-header .app-header__logo {
@@ -20642,7 +20645,9 @@ legend {
 .widget-chart .widget-subheading+.widget-numbers {
     margin-top: .5rem
 }
-
+.widget-numbers{
+    color:#ea9215;
+}
 .widget-chart .widget-description {
     margin: 1rem 0 0
 }
@@ -41837,7 +41842,7 @@ span.multiselect-native-select select {
     .app-header .app-header__content.header-mobile-open {
         visibility: visible;
         opacity: 1;
-        top: 80px
+        top: 65px;
     }
 
     .app-header .app-header__mobile-menu {
@@ -41863,7 +41868,7 @@ span.multiselect-native-select select {
         position: fixed !important;
         z-index: 50;
         left: 5% !important;
-        top: 50% !important;
+        top: 41% !important;
         width: 90% !important;
         transform: translateY(-50%) !important;
         min-width: 10px !important
@@ -42306,7 +42311,6 @@ span.multiselect-native-select select {
 
 .redeem-btn {
     display: grid;
-    padding:10px;
 }
 
 .redeem-btn button {
@@ -42359,7 +42363,7 @@ label span {
 }
 
 ::-webkit-scrollbar {
-    width: 20px;
+    width: 10px;
 }
 
 /* Track */
@@ -42692,34 +42696,59 @@ div#social-form {position: fixed;top: 0;left: 0;background: rgba(0,0,0,0.4);widt
 div#social-form.hidden{
     display:none;
 }
-.welcome::before{
-    content:"WELCOME";
-    margin-right:5px;
+@media(max-width:990px){
+    .app-header .app-header__content.header-mobile-open {
+        visibility: visible;
+        opacity: 1;
+        top: 45px;
+    }
+    
+.popover, .dropdown-menu {
+    position: fixed !important;
+    z-index: 50;
+    left: 5% !important;
+    top: 29% !important;
+    width: 90% !important;
+    transform: translateY(-50%) !important;
+    min-width: 10px !important;
 }
-.welcome{    
-    font-size:30px !important
+.rm-pointers .dropdown-menu-lg .dropdown-menu .dropdown-menu-right .show{
+    margin-bottom:20px
 }
-@media (max-width:560px){
-    .welcome::before{
-        content:"";
+}
+@media(max-width:640px){
+    .app-header .app-header__content.header-mobile-open {
+        visibility: visible;
+        opacity: 1;
+        top: 45px;
     }
-    .welcome{
-        font-size:15px !important;
+    
+.popover, .dropdown-menu {
+    position: fixed !important;
+    z-index: 50;
+    left: 5% !important;
+    top: 29% !important;
+    width: 90% !important;
+    transform: translateY(-50%) !important;
+    min-width: 10px !important;
+}
+.rm-pointers .dropdown-menu-lg .dropdown-menu .dropdown-menu-right .show{
+    margin-bottom:20px
+}
+}
+@media(max-width:760px){
+    .app-header .app-header__content.header-mobile-open {
+        visibility: visible;
+        opacity: 1;
+        top: 45px;
     }
-    .welcome b{
-        display: block;
-        width:100%;
-        text-align:center;
-        margin:0;
-    }
-    .widget-numbers.text-success{
-        font-size:20px!important;
-    }
-    .profile-list{
-        display:flex;
-    }
-    .profile-list li{
-        margin:5px;
-        box-shadow:0 0 10px black;  
+    .popover, .dropdown-menu {
+        position: fixed !important;
+        z-index: 50;
+        left: 5% !important;
+        top: 29% !important;
+        width: 90% !important;
+        transform: translateY(-50%) !important;
+        min-width: 10px !important;
     }
 }

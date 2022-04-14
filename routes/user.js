@@ -344,15 +344,17 @@ async function userDetails(req, res, next) {
 
         marks = {
             total: 0,
-            scored: 0
+            scored: 0,
+            pending:[]
         }
         for (let j = 0; j < profile.questions.length; j++) {
             const question = profile.questions[j];
             marks.total++;
-            if (question.name in req.user) marks.scored++;
+            if (question.name in req.user) marks.scored++;else marks.pending.push(question.name);
         }
         profileCategories[index]['completed'] = Math.round((marks.scored * 100) / (marks.total));
         profileCategories[index]['marks'] = marks;
+        console.log(marks);
     }
     req.user.profileCategories = profileCategories;
     req.user.availableSurveys = await Survey.find({

@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
     @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css";
 
@@ -86,7 +94,26 @@
     .signature .social ul li {
         margin: 0 0 0 10px;
     }
+
+    @media (max-width:640px){
+        #body{
+        display: flex;
+      
+    }
+  #email{
+      display: flex;
+      margin:0 20px 0 20px;
+  }
+  .signature{
+    display:inline-block;
+    padding:10px;
+    
+  }
+
+}
 </style>
+</head>
+<body>
 <div class="msg-body">
 
     <div class="logo-center">
@@ -104,7 +131,7 @@
             You are just a quick second away Now, To complete your registration process, please click below button to
             confirm your identity:
         </p>
-        <a href="#" style="background:#fff;color:#000;border-radius:10px;">
+        <a id="email" href="#" style="background:#fff;color:#000;border-radius:10px;">
             Please click to confirm Email ID
         </a>
         <p>
@@ -148,3 +175,5 @@
         </span>. </p>
     </div>
 </div>
+</body>
+</html>
