@@ -12,27 +12,27 @@ passport.deserializeUser((user, done) => {
 
 router.use(passport.initialize());
 router.use(passport.session());
-router.get("/confirm",(req,res)=>{
+router.get("/confirm",async(req,res)=>{
     if(!("session" in req && "passport" in req.session && "user" in req.session.passport))
         return res.redirect("/");
     auth={
         provider:req.session.passport.user.provider,
         id:req.session.passport.user.id
     };
-    User.find({"social.provider":auth.provider,"social.id":auth.id}).then(user=>{
-        if(user.length==1)
-            {
+    try {
+        user=await User.find({"social.provider":auth.provider,"social.id":auth.id});
+        if(user.length == 0){
+            user=await User.find({email:req.session.passport.user.emails[0].value});
+            if(user.length ==0)
+                return res.redirect("/");
                 req.session.user=user[0];
-                res.redirect("/user/dashboard");
-                return false;
-            }
-            res.redirect("/");
-    
-    })
-    .catch(e=>{
-        res.redirect("/");
-    })
-    // res.json(req.session);
+                req.session.user.social.push(auth);
+            await req.session.user.save();
+            res.redirect("/user/dashboard");
+        }        
+    } catch (error) {
+        res.json(error);
+    }
 })
 router.use("/facebook",require("./social/facebook"));
 router.use("/twitter",require("./social/twitter"));

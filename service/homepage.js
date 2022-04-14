@@ -2,9 +2,9 @@ const { randomInt } = require('crypto');
 const fs = require('fs');
 const twig = require('twig');
 let captchakey = process.env.google_captcha_key;
-const homepage=(req, res) => {
-    steps=fs.readFileSync("databank/steps.json");
-    steps=JSON.parse(steps);
+const homepage = (req, res) => {
+    steps = fs.readFileSync("databank/steps.json");
+    steps = JSON.parse(steps);
     journey =
         ["Create a free account via your active E-mail ID & valid Contact Number",
             "You will receive a verification link to verify your email and contact number with OTP.",
@@ -59,7 +59,7 @@ const homepage=(req, res) => {
         },
         {
             title: "Incentives released in April",
-            count: (14884) * ((today.getDate()+today.getHours()/24) / 30),
+            count: (14884) * ((today.getDate() + today.getHours() / 24) / 30),
         },
         {
             title: "Monthly Available Surveys",
@@ -70,9 +70,9 @@ const homepage=(req, res) => {
             count: 25264 + (Date.now() - project.startDate) / (3600000 * 4)
         },
     ]
-    let info={ captchakey, project, slider, counters, testimonials, user, journey,steps, ...req.extrainfo||{}}
-console.log(req.extrainfo);
-    
+    let info = { captchakey, project, slider, counters, testimonials, user, journey, steps, ...req.extrainfo || {} }
+    console.log(req.extrainfo);
+
     res.render("index", info);
 }
 module.exports = homepage;

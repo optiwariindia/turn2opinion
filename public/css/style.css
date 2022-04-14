@@ -2620,3 +2620,5 @@ footer .contact ul.fh5co-footer-links li {
         line-height: 2;
     }
 }
+nav.fh5co-nav.fixednav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
+nav.fh5co-nav.fixednav .top{display:none;}
