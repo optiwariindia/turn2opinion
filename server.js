@@ -14,6 +14,7 @@ else
 
 // console.log(publicDir);
 Twig.extendFilter("textformat",(value,params)=>{
+    if(!value) return "";
     switch(params[0]){
         case "percent":
             return value.toFixed(0) + "%";

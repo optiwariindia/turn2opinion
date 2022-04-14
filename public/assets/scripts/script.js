@@ -9,8 +9,7 @@
         total = 0; value = 0;
         for (let i = 0; i < data.length; i++) {
           total++;
-          if (data[i][1] == data[i][2])
-            value++;
+          value+=data[i].completed / 100;
         }
         new Chart(elm,
           {

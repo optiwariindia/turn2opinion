@@ -37,7 +37,7 @@ for (let index = 0; index < blankflds.length; index++) {
 	const fld = blankflds[index];
 	if(fldnames[fld]!==undefined)message+=`<li> ${fldnames[fld]}</li>`;	
 }
-popup.show(`<h2><i class='fa fa-exclamation-triangle'></i> Some Information Required</h2><p>We require you to fill the information listed below to proceed. Please fill them and proceed to signup.</p><ol>${message}</ol><button onclick='popup.close()' class='btn btn-primary fr'>Ok</button>`);
+popup.show(`<h2><i class='fa fa-exclamation-triangle'></i> Some More Information Required</h2><p>We require you to fill the information listed below to proceed. Please fill them and proceed to signup.</p><ol>${message}</ol><button onclick='popup.close()' class='btn btn-primary fr'>Ok</button>`);
 }
 {% endif %}
 </script>

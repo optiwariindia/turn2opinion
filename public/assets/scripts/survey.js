@@ -31,13 +31,16 @@ const inputCheckbox = {
     remove: function (e) {
         vals = [];
         val = e.closest(".options").querySelector("input").value;
+
         if (val !== "") {
             vals = JSON.parse(val);
         }
+
         index = vals.indexOf(e.parentElement.innerText.trim());
         vals.splice(index, 1);
-        e.closest(".options").querySelector("input").value = JSON.stringify(vals);
-        e.closest(".options").querySelector("input").dispatchEvent(new Event('change'));
+
+        e.closest(".options").querySelector("input").value = JSON.stringify(vals);        
+        e.closest(".options").querySelector("input").dispatchEvent(new Event('change'));        
         e.closest(".options").querySelectorAll("button").forEach(b => {
             if (b.innerText === e.parentElement.innerText) {
                 b.classList.remove("disabled");
@@ -227,7 +230,7 @@ loadData = function () {
                     z.removeAttribute("disabled");
                     if (!z.validity.valid) z.value = "";
                 }
-                if (data.length == 0) return;
+                if (data.length == 0){showSelect(); return;}
                 i = document.querySelector(`[name=${data.data[0].name}]`);
                 options = `<option selected value='' disabled>Select</option>`;
                 await data.data.forEach(e => {

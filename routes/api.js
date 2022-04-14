@@ -50,7 +50,6 @@ router.get("/addData", async (req, res) => {
   res.json({});
 });
 router.get("/profileStatus", async (req, res) => {
-  profiles = Array.from(await Profiles.find({}, { name: 1, uri: 1, questions: 1 }));
   if (req.session.user === undefined) {
     res.json({
       status: "error",
@@ -58,21 +57,8 @@ router.get("/profileStatus", async (req, res) => {
     });
     return;
   }
-  let profileStatus = [];
-  for (let index = 0; index < profiles.length; index++) {
-    const profile = profiles[index];
-    let status = 0;
-    for (let qno = 0; qno < profile.questions.length; qno++) {
-      const question = profile.questions[qno]['name'];
-      if (req.session.user[question] !== undefined) {
-        status++;
-      }
-    }
-    profileStatus.push([profile.uri, status, profile.questions.length]);
-  }
-  res.json(profileStatus);
+  res.json(req.session.user.profileCategories);
   return;
-  res.json({});
 })
 router.route("/professions")
   .get((req, res) => {
@@ -192,6 +178,7 @@ router.route("/:component")
     let dependency = [];
     await Object.keys(req.body).forEach(
       key => {
+        console.log(key);
         if(mongoose.isValidObjectId(req.body[key]))
         dependency.push(`${req.body[key]}`);
         try{
@@ -202,12 +189,18 @@ router.route("/:component")
         }
       }
     );
+    console.log(dependency);
     ProfileOptions.find({ name: req.params.component }).then(data => {
       data = data.filter(info => {
         out = false;
         console.log(dependency);
         for (let i = 0; i < dependency.length; i++) {
           out = out || (info.dependency.indexOf(dependency[i]) !== -1);
+          console.log({
+            out: out,
+            dependency:info.dependency,
+            deparray:dependency[i]
+          });
         }
         return out;
       });
