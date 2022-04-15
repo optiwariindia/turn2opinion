@@ -11280,7 +11280,11 @@ a.text-alternate:focus {
 }
 
 .text-muted {
-	color: #6c757d
+	color: #6c757d;
+
+}
+.text-muted::before{
+color: blue;
 }
 
 .text-black-50 {
@@ -15719,7 +15723,7 @@ body {
 .dropdown-menu[data-placement^=top].show {
 	animation: fade-in3 .2s cubic-bezier(.39, .575, .565, 1) both;
 	bottom: auto;
-	top: auto
+	top:auto;
 }
 
 @keyframes fade-in2 {
@@ -35844,9 +35848,6 @@ button.toast-close-button {
 	display: none
 }
 
-.slick-loading .slick-list {
-	background: #fff slick-image-url(assets/images/ajax-loader.gif) center center no-repeat
-}
 
 .slick-prev,
 .slick-next {
@@ -43268,7 +43269,7 @@ span.multiselect-native-select select {
 		position: fixed;
 		z-index: 50;
 		left: 5%;
-		top: 50%;
+		top: 250px;
 		width: 90%;
 		transform: translateY(-50%);
 		min-width: 10px
@@ -43396,7 +43397,8 @@ span.multiselect-native-select select {
 	.popover,
 	.dropdown-menu {
 		width: 80%;
-		left: 10%
+		left: 10%;
+		
 	}
 	body .card-header {
 		height: auto;
