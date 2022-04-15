@@ -43674,7 +43674,10 @@ span.multiselect-native-select select {
 	width: 26px;
 	margin-right: 11px;
 }
-
+.count{
+	position:absolute;
+	bottom:27px;
+}
 .money-img {
 	background-image: url("/images/money.png");
 	background-size: cover;
@@ -43703,11 +43706,5 @@ span.multiselect-native-select select {
 font-size:25px;
 font-weight:bold
 }
-<<<<<<< HEAD
 .fixednav nav.fh5co-nav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
 .fixednav nav.fh5co-nav .top{display:none;}
-=======
-
-nav.fh5co-nav.fixednav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
-nav.fh5co-nav.fixednav .top{display:none;}
->>>>>>> master

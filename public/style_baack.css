@@ -2,6 +2,57 @@
     display: none
 }
 
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.flip-card {
+    margin-left:20px;
+  background-color: transparent;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+
 .fancytree-helper-indeterminate-cb {
     color: #777
 }
@@ -38,7 +89,9 @@
         transform: rotate(359deg)
     }
 }
-
+.count{
+    margin-bottom: 20%;
+}
 ul.fancytree-container {
     font-family: tahoma, arial, helvetica;
     font-size: 10pt;
@@ -12214,7 +12267,6 @@ button,
     display: flex;
     margin-left: auto
 }
-<<<<<<< HEAD
 
 .sidebar-icons {
     margin-top: 10px;
@@ -12232,13 +12284,6 @@ button,
 
 .app-header .header-user-info>.widget-heading,
 .app-header .header-user-info>.widget-subheading {
-=======
-.widget-subheading .opacity-08{
-    max-width: 196px;
-    overflow: hidden;
-}
-.app-header .header-user-info>.widget-heading, .app-header .header-user-info>.widget-subheading {
->>>>>>> master
     white-space: nowrap
 }
 
@@ -12422,6 +12467,7 @@ button,
     transition: all .2s;
     opacity: 1
 }
+
 
 .app-header.header-text-light .app-header-right .icon-wrapper-alt:hover .fa,
 .app-header.header-text-light .app-header-right .icon-wrapper-alt:hover .icon {
@@ -12648,7 +12694,7 @@ button,
     font-size: .8rem;
     margin: .75rem 0;
     font-weight: 700;
-    color: white;
+    color: black;
     white-space: nowrap;
     position: relative
 }
@@ -13212,14 +13258,9 @@ button,
     background: rgba(255, 255, 255, .45)
 }
 
-<<<<<<< HEAD
 .app-theme-white .app-footer .app-footer__inner,
 .app-theme-white .app-header {
     background: #747474;
-=======
-.app-theme-white .app-footer .app-footer__inner, .app-theme-white .app-header {
-    background: darkgray;
->>>>>>> master
 }
 
 .app-theme-white.fixed-header .app-header__logo {
@@ -18444,6 +18485,7 @@ body {
 }
 
 .dropdown-menu.dropdown-menu-shadow {
+    display: none;
     box-shadow: 0 .66875rem 2.3875rem rgba(4, 9, 20, .03), 0 1.1375rem 1.60625rem rgba(4, 9, 20, .03), 0 .45rem .73125rem rgba(4, 9, 20, .05), 0 .325rem .3875rem rgba(4, 9, 20, .03)
 }
 
@@ -18949,7 +18991,8 @@ a.badge-alternate:focus {
 .btn .badge-dot.badge-dot-sm {
     width: 8px;
     height: 8px;
-    border-width: 1px
+    border-width: 1px;
+    display: none;
 }
 
 .btn .badge-dot-inside {
@@ -19066,7 +19109,11 @@ a.avatar-icon-wrapper:hover .avatar-icon {
     opacity: 1;
     border-radius: 50px
 }
-
+.flip-card-back{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
 .avatar-icon.rounded {
     border-radius: .39rem !important
 }
@@ -22232,17 +22279,9 @@ legend {
 .widget-chart .widget-subheading+.widget-numbers {
     margin-top: .5rem
 }
-<<<<<<< HEAD
-
-.widget-numbers {
-    color: #ea9215;
-}
-
-=======
 .widget-numbers{
     color:#ea9215;
 }
->>>>>>> master
 .widget-chart .widget-description {
     margin: 1rem 0 0
 }
@@ -44623,11 +44662,7 @@ span.multiselect-native-select select {
         position: fixed !important;
         z-index: 50;
         left: 5% !important;
-<<<<<<< HEAD
         top: 250px !important;
-=======
-        top: 41% !important;
->>>>>>> master
         width: 90% !important;
         transform: translateY(-50%) !important;
         min-width: 10px !important
@@ -45142,11 +45177,7 @@ label span {
 }
 
 ::-webkit-scrollbar {
-<<<<<<< HEAD
     width: 6px;
-=======
-    width: 10px;
->>>>>>> master
 }
 
 
@@ -45167,6 +45198,9 @@ label span {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #838688;
+}
+.count{
+    margin-top:20px;
 }
 
 .fr {
@@ -45531,7 +45565,6 @@ div#social-form {
     color: var(--theme-light);
     padding: 30px;
 }
-<<<<<<< HEAD
 
 div#social-form.hidden {
     display: none;
@@ -45619,34 +45652,10 @@ div#social-form.hidden {
 }
 
 @media(max-width:640px) {
-=======
-@media(max-width:990px){
     .app-header .app-header__content.header-mobile-open {
         visibility: visible;
         opacity: 1;
         top: 45px;
-    }
-    
-.popover, .dropdown-menu {
-    position: fixed !important;
-    z-index: 50;
-    left: 5% !important;
-    top: 29% !important;
-    width: 90% !important;
-    transform: translateY(-50%) !important;
-    min-width: 10px !important;
-}
-.rm-pointers .dropdown-menu-lg .dropdown-menu .dropdown-menu-right .show{
-    margin-bottom:20px
-}
-}
-@media(max-width:640px){
->>>>>>> master
-    .app-header .app-header__content.header-mobile-open {
-        visibility: visible;
-        opacity: 1;
-        top: 45px;
-<<<<<<< HEAD
     }
 
     .js-fh5co-nav-toggle .fh5co-nav-toggle .fh5co-nav-white {
@@ -45674,9 +45683,9 @@ div#social-form.hidden {
     .app-header .app-header__content.header-mobile-open {
         visibility: visible;
         opacity: 1;
-        top: 45px;
+        top: 50px;
     }
-
+   
     .fh5co-nav-toggle {
         position: fixed;
         right: 0px;
@@ -45699,34 +45708,6 @@ div#social-form.hidden {
         z-index: 50;
         left: 5% !important;
         top: 250px !important;
-=======
-    }
-    
-.popover, .dropdown-menu {
-    position: fixed !important;
-    z-index: 50;
-    left: 5% !important;
-    top: 29% !important;
-    width: 90% !important;
-    transform: translateY(-50%) !important;
-    min-width: 10px !important;
-}
-.rm-pointers .dropdown-menu-lg .dropdown-menu .dropdown-menu-right .show{
-    margin-bottom:20px
-}
-}
-@media(max-width:760px){
-    .app-header .app-header__content.header-mobile-open {
-        visibility: visible;
-        opacity: 1;
-        top: 45px;
-    }
-    .popover, .dropdown-menu {
-        position: fixed !important;
-        z-index: 50;
-        left: 5% !important;
-        top: 29% !important;
->>>>>>> master
         width: 90% !important;
         transform: translateY(-50%) !important;
         min-width: 10px !important;

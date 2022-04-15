@@ -348,25 +348,8 @@ async function userDetails(req, res, next) {
                 }).sort("seqno")));
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
-<<<<<<< HEAD
-
-        marks = {
-            total: 0,
-            scored: 0,
-            pending:[]
-        }
-        for (let j = 0; j < profile.questions.length; j++) {
-            const question = profile.questions[j];
-            marks.total++;
-            if (question.name in req.user) marks.scored++;else marks.pending.push(question.name);
-        }
-        profileCategories[index]['completed'] = Math.round((marks.scored * 100) / (marks.total));
-        profileCategories[index]['marks'] = marks;
-        console.log(marks);
-=======
         profileCategories[index]['completed'] = (req.user.profiles.indexOf(profile.target) > -1) ? 100 : 0;
         profileCategories[index]['enabled']= ((req.user.profiles.indexOf(profile.target) > -1)||(profile.seqno > 4));
->>>>>>> master
     }
     req.user.profileCategories = profileCategories;
     req.user.availableSurveys = await Survey.find({
