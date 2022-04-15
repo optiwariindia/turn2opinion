@@ -5,6 +5,7 @@
 			<i class="icon text-danger icon-anim-pulse ion-android-notifications"></i>
 			<span class="badge badge-dot badge-dot-sm badge-danger">Notifications</span>
 		</span>
+		<span notify=count></span>
 	</button>
 	<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right" style='position: absolute; transform: translate3d(-358px, -2px, 0px); top: 0px; left: 0px; will-change: transform;'>
 		<div class="dropdown-menu-header mb-0">
@@ -17,16 +18,19 @@
 		</div>
 		<ul class="tabs-animated-shadow tabs-animated nav nav-justified tabs-shadow-bordered p-3">
 			<li class="nav-item">
+			<span notify=surveycount></span>
 				<a role="tab" class="nav-link active" data-toggle="tab" href="#tab-messages-header">
 					<span>Surveys</span>
 				</a>
 			</li>
 			<li class="nav-item">
+			<span notify=pendingprofiles></span>
 				<a role="tab" class="nav-link" data-toggle="tab" href="#tab-events-header">
 					<span>Profile</span>
 				</a>
 			</li>
 			<li class="nav-item">
+			<span notify=rewardcount></span>
 				<a role="tab" class="nav-link" data-toggle="tab" href="#tab-errors-header">
 					<span>Rewards</span>
 				</a>
