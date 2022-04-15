@@ -96,7 +96,7 @@
 												<h4 class="timeline-title">{{profile.name}}
 													{% if profile.completed == 100 %}
 														<p style='color:green;float:right'>
-															{% if profile.seqno < 5 %}85 {% else %}
+															{% if profile.seqno < 5 %}{{(45 - (loop.index % 2) * 5)}}{% else %}
 																10 {% endif %} points
 														</p>
 													{% else %}
