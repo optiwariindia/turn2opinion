@@ -3,7 +3,7 @@
 		<ul class="list-group list-group-flush profile-list">
 			{% for category in user.profileCategories %}
 				<li class="p-3 bg-transparent list-group-item">
-					<a href="/user/profile/{{category.target}}" class="widget-progress-wrapper profile">
+					<a {% if category.enabled %} href="/user/profile/{{category.target}}" {% else %} title="Please complete welcome survey to enable this profile" {% endif %} class="widget-progress-wrapper profile {% if category.enabled %}{% else %}text-muted{% endif %}">
 						<img src="/images/categories/{{category.icon}}" alt="" srcset="">
 						<div class="label-left" style='font-size:17px'>{{category.name}}</div>
 						<div class="progress-bar-sm progress-bar-animated-alt progress" style='height:12px'>

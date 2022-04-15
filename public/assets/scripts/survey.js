@@ -39,8 +39,8 @@ const inputCheckbox = {
         index = vals.indexOf(e.parentElement.innerText.trim());
         vals.splice(index, 1);
 
-        e.closest(".options").querySelector("input").value = JSON.stringify(vals);        
-        e.closest(".options").querySelector("input").dispatchEvent(new Event('change'));        
+        e.closest(".options").querySelector("input").value = JSON.stringify(vals);
+        e.closest(".options").querySelector("input").dispatchEvent(new Event('change'));
         e.closest(".options").querySelectorAll("button").forEach(b => {
             if (b.innerText === e.parentElement.innerText) {
                 b.classList.remove("disabled");
@@ -50,12 +50,12 @@ const inputCheckbox = {
     },
     init: function (e) {
         inpgrp = e.closest(".options");
-        if(inpgrp==null)return ;
+        if (inpgrp == null) return;
         inp = inpgrp.querySelector("input");
         vals = inp.value;
         if (vals == "") return;
         val = JSON.parse(inp.value);
-        if(inpgrp.querySelector(".input").innerText !== vals){
+        if (inpgrp.querySelector(".input").innerText !== vals) {
             for (let index = 0; index < val.length; index++) {
                 const element = val[index];
                 inpgrp.querySelector(".input").innerHTML = inpgrp.querySelector(".input").innerHTML + `<span><i onclick=inputCheckbox.remove(this) class="fa fa-times"></i> ${element}</span>`;
@@ -170,7 +170,7 @@ const progress = {
                 default:
                     inputs[e.name] = e.value;
             }
-            if(inputs[e.name]=="")inputs[e.name]="N/A"
+            if (inputs[e.name] == "") inputs[e.name] = "N/A"
         });
         let response = await fetch(location.href, {
             method: "POST",
@@ -215,7 +215,7 @@ loadData = function () {
             inp = document.querySelector(`[name=${fld}]`)
             if (inp == null) return;
             inp.addEventListener("change", async function (c) {
-                if(e.tagName=="SELECT"){
+                if (e.tagName == "SELECT") {
                     e.innerHTML = "<option>...</option>";
                 }
                 info = {};
@@ -230,7 +230,7 @@ loadData = function () {
                     z.removeAttribute("disabled");
                     if (!z.validity.valid) z.value = "";
                 }
-                if (data.length == 0){showSelect(); return;}
+                if (data.length == 0) { showSelect(); return; }
                 i = document.querySelector(`[name=${data.data[0].name}]`);
                 options = `<option selected value='' disabled>Select</option>`;
                 await data.data.forEach(e => {
@@ -328,7 +328,7 @@ showFields = {
     country: () => {
         cntry = document.querySelector("[name=country]");
         if (cntry == null) return;
-        cntry.setAttribute("disabled",true)
+        cntry.setAttribute("disabled", true)
         callAPI("/api/v1/country", "get", {}).then(data => {
             if (Object.keys(data).indexOf("name") == - 1) {
                 console.log(Object.keys(data))
@@ -456,3 +456,37 @@ country = {
 
 country.init();
 currency.init();
+bindfields = {
+    elements: document.querySelectorAll("[bind-field]"),
+    init: function () {
+        bindfields.elements.forEach(elm => {
+            bindwith = elm.getAttribute("bind-field");
+            data = elm.getAttribute("data-for");
+            if (data != "" && data != null) {
+                data = JSON.parse(data);
+                document.querySelector(`[name=${bindwith}]`).addEventListener("change", bindfields.check)
+            }
+        })
+    },
+    check: function (e) {
+        bindwith = e.target.name;
+        console.log(bindwith)
+        let elm;
+        for (let index = 0; index < bindfields.elements.length; index++) {
+            elm = bindfields.elements[index];
+            if(elm.getAttribute("bind-field")!==bindwith)continue;
+            data = elm.getAttribute("data-for");
+            if (data != "" && data != null) {
+                data = JSON.parse(data);
+                if (data.indexOf(e.target.value) !== -1) {
+                    elm.style.display = "block";
+                }
+                else {
+                    elm.style.display = "none";
+                }
+            }
+        }
+
+    }
+}
+bindfields.init();
