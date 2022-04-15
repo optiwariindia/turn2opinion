@@ -9,8 +9,7 @@
         total = 0; value = 0;
         for (let i = 0; i < data.length; i++) {
           total++;
-          if (data[i][1] == data[i][2])
-            value++;
+          value+=data[i].completed / 100;
         }
         new Chart(elm,
           {
@@ -83,12 +82,21 @@ const contact={
     contact.showForm(e);
   },
   showForm:function(e){    
+    labels={
+      googleplus:"Enter your Google+ ID",
+      facebook:"Enter your Facebook Profile URL",
+      twitter:"Enter your Twitter handle",
+      linkedin:"Enter your Linkedin Profile URL",
+      instagram:"Enter your Instagram Profile URL",
+      youtube:"Enter your Youtube Channel URL",
+      whatsapp:"Enter your Whatsapp Number"
+    }
     contact.form.classList.remove("hidden");
     label=contact.form.querySelector("[data=socialLabel]");
-    if(label!=null)label.innerText=`Add ${e} id`;
+    if(label!=null)label.innerText=labels[e]||`Add ${e} id`;
     contact.form.querySelector("[name=platform]").value=e;
   },
   hide:function(){
     contact.form.classList.add("hidden");
   }
-}
+};

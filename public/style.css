@@ -35981,9 +35981,7 @@ button.toast-close-button {
 	margin: 0 6rem
 }
 
-.slick-slider .slider-content h3 {
-	font-size: 1.75rem;
-	font-weight: 400;
+.slick-slider .slider-content h3 {@media
 	margin-bottom: 1.5rem
 }
 
@@ -43705,5 +43703,11 @@ span.multiselect-native-select select {
 font-size:25px;
 font-weight:bold
 }
+<<<<<<< HEAD
 .fixednav nav.fh5co-nav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
 .fixednav nav.fh5co-nav .top{display:none;}
+=======
+
+nav.fh5co-nav.fixednav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
+nav.fh5co-nav.fixednav .top{display:none;}
+>>>>>>> master

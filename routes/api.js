@@ -7,6 +7,26 @@ const ProfileOptions = mongoose.model("profileOptions", require("../modals/profi
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
+
+router.get("/survey/:surveyname",async (req,res)=>{
+  survey=await Survey.find({uri:req.params.surveyname});
+  res.json(survey);
+})
+router.get("/survey/:surveyname/qlist",async (req,res)=>{
+  survey=await Survey.find({uri:req.params.surveyname});
+  qlist=[];
+  for(i=0;i<survey[0].pages.length;i++){
+    page=survey[0].pages[i];
+    for(j=0;j<page.length;j++){
+      qlist.push(`${page[j].name}||${page[j].type}||${page[j].label[0]}`);
+    }
+  }
+  res.json(qlist);
+})
+router.get("/profileoptions",async (req,res)=>{
+  data=await ProfileOptions.find({name:{$in:["empstat","industry","function","jobrole","workemail","orgsize","orglocation","orglinkedin","orgwebsite","orgoverseas","orgdecision","orgspend","experience","orgrevenue","orgage","orgrevenuestream","mil1","mil2","mil3","mil4","mil5","mil6","mil7","mil8","mil9","mil10","mil11","mil12","mil13","mil14","mil15","mil16","mil17","mil18","mil19","mil20","mil21","mil22","mil23","mil24","mil25","mil26","mil27","ed_status","ed_level","ed_school_year","ed_university","ed_university_degree","ed_further_study","ed_international","ed_postplans","ed_job_seeker","ed_industry"]}})
+  res.render("tabout.twig",{info:data});
+})
 router.get("/exrate/:cur1/:cur2",(req,res)=>{
   exrate=JSON.parse(require("fs").readFileSync("./databank/exrate.json"));
   res.json({rate:(exrate.rates[req.params.cur2]/exrate.rates[req.params.cur1])});
@@ -50,7 +70,6 @@ router.get("/addData", async (req, res) => {
   res.json({});
 });
 router.get("/profileStatus", async (req, res) => {
-  profiles = Array.from(await Profiles.find({}, { name: 1, uri: 1, questions: 1 }));
   if (req.session.user === undefined) {
     res.json({
       status: "error",
@@ -58,21 +77,8 @@ router.get("/profileStatus", async (req, res) => {
     });
     return;
   }
-  let profileStatus = [];
-  for (let index = 0; index < profiles.length; index++) {
-    const profile = profiles[index];
-    let status = 0;
-    for (let qno = 0; qno < profile.questions.length; qno++) {
-      const question = profile.questions[qno]['name'];
-      if (req.session.user[question] !== undefined) {
-        status++;
-      }
-    }
-    profileStatus.push([profile.uri, status, profile.questions.length]);
-  }
-  res.json(profileStatus);
+  res.json(req.session.user.profileCategories);
   return;
-  res.json({});
 })
 router.route("/professions")
   .get((req, res) => {
@@ -192,6 +198,7 @@ router.route("/:component")
     let dependency = [];
     await Object.keys(req.body).forEach(
       key => {
+        console.log(key);
         if(mongoose.isValidObjectId(req.body[key]))
         dependency.push(`${req.body[key]}`);
         try{
@@ -202,12 +209,19 @@ router.route("/:component")
         }
       }
     );
+    console.log(dependency);
     ProfileOptions.find({ name: req.params.component }).then(data => {
       data = data.filter(info => {
         out = false;
         console.log(dependency);
         for (let i = 0; i < dependency.length; i++) {
           out = out || (info.dependency.indexOf(dependency[i]) !== -1);
+          console.log({
+            out: out,
+            dependency:info.dependency,
+            deparray:dependency[i],
+            data:info
+          });
         }
         return out;
       });

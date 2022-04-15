@@ -61,9 +61,14 @@ router.route("/:surveyName")
             await survey.completed.push(user._id);
             await survey.save();
             user.points = user.points + survey.surveyPoints;
+            await new Set(survey.profiles).forEach(profile=>{
+                user.profiles.push(profile);
+            })
+            user.rating=Number(user.rating)+Number(0.5);
             user.save();
             req.session.user = user;
             res.json({ status: "success", message: survey.thankyou });
+
             return;
         }
         res.json({ status: "error", message: "Some unexpected error occured" });

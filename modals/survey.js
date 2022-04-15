@@ -30,6 +30,7 @@ module.exports = new schema(
         availableFor:[String],
         thankyou:String,
         completed:[String],
+        profiles:[String],
         active:{
             from:Date,
             to:Date

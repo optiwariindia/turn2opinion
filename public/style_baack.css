@@ -12214,6 +12214,7 @@ button,
     display: flex;
     margin-left: auto
 }
+<<<<<<< HEAD
 
 .sidebar-icons {
     margin-top: 10px;
@@ -12231,6 +12232,13 @@ button,
 
 .app-header .header-user-info>.widget-heading,
 .app-header .header-user-info>.widget-subheading {
+=======
+.widget-subheading .opacity-08{
+    max-width: 196px;
+    overflow: hidden;
+}
+.app-header .header-user-info>.widget-heading, .app-header .header-user-info>.widget-subheading {
+>>>>>>> master
     white-space: nowrap
 }
 
@@ -13204,9 +13212,14 @@ button,
     background: rgba(255, 255, 255, .45)
 }
 
+<<<<<<< HEAD
 .app-theme-white .app-footer .app-footer__inner,
 .app-theme-white .app-header {
     background: #747474;
+=======
+.app-theme-white .app-footer .app-footer__inner, .app-theme-white .app-header {
+    background: darkgray;
+>>>>>>> master
 }
 
 .app-theme-white.fixed-header .app-header__logo {
@@ -22219,11 +22232,17 @@ legend {
 .widget-chart .widget-subheading+.widget-numbers {
     margin-top: .5rem
 }
+<<<<<<< HEAD
 
 .widget-numbers {
     color: #ea9215;
 }
 
+=======
+.widget-numbers{
+    color:#ea9215;
+}
+>>>>>>> master
 .widget-chart .widget-description {
     margin: 1rem 0 0
 }
@@ -44604,7 +44623,11 @@ span.multiselect-native-select select {
         position: fixed !important;
         z-index: 50;
         left: 5% !important;
+<<<<<<< HEAD
         top: 250px !important;
+=======
+        top: 41% !important;
+>>>>>>> master
         width: 90% !important;
         transform: translateY(-50%) !important;
         min-width: 10px !important
@@ -45119,7 +45142,11 @@ label span {
 }
 
 ::-webkit-scrollbar {
+<<<<<<< HEAD
     width: 6px;
+=======
+    width: 10px;
+>>>>>>> master
 }
 
 
@@ -45504,6 +45531,7 @@ div#social-form {
     color: var(--theme-light);
     padding: 30px;
 }
+<<<<<<< HEAD
 
 div#social-form.hidden {
     display: none;
@@ -45591,10 +45619,34 @@ div#social-form.hidden {
 }
 
 @media(max-width:640px) {
+=======
+@media(max-width:990px){
     .app-header .app-header__content.header-mobile-open {
         visibility: visible;
         opacity: 1;
         top: 45px;
+    }
+    
+.popover, .dropdown-menu {
+    position: fixed !important;
+    z-index: 50;
+    left: 5% !important;
+    top: 29% !important;
+    width: 90% !important;
+    transform: translateY(-50%) !important;
+    min-width: 10px !important;
+}
+.rm-pointers .dropdown-menu-lg .dropdown-menu .dropdown-menu-right .show{
+    margin-bottom:20px
+}
+}
+@media(max-width:640px){
+>>>>>>> master
+    .app-header .app-header__content.header-mobile-open {
+        visibility: visible;
+        opacity: 1;
+        top: 45px;
+<<<<<<< HEAD
     }
 
     .js-fh5co-nav-toggle .fh5co-nav-toggle .fh5co-nav-white {
@@ -45647,6 +45699,34 @@ div#social-form.hidden {
         z-index: 50;
         left: 5% !important;
         top: 250px !important;
+=======
+    }
+    
+.popover, .dropdown-menu {
+    position: fixed !important;
+    z-index: 50;
+    left: 5% !important;
+    top: 29% !important;
+    width: 90% !important;
+    transform: translateY(-50%) !important;
+    min-width: 10px !important;
+}
+.rm-pointers .dropdown-menu-lg .dropdown-menu .dropdown-menu-right .show{
+    margin-bottom:20px
+}
+}
+@media(max-width:760px){
+    .app-header .app-header__content.header-mobile-open {
+        visibility: visible;
+        opacity: 1;
+        top: 45px;
+    }
+    .popover, .dropdown-menu {
+        position: fixed !important;
+        z-index: 50;
+        left: 5% !important;
+        top: 29% !important;
+>>>>>>> master
         width: 90% !important;
         transform: translateY(-50%) !important;
         min-width: 10px !important;

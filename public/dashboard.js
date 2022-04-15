@@ -131,6 +131,11 @@ const api = {
 
 async function read(){
 info = await api.get("userinfo");
+notifications=document.querySelectorAll("[notify]");
+notifications[1].innerText=info.availableSurveys.length;
+notifications[2].innerText=(info.profileCategories.length - info.profiles.length );
+notifications[3].innerText="";
+notifications[0].innerText=Number(notifications[1].innerText) + Number(notifications[2].innerText) + Number(notifications[3].innerText);
 console.log(info);
 }
 read();

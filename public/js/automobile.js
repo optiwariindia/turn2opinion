@@ -1,11 +1,11 @@
-Array.prototype.generate=function(from,to){
-    temp=[];
-    if(from>to){
-        for(let i=from;i>=to;i--)
-        temp.push(i);
+Array.prototype.generate = function (from, to) {
+    temp = [];
+    if (from > to) {
+        for (let i = from; i >= to; i--)
+            temp.push(i);
         return temp;
     }
-    for(let i=from;i<=to;i++)
+    for (let i = from; i <= to; i++)
         temp.push(i);
     return temp;
 }
@@ -88,8 +88,8 @@ const api = {
 }
 
 function showQuestion(e) {
-    nextq=e.closest(".que-group").nextElementSibling;
-    if(nextq.classList.contains("not-hide"))return ;
+    nextq = e.closest(".que-group").nextElementSibling;
+    if (nextq.classList.contains("not-hide")) return;
     nextq.classList.add("hidden");
     if (e.value == "Yes") {
         nextq.classList.remove("hidden");
@@ -107,30 +107,30 @@ async function showQgrid(e) {
         const seq = gadi.seq[i];
         switch (choice.gadi) {
             case "truck":
-                if(typeof gadi.options[seq][0] == "object"){
+                if (typeof gadi.options[seq][0] == "object") {
                     options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e.category}" data-name='type' data-option='${JSON.stringify(e.type)}'>${e.category}</option>`))).join("");
-                }else
-                options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
+                } else
+                    options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
                 break;
             case "rv":
-                if(typeof gadi.options[seq][0] == "object"){
+                if (typeof gadi.options[seq][0] == "object") {
                     options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e.type}" data-name='brand' data-option='${JSON.stringify(e.brand)}'>${e.type}</option>`))).join("");
-                }else
-                options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
+                } else
+                    options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
                 break;
-                default:
+            default:
                 options = await Array.from(new Set(gadi.options[seq].map(e => `<option value="${e}">${e}</option>`))).join("");
                 break;
         }
         // console.log(options);
         html += `<div class="que-group"><select name="${choice.gadi}-${seq}[]" onchange="fieldUpdated(this)" class="form-control"><option value="">Select ${seq}</option>${options}</select></div>`;
     }
-    if(choice.gadi != "bicycle"){
-        num=[];
-        dt=new Date();
-        num=num.generate(dt.getFullYear(),1990);
+    if (choice.gadi != "bicycle") {
+        num = [];
+        dt = new Date();
+        num = num.generate(dt.getFullYear(), 1990);
         console.log(num);
-        seq="year";
+        seq = "year";
         options = await Array.from(new Set(num.map(e => `<option value="${e}">${e}</option>`))).join("");
         html += `<div class="que-group"><select name="${choice.gadi}-${seq}[]" onchange="fieldUpdated(this)" class="form-control"><option value="">Select ${seq}</option>${options}</select></div>`;
     }
@@ -279,35 +279,18 @@ const progress = {
     },
     submit: async function () {
         let inputs = {};
-        let inpform=document.querySelector(".gadi-form")
-        await inpform.querySelectorAll("[name]").forEach(e => {
-            switch (e.type) {
-                case "radio":
-                    if (!e.checked) break;
-                default:
-                    inputs[e.name] = e.value;
+        let inpform = document.querySelector(".gadi-form")
+        invalid = inpform.querySelectorAll("[name]:invalid");
+        if (invalid.length != 0) {
+            for (let index = 0; index < invalid.length; index++) {
+                const inv = invalid[index];
+                if ([null, undefined].indexOf(inv.closest(".hidden")) !== -1)
+                    continue;
+                return;
             }
-        });
-        console.log(inputs);
-        let response = await fetch(location.href, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(inputs)
-        });
-        let data = await response.json();
-        switch (data.status) {
-            case "success":
-                popup.show(`<h2>Thank you</h2> <p>${data.message}</p>`);
-                // setTimeout(() => {
-                //     location.href = "/user/dashboard"
-                // }, 30000);
-                break;
-            case "error":
-                popup.autohide(`<h2>Error</h2><p>${data.message}</p>`, 5000);
-                break;
         }
+        if (invalid.length == 0) inpform.submit();
+
     },
     go: function (e) {
         if (progress.max > e) return;
@@ -320,17 +303,17 @@ const progress = {
         progress.show();
     }
 }
-const fieldUpdated=function(e){
-    e.querySelectorAll("option").forEach(o=>{
-        if(!o.selected)return;
-        let el1=o;
-        let opts=el1.getAttribute("data-option");
-        if(opts==null)return;
-        opts=JSON.parse(opts);
-        let name=el1.getAttribute("data-name");
-        options=Array.from(new Set(opts.map(e => `<option value="${e}">${e}</option>`))).join("");
-        let html= `<div class="que-group"><select name="${choice.gadi}-${name}[]" onchange="fieldUpdated(this)" class="form-control"><option value="">Select ${name}</option>${options}</select></div>`;
-        e.parentElement.parentElement.insertAdjacentHTML("beforeend",html);
+const fieldUpdated = function (e) {
+    e.querySelectorAll("option").forEach(o => {
+        if (!o.selected) return;
+        let el1 = o;
+        let opts = el1.getAttribute("data-option");
+        if (opts == null) return;
+        opts = JSON.parse(opts);
+        let name = el1.getAttribute("data-name");
+        options = Array.from(new Set(opts.map(e => `<option value="${e}">${e}</option>`))).join("");
+        let html = `<div class="que-group"><select name="${choice.gadi}-${name}[]" onchange="fieldUpdated(this)" class="form-control"><option value="">Select ${name}</option>${options}</select></div>`;
+        e.parentElement.parentElement.insertAdjacentHTML("beforeend", html);
     })
 }
 progress.show();

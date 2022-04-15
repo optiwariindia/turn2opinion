@@ -167,17 +167,17 @@ router.post("/securityquestion", async (req, res) => {
             if (user.security.answer == req.body.answer) {
                 res.json({ "status": "success", "user": user });
             } else {
-                res.json({ "status": "error","type":"unregistered", "message": "Security answer is incorrect" });
+                res.json({ "status": "error", "type": "unregistered", "message": "Security answer is incorrect" });
             }
         } else {
             if (user.security.question === undefined) {
-                res.json({ "status": "error","type":"nopass", "message": "Please check your mail for verification link and set your password." })
+                res.json({ "status": "error", "type": "nopass", "message": "Please check your mail for verification link and set your password." })
             } else
                 res.json({ "status": "ok", "question": user.security.question });
         }
     }
     catch (e) {
-        res.json({ "status": "error","type":"unregistered", "message": "Email is not registered with us" });
+        res.json({ "status": "error", "type": "unregistered", "message": "Email is not registered with us" });
     }
 })
 router.post("/new", async (req, res) => {
@@ -288,7 +288,6 @@ router.get("/dashboard",
     async (req, res) => {
         let filters = [];
         user.survey = req.user.availableSurveys;
-        req.user.rating =0;
         claims = await Redeem.aggregate([
             { $match: { respondent: req.user._id } },
             { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },
@@ -337,10 +336,19 @@ async function userDetails(req, res, next) {
             }
     });
 
-    // Checking Profile Status
-    profileCategories = JSON.parse(JSON.stringify(await Profiles.find({}, { target: "$uri", name: 1, icon: 1, _id: 0, questions: 1 }).sort("seqno")));
+    profileCategories = JSON.parse(
+        JSON.stringify(
+            await Profiles.find({},
+                {
+                    target: "$uri",
+                    name: 1,
+                    icon: 1,
+                    _id: 0,
+                    seqno: 1
+                }).sort("seqno")));
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
+<<<<<<< HEAD
 
         marks = {
             total: 0,
@@ -355,6 +363,10 @@ async function userDetails(req, res, next) {
         profileCategories[index]['completed'] = Math.round((marks.scored * 100) / (marks.total));
         profileCategories[index]['marks'] = marks;
         console.log(marks);
+=======
+        profileCategories[index]['completed'] = (req.user.profiles.indexOf(profile.target) > -1) ? 100 : 0;
+        profileCategories[index]['enabled']= ((req.user.profiles.indexOf(profile.target) > -1)||(profile.seqno > 4));
+>>>>>>> master
     }
     req.user.profileCategories = profileCategories;
     req.user.availableSurveys = await Survey.find({

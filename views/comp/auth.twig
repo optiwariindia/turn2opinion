@@ -10,7 +10,34 @@
 		{% include "comp/forms/signup.twig" %}
 	</div>
 </div>
-
 <script>
-	const pagename = "signup"
+	const pagename = "signup";{% if user.fn is defined %}
+	function  socialValidate(){
+elm = document.querySelector(".sign-up-htm");
+flds = elm.querySelectorAll("[name]");
+blankflds = ["gender"];
+for (i = 0; i < flds.length; i ++) {
+	fld=flds[i];
+if(!("validity" in fld))continue;
+if (!fld.validity.valid)
+fld.value = '';
+
+if (fld.value == '')
+blankflds.push(fld.name);
+}
+fldnames={
+	fn:"First Name",
+	ln:"Last Name",
+	email:"Email ID",
+	phone:"Phone Number",
+	gender:"Gender"
+}
+message="";
+for (let index = 0; index < blankflds.length; index++) {
+	const fld = blankflds[index];
+	if(fldnames[fld]!==undefined)message+=`<li> ${fldnames[fld]}</li>`;	
+}
+popup.show(`<h2><i class='fa fa-exclamation-triangle'></i> Some More Information Required</h2><p>We require you to fill the information listed below to proceed. Please fill them and proceed to signup.</p><ol>${message}</ol><button onclick='popup.close()' class='btn btn-primary fr'>Ok</button>`);
+}
+{% endif %}
 </script>
