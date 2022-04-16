@@ -1389,7 +1389,7 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-    background-color: #d92550 !important
+    background-color: red !important
 }
 
 a.bg-danger:hover,
@@ -4755,8 +4755,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-link {
-    font-weight: 400;
-    color: var(--theme-primary)
+    font-size:20px;
+    font-weight: 800;
+    color: red;
 }
 
 .btn-link:hover {
@@ -8303,7 +8304,7 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-    background-color: #d92550 !important
+    background-color: var(--primary) !important
 }
 
 a.bg-danger:hover,
@@ -12013,7 +12014,7 @@ a.text-warning:focus {
 }
 
 .text-danger {
-    color: #d92550 !important
+    color:var(--primary) !important
 }
 
 a.text-danger:hover,
@@ -12233,6 +12234,8 @@ button,
 }
 
 .widget-subheading {
+    font-size:15px;
+    font-weight:800;
     max-width: 100%;
     overflow: hidden;
     text-align: center;
@@ -22165,7 +22168,7 @@ legend {
 
 .widget-chart {
     text-align: center;
-    padding: 1rem;
+    padding: 1.32rem;
     position: relative
 }
 
@@ -45661,9 +45664,23 @@ div#social-form.hidden {
         z-index: 2001;
         border-bottom: none !important;
     }
+<<<<<<< HEAD
     .list-group{
      grid-template-columns: auto;   
     }
+=======
+    
+    .profile-list{
+        grid-template-columns: auto;
+        padding:10px;
+        
+    }
+    .style-group{
+        grid-template-columns: auto;
+
+    }
+
+>>>>>>> 0373e6f9d55f639612ec537561844524c79af514
     .popover,
     .dropdown-menu {
         position: fixed !important;
@@ -45674,5 +45691,9 @@ div#social-form.hidden {
         transform: translateY(0%) !important;
         min-width: 10px !important;
     }
+<<<<<<< HEAD
     
 }
+=======
+}
+>>>>>>> 0373e6f9d55f639612ec537561844524c79af514
