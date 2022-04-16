@@ -8,7 +8,7 @@
     "start": "node server.js",
     "devstart": "sudo systemctl start mongod; code .;nodemon server.js;",
     "download": "git pull",
-    "upload": "git add .; git commit -m 'Updated Design'; git push origin abhay"
+    "upload": "git add .; git commit -m $(date +%Y-%m-%d); git push linode live; git push origin live"
   },
   "keywords": [],
   "author": "",
