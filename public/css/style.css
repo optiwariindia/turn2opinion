@@ -1930,7 +1930,7 @@ body {
     top: 150px;
     right: 20px;
     width: 500px;
-    z-index: 99999
+    z-index: 1;
 }
 
 .login-html .sign-in-htm,

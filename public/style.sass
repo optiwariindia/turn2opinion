@@ -1,0 +1,112 @@
+@import "compass/css3";
+
+$default-transition-duration: 500ms;
+$perspective: 300;
+
+/***
+* CSS3 FLIP CARDS
+* Markup for an element that a user can hover to reveal content on the back, like a card
+* Browser Support: Safari, Firefox, Chrome, IE8+, and Touch Devices; (IE9 and below will not have any flip effect but will just change on hover)
+***/
+
+.flip-card {
+  display: block;
+  position: relative;
+  z-index: 1000;
+  width: 100px; 
+  height: 100px;
+  
+  .card-front,
+  .card-back {
+    @include backface-visibility(hidden);
+    @include single-transition(transform);
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%; 
+  }
+
+  .card-front {
+    @include transform3d(perspective($perspective) rotateY(0));
+    z-index: 900;
+  }
+
+  .card-back {
+    @include rotateY(-180deg); //Using rotate instead of transform prevents the back of the card from flipping on page load because transition is only targeting transform. Super sweet. 
+     z-index: 800;
+  }
+
+  &:hover {
+    .card-front { 
+      @include transform(rotateY(180deg)); //No 3D fallback
+      @include transform3d(perspective($perspective) rotateY(180deg)); 
+    }
+    .card-back { 
+      z-index: 950; //No transform fallback
+      @include transform(rotateY(0deg)); //No 3D fallback
+      @include transform3d(perspective($perspective) rotateY(0deg)); 
+    }
+  }
+}
+
+
+
+
+/*** Just for show... ***/
+
+.flip-card {
+  @include text-shadow(1px 1px 0 rgba(darken(#1B8CE8, 20%), .8) );
+  color: #fff;
+  cursor: pointer;
+  float: left;
+  font-weight: bold;
+  margin: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  min-width: 100px;
+  max-width: 400px;
+  
+  .card-front,
+  .card-back {
+    @include border-radius(5px);
+    @include box-shadow(1px 1px 2px rgba(darken(#1B8CE8, 20%), .8));
+    @include box-sizing(border-box);
+    border: 1px solid darken(#1B8CE8, 40%);
+    padding: 40px 0;
+  }
+
+  .card-front {
+    @include box-sizing(border-box);
+    background-color: #499bea; // Old browsers
+  	@include filter-gradient(#499bea, #207ce5, vertical);
+		@include background-image(linear-gradient(top,  #499bea 0%,#207ce5 100%));
+
+  }
+
+  .card-back {
+    @include box-shadow(0 0 20px rgba(darken(#1B8CE8, 10%), .8) inset);
+		background-color: #478ce0; // Old browsers
+		@include filter-gradient(#478ce0, #0263db, vertical); // IE6-9
+		@include background-image(linear-gradient(top,  #478ce0 0%,#1168db 100%,#0263db 100%));
+  } 
+}
+
+
+
+body {
+  background-color: #e6f2f7; // Old browsers
+  @include filter-gradient(#e6f2f7, #a0d8ef, horizontal); 
+  @include background-image(radial-gradient(center, circle cover,  #e6f2f7 0%,#a0d8ef 100%));
+
+}
+
+.viewport {
+  margin: 10px auto 0;
+  width: 500px;
+}
+.card-front{
+	padding:0;
+	img{
+		object-fit:fill;
+	}
+}
