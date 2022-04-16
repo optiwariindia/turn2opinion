@@ -11,66 +11,6 @@ body {
     align-items: center;
 }
 
-<<<<<<< HEAD
-=======
-
-
-
-.flip-card {
-    margin-left: 20px;
-    background-color: transparent;
-    width: 200px;
-    height: 219px;
-    perspective: 1000px;
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-#survey-info{
-    width:100%;
-    color:black;
-    border:2px solid green;
-    background-color: darkgrey;
-    border-radius:5px;
-  
-}
-
-
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
- 
-  
-}
-
-.flip-card-back {
-  background-color: #2980b9;
-  color: white;
-  transform: rotateY(180deg);
- 
-}
-
-
->>>>>>> 0ecdc8bce68fdd6566e18035e3d8c502e7034741
 .fancytree-helper-indeterminate-cb {
     color: #777
 }
@@ -45721,7 +45661,9 @@ div#social-form.hidden {
         z-index: 2001;
         border-bottom: none !important;
     }
-
+    .list-group{
+     grid-template-columns: auto;   
+    }
     .popover,
     .dropdown-menu {
         position: fixed !important;
@@ -45732,4 +45674,5 @@ div#social-form.hidden {
         transform: translateY(0%) !important;
         min-width: 10px !important;
     }
+    
 }
