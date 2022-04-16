@@ -12,6 +12,7 @@ const form = {
         }
         if (getComputedStyle(elmt)['display'] == "none")
             elmt.style.display = "block";
+        window.scrollTo(0, 0);
         elm = document.querySelector(`.${e}`);
         if (e == "signup") {
             navigator.geolocation.getCurrentPosition(function (position) {
