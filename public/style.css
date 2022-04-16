@@ -14,6 +14,23 @@
 .fancytree-helper-disabled {
 	color: silver
 }
+.policy h3{
+    text-align:left;
+}
+.policy  input[type=checkbox]{
+    display:none;
+}
+
+.policy input[type=checkbox]+.description{
+    display:none;
+}
+.policy input[type=checkbox]:checked + .description{
+    display:flex;
+    flex-direction:column;
+}
+
+
+
 
 .fancytree-helper-spin {
 	-webkit-animation: spin 1000ms infinite linear;
