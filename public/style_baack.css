@@ -1451,7 +1451,7 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-    background-color: #d92550 !important
+    background-color: red !important
 }
 
 a.bg-danger:hover,
@@ -4817,8 +4817,9 @@ fieldset:disabled a.btn {
 }
 
 .btn-link {
-    font-weight: 400;
-    color: var(--theme-primary)
+    font-size:20px;
+    font-weight: 800;
+    color: red;
 }
 
 .btn-link:hover {
@@ -8365,7 +8366,7 @@ button.bg-warning:focus {
 }
 
 .bg-danger {
-    background-color: #d92550 !important
+    background-color: var(--primary) !important
 }
 
 a.bg-danger:hover,
@@ -12075,7 +12076,7 @@ a.text-warning:focus {
 }
 
 .text-danger {
-    color: #d92550 !important
+    color:var(--primary) !important
 }
 
 a.text-danger:hover,
@@ -12295,6 +12296,8 @@ button,
 }
 
 .widget-subheading {
+    font-size:15px;
+    font-weight:800;
     max-width: 100%;
     overflow: hidden;
     text-align: center;
@@ -45723,9 +45726,7 @@ div#social-form.hidden {
         z-index: 2001;
         border-bottom: none !important;
     }
-    .label-left{
-        font-size:30px;
-    }
+    
     .profile-list{
         grid-template-columns: auto;
         padding:10px;
