@@ -16,6 +16,9 @@ body {
     align-items: center;
 }
 
+
+
+
 .flip-card {
     margin-left: 20px;
     background-color: transparent;
@@ -12292,8 +12295,9 @@ button,
 }
 
 .widget-subheading {
-    max-width: 196px;
+    max-width: 100%;
     overflow: hidden;
+    text-align: center;
 }
 
 .app-header .header-user-info>.widget-heading,
@@ -42979,6 +42983,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     .form-inline .select2-container--bootstrap4 {
         display: inline-block
     }
+    .card{
+        display:inline-flex;
+      position:relative;
+        width:100%;
+    }
+    
 }
 
 .select2-container--open .select2-dropdown {
@@ -45135,7 +45145,7 @@ span.multiselect-native-select select {
     background-image: url("/images/money.png");
     background-size: cover;
     background-repeat: no-repeat;
-    background-position-x: 15px;
+    background-position-x: -38px;
 }
 
 .redeem-btn {
