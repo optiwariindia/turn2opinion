@@ -20,9 +20,10 @@
 				<span style="--i:14">.</span>
 				<span style="--i:15">.</span>
 			</div>
+		
 			{# <img src="/images/loader.gif" alt="" srcset=""> #}
 		</div>
-		<div id="page">
+		<div id="page" class=" fixednav">
 			{% include "comp/navbar.twig" %}
 			{% include "comp/slider.twig" %}
 			{% if form is defined %}
@@ -39,6 +40,7 @@
 					<div class="blank-area"></div>
 				</div>
 			</div>
+			
 			{% include "comp/counters.twig" %}
 			{% include "comp/howItWork.twig" %}
 			{% include "comp/whoWeAre.twig" %}

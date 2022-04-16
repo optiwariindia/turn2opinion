@@ -170,7 +170,11 @@ const progress = {
                 default:
                     inputs[e.name] = e.value;
             }
+<<<<<<< HEAD
+            if(inputs[e.name]=="")inputs[e.name]="N/A"
+=======
             if (inputs[e.name] == "") inputs[e.name] = "N/A"
+>>>>>>> master
         });
         let response = await fetch(location.href, {
             method: "POST",

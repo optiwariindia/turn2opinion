@@ -12,7 +12,8 @@ if (fs.existsSync("./public"))
 else
     publicDir = __dirname.split("/").slice(0, -1).join("/") + "/public";
 
-// console.log(publicDir);
+console.log(publicDir);
+
 Twig.extendFilter("textformat",(value,params)=>{
     if(!value) return "";
     switch(params[0]){

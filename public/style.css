@@ -42,6 +42,7 @@
 	}
 }
 
+
 ul.fancytree-container {
 	font-family: tahoma, arial, helvetica;
 	font-size: 10pt;
@@ -1995,6 +1996,7 @@ pre code {
 	margin-right: auto;
 	margin-left: auto
 }
+
 
 @media(min-width:576px) {
 	.container {
@@ -11278,7 +11280,11 @@ a.text-alternate:focus {
 }
 
 .text-muted {
-	color: #6c757d
+	color: #6c757d;
+
+}
+.text-muted::before{
+color: blue;
 }
 
 .text-black-50 {
@@ -15717,7 +15723,7 @@ body {
 .dropdown-menu[data-placement^=top].show {
 	animation: fade-in3 .2s cubic-bezier(.39, .575, .565, 1) both;
 	bottom: auto;
-	top: auto
+	top:auto;
 }
 
 @keyframes fade-in2 {
@@ -35842,9 +35848,6 @@ button.toast-close-button {
 	display: none
 }
 
-.slick-loading .slick-list {
-	background: #fff slick-image-url(assets/images/ajax-loader.gif) center center no-repeat
-}
 
 .slick-prev,
 .slick-next {
@@ -43264,7 +43267,7 @@ span.multiselect-native-select select {
 		position: fixed;
 		z-index: 50;
 		left: 5%;
-		top: 50%;
+		top: 250px;
 		width: 90%;
 		transform: translateY(-50%);
 		min-width: 10px
@@ -43392,7 +43395,8 @@ span.multiselect-native-select select {
 	.popover,
 	.dropdown-menu {
 		width: 80%;
-		left: 10%
+		left: 10%;
+		
 	}
 	body .card-header {
 		height: auto;
@@ -43670,7 +43674,10 @@ span.multiselect-native-select select {
 	width: 26px;
 	margin-right: 11px;
 }
-
+.count{
+	position:absolute;
+	bottom:27px;
+}
 .money-img {
 	background-image: url("/images/money.png");
 	background-size: cover;
@@ -43699,6 +43706,5 @@ span.multiselect-native-select select {
 font-size:25px;
 font-weight:bold
 }
-
-nav.fh5co-nav.fixednav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
-nav.fh5co-nav.fixednav .top{display:none;}
+.fixednav nav.fh5co-nav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
+.fixednav nav.fh5co-nav .top{display:none;}

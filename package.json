@@ -6,10 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "devstart": "sudo systemctl start mongod; code .;nodemon server.js;",
+    "devstart": "nodemon server.js;",
     "download": "git pull",
-    "backupdb": "cd databaseBackup; mongodump --db Turn2Opinion",
-    "upload": "npm run backupdb; npm run publicback; git add .; git commit -m $(date +%Y-%m-%d-%H%M); git push origin master;git push linode master"
+    "upload": "git add .; git commit -m 'Updated Design'; git push origin abhay"
   },
   "keywords": [],
   "author": "",
