@@ -22227,7 +22227,7 @@ legend {
 
 .widget-chart {
     text-align: center;
-    padding: 1rem;
+    padding: 1.32rem;
     position: relative
 }
 
@@ -45722,6 +45722,18 @@ div#social-form.hidden {
         width: 44px;
         z-index: 2001;
         border-bottom: none !important;
+    }
+    .label-left{
+        font-size:30px;
+    }
+    .profile-list{
+        grid-template-columns: auto;
+        padding:10px;
+        
+    }
+    .style-group{
+        grid-template-columns: auto;
+
     }
 
     .popover,
