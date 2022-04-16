@@ -9815,7 +9815,8 @@ button.bg-alternate:focus {
 
 .mr-3,
 .mx-3 {
-    margin-right: 1rem !important
+    margin-right: 1rem;
+    border-radius:50%;
 }
 
 .mb-3,
@@ -45430,9 +45431,10 @@ a.card.no-shadow.rm-border.bg-transparent.widget-chart.text-center {
     color: black;
 }
 
+
 a.card.no-shadow.rm-border.bg-transparent.widget-chart.text-center:hover {
     text-decoration: none;
-    color: blue;
+    color: var(--primary);
 }
 
 .page[page] p {
