@@ -27,56 +27,26 @@
 	<div class="card-body">
 		<div class="container">
 		
-				{% for survey in user.availableSurveys %}
-								<div class="flip-card">
-									<div class="flip-card-inner">
-										<div class="flip-card-front">
-											<img src="/img/Welcome.jpeg" alt="Avatar" style="width:300px;height:300px;">
-										</div>
-										<div class="flip-card-back">
-											<h1>{{survey.surveyID}}</h1>
-											<h4>{{survey.name}}</h4>
-											<p>
-												Survey Points
-												<b>{{survey.surveyPoints}}</b>
-												pts</p>
-											<a target="_new" class='btn btn-primary' href="/user/survey/{{survey.uri}}">Take Survey</a>
-										</div>
-									</div>
-								</div>
-								{% endfor %}
-								
-							</div>
-{# 	
-		<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
-			<thead>
-				<tr>
-					<th class='text-center'>Survey ID</th>
-					<th class='text-center'>Survey Name</th>
-					<th class='text-center'>Survey info</th>
-					<th class='text-center'>Survey Category</th>
-					<th class='text-center'>Survey Source</th>
-					<th class='text-center'>Survey Points</th>
-					<th class='text-center'>Action</th>
-					<th class='text-center'>Status</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for survey in user.availableSurveys %}
-					<tr>
-						<td class='text-center'>{{survey.surveyID}}</td>
-						<td>{{survey.name}}</td>
-						<td>{{survey.sinfo}}</td>
-						<td>{{survey.category}}</td>
-						<td>{{survey.source}}</td>
-						<td style='text-align:center'>{{survey.surveyPoints}}</td>
-						<td>
-							<a target="_new" class='btn btn-primary' href="/user/survey/{{survey.uri}}">Take Survey</a>
-						</td>
-						<td>Pending</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table> #}
+		{% for survey in user.availableSurveys %}
+			<div class="flip-card">
+				<div class="flip-card-inner">
+					<div class="flip-card-front">
+						<img src="/img/Welcome.jpeg" alt="Avatar">
+					</div>
+					<div class="flip-card-back">
+					<h1>{{survey.name}}</h1>
+						<h3>{{survey.surveyID}}</h3>
+					<h3 id="survey-info">{{survey.info}}jkljlDGsdgsdgsgsdgsdgdsgsdjlkjdgfsdfsadfasdfdsfdsfdsfdsf</h3>
+						<p>
+							Survey Points
+							<b>{{survey.surveyPoints}}</b>
+							pts</p>
+						<a target="_new" class='btn btn-primary' href="/user/survey/{{survey.uri}}">Take Survey</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+			
+		</div>
 	</div>
 </div>
