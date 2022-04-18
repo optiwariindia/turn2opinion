@@ -362,6 +362,7 @@ async function userDetails(req, res, next) {
         }
     }, {
         name: 1,
+        icon:1,
         uri: 1,
         info:1,
         summary: 1,
@@ -444,7 +445,7 @@ async function userDetails(req, res, next) {
             info: [
                 {
                     "name": "Monthly Claimed",
-                    "icon": "/img/money.png",
+                    "icon": "/img/1usd.png",
                     "count": req.redeem.filter(redeem => {
                         rddate = new Date(redeem.redeemDate);
                         return rddate.getMonth() == today.getMonth();
@@ -453,7 +454,7 @@ async function userDetails(req, res, next) {
                 },
                 {
                     "name": "Quarterly Claimed",
-                    "icon": "/img/money.png",
+                    "icon": "/img/2usd.png",
                     "count": req.redeem.filter(redeem => {
                         rddate = new Date(redeem.redeemDate);
                         return Math.floor(rddate.getMonth() / 3) == Math.floor(today.getMonth() / 3);
@@ -462,7 +463,7 @@ async function userDetails(req, res, next) {
                 },
                 {
                     "name": "Yearly Claimed",
-                    "icon": "/img/money.png",
+                    "icon": "/img/4usd.png",
                     "count": req.redeem.filter(redeem => {
                         rddate = new Date(redeem.redeemDate);
                         return rddate.getYear() == today.getYear();

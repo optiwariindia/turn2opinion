@@ -1606,13 +1606,13 @@ sup {
 }
 
 a {
-    color: var(--theme-primary);
+    color: black;
     text-decoration: none;
     background-color: transparent
 }
 
 a:hover {
-    color: #0056b3;
+    color: var(--primary);
     text-decoration: underline
 }
 
@@ -6408,7 +6408,8 @@ input[type=button].btn-block {
 }
 
 .card-title {
-    margin-bottom: .75rem
+    margin-bottom: .75rem;
+    text-align: center;
 }
 
 .card-subtitle {
@@ -8490,9 +8491,13 @@ button.bg-alternate:focus {
 }
 
 .rounded-circle {
-    border-radius: 50% !important
+    border-radius: 50% !important;
+   
 }
-
+.navbar-user-avator{
+    width:35px;
+    height:35px;
+}
 .rounded-pill {
     border-radius: 50rem !important
 }
@@ -12239,8 +12244,10 @@ button,
     display: flex;
     margin-left: auto
 }
-
-
+.app-sidebar .vertical-nav-menu li a{
+    display:flex;
+    align-items:center;
+}
 
 .metismenu-icon i {
     font-size: 3px;
@@ -12251,9 +12258,20 @@ button,
     font-weight:800;
   
     overflow: hidden;
+    text-overflow: ellipsis;
     text-align: center;
 }
-
+.widget-content-left{
+    overflow:hidden;
+}
+@media screen and (min-width:991px){
+    .widget-content-left{
+        overflow:initial;
+    }
+    .widget-subheading{
+        max-width:250px;
+    }
+}
 .app-header .header-user-info>.widget-heading,
 .app-header .header-user-info>.widget-subheading {
     white-space: nowrap
@@ -45589,7 +45607,12 @@ div#social-form.hidden {
     font-size: 0.825rem;
 
 }
-
+.social-buttons{
+    padding:5px;
+    display: flex;
+    flex-direction: column;
+     gap: 10px;
+}
 
 @media(max-width:990px) {
 
@@ -45674,6 +45697,8 @@ div#social-form.hidden {
         z-index: 2001;
         border-bottom: none !important;
     }
+
+    
     .list-group{
      grid-template-columns: auto;   
     }
@@ -45688,6 +45713,7 @@ div#social-form.hidden {
         min-width: 10px !important;
     }    
 }
+<<<<<<< HEAD
 .vertical-nav-menu li a{
     display:flex;
     flex-direction: column;
@@ -45699,3 +45725,16 @@ div#social-form.hidden {
     font-size: 20px;
     color: var(--theme-primary);
 }
+=======
+
+@media(max-width:575px){
+    .social-buttons{
+        padding:5px;
+        display: flex;
+        flex-direction: row;
+         gap: 10px;
+         flex-wrap:wrap;
+         justify-content:space-between;
+    }   
+}
+>>>>>>> origin/live
