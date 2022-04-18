@@ -2012,8 +2012,23 @@ pre code {
 
 @media(min-width:576px) {
     .container {
-        max-width: 540px
+        max-width: 540px;
     }
+     
+        .container {
+            max-width: 540px;
+        }
+        
+            .form-inline .select2-container--bootstrap4 {
+                display: inline-block
+            }
+            .card{
+                display:inline-flex;
+                position:relative;
+              
+            }
+            
+        
 }
 
 @media(min-width:768px) {
@@ -12225,10 +12240,7 @@ button,
     margin-left: auto
 }
 
-.sidebar-icons {
-    margin-top: 10px;
-    margin-left: 15px;
-}
+
 
 .metismenu-icon i {
     font-size: 3px;
@@ -12237,7 +12249,7 @@ button,
 .widget-subheading {
     font-size:15px;
     font-weight:800;
-    max-width: 100%;
+  
     overflow: hidden;
     text-align: center;
 }
@@ -18647,6 +18659,7 @@ body .dropdown-menu.dropdown-menu-inline::after {
 }
 
 .nav-item .nav-link {
+    font-size:18px;
     font-weight: 400
 }
 
@@ -22223,7 +22236,8 @@ legend {
 .widget-chart .widget-numbers+.widget-chart-flex,
 .widget-chart .widget-numbers+.widget-description,
 .widget-chart .widget-numbers+.widget-subheading {
-    margin-top: -.5rem
+    margin-top: -.5rem;
+    margin-left:2px;
 }
 
 .widget-chart .widget-subheading {
@@ -22382,7 +22396,8 @@ legend {
 
 .grid-menu .widget-chart.widget-chart-hover:hover {
     background: #fff;
-    border-radius: .25rem
+    border-radius: .25rem;
+    top:16px;
 }
 
 .icon-wrapper {
@@ -22530,7 +22545,9 @@ legend {
 }
 
 .widget-content .widget-content-right {
-    margin-left: auto
+    margin-left: auto;
+    
+    right:10px;
 }
 
 .widget-content .widget-numbers {
@@ -42921,17 +42938,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     width: 1px !important
 }
 
-@media(min-width:576px) {
-    .form-inline .select2-container--bootstrap4 {
-        display: inline-block
-    }
-    .card{
-        display:inline-flex;
-      position:relative;
-        width:100%;
-    }
-    
-}
+
 
 .select2-container--open .select2-dropdown {
     font-size: .88rem;
@@ -45645,7 +45652,8 @@ div#social-form.hidden {
     }
 }
 
-@media(max-width:760px) {
+@media(max-width:760px) 
+{
     .app-header .app-header__content.header-mobile-open {
         visibility: visible;
         opacity: 1;
@@ -45679,4 +45687,15 @@ div#social-form.hidden {
         transform: translateY(0%) !important;
         min-width: 10px !important;
     }    
+}
+.vertical-nav-menu li a{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.nav li{
+    justify-content: center;
+    gap: 10px;
+    font-size: 20px;
+    color: var(--theme-primary);
 }

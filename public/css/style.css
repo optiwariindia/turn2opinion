@@ -1332,8 +1332,12 @@ figure {
 }
 
 #fh5co-footer .fh5co-footer-links {
-    padding: 0;
     margin: 0;
+    background: orange;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+    
 }
 
 #fh5co-footer .fh5co-footer-links li {
@@ -1345,6 +1349,7 @@ figure {
 #fh5co-footer .fh5co-footer-links li a {
     color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
+    padding-bottom:5px;
 }
 
 #fh5co-footer .fh5co-footer-links li a:hover {
@@ -2351,11 +2356,17 @@ input::placeholder {
 
 footer h4 {
     font-size: 30px;
+    background: gray;
+    border-radius: 50px;
 }
 
 footer p {
     font-weight: 100;
     line-height: 30px;
+    background: orange;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 footer ul.fh5co-footer-links {
@@ -2753,4 +2764,9 @@ nav.fh5co-nav.fixednav .top{display:none;}
 .policy input[type=checkbox]:checked+h3+.description{
     display:flex;
     flex-direction:column;
+}
+@media(max-width:768px){
+    .footer h4{display:flex;
+justify-content: space-between;
+}
 }
