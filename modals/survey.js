@@ -32,6 +32,7 @@ module.exports = new schema(
         completed:[String],
         profiles:[String],
         info:String,
+        description:String,
         active:{
             from:Date,
             to:Date

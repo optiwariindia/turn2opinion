@@ -363,6 +363,7 @@ async function userDetails(req, res, next) {
         }
     }, {
         name: 1,
+        description:1,
         icon:1,
         uri: 1,
         info:1,

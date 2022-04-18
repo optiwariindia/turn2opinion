@@ -24,6 +24,11 @@ body {
     animation: spin 1000ms infinite linear
 }
 
+.welcome::before {
+    content: "WELCOME ";
+    padding: 0 10px 0 0;
+}
+
 @-webkit-keyframes spin {
     0% {
         -webkit-transform: rotate(0deg);

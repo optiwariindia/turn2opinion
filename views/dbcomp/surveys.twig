@@ -25,29 +25,30 @@
 		</div>
 	</div>
 	<div class="card-body">
-		<div class="flip-cards-container row">
-		{% for survey in user.availableSurveys %}
-			
-				<div class="flip-card col-sm-4">
-					<div class="flip-card-inner">
-						<div class="flip-card-front">
-							<img src="/img/survey/{{survey.icon}}" alt="SurveyBG" widht=300 height=300>
-							<h3>{{survey.name}}</h3>
-						</div>
-						<div class="flip-card-back">
-							<h1>{{survey.name}}</h1>
-							<p>{{survey.info}}</p>
-							<p class='flex-center'>
-							<span>ID:{{survey.surveyID}}
-							</span>
-						<span>Points:{{survey.surveyPoints}}
-						</span></p>
-							<a target="_blank" href="/user/survey/{{survey.uri}}" class="btn btn-primary">Take Survey</a>
+		<div class="survey-container row">
+			{% for survey in user.availableSurveys %}
+				{% for item in [0,1,2,3,4,5,6,7,8,9] %}
+					<div class="col-sm-4">
+						<div class="survey">
+							<div class="title">
+								<div class="heading">{{survey.name}}</div>
+								<div class="points">{{survey.surveyPoints}}</div>
+							</div>
+							<div class="body">
+								<div class="imgcontainer">
+									<img class='img-fluid' src="/img/survey/{{survey.icon}}" alt="SurveyBG" widht="300" height="300">
+								</div>
+								<div class="description">
+									<h3>{{survey.info}}</h3>
+									<p>{{survey.description}}</p>
+								</div>
+								<a href="/user/survey/{{survey.uri}}" class="btn btn-primary fr">Take Survey</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			
-			{% endfor %}	
+
+				{% endfor %}
+			{% endfor %}
 		</div>
 	</div>
 </div>
