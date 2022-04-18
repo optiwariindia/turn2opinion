@@ -8475,9 +8475,13 @@ button.bg-alternate:focus {
 }
 
 .rounded-circle {
-    border-radius: 50% !important
+    border-radius: 50% !important;
+   
 }
-
+.navbar-user-avator{
+    width:35px;
+    height:35px;
+}
 .rounded-pill {
     border-radius: 50rem !important
 }
@@ -12223,10 +12227,9 @@ button,
     display: flex;
     margin-left: auto
 }
-
-.sidebar-icons {
-    margin-top: 10px;
-    margin-left: 15px;
+.app-sidebar .vertical-nav-menu li a{
+    display:flex;
+    align-items:center;
 }
 
 .metismenu-icon i {
@@ -12238,9 +12241,20 @@ button,
     font-weight:800;
     max-width: 100%;
     overflow: hidden;
+    text-overflow: ellipsis;
     text-align: center;
 }
-
+.widget-content-left{
+    overflow:hidden;
+}
+@media screen and (min-width:991px){
+    .widget-content-left{
+        overflow:initial;
+    }
+    .widget-subheading{
+        max-width:250px;
+    }
+}
 .app-header .header-user-info>.widget-heading,
 .app-header .header-user-info>.widget-subheading {
     white-space: nowrap
@@ -45580,7 +45594,12 @@ div#social-form.hidden {
     font-size: 0.825rem;
 
 }
-
+.social-buttons{
+    padding:5px;
+    display: flex;
+    flex-direction: column;
+     gap: 10px;
+}
 
 @media(max-width:990px) {
 
@@ -45677,4 +45696,15 @@ div#social-form.hidden {
         transform: translateY(0%) !important;
         min-width: 10px !important;
     }    
+}
+
+@media(max-width:575px){
+    .social-buttons{
+        padding:5px;
+        display: flex;
+        flex-direction: row;
+         gap: 10px;
+         flex-wrap:wrap;
+         justify-content:space-between;
+    }   
 }

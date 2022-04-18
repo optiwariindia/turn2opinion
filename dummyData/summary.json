@@ -56,21 +56,21 @@
         "info":[
             {
                 "name":"Monthly Claimed",
-                "icon":"/img/money.png",
+                "icon":"/img/1usd.png",
                 "count":"$ 0.00",
                 "punchline":"",
                 "target":"/user/history/claimes/monthly"
             },
             {
                 "name":"Quarterly Claimed",
-                "icon":"/img/money.png",
+                "icon":"/img/2usd.png",
                 "count":"$ 0.00",
                 "punchline":"",
                 "target":"/user/history/claimes/quarterly"
             },
             {
                 "name":"Yearly Claimed",
-                "icon":"/img/money.png",
+                "icon":"/img/4usd.png",
                 "count":"$ 0.00",
                 "punchline":"",
                 "target":"/user/history/claimes/yearly"
