@@ -1969,7 +1969,7 @@ body {
 .login-html .sign-in:checked+.tab,
 .login-html .sign-up:checked+.tab {
     color: #fff;
-    border-color: #1161ee;
+    border-color:var(--theme-primary);
 }
 
 .login-form {
@@ -2050,7 +2050,7 @@ body {
 }
 
 .login-form .group .check:checked+label .icon {
-    background: #1161ee;
+    background: var(--theme-primary);
 }
 
 .login-form .group .check:checked+label .icon:before {
@@ -2107,7 +2107,7 @@ body {
 }
 
 .gender [type=radio]:checked+label {
-    color: #fff;
+    color: var(--theme-primary);
 }
 
 input::placeholder {
@@ -2715,3 +2715,42 @@ nav.fh5co-nav.fixednav .top{display:none;}
 }
 nav.fh5co-nav.fixednav {position: fixed;z-index: 999999;background: rgba(0,0,0,0.8)!important;}
 nav.fh5co-nav.fixednav .top{display:none;}
+
+
+.policy h3{
+    text-align:left;
+}
+.policy  input[type=checkbox]{
+    display:none;
+}
+.policy input[type=checkbox]+h3>label::after{
+    content:"expand";
+    font-size:10px;
+    color:var(--theme-text);
+}
+.policy input[type=checkbox]:checked+h3>label::after{
+    content:"compact";
+    font-size:10px;
+    color:var(--theme-text);
+}
+
+.policy input[type=checkbox]+h3::before{
+    content:'\f067';
+    font-family:'FontAwesome';
+    background:var(--theme-primary);
+    color:#fff;
+    padding:5px;
+    font-size:15px;
+    border-radius:50%;
+    transition:1s;
+}
+.policy input[type=checkbox]:checked +h3::before{
+    content:'\f068';
+}
+.policy input[type=checkbox]~.description{
+    display:none;
+}
+.policy input[type=checkbox]:checked+h3+.description{
+    display:flex;
+    flex-direction:column;
+}

@@ -15,10 +15,10 @@
     }
   ],
   "start_url": "/",
-  "background_color": "#474747",
+  "background_color": "#ea9215",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#474747",
+  "theme_color": "#ea9215",
   "shortcuts": [
     {
       "name": "Turn2Opinion",

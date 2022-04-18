@@ -256,9 +256,10 @@ if (!cookiePopup.accepted()) {
 ;
 
 window.addEventListener("scroll", () => {
+    console.log("calling scroll");
     if (window.scrollY > window.innerHeight) {
-        document.querySelector("nav").classList.add("fixednav");
+        document.querySelector("#page").classList.add("fixednav");
     } else {
-        document.querySelector("nav").classList.remove("fixednav");
+        document.querySelector("#page").classList.remove("fixednav");
     }
 })
