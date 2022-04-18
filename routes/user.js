@@ -316,6 +316,7 @@ function getUserInfo(req, res, next) {
 }
 async function userDetails(req, res, next) {
     req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
+    fs.existsSync("./public" + req.user.propic)?req.user.propic:req.user.propic="/assets/images/avatars/user.webp";
     if ("dob" in req.user) {
         if (req.user.dob != null) {
             num = Date.parse(req.user.dob);
