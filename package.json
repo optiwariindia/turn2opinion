@@ -8,7 +8,7 @@
     "start": "node server.js",
     "devstart": "nodemon server.js;",
     "download": "git pull",
-    "upload": "git add . & git commit -m \"Update by abhay\" & git push "
+    "upload": "git add . & git commit -m \"Update by abhay\" & git push origin abhay"
   },
   "keywords": [],
   "author": "",
