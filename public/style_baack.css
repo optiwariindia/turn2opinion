@@ -45664,23 +45664,9 @@ div#social-form.hidden {
         z-index: 2001;
         border-bottom: none !important;
     }
-<<<<<<< HEAD
     .list-group{
      grid-template-columns: auto;   
     }
-=======
-    
-    .profile-list{
-        grid-template-columns: auto;
-        padding:10px;
-        
-    }
-    .style-group{
-        grid-template-columns: auto;
-
-    }
-
->>>>>>> 0373e6f9d55f639612ec537561844524c79af514
     .popover,
     .dropdown-menu {
         position: fixed !important;
@@ -45690,10 +45676,5 @@ div#social-form.hidden {
         width: 90% !important;
         transform: translateY(0%) !important;
         min-width: 10px !important;
-    }
-<<<<<<< HEAD
-    
+    }    
 }
-=======
-}
->>>>>>> 0373e6f9d55f639612ec537561844524c79af514
