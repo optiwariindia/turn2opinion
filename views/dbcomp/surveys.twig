@@ -27,7 +27,6 @@
 	<div class="card-body">
 		<div class="survey-container row">
 			{% for survey in user.availableSurveys %}
-				{% for item in [0,1,2,3,4,5,6,7,8,9] %}
 					<div class="col-sm-4">
 						<div class="survey">
 							<div class="title">
@@ -46,8 +45,6 @@
 							</div>
 						</div>
 					</div>
-
-				{% endfor %}
 			{% endfor %}
 		</div>
 	</div>
