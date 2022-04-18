@@ -45593,10 +45593,6 @@ div#social-form.hidden {
 .dropdown-menu.dropdown-menu-right ul li{
     position:relative;
 }
-.dropdown-menu.dropdown-menu-right ul li a.nav-link{
-    border:1px solid var(--theme-dark);
-    border-radius:5px;
-}
 [title]:hover:after {
     content: attr(title);
     background: #000;
