@@ -45575,7 +45575,28 @@ div#social-form.hidden {
     margin-left: -5px;
     transform: translate(0, 0px);
 }
-
+[notify] {
+    position: absolute;
+    z-index: 5;
+    width: 20px;
+    right: -5px;
+    top: -10px;
+    background: var(--theme-primary);
+    /* padding: 5px; */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--theme-dark);
+    height: 20px;
+}
+.dropdown-menu.dropdown-menu-right ul li{
+    position:relative;
+}
+.dropdown-menu.dropdown-menu-right ul li a.nav-link{
+    border:1px solid var(--theme-dark);
+    border-radius:5px;
+}
 [title]:hover:after {
     content: attr(title);
     background: #000;
