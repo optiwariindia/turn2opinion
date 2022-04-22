@@ -2022,8 +2022,23 @@ pre code {
 
 @media(min-width:576px) {
     .container {
-        max-width: 540px
+        max-width: 540px;
     }
+     
+        .container {
+            max-width: 540px;
+        }
+        
+            .form-inline .select2-container--bootstrap4 {
+                display: inline-block
+            }
+            .card{
+                display:inline-flex;
+                position:relative;
+              
+            }
+            
+        
 }
 
 @media(min-width:768px) {
@@ -6414,7 +6429,8 @@ input[type=button].btn-block {
 }
 
 .card-title {
-    margin-bottom: .75rem
+    margin-bottom: .75rem;
+    text-align: center;
 }
 
 .card-subtitle {
@@ -9783,7 +9799,8 @@ button.bg-alternate:focus {
 
 .mr-3,
 .mx-3 {
-    margin-right: 1rem !important
+    margin-right: 1rem;
+    border-radius:50%;
 }
 
 .mb-3,
@@ -12264,9 +12281,9 @@ button,
 }
 
 .widget-subheading {
-    font-size: 15px;
-    font-weight: 800;
-    max-width: 100%;
+    font-size:15px;
+    font-weight:800;
+  
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
@@ -17259,7 +17276,7 @@ body {
 }
 
 .btn-gradient-danger {
-    background-image: linear-gradient(140deg, #981a38 -30%, var(--theme-primary); 90%);
+    background-image: linear-gradient(140deg, #981a38 -30%, var(--theme-primary));
     background-color: #981a38;
     border-color: #981a38;
     color: #fff
@@ -18697,6 +18714,7 @@ body .dropdown-menu.dropdown-menu-inline::after {
 }
 
 .nav-item .nav-link {
+    font-size:18px;
     font-weight: 400
 }
 
@@ -22275,7 +22293,8 @@ legend {
 .widget-chart .widget-numbers+.widget-chart-flex,
 .widget-chart .widget-numbers+.widget-description,
 .widget-chart .widget-numbers+.widget-subheading {
-    margin-top: -.5rem
+    margin-top: -.5rem;
+    margin-left:2px;
 }
 
 .widget-chart .widget-subheading {
@@ -22436,7 +22455,8 @@ legend {
 
 .grid-menu .widget-chart.widget-chart-hover:hover {
     background: #fff;
-    border-radius: .25rem
+    border-radius: .25rem;
+    top:16px;
 }
 
 .icon-wrapper {
@@ -22584,7 +22604,9 @@ legend {
 }
 
 .widget-content .widget-content-right {
-    margin-left: auto
+    margin-left: auto;
+    
+    right:10px;
 }
 
 .widget-content .widget-numbers {
@@ -36522,16 +36544,6 @@ body.swal2-no-backdrop .swal2-shown.swal2-bottom-right {
     }
 }
 
-@media all and (-ms-high-contrast:none),
-(-ms-high-contrast:active) {
-    .swal2-range input {
-        width: 100% !important
-    }
-
-    .swal2-range output {
-        display: none
-    }
-}
 
 @-moz-document url-prefix() {
     .swal2-close:focus {
@@ -45433,6 +45445,7 @@ a.card.no-shadow.rm-border.bg-transparent.widget-chart.text-center {
     color: black;
 }
 
+
 a.card.no-shadow.rm-border.bg-transparent.widget-chart.text-center:hover {
     text-decoration: none;
     color: var(--primary);
@@ -45734,7 +45747,8 @@ div#social-form.hidden {
     }
 }
 
-@media(max-width:760px) {
+@media(max-width:760px) 
+{
     .app-header .app-header__content.header-mobile-open {
         visibility: visible;
         opacity: 1;
@@ -45771,15 +45785,24 @@ div#social-form.hidden {
         min-width: 10px !important;
     }
 }
+.vertical-nav-menu li a{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.nav li{
+    justify-content: center;
+    gap: 10px;
+    font-size: 20px;
+    color: var(--theme-primary);
+}
 
 @media(max-width:575px) {
     .social-buttons {
         padding: 5px;
         display: flex;
         flex-direction: row;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: space-between;
+
     }
 }
 
@@ -45791,14 +45814,3 @@ div#social-form.hidden {
 .opacity-8:hover {
     color: #000000c7;
 }
-
-
-
-
-
-
-
-
-
-
-
