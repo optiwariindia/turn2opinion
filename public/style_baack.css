@@ -12284,8 +12284,8 @@ button,
 .widget-subheading {
     font-size:15px;
     font-weight:800;
-  
-    overflow: hidden;
+  max-width:calc(100% - 45px);
+   overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
     margin-top:10px;
