@@ -4036,7 +4036,9 @@ textarea.form-control.is-invalid {
 }
 
 .btn:not(:disabled):not(.disabled) {
-    cursor: pointer
+    cursor: pointer;
+    width: 90%;
+    margin-right: 14px;
 }
 
 a.btn.disabled,
@@ -45193,7 +45195,7 @@ span.multiselect-native-select select {
 
 .form-group {
     margin: 10px 10px;
-    padding: 10px;
+    padding: -11px;
 }
 
 .form-group>label>img {

@@ -9,7 +9,7 @@
 }
 
 .popupcard {
-    width: 60%;
+ 
     margin: auto;
 }
 
@@ -17,6 +17,7 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
+    background-image: url("/images/cla");
 }
 
 .topbanner div {
@@ -97,7 +98,7 @@
     grid-template-columns: 1fr 20fr 8fr 8fr;
     font-size: 25px;
     gap: 13px;
-    border-bottom: 1px solid;
+    
 }
 .main-body .left-section ul li i{
     font-size:45px;
@@ -128,3 +129,44 @@ form .form-group img{
     color:var(--theme-primary)!important;
     border-bottom:1px solid var(--theme-primary)!important;
 }
+.card-body-1{
+    background-color: darkgray;
+}
+img{
+    height: 50px;
+    margin: 8px;
+}
+.topbanner{
+    background-image: url("/images/rewards-claimed.jpg");
+    background-repeat: no-repeat;
+    
+}
+.hide{
+    display:none;
+}
+.main-body .left-section ul{
+    max-height:100vh;
+}
+.left-section ul li:nth-child(2n) {background: rgba(104, 104, 243, 0.726);}
+.left-section ul li:hover:nth-child(2n) {
+    font-weight:bold;
+    }
+    .left-section ul li:hover:nth-child(2n-1) {
+        font-weight:bold;
+        color: white;
+        }
+    .left-section ul li:hover{
+        transform:scale(0.9);
+    }
+    .points{
+        color:red;
+    }
+    .amount{
+        color:green
+    }
+.name{
+    margin-left: 10px;
+}
+    .name:hover{
+        color: var(--theme-primary);
+    }
