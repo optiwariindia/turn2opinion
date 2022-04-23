@@ -2357,16 +2357,14 @@ input::placeholder {
 
 footer h4 {
     font-size: 30px;
-    background: gray;
-    border-radius: 50px;
+    
 }
 
 footer p {
     font-weight: 100;
     line-height: 30px;
   
-    border: 1px solid;
-    border-radius: 10px;
+    
     padding: 10px;
 }
 
