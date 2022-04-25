@@ -2769,3 +2769,7 @@ nav.fh5co-nav.fixednav .top{display:none;}
 justify-content: space-between;
 }
 }
+img.img-fluid{
+    width:100%;
+    height:auto;
+}
