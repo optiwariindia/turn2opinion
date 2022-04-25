@@ -1,0 +1,156 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/assets/css/filepond.min.css" />
+    <link href="/style_baack.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/font-awesome.css" />
+    <link rel="stylesheet" href="/css/form.css" />
+    <link rel="stylesheet" href="/css/redeem.css" />
+    <title>Redumption Request</title>
+  </head>
+  <body style="margin: 0; padding: 0;">
+    <div class="img-container">
+      <img src="/images/redeem/banner.jpg" alt="" class="img-fluid" />
+      <div class="redinfo">
+        <div class="claimed">
+          <h4>
+            Rewards Claimed
+          </h4>
+          <span data-claimed>₹ 500.00</span>
+        </div>
+        <div class="redeemed">
+          <h4>
+            Points Redeemed
+          </h4>
+          <span data-redeempoints>1500</span>
+        </div>
+      </div>
+      <div class="claimed-history">
+        <h4>Last Claimed History</h4>
+        <span data-lastclaimed>₹ 0.00 </span>
+      </div>
+    </div>
+    <div class="redeem-page">
+      <div class="left-section">
+        <div class="description-table">
+          <ul style="overflow: auto;" data-earnings>
+            <li class="heading">
+              <span class="circle"></span>
+              <span class="name">Credit Survey</span>
+              <span class="points">Credit Points</span>
+              <span class="amount">Credit Amount</span>
+            </li>
+            
+            <li>
+              <span class="circle"></span>
+              <span class="name">Joining Points</span>
+              <span class="points">300 points</span>
+              <span class="amount"
+                ><img src="/images/dollar-1.png" /> 3.00 USD</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="form-nav">
+          <div class="form-nav-link">
+            <label onclick="selectForm(this)" class="active" for="paypal">
+              <img class="circle-logo" src="/images/paypal.png" />
+              <span class="hide">Paypal</span>
+            </label>
+          </div>
+          <div class="form-nav-link">
+            <label onclick="selectForm(this)" for="upi">
+              <img class="circle-logo" src="/images/upi.png" /><span
+                class="hide"
+                >UPI</span
+              >
+            </label>
+          </div>
+          <div class="form-nav-link">
+            <label onclick="selectForm(this)" for="neft">
+              <img class="circle-logo" src="/images/bank.png" />
+              <span class="hide">Bank Account</span>
+            </label>
+          </div>
+        </div>
+        <div class="forms">
+          <input type="radio" name="pmode" id="paypal" checked />
+          <form method="post" >
+            <div class="form-group">
+              <img src="" alt="" />
+            </div>
+            <div class="form-group">
+              <label for="paypal">Paypal ID</label>
+              <input
+                type="email"
+                class="form-control"
+                required
+                name="paypalid"
+              />
+            </div>
+            <div class="form-group">
+              <button  class="btn primary">Submit</button>
+            </div>
+          </form>
+          <input type="radio" name="pmode" id="upi" />
+          <form method="post" >
+            <div class="form-group">
+              <label for="upi">UPI</label>
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="upi"
+                name="upiid"
+              />
+            </div>
+            <div class="form-group">
+              <button  class="btn primary">Submit</button>
+            </div>
+          </form>
+          <input type="radio" name="pmode" id="neft" />
+          <form method="post" >
+            <div class="form-group">
+              <label for="ifsc">IFSC Code</label>
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="ifsc"
+                name="ifsc"
+              />
+            </div>
+            <div class="form-group">
+              <label for="account">Account Number</label>
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="account"
+                name="account"
+              />
+            </div>
+            <div class="form-group">
+              <label for="acname">Name as in Account</label>
+              <input
+                type="text"
+                class="form-control"
+                required
+                id="acname"
+                name="acname"
+              />
+            </div>
+            <div class="form-group">
+              <button  class="btn primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="/js/redeem.js"></script>
+  </body>
+</html>

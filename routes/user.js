@@ -55,6 +55,7 @@ router.post("/redeem", getUserInfo, userDetails, async (req, res) => {
     redeemDate.setDate(15);
     if (redeemDate < today)
         redeemDate.setMonth(redeemDate.getMonth() + 1);
+    redeemDate.setMonth(redeemDate.getMonth() + 3);
     redeem = await Redeem.create({
         respondent: mongoose.Types.ObjectId(req.user._id),
         paymentMethod: paymentMethod,
@@ -316,7 +317,7 @@ function getUserInfo(req, res, next) {
 }
 async function userDetails(req, res, next) {
     req.user.propic = req.user.propic || "/assets/images/avatars/user.webp";
-    fs.existsSync("./public" + req.user.propic)?req.user.propic:req.user.propic="/assets/images/avatars/user.webp";
+    fs.existsSync("./public" + req.user.propic) ? req.user.propic : req.user.propic = "/assets/images/avatars/user.webp";
     if ("dob" in req.user) {
         if (req.user.dob != null) {
             num = Date.parse(req.user.dob);
@@ -350,7 +351,7 @@ async function userDetails(req, res, next) {
     for (let index = 0; index < profileCategories.length; index++) {
         const profile = profileCategories[index];
         profileCategories[index]['completed'] = (req.user.profiles.indexOf(profile.target) > -1) ? 100 : 0;
-        profileCategories[index]['enabled']= ((req.user.profiles.indexOf(profile.target) > -1)||(profile.seqno > 4));
+        profileCategories[index]['enabled'] = ((req.user.profiles.indexOf(profile.target) > -1) || (profile.seqno > 4));
     }
     req.user.profileCategories = profileCategories;
     req.user.availableSurveys = await Survey.find({
@@ -363,10 +364,10 @@ async function userDetails(req, res, next) {
         }
     }, {
         name: 1,
-        description:1,
-        icon:1,
+        description: 1,
+        icon: 1,
         uri: 1,
-        info:1,
+        info: 1,
         summary: 1,
         source: 1,
         category: 1,

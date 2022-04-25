@@ -1,0 +1,199 @@
+.redeemPopup {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+}
+
+.popupcard {
+    margin: auto;
+}
+
+.topbanner {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    background-image: url("/images/cla");
+}
+
+.topbanner div {
+    max-width: 25%;
+    flex-wrap: wrap;
+}
+
+.topbanner div span {
+    font-weight: bold;
+    font-size: 30px;
+    width: 100%;
+}
+
+.topbanner .lastredeem span{
+    font-size: 20px;
+    float: right;
+    text-align: left;
+    background-image: linear-gradient(to down, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+}
+
+.main-body {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 10px;
+}
+
+.main-body .right-section input[type=radio] {
+    display: none;
+}
+
+.main-body .right-section input[type=radio]+form {
+    display: none;
+}
+
+.main-body .right-section input[type=radio]:checked+form {
+    display: grid;
+    border: 1px solid;
+    background: var(--theme-light);
+    color: var(--theme-primary);
+}
+
+.main-body .right-section input[type=radio]:checked+form input {
+    border-bottom: 1px solid var(--theme-light);
+    color: var(--theme-light);
+}
+
+.main-body .right-section ul {
+    list-style: none;
+    display: flex;
+    padding-left: 0px;
+    justify-content: space-between;
+}
+
+.main-body .right-section ul li label {
+    padding: 2px 5px;
+    border: 1px solid var(--theme-primary);
+    color: var(--theme-primary);
+    background: var(--theme-light);
+    transition: 1s;
+}
+
+.main-body .right-section ul li label.active {
+    background: var(--theme-primary);
+    color: var(--theme-light);
+}
+
+.main-body .left-section ul {
+    list-style: none;
+    padding-left: 0px;
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.main-body .left-section ul li {
+    /* width:100%;
+    font-size:18px;
+    border:1px solid;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    */
+    display: grid;
+    grid-template-columns: 1fr 20fr 8fr 8fr;
+    font-size: 25px;
+    gap: 13px;
+
+}
+
+.main-body .left-section ul li i {
+    font-size: 45px;
+    padding: 10px;
+}
+
+.main-body .form-group {
+    margin: 0px;
+    position: relative;
+}
+
+.main-body label {
+    font-size: 14px;
+}
+
+.main-body .form-group input+label {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    font-size: 14px;
+    transition: 1s;
+}
+
+.main-body .form-group input:focus+label {
+    top: -10px;
+}
+
+form .form-group img {
+    max-width: 100%;
+}
+
+.main-body .form-group input.form-control {
+    background: var(--theme-light);
+    color: var(--theme-primary) !important;
+    border-bottom: 1px solid var(--theme-primary) !important;
+}
+
+.card-body-1 {
+    background-color: darkgray;
+}
+
+img {
+    height: 50px;
+    margin: 8px;
+}
+
+.topbanner {
+    background-image: url("/images/rewards-claimed.jpg");
+    background-repeat: no-repeat;
+
+}
+
+.hide {
+    display: none;
+}
+
+.main-body .left-section ul {
+    max-height: 100vh;
+}
+
+.left-section ul li:nth-child(2n) {
+    background: rgba(104, 104, 243, 0.726);
+}
+
+.left-section ul li:hover:nth-child(2n) {
+    font-weight: bold;
+}
+
+.left-section ul li:hover:nth-child(2n-1) {
+    font-weight: bold;
+    color: white;
+}
+
+.left-section ul li:hover {
+    transform: scale(0.9);
+}
+
+.points {
+    color: red;
+}
+
+.amount {
+    color: green
+}
+
+.name {
+    margin-left: 10px;
+}
+
+.name:hover {
+    color: var(--theme-primary);
+}

@@ -5,9 +5,48 @@ const User = mongoose.model("users", require("../modals/user"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const ProfileOptions = mongoose.model("profileOptions", require("../modals/profileOptions"));
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
+const Attempt=mongoose.model("attempt",require("../modals/attempt"));
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
+router.get("/userstatus",async (req,res)=>{
+  if("user" in req.session){
+    info={
+      conversion:process.env.conversion,
+      user:JSON.parse(JSON.stringify(req.session.user)),
+      earnings:await Attempt.aggregate([
+        {
+        $match:{respondent:req.session.user._id}
+      },
+      {
+        $lookup:{
+          from:"surveys",
+          localField:"survey",
+          foreignField:"_id",
+          as:"survey"
+        }                
+      },
+      {
+        $project:{
+          survey:{
+            _id:1,
+            name:1
+          },
+          status:1,
+          rewards:1,
+          attemp:{
+            start:1,
+          }
+        }
+      }
+    ])
 
+      // .find({respondent:req.session.user._id})
+    }
+    res.send(info);
+  }else{
+    res.status(403).json({status:"error",message:"Authentication Required"});
+  }
+})
 router.get("/survey/:surveyname",async (req,res)=>{
   survey=await Survey.find({uri:req.params.surveyname});
   res.json(survey);
@@ -36,7 +75,11 @@ router.get("/getCurrency",(req,res)=>{
   res.json(currencies[req.session.user.cn.toUpperCase()].currency);
 })
 router.get("/userinfo", (req, res) => {
-  res.json(req.session.user);
+  if("user" in req.session){
+    res.json(req.session.user);
+  }else{
+    res.status(403).json({status:"error",message:"Authentication Required"});
+  }
 })
 router.get("/earnings", async (req, res) => {
   redeem = await Redeem.aggregate([

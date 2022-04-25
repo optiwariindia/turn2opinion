@@ -18,5 +18,7 @@ module.exports = new schema(
             enum:["drafted","pending","inactive","under review","disqualified","overquota","closed","completed"],
         },
         reason:String,
+    },{
+        timestamps:true
     }
 );
