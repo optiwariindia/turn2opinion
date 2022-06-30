@@ -23,14 +23,16 @@
 
 			{# <img src="/images/loader.gif" alt="" srcset=""> #}
 		</div>
-		<div id="page" class=" fixednav">
+		<div id="page" class="fixednav">
 			{% include "comp/navbar.twig" %}
+			<div class="banner-section">
 			{% include "comp/slider.twig" %}
 			{% if form is defined %}
 				{% include "comp/"~form~".twig" %}
 			{% else %}
 				{% include "comp/auth.twig" %}
 			{% endif %}
+			</div>
 			<div class="extrasegment">
 				<div class="extrasegment-container">
 					<div class="extra-text">

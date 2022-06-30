@@ -239,6 +239,7 @@
 			nav: false,
 			dots: true,
 			smartSpeed: 1000,
+			autoplayTimeout:5000,
 			// autoHeight: true,
 			autoplay:true
 		});
@@ -251,11 +252,9 @@ const mainSlider=function(){
 		margin:0,
 		dots:true,
 		nav:true,
-		autoHeight:true,
+		// autoHeight:true,
 		smartSpeed: 500,
-		autoplay:true, 
-		animateOut: 'flipOutX',
-		animateIn: 'flipInX',
+		autoplay:true
 	})
 }
 	
@@ -276,3 +275,21 @@ const mainSlider=function(){
 
 
 }());
+
+
+function readmr() {
+	var dots = document.getElementById("dots");
+	var moreText = document.getElementById("more");
+	var btnText = document.getElementById("myBtn");
+  
+	if (dots.style.display === "none") {
+	  dots.style.display = "inline";
+	  btnText.innerHTML = "Read more"; 
+	  moreText.style.display = "none";
+	} else {
+	  dots.style.display = "none";
+	  btnText.innerHTML = "hide"; 
+	  moreText.style.display = "inline";
+	}
+  }
+

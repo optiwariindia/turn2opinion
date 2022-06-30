@@ -2,7 +2,7 @@
 	<h1>Frequntly Asked Questions</h1>
 	{% for faq in faqs %}
 		<div class="accordian {{(loop.index == 1)?"active":""}}">
-			<div class="que">{{faq.Que|raw}} <a href='javascript:void(0)' onclick="expand(this)"><i class="fa fa-caret-down"></i></a></div>
+			<div class="que">{{faq.Que|raw}} <a href='javascript:void(0)'><i class="fa fa-caret-down"></i></a></div>
 			<div class="ans">{{faq.Ans|raw}}</div>
 		</div>
 	{% endfor %}
