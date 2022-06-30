@@ -309,11 +309,3 @@ RequestAQuote = function (e) {
             }
         });
 };
-(() => {
-    $(".popup-request-form").addClass("m-open");
-    $("body").addClass("m-open");
-    $("[name=name]").val("Om Prakash Tiwari");
-    $("[name=email]").val("optiwari@frfs");
-    $("[name=company]").val("Frequent Research");
-    $("[name=message]").val("Testing by Om Tiwari");
-})();

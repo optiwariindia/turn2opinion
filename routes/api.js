@@ -20,8 +20,8 @@ router.post("/getquote",async (req,res)=>{
   await quote.save();
   const email = require("../service/email");
   twig.renderFile("mailers/template.twig",{message:"team/quote",quote},(e,h)=>{
-    // email.sendEmail("bids@frequentresearch.com","Quote Request From T2O Website",h,h);
-    email.sendEmail("om.tiwari@frequentresearch.com","Quote Request From T2O Website",h,h);
+    email.sendEmail("support@frequentresearch.com","Quote Request From T2O Website",h,h);
+    // email.sendEmail("om.tiwari@frequentresearch.com","Quote Request From T2O Website",h,h);
   });
   res.json({
     status:"success",
