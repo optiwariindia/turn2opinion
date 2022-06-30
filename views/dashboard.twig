@@ -24,19 +24,12 @@
 							</div>
 						</div>
 						<div class="mb-3"></div>
-						<div class="row">
-							<h1></h1>
-							<h3></h3>
-							
-							<div class="col-sm-12">{% include "dbcomp/surveys.twig" %}</div>
-						</div>
+						{% include "dbcomp/surveys.twig" %}
 					</div>
-
-
 				</div>
 			</div>
 		</div>
-	
+
 		<div class="app-drawer-overlay d-none animated fadeIn"></div>
 		{% if (user.terms |length)==0  %}
 			<div class="forced-popup">
@@ -44,13 +37,7 @@
 					{% include "dbcomp/terms.twig" %}
 				</div>
 			</div>
-			<h1>Card Flip with Text</h1>
-			<h3>Hover over the image below:</h3>
-
-
 		{% endif %}
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5NFKJD7"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<script src="/dashboard.js"></script>
 		<script type="text/javascript" src="/assets/scripts/main.d810cf0ae7f39f28f336.js"></script>
 		<script type="text/javascript" src="/assets/scripts/script.js"></script>

@@ -57,44 +57,4 @@
 		</p>
 	</div>
 </div>
-<div class="popup-request-form">
-   <div class="request-form">
-      <div class="cross-bttn"></div>
-      <div class="inner">
-         <div class="image-wrapper">
-            <h3>Request a Quote</h3>
-         </div>
-         <div class="content-wrapper">
-            <form>
-               <div class="row">
-                  <div class="col-sm-6">
-                     <div class="form-field">
-                        <label>Name</label>
-                        <input type="text" name="" id="r-name" placeholder="Enter your name">
-                     </div>
-                     <div class="form-field">
-                        <label>Email</label>
-                        <input type="email" name="" id="r-email" placeholder="Enter your email">
-                     </div>
-                     <div class="form-field">
-                        <label>Company</label>
-                        <input type="text" name="" id="r-company" placeholder="Enter company name">
-                     </div>
-                  </div>
-                  <div class="col-sm-6">
-                     <div class="form-field">
-                        <label>message</label>
-                        <textarea name="" id="r-message" cols="30" rows="10" placeholder="enter your message"></textarea>
-                     </div>
-                     <div class="form-field">
-                        <input type="submit" name="" value="request quote">
-                     </div>
-                  </div>
-               </div>
-            </form>
-         </div>
-      </div>
-   </div>
-</div>
-
-<div id="quote-bttn"><a href="javascript:void(0);">Request a Quote</a></div>
+{% include "comp/requestAQuote.twig" %}

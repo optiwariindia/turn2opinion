@@ -3124,7 +3124,7 @@ overflow: hidden;
 margin-bottom: 31px;
 }
 
-.popup-request-form .request-form .form-field input[type="submit"] {
+.popup-request-form .request-form .form-field button.btn.btn-primary {
 background: var(--theme-primary);
 color: #fff;
 text-transform: uppercase;

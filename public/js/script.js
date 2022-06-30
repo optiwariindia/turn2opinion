@@ -1,3 +1,12 @@
+window.addEventListener('appinstalled', () => {
+    // Hide the app-provided install promotion
+    hideInstallPromotion();
+    // Clear the deferredPrompt so it can be garbage collected
+    deferredPrompt = null;
+    // Optionally, send analytics event to indicate successful install
+    console.log('PWA was installed');
+});
+
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js');
 }
@@ -256,10 +265,55 @@ if (!cookiePopup.accepted()) {
 ;
 
 window.addEventListener("scroll", () => {
-    console.log("calling scroll");
     if (window.scrollY > window.innerHeight) {
         document.querySelector("#page").classList.add("fixednav");
     } else {
         document.querySelector("#page").classList.remove("fixednav");
     }
 })
+
+RequestAQuote = function (e) {
+    console.log([e]);
+    frm = e.form;
+    flds = Array.from(frm.querySelectorAll("[name]"));
+    data = {};
+    error = [];
+    status = flds.reduce((stat, fld) => {
+        if (!stat) return stat;
+        if (!fld.validity.valid) {
+            error.push(fld.name)
+            return false;
+        }
+        data[fld.name] = fld.value;
+        return true;
+    }, true)
+    if (!status) {
+        alert(`Please check ${error[0]}`);
+        return;
+    }
+    e.form.innerHTML="<div class='spinner'></div>";
+    fetch("/api/v1/getquote",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+    ).then(resp => resp.json())
+        .then(resp => {
+            if (resp.status == "success") {
+                popup.show(`<h2><i class='fa fa-exclamation-triangle'></i>${resp.message.heading}</h2>${resp.message.body}`);
+            } else {
+                popup.show(`<h2><i class='fa fa-exclamation-triangle'></i>${resp.message.heading}</h2>${resp.message.body}`);
+            }
+        });
+};
+(() => {
+    $(".popup-request-form").addClass("m-open");
+    $("body").addClass("m-open");
+    $("[name=name]").val("Om Prakash Tiwari");
+    $("[name=email]").val("optiwari@frfs");
+    $("[name=company]").val("Frequent Research");
+    $("[name=message]").val("Testing by Om Tiwari");
+})();

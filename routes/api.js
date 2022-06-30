@@ -8,6 +8,30 @@ const Redeem = mongoose.model("redeem", require("../modals/redeem"));
 const Attempt=mongoose.model("attempt",require("../modals/attempt"));
 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const Profiles = mongoose.model("profiles", require("../modals/profiles"));
+const Quote=mongoose.model("quote",require("../modals/quote"));
+const twig=require("twig");
+router.post("/getquote",async (req,res)=>{
+  const quote=new Quote({
+    name:req.body.name,
+    email:req.body.email,
+    company:req.body.company,
+    message:req.body.message
+  });
+  await quote.save();
+  const email = require("../service/email");
+  twig.renderFile("mailers/template.twig",{message:"team/quote",quote},(e,h)=>{
+    // email.sendEmail("bids@frequentresearch.com","Quote Request From T2O Website",h,h);
+    email.sendEmail("om.tiwari@frequentresearch.com","Quote Request From T2O Website",h,h);
+  });
+  res.json({
+    status:"success",
+    message:{
+      heading:"Thanks for your interest in our services",
+      body:"Your request has been sent to our team. One of our team members will get in touch with you shortly."
+    }
+  })
+})
+
 router.get("/userstatus",async (req,res)=>{
   if("user" in req.session){
     info={
