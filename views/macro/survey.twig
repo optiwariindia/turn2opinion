@@ -64,7 +64,9 @@
 			<input {% if params.editable == false %}  {% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
 		</div>
 	{% endif %}
-</div>{% endmacro %}{% macro render1(params) %}
+</div>
+{% endmacro %}
+{% macro render1(params) %}
 <div class="form-group options">
 	<label for="">{{label}}</label>
 	<div class="input form-control"></div>

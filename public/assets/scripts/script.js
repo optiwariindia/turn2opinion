@@ -100,3 +100,10 @@ const contact={
     contact.form.classList.add("hidden");
   }
 };
+const custom={
+  popup:{
+    close:function(e){
+      e.closest(".custom-popup").style="display:none"
+    }
+  }
+}

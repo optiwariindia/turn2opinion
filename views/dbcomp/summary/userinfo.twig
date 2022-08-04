@@ -46,6 +46,10 @@
 </td>
 </tr>
 <tr>
+<th>Payment Option</th>
+<td>{{ (user.payout is defined)?user.payout.method : "Not Yet Selected" }}</td>
+</tr>
+<tr>
 <th>Created On</th>
 <td>{{ user.createdAt|date('d-M-Y')}}</td>
 </tr>

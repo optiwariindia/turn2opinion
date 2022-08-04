@@ -68,10 +68,11 @@
 															<div class="widget-heading">{{(user.fn ~ " " ~ user.ln)|title}}</div>
 															<div class="widget-subheading opacity-8">{{user.email}}</div>
 														</div>
-														
-													</div><div class="widget-content-right mr-2">
-															<button onclick="user.logout()" class="btn-pill btn-shadow btn-shine btn btn-focus fr">Logout</button>
-														</div>
+
+													</div>
+													<div class="widget-content-right mr-2">
+														<button onclick="user.logout()" class="btn-pill btn-shadow btn-shine btn btn-focus fr">Logout</button>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -81,12 +82,20 @@
 											<ul class="nav flex-column">
 												<li class="nav-item-header nav-item">Activity</li>
 												<li class="nav-item">
-													<a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#changePassword">
+													<a href="/user/profile" class="badge badge-primary">My Profile</a>
+												</li>
+												<li class="nav-item">
+													<a href="javascript:void(0);" class="badge badge-primary" data-toggle="modal" data-target="#changePassword">
 														Change password
 													</a>
 												</li>
 												<li class="nav-item">
-													<a href="javascript:void(0);" class="nav-link" data-toggle="modal" data-target="#deleteAccount">Delete Account
+													<a href="javascript:void(0);" class="info info-danger" data-toggle="modal" data-target="#deleteAccount" style="
+																											font-size: 12px;
+																											display: block;
+																											margin-top: 30px;
+																										">
+														Delete Account
 													</a>
 												</li>
 											</ul>

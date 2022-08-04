@@ -294,9 +294,9 @@ router.get("/dashboard",
             { $project: { "did": { $dayOfYear: "$redeemDate" }, "month": { $month: "$redeemDate" }, "year": { $year: "$redeemDate" }, "amount": 1, "status": 1 } },
             { $group: { _id: { year: "$year", month: "$month", did: "$did" }, total: { $push: "$amount" }, status: { $first: "$status" } } }
         ]);
-
-        info = { claims, page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion };
-        // res.json(info);
+        
+        info = { claims, page: { title: "Dashboard", icon: "" }, user: req.user, filters, threshold: process.env.threshold, conversion: process.env.conversion ,welcome:user.survey.find(s=>(s.uri == "welcome"))};
+        // return res.json(info);
         res.render("dashboard.twig", info);
     })
 router.use(fileUpload())

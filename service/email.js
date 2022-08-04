@@ -23,12 +23,12 @@ module.exports=email={
             name:'Turn2Opinion Support',
             email:'support@frequentresearch.com'
         },
-        host:'s10.cyberspace.in',
+        host:'smtp.zoho.in',
         port:465,
         secure:true,
         auth:{
             user:'support@frequentresearch.com',
-            pass:'frfssupport@123'
+            pass:'L1u8jxBe78gx'
         }
     },
     sendEmail:async function(to,subject,text,html){
