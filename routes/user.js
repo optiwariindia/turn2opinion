@@ -12,6 +12,7 @@ const Profiles = mongoose.model("profiles", require("../modals/profiles"));
 const Survey = mongoose.model("survey", require("../modals/survey"));
 const Redeem = mongoose.model("redeem", require("../modals/redeem"));
 const Attempt = mongoose.model("attempt", require("../modals/attempt"));
+
 const homepage = require("../service/homepage.js");
 router.use("/social", require("./social"));
 router.get("/logout", (req, res) => {
@@ -68,7 +69,7 @@ router.post("/redeem", getUserInfo, userDetails, async (req, res) => {
     redeem.save();
     user = req.user;
     twig.renderFile("mailers/template.twig", { message: "redeem", user: user, claim: redeem, money: money, points: points }, (e, h) => {
-        email.sendEmail("om.tiwari@frequentresearch.com", `Turn2Opinion Panelist - ${user.name} - ${user.email} - Request for Panel Redemption`, "", h);
+        email.sendEmail(process.env.email_support, `Turn2Opinion Panelist - ${user.name} - ${user.email} - Request for Panel Redemption`, "", h);
     });
     res.json({ status: "ok", message: `Your request to redeem ${points} equivalent to ${money} has been sent to corresponing department. You will be notified by email once it is credited in your account.` });
 })
@@ -222,7 +223,7 @@ router.get("/verify/:id", (req, res, next) => {
     User.findById(req.params.id).then(user => {
         user.verified.email = true;
         user.save();
-        securityqs = JSON.parse(require("fs").readFileSync("./databank/securityQuestions.json"));
+        securityqs = JSON.parse(require("fs").readFileSync("./databank/securityQuestions.json"));        
         req.extrainfo = {
             form: "setpass",
             id: req.params.id,
@@ -261,6 +262,9 @@ router.post("/setpass", (req, res) => {
         user.password = req.body.pass;
         user.security.question = req.body.secque;
         user.security.answer = req.body.ans;
+        twig.renderFile("mailers/template.twig", { message: "team/newRegistration", user: user}, (e, h) => {
+            email.sendEmail(process.env.email_support, `Turn2Opinion Panelist - New User Registration`, "", h);
+        });
         user.save().then(usr => {
             req.session.user = usr;
             console.log(usr);

@@ -15,7 +15,8 @@ else
 console.log(publicDir);
 
 Twig.extendFilter("textformat",(value,params)=>{
-    if(!value) return "";
+    // if(!value) return "";
+    if(!value)value=0;
     switch(params[0]){
         case "percent":
             return value.toFixed(0) + "%";
@@ -69,6 +70,10 @@ mongoose.connect(process.env.mongodb, { useNewUrlParser: true })
             });
     })
 const logs = (req, res, next) => {
+    if("body" in req){
+        console.log(`${new Date()}-${req.method} ${req.headers["x-forwarded-for"] || req.connection.remoteAddress} :`);
+        console.log(req.body);
+    }
     // console.log([req.method,req.url||{},req.session||{},req,body||{}]);
     next();
 }
