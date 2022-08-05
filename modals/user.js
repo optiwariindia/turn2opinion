@@ -503,7 +503,7 @@ user = new schema({
     Entertainment27: String,
     Entertainment28: String,
     Entertainment29: String,
-    Payout:{
+    payout:{
         method: String,
         account: String,
         account_type: String,

@@ -33,7 +33,7 @@ router.route("/")
             if (["disqualified", "overquota"].indexOf(info.status) != -1)
                 data.push(info);
         }
-        // res.json(data);return;
+        // res.json(req.user);return;
         res.render("profile.twig", {
             rejected: data,
             redeem,
@@ -42,7 +42,7 @@ router.route("/")
             threshold: process.env.threshold,
             user: req.user,
             page: { title: "Profile", icon: "profile.png" },
-            profilestatus: 100 * (req.user.profileCategories.filter(e => e.completed == 100).length) / (req.user.profileCategories.length)
+            profilestatus: 100 * (req.user.profiles.length) / (req.user.profileCategories.length)
         });
     })
     .post(async (req, res) => {
@@ -50,7 +50,15 @@ router.route("/")
             user = await User.findOne({
                 _id: req.session.user._id
             });
+            if(req.body.platform=="paypal"){
+                user.payout = {
+                    method: "paypal",
+                    account:req.body.userid,
+                    account_type:"paypal"
+                }
+            }else{
             user.contact[req.body.platform] = req.body.userid;
+            }
             user.save();
             req.session.user = user;
             res.redirect("/user/profile");

@@ -18,7 +18,9 @@ router.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/");
 })
-router.post("/auth", (req, res) => {
+router.post("/auth", async (req, res) => {
+    user=await User.findOne({email: req.body.user, password: req.body.pass, deletedOn: null});
+    if(user) console.log(user);    
     User.find({ email: req.body.user, password: req.body.pass, deletedOn: null }).then(user => {
         if (user.length === 1) {
             req.session.user = user[0];

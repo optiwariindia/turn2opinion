@@ -47,7 +47,15 @@
 </tr>
 <tr>
 <th>Payment Option</th>
-<td>{{ (user.payout is defined)?user.payout.method : "Not Yet Selected" }}</td>
+<td>
+	{% if (user.payout is defined) %}
+		{{ user.payout.method }} : {{ user.payout.account }}
+	<span info='{{user.paypal.account}}' form='paypal' class="badge badge-danger" onclick='contact.add(this)'>Click to change</span>
+	{% else %}
+		Not Yet Selected
+		<span info='' form='paypal' class="badge badge-danger" onclick='contact.add(this)'>Click to add</span>
+	{% endif %}
+</td>
 </tr>
 <tr>
 <th>Created On</th>
