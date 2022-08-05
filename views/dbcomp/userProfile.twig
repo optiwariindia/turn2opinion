@@ -52,7 +52,7 @@
 					<div class="table-responsive">
 						<div class="frm social-buttons">
 							{% for name,value in user.contact %}
-								<div  class="btn btn-{% if value == null %}secondary{% else %}primary{% endif %}" title='USERID: {{value}}, Click to update' onclick="contact.add('{{name}}')">
+								<div  class="btn btn-{% if value == null %}secondary{% else %}primary{% endif %}" info="{{value}}" title='USERID: {{value}}, Click to update' form='{{name}}' onclick="contact.add(this)">
 									<i class="fa fa-{{name}}"></i>
 								</div>
 							{% endfor %}

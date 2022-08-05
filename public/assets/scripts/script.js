@@ -77,9 +77,10 @@ const user = {
 const contact={
   form:document.querySelector("#social-form"),
   add:function(e){
+    
     if(contact.form == null )
     return false;
-    contact.showForm(e);
+    contact.showForm({form:e.getAttribute("form"),value:e.getAttribute("info")});
   },
   showForm:function(e){    
     labels={
@@ -89,12 +90,15 @@ const contact={
       linkedin:"Enter your Linkedin Profile URL",
       instagram:"Enter your Instagram Profile URL",
       youtube:"Enter your Youtube Channel URL",
-      whatsapp:"Enter your Whatsapp Number"
+      whatsapp:"Enter your Whatsapp Number",
+      paypal:"Enter your Paypal Email",
     }
     contact.form.classList.remove("hidden");
     label=contact.form.querySelector("[data=socialLabel]");
-    if(label!=null)label.innerText=labels[e]||`Add ${e} id`;
-    contact.form.querySelector("[name=platform]").value=e;
+    console.log(e);
+    if(label!=null)label.innerText=labels[e.form]||`Add ${e.form} id`;
+    contact.form.querySelector("[name=platform]").value=e.form;
+    contact.form.querySelector("[name=userid]").value=e.value;
   },
   hide:function(){
     contact.form.classList.add("hidden");
