@@ -22,18 +22,37 @@
 		{% elseif params.type == "select" %}
 			<div class="form-group">
 				<label for="">{{label}}</label>
+				{% if ((params.editable ==false) and (user[params.name]!=null)) %}
+					<div class="input">
+					{% set value = user[params.name] %}
+						{% if value is iterable %}
+							{% if value.label is defined %}
+								<input type=hidden name={{params.name}} value='{{user[params.name]["_id"]}}'>
+								{{value.label}}
+							{% else %}
+								{% for val in value %}
+									{{val}}
+								{% endfor %}
+							{% endif %}
+						{% else %}
+							{{value}}
+							<input type=hidden name={{params.name}} value='{{value.label}}'>
+						{% endif %}
+					</div>
+				{% else %}
 				<select required name="{{params.name}}" id="{{params.name}}" class='form-control' {% if ((user[params.name] is not defined) or (user[params.name]['_id'] is defined and user[params.name]['_id'] !="" )) and (params.options.api is defined) %} data-api="{{params.options.api}}" data-depends='{{params.options.depends|json_encode}}' {% endif %} class="custom-select">
 					{% if (user[params.name] is defined) %}
 						<option selected value="{{user[params.name]["_id"]}}">{{user[params.name]["label"]}}</option>
 					{% elseif params.options.api is defined %}
 					{% else %}
 						{% for option in params.options %}
-							<option value="{{option}}" {% if value == option %} selected {% endif %}></option>
+						<option value="{{option}}" {% if value == option %} selected {% endif %}></option>
 							{{option}}
 						</option>
 					{% endfor %}
 				{% endif %}
 				</select>
+			{% endif %}
 			</div>
 	{% elseif params.type == "autocomplete" %}
 		<div class="form-group options">
@@ -52,16 +71,15 @@
 	{% elseif params.type == "checkbox" %}
 		<div class="form-group options">
 			<label for="">{{label}}</label>
-			<div class="input "></div>
+			<div class="input ">{{user[params.name]|json_encode}}</div>
 			<input type="hidden" name='{{params.name}}' {% if params.options.api is defined %} data-api="{{params.options.api}}" data-depends='{{params.options.depends|json_encode}}' {% endif %}>
 			<div class="option-values"></div>
-
 		</div>
 	{% else %}
 		<div class="form-group">
 			<label for="">{{label}}</label>
 
-			<input {% if params.editable == false %}  {% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
+			<input {% if params.editable == false %} disabled {% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
 		</div>
 	{% endif %}
 </div>

@@ -123,6 +123,7 @@ router.route("/:profilename")
                 active: pageinfo.active
             }
         };
+        // return res.json(info.profile);
         if ("edit" in req.query) info["edit"] = true;
 
         res.render("profileInfo.twig", info);
@@ -153,6 +154,7 @@ router.route("/:profilename")
 module.exports = router;
 
 async function getProfileInfo(req, res, next) {
+    console.log("Line No 157 called")
     try {
         user = req.user;
         profiles = await Profiles.find({ uri: req.params.profilename });
@@ -193,6 +195,7 @@ async function getProfileInfo(req, res, next) {
     }
 }
 async function autoprofile (req, res){
+    console.log("this page is called")
     vehichles = fs.readFileSync("databank/automobile.json").toString();
     vehichles = JSON.parse(vehichles);
     insurers = fs.readFileSync("databank/autoInsurance.json").toString();

@@ -17,7 +17,11 @@ const inputCheckbox = {
     vals = []
     val = inp.value
     if (val !== '') {
-      vals = JSON.parse(val)
+      try {
+        vals = JSON.parse(val)
+      } catch (e) {
+        vals = []
+      }
     }
     if (vals.indexOf(e.innerText) === -1) {
       vals.push(e.innerText.trim())
@@ -94,12 +98,22 @@ const progress = {
   },
   validate: async function () {
     let page = await progress.getCurrentPage()
-    let fields = page.querySelectorAll('[name]:invalid')
+    let fields = Array.from(page.querySelectorAll('[name]:invalid')).filter((e) => {
+      p=e.closest("[applicable]");
+      if(!p)return true;
+      return p.getAttribute("applicable")=="true";
+    });
     if (fields.length !== 0) {
+      fields.forEach((fld) => {
+        fld.closest(".form-group").classList.add("has-error")
+        fld.addEventListener("change",(e)=>{
+          if(e.target.validity.valid){
+            e.target.closest(".form-group").classList.remove("has-error");
+          }
+        })
+      });
       fields[0].focus()
       elm = fields[0].closest('.form-group').querySelector('label')
-      alert(`${elm.innerText} Seems to be invalid. Please check`)
-      console.log({ invalid: fields[0].name })
       return false
     }
     // survey categories
@@ -136,9 +150,21 @@ const progress = {
     progress.show()
   },
   show: async function () {
+    await currency.init();
     if (progress.max == 0) {
       location.href = location.href + '?edit=1'
     }
+    inps = document.querySelectorAll('.input')
+    inps.forEach((inp) => {
+      inp.innerHTML=currency.localize(inp.innerHTML);
+      try {
+        inpvals = Array.from(JSON.parse(inp.innerText))
+        spans = inpvals.reduce((a, c) => {
+          return a + `<span>${c}</span>`
+        }, '')
+        inp.innerHTML = spans
+      } catch (e) {}
+    })
     progress.dom.total.innerText = progress.max
     progress.dom.page.innerText = progress.value
     await document.querySelectorAll('[page]').forEach((e) => {
@@ -169,6 +195,8 @@ const progress = {
     }
   },
   submit: async function () {
+    isValid = await progress.validate();
+    if(!isValid)return false;
     let inputs = {}
     await document.querySelectorAll('[name]').forEach((e) => {
       switch (e.type) {
@@ -177,7 +205,7 @@ const progress = {
         default:
           inputs[e.name] = e.value
       }
-      if (inputs[e.name] == '') inputs[e.name] = 'N/A'
+      if (inputs[e.name] == '') {delete(inputs[e.name]);}
     })
     let response = await fetch(location.href, {
       method: 'POST',
@@ -211,7 +239,7 @@ const progress = {
   },
 }
 
-progress.show()
+
 
 loadData = function () {
   let apireq = document.querySelectorAll('[data-api]')
@@ -241,6 +269,7 @@ loadData = function () {
           return
         }
         i = document.querySelector(`[name=${data.data[0].name}]`)
+        console.log(i.innerHTML)
         options = `<option selected value='' disabled>Select</option>`
         await data.data.forEach((e) => {
           options += `<option value="${e._id}">${e.label}</option>`
@@ -257,11 +286,22 @@ loadData = function () {
         if (i == null) i = e
         switch (i.tagName.toLowerCase()) {
           case 'select':
-            options = `<option value="" diabled selected>Select</option>`
+            option = i.querySelector('option')
+            val = option.getAttribute('value')
+            opt = i.querySelector('option').getAttribute('value')
+            options =
+              val.length != 0
+                ? `<option value="" diabled >Select</option>`
+                : `<option value="" diabled selected>Select</option>`
             await data.data.forEach((e) => {
-              options += `<option value="${e._id}">${e.label}</option>`
+              options += `<option ${e._id == opt ? 'selected' : ''} value="${
+                e._id
+              }">${e.label}</option>`
             })
             i.innerHTML = currency.localize(options)
+            // console.log(i.getAttribute("name"))
+            // console.log(userinfo[i.getAttribute("name")])
+            i.value=userinfo[i.getAttribute('name')]._id;
             showSelect()
             break
           case 'input':
@@ -282,6 +322,7 @@ function showSelect() {
     element = e.closest('.col-sm-6') || e.closest('.col-sm-12')
     element.style.display = 'none'
     e.removeAttribute('required')
+
     // console.table({fld:e.name,options:e.querySelectorAll("option").length})
     if (e.querySelectorAll('option').length > 1) {
       element.style.display = 'block'
@@ -293,8 +334,7 @@ function showSelect() {
 params = new URLSearchParams(location.search)
 progress.value = params.get('page') || 1
 
-progress.show()
-
+//progress.show()
 ;(() => {
   document.querySelectorAll('[name]').forEach((e) => {
     e.addEventListener('change', async function (event) {
@@ -313,8 +353,6 @@ progress.show()
         await data.options.forEach((option) => {
           if (options[option.name] == undefined)
             options[option.name] = `<option value="">Select </option>`
-          // options[option.name] = `<option value="${option._id}">${option.label}</option>`;
-          // else
           options[
             option.name
           ] += `<option value="${option._id}">${option.label}</option>`
@@ -450,8 +488,6 @@ country = {
   },
 }
 
-country.init()
-currency.init()
 bindfields = {
   elements: document.querySelectorAll('[bind-field]'),
   init: function () {
@@ -460,9 +496,14 @@ bindfields = {
       data = elm.getAttribute('data-for')
       if (data != '' && data != null) {
         data = JSON.parse(data)
-        document
-          .querySelector(`[name=${bindwith}]`)
-          .addEventListener('change', bindfields.check)
+        pElement = document.querySelector(`[name=${bindwith}]`)
+        if (pElement == null) return
+        elm.setAttribute('applicable', data.indexOf(pElement.value) != -1)
+        pElement = document.querySelector(`[name=${bindwith}]`)
+        if (pElement == null) return
+        elm.setAttribute('applicable', data.indexOf(pElement.value) != -1)
+
+        pElement.addEventListener('change', bindfields.check)
       }
     })
   },
@@ -476,36 +517,53 @@ bindfields = {
       data = elm.getAttribute('data-for')
       if (data != '' && data != null) {
         data = JSON.parse(data)
-        if (data.indexOf(e.target.value) !== -1) {
-          elm.style.display = 'block'
-        } else {
-          elm.style.display = 'none'
-        }
+        pElement = document.querySelector(`[name=${bindwith}]`)
+        if (pElement == null) return
+        elm.setAttribute('applicable', data.indexOf(pElement.value) != -1)
       }
     }
   },
 }
-bindfields.init()
 ;(() => {
-    elements={
-        city:document.querySelector('[name=city]'),
-        state:document.querySelector('[name=state]'),
+  elements = {
+    city: document.querySelector('[name=city]'),
+    state: document.querySelector('[name=state]'),
+  }
+  if (!elements.city) return
+  elements.city.addEventListener('focus', () => {
+    // console.log(elements.city.querySelectorAll("option").length);
+    if (elements.city.querySelectorAll('option').length == 1) {
+      error = document.createElement('span')
+      error.setAttribute('class', 'badge badge-danger')
+      error.innerText = 'Please select a state first'
+      elements.city.parentElement.prepend(error)
+      elements.state.classList.add('shake')
+      setTimeout(() => {
+        // alert("Please select state first");
+        elements.state.classList.remove('shake')
+      }, 2000)
+      setTimeout(() => {
+        elements.city.parentElement.querySelector('.badge').remove()
+      }, 5000)
     }
-    elements.city.addEventListener('focus',()=>{
-        // console.log(elements.city.querySelectorAll("option").length);
-        if(elements.city.querySelectorAll("option").length==1){
-            error=document.createElement("span");
-            error.setAttribute("class","badge badge-danger");
-            error.innerText="Please select a state first";
-            elements.city.parentElement.prepend(error);
-            elements.state.classList.add("shake");            
-            setTimeout(() => {
-                // alert("Please select state first");
-                elements.state.classList.remove("shake");
-            }, 2000);
-            setTimeout(()=>{
-                elements.city.parentElement.querySelector(".badge").remove();
-            },5000)
-        }
+  })
+})();
+(async ()=>{
+  let preselectInputs=async ()=>{
+    inputs=document.querySelectorAll("[name]");
+    inputs.forEach(input=>{
+      if(input.tagName != "SELECT")return;
+      inpname=input.getAttribute("name");
+      selectedOption=userinfo[inpname]||null;
+      if(selectedOption==null)return;
+      input.value=selectedOption._id;
+      console.log(inpname)
     })
+  }
+
+  await country.init()
+  await currency.init()
+  await bindfields.init()
+  await progress.show()
+  await preselectInputs();
 })()

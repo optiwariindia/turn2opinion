@@ -19,15 +19,12 @@
 					<div class="row">
 						{% for que in page %}
 							{% set item = profile.questions[que] %}
-							{% if edit is defined %}
-								{{form.render(profile.questions[que],user,counter)}}
-							{% else %}
-								{# {% if item.ans is defined %} #}
-
+							{% if edit is not defined %}
 								<div class="{{item.class}}">
 									<div class="form-group">
 										<label for="">{{item.label[0].value}}</label>
 										<div class="input">
+										
 											{% set value = user[item.name] %}
 											{% if value is iterable %}
 												{% if value.label is defined %}
@@ -43,7 +40,28 @@
 										</div>
 									</div>
 								</div>
-								{# {% endif %} #}
+							{# {% elseif ((profile.questions[que]['editable'] is not defined) or (profile.questions[que]['editable']==false)) %}
+									<div class="{{item.class}}">
+										<div class="form-group">
+											<label for="">{{item.label[0].value}}</label>
+											<div class="input">
+											{% set value = user[item.name] %}
+											{% if value is iterable %}
+												{% if value.label is defined %}
+													{{value.label}}
+												{% else %}
+													{% for val in value %}
+														{{val}}
+													{% endfor %}
+												{% endif %}
+											{% else %}
+												{{value}}
+											{% endif %}
+											</div>
+										</div>
+									</div> #}
+							{% else %}
+								{{form.render(profile.questions[que],user,counter)}}
 							{% endif %}
 							{% set counter = counter + 1 %}
 						{% endfor %}

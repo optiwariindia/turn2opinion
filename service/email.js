@@ -21,14 +21,14 @@ module.exports=email={
     setup:{
         sender:{
             name:'Turn2Opinion Support',
-            email:'support@frequentresearch.com'
+            email:'support@turn2opinion.com'
         },
-        host:'smtp.zoho.in',
+        host:'webserver.turn2opinion.com',
         port:465,
         secure:true,
         auth:{
-            user:'support@frequentresearch.com',
-            pass:'L1u8jxBe78gx'
+            user:'support@turn2opinion.com',
+            pass:'Su99or+'
         }
     },
     sendEmail:async function(to,subject,text,html){

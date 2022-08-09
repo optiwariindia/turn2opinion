@@ -9,6 +9,7 @@ Array.prototype.generate = function (from, to) {
         temp.push(i);
     return temp;
 }
+if(!api){
 const api = {
     endpoint: "/api/v1/automobile/",
     get: async function (url) {
@@ -86,7 +87,7 @@ const api = {
         }
     }
 }
-
+}
 function showQuestion(e) {
     nextq = e.closest(".que-group").nextElementSibling;
     if (nextq.classList.contains("not-hide")) return;
@@ -97,7 +98,7 @@ function showQuestion(e) {
 }
 async function showQgrid(e) {
     choice = { gadi: e.name.split("-")[0], kitni: !isNaN(e.value) ? Number(e.value) : 5 };
-    gadi = await api.get(choice.gadi);
+    gadi = await api.get("/automobile/"+choice.gadi);
     info = {};
     if (!("options" in gadi))
         return false;

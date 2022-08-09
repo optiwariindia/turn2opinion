@@ -17429,9 +17429,10 @@ body {
 }
 
 .btn-primary {
-    color: var(--theme-text);
+    color:#fff;
     background-color: var(--theme-primary);
-    border-color: var(--theme-primary)
+    border-color: var(--theme-primary);
+    transition:all 0.5s ease;
 }
 
 .btn-primary:hover {
@@ -45791,4 +45792,25 @@ div#social-form.hidden {
 
 .body-tabs .body-tabs-layout .tabs-animated .body-tabs-animated .nav {
     display: flex;
+}
+[applicable=false]{
+    display: none!important;
+}
+.select2-container{
+    width:100% !important;
+}
+.btn-actions-pane-right .fa-pencil-square-o {
+    font-size: 22px;
+    color: #fff;
+}
+.input span{
+margin:10px;
+background:var(--theme-primary);
+color:#fff;
+padding:5px 10px;
+border-radius:10px;
+display:inline-block;
+}
+.form-group.has-error select {
+    background:red;
 }
