@@ -71,14 +71,13 @@
 	{% elseif params.type == "checkbox" %}
 		<div class="form-group options">
 			<label for="">{{label}}</label>
-			<div class="input ">{{user[params.name]|json_encode}}</div>
+			<div class="input "></div>
 			<input type="hidden" name='{{params.name}}' {% if params.options.api is defined %} data-api="{{params.options.api}}" data-depends='{{params.options.depends|json_encode}}' {% endif %}>
 			<div class="option-values"></div>
 		</div>
 	{% else %}
 		<div class="form-group">
 			<label for="">{{label}}</label>
-
 			<input {% if params.editable == false %} disabled {% endif %} type="{{params.type}}" name={{params.name}} class="form-control" value="{{value}}">
 		</div>
 	{% endif %}

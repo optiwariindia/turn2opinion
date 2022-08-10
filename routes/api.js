@@ -364,6 +364,8 @@ router.post('/save/:field', async (req, res) => {
 })
 router.post('/zipcode', async (req, res) => {
   if (req.body.cn == '') return res.json({})
+  if(mongoose.isValidObjectId(req.body.cn))
+  return res.json({options:await ProfileOptions.findById(req.body.cn)});
   countries = JSON.parse(require('fs').readFileSync('./databank/theworld.json'))
   options = await ProfileOptions.find({
     name: 'country',

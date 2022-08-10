@@ -23,7 +23,8 @@ const inputCheckbox = {
         vals = []
       }
     }
-    if (vals.indexOf(e.innerText) === -1) {
+    console.log(e.classList.contains('disabled'))
+    if (vals.indexOf(e.innerText.trim()) === -1) {
       vals.push(e.innerText.trim())
       p.querySelector('.input').innerHTML =
         p.querySelector('.input').innerHTML +
@@ -63,7 +64,11 @@ const inputCheckbox = {
     inp = inpgrp.querySelector('input')
     vals = inp.value
     if (vals == '') return
-    val = JSON.parse(inp.value)
+    try {
+      val = JSON.parse(inp.value)
+    } catch (e) {
+      console.log(e)
+    }
     if (inpgrp.querySelector('.input').innerText !== vals) {
       for (let index = 0; index < val.length; index++) {
         const element = val[index]
@@ -98,20 +103,22 @@ const progress = {
   },
   validate: async function () {
     let page = await progress.getCurrentPage()
-    let fields = Array.from(page.querySelectorAll('[name]:invalid')).filter((e) => {
-      p=e.closest("[applicable]");
-      if(!p)return true;
-      return p.getAttribute("applicable")=="true";
-    });
+    let fields = Array.from(page.querySelectorAll('[name]:invalid')).filter(
+      (e) => {
+        p = e.closest('[applicable]')
+        if (!p) return true
+        return p.getAttribute('applicable') == 'true'
+      },
+    )
     if (fields.length !== 0) {
       fields.forEach((fld) => {
-        fld.closest(".form-group").classList.add("has-error")
-        fld.addEventListener("change",(e)=>{
-          if(e.target.validity.valid){
-            e.target.closest(".form-group").classList.remove("has-error");
+        fld.closest('.form-group').classList.add('has-error')
+        fld.addEventListener('change', (e) => {
+          if (e.target.validity.valid) {
+            e.target.closest('.form-group').classList.remove('has-error')
           }
         })
-      });
+      })
       fields[0].focus()
       elm = fields[0].closest('.form-group').querySelector('label')
       return false
@@ -121,6 +128,7 @@ const progress = {
       page.querySelector('[name=surveycategories]') ||
       page.querySelector('[name=interest]')
     if (field == null) return true
+    console.log(field)
     val = field.value
     if (val == '') {
       alert('Please select at least 5')
@@ -150,13 +158,13 @@ const progress = {
     progress.show()
   },
   show: async function () {
-    await currency.init();
+    await currency.init()
     if (progress.max == 0) {
       location.href = location.href + '?edit=1'
     }
     inps = document.querySelectorAll('.input')
     inps.forEach((inp) => {
-      inp.innerHTML=currency.localize(inp.innerHTML);
+      inp.innerHTML = currency.localize(inp.innerHTML)
       try {
         inpvals = Array.from(JSON.parse(inp.innerText))
         spans = inpvals.reduce((a, c) => {
@@ -173,30 +181,21 @@ const progress = {
     })
     progress.dom.ui.style.width = `${(progress.value / progress.max) * 100}%`
     progress.dom.page.innerText = progress.value
-    switch (progress.value) {
-      case 1:
-        progress.dom.buttons.prev.style.display = 'none'
-        progress.dom.buttons.next.style.display = 'block'
-        if (location.pathname.startsWith('/user/survey')) {
-          progress.dom.buttons.next.innerText = 'Start'
-        }
-        progress.dom.buttons.submit.style.display = 'none'
-        break
-      case progress.max:
-        progress.dom.buttons.prev.style.display = 'block'
-        progress.dom.buttons.next.style.display = 'none'
-        progress.dom.buttons.submit.style.display = 'block'
-        break
-      default:
-        progress.dom.buttons.prev.style.display = 'block'
-        progress.dom.buttons.next.style.display = 'block'
-        progress.dom.buttons.next.innerText = 'Next'
-        progress.dom.buttons.submit.style.display = 'none'
+
+    progress.dom.buttons.prev.style.display =
+      progress.value > 1 ? 'block' : 'none'
+    progress.dom.buttons.next.style.display =
+      progress.value >= progress.max ? 'none' : 'block'
+    progress.dom.buttons.submit.style.display =
+      progress.value == progress.max ? 'block' : 'none'
+    if (location.pathname.startsWith('/user/survey')) {
+      progress.dom.buttons.next.innerText =
+        progress.value == 1 ? 'Start' : 'Next'
     }
   },
   submit: async function () {
-    isValid = await progress.validate();
-    if(!isValid)return false;
+    isValid = await progress.validate()
+    if (!isValid) return false
     let inputs = {}
     await document.querySelectorAll('[name]').forEach((e) => {
       switch (e.type) {
@@ -205,7 +204,9 @@ const progress = {
         default:
           inputs[e.name] = e.value
       }
-      if (inputs[e.name] == '') {delete(inputs[e.name]);}
+      if (inputs[e.name] == '') {
+        delete inputs[e.name]
+      }
     })
     let response = await fetch(location.href, {
       method: 'POST',
@@ -239,8 +240,6 @@ const progress = {
   },
 }
 
-
-
 loadData = function () {
   let apireq = document.querySelectorAll('[data-api]')
   apireq.forEach(async (e) => {
@@ -251,6 +250,10 @@ loadData = function () {
       inp.addEventListener('change', async function (c) {
         if (e.tagName == 'SELECT') {
           e.innerHTML = '<option>...</option>'
+        }
+        if (e.tagName == 'INPUT') {
+          console.log(e.parentElement.querySelector(".option-values"));
+          e.parentElement.querySelector(".option-values").innerHTML="";
         }
         info = {}
         await JSON.parse(e.getAttribute('data-depends')).forEach((fld) => {
@@ -264,18 +267,19 @@ loadData = function () {
           z.removeAttribute('disabled')
           if (!z.validity.valid) z.value = ''
         }
-        if (data.length == 0) {
-          showSelect()
+        if (data.data.length == 0) {
+          (e.tagName.toLocaleLowerCase()=="select")?showSelect():"";
+          (e.tagName.toLocaleLowerCase()=="input")?showCheckbox():"";
+          console.log({[e.getAttribute("name")]:data.data.length});
+          // showSelect()
           return
         }
-        i = document.querySelector(`[name=${data.data[0].name}]`)
-        console.log(i.innerHTML)
-        options = `<option selected value='' disabled>Select</option>`
-        await data.data.forEach((e) => {
-          options += `<option value="${e._id}">${e.label}</option>`
-        })
-        options = currency.localize(options)
-        i.innerHTML = options
+       console.log(data);
+        i=document.querySelector(`[name=${data.data[0].name}]`)
+        if(i.tagName=='SELECT')
+        await renderInput.select(i, data);
+        if(i.tagName=='INPUT')
+        await renderInput.checkbox(i, data);
         showSelect()
       })
     })
@@ -286,34 +290,62 @@ loadData = function () {
         if (i == null) i = e
         switch (i.tagName.toLowerCase()) {
           case 'select':
-            option = i.querySelector('option')
-            val = option.getAttribute('value')
-            opt = i.querySelector('option').getAttribute('value')
-            options =
-              val.length != 0
-                ? `<option value="" diabled >Select</option>`
-                : `<option value="" diabled selected>Select</option>`
-            await data.data.forEach((e) => {
-              options += `<option ${e._id == opt ? 'selected' : ''} value="${
-                e._id
-              }">${e.label}</option>`
-            })
-            i.innerHTML = currency.localize(options)
-            // console.log(i.getAttribute("name"))
-            // console.log(userinfo[i.getAttribute("name")])
-            i.value=userinfo[i.getAttribute('name')]._id;
-            showSelect()
+            renderInput.select(i, data)
             break
           case 'input':
-            options = ''
-            await data.data.forEach((e) => {
-              options += `<button class='custom-checkbox' type=button onclick=inputCheckbox.add(this)> ${e.label}</button>`
-            })
-            i.parentElement.querySelector('.option-values').innerHTML = options
+            renderInput.checkbox(i, data)
         }
       }
     }
   })
+}
+renderInput = {
+  checkbox: async function (i, data) {
+    if(!userinfo)await FetchUserInfo();
+    options = ''
+    let selected = []
+    if (userinfo[i.getAttribute('name')] != undefined) {
+      let temp = userinfo[i.getAttribute('name')]
+      try {
+        JSON.parse(temp).forEach((val) => {
+          selected.push(val)
+        })
+      } catch (error) {}
+    }
+    await data.data.forEach((e) => {
+      options += `<button class='custom-checkbox' data-active=${
+        selected.indexOf(e.label) != -1
+      } type=button onclick=inputCheckbox.add(this)> ${e.label}</button>`
+    })
+    i.parentElement.querySelector('.option-values').innerHTML = options
+    btns = i.parentElement.querySelectorAll('[data-active=true]')
+    btns.forEach((btn) => {
+      btn.removeAttribute('data-active')
+      btn.click()
+    })
+    showCheckbox();
+  },
+  select: async function (i, data) {
+    if(!userinfo)await FetchUserInfo();
+    option = i.querySelector('option')
+    val = option.getAttribute('value')
+    opt = i.querySelector('option').getAttribute('value')
+    options =
+      val.length != 0
+        ? `<option value="" diabled >Select</option>`
+        : `<option value="" diabled selected>Select</option>`
+    await data.data.forEach((e) => {
+      options += `<option ${e._id == opt ? 'selected' : ''} value="${e._id}">${
+        e.label
+      }</option>`
+    })
+    i.innerHTML = currency.localize(options)
+    try {
+      if (userinfo[i.getAttribute('name')] != undefined)
+        i.value = userinfo[i.getAttribute('name')]._id
+    } catch (error) {}
+    showSelect()
+  },
 }
 
 function showSelect() {
@@ -322,15 +354,23 @@ function showSelect() {
     element = e.closest('.col-sm-6') || e.closest('.col-sm-12')
     element.style.display = 'none'
     e.removeAttribute('required')
-
-    // console.table({fld:e.name,options:e.querySelectorAll("option").length})
     if (e.querySelectorAll('option').length > 1) {
       element.style.display = 'block'
       e.setAttribute('required', 'true')
     }
   })
 }
-
+function showCheckbox(){
+  document.querySelectorAll("input[type=hidden]").forEach(i=>{
+    let element=i.closest(".col-sm-6")||i.closest(".col-sm-12");
+    element.style.display="none";
+    let p=i.parentElement;
+    let options=p.querySelector(".option-values");
+    if(options.querySelectorAll("button").length!=0){
+      element.style.display="";
+    }
+  })
+}
 params = new URLSearchParams(location.search)
 progress.value = params.get('page') || 1
 
@@ -495,7 +535,12 @@ bindfields = {
       bindwith = elm.getAttribute('bind-field')
       data = elm.getAttribute('data-for')
       if (data != '' && data != null) {
-        data = JSON.parse(data)
+        try {
+          data = JSON.parse(data)
+        } catch (e) {
+          console.log(e)
+        }
+
         pElement = document.querySelector(`[name=${bindwith}]`)
         if (pElement == null) return
         elm.setAttribute('applicable', data.indexOf(pElement.value) != -1)
@@ -547,16 +592,16 @@ bindfields = {
       }, 5000)
     }
   })
-})();
-(async ()=>{
-  let preselectInputs=async ()=>{
-    inputs=document.querySelectorAll("[name]");
-    inputs.forEach(input=>{
-      if(input.tagName != "SELECT")return;
-      inpname=input.getAttribute("name");
-      selectedOption=userinfo[inpname]||null;
-      if(selectedOption==null)return;
-      input.value=selectedOption._id;
+})()
+;(async () => {
+  let preselectInputs = async () => {
+    inputs = document.querySelectorAll('[name]')
+    inputs.forEach((input) => {
+      if (input.tagName != 'SELECT') return
+      inpname = input.getAttribute('name')
+      selectedOption = userinfo[inpname] || null
+      if (selectedOption == null) return
+      input.value = selectedOption._id
       console.log(inpname)
     })
   }
@@ -565,5 +610,5 @@ bindfields = {
   await currency.init()
   await bindfields.init()
   await progress.show()
-  await preselectInputs();
+  await preselectInputs()
 })()
